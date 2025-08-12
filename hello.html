@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="./images/logo.png">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("#includedContent").load("header.html");
+            $("#Content").load("footer.html");
+        });
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allied Work</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:400&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            // These lines are for loading external header/footer,
+            // which are not provided in this single HTML file.
+            // Keeping them commented out or removing them as they might cause errors
+            // if header.html/footer.html are not present.
+            $("#includedContent").load("header.html");
+            // $("#Content").load("footer.html");
+        });
+    </script>
+    <style>
+        /* Define CSS Variables for themes */
+        :root {
+            /* Light Mode Colors - Creamy Palette */
+            --bg-primary: #f5cba7; /* Creamy orange for body */
+            --bg-primary-end: #f2b27a; /* Slightly darker end for gradient */
+            --bg-secondary: #fff8e1; /* Card/Container background */
+            --text-primary: #4a3b2e; /* Warm dark brown for main text */
+            --text-secondary: #3a2d22; /* Even darker for strong text */
+            --text-heading-main: #a0522d; /* Sienna for main headings */
+            --text-heading-sub: #c06a3f; /* Lighter sienna for subheadings */
+            --text-inactive-tab: #8b7b6e; /* Muted brown-gray for inactive elements */
+            --console-bg: #f0e6d6; /* Light creamy brown for console */
+            --console-text: #4a3b2e; /* Dark text for console */
+            --canvas-bg: #fffcf5; /* Very light cream for canvas */
+            --canvas-border: #a0522d; /* Sienna border for canvas */
+            --tab-button-inactive-bg: #f0e6d6;
+            --tab-button-inactive-text: #8b7b6e;
+            --tab-button-active-bg: #fff8e1;
+            --tab-button-active-text: #a0522d;
+            --border-color: #d4c1ae; /* Soft light brown border */
+            --textarea-bg: #fffdfa; /* Off-white for code editor */
+            --commands-section-bg: #f0e6d6; /* Lighter background for command sections */
+            --commands-list-border: #d4c1ae; /* Commands section border */
+            --line-number-bg: #e9e0d4; /* Light gray for line numbers background */
+            --line-number-text: #a69a8e; /* Muted gray for line numbers text */
+
+            /* Button-specific variables for light mode */
+            --button-primary-gradient: linear-gradient(to right, #c06a3f, #a0522d); /* Terracotta gradient */
+            --button-primary-gradient-hover: linear-gradient(to right, #a0522d, #804124); /* Darker terracotta on hover */
+            --button-text-light: #ffffff;
+
+            /* Settings dropdown button base styles */
+            --settings-button-bg: var(--bg-secondary);
+            --settings-button-text: var(--text-primary);
+
+            /* Syntax Highlighting Colors */
+            --comment-color: #6b8e23; /* Olive Green */
+            --movement-color: #4682b4; /* Steel Blue */
+            --turn-color: #8a2be2;   /* Blue Violet */
+            --arm-command-color: #daa520; /* Goldenrod */
+        }
+
+        .dark-mode {
+            /* Dark Mode Colors - Modern & Deep Palette */
+            --bg-primary: #000000; /* Black for body */
+            --bg-primary-end: #0a0a0a; /* Slightly lighter end for gradient */
+            --bg-secondary: #1a1a1a; /* Card/Container background */
+            --text-primary: #e0e0e0; /* Reverted to #e0e0e0 */
+            --text-secondary: #f0f0f0; /* Reverted to #f0f0f0 */
+            --text-heading-main: #9b59b6; /* Desaturated teal for main headings */
+            --text-heading-sub: #9b59b6; /* Muted teal for subheadings */
+            --text-inactive-tab: #9e9e9e; /* Muted gray for inactive elements */
+            --console-bg: #0d0d0d; /* Darker console background */
+            --console-text: #e0e0e0; /* Light text for console */
+            --canvas-bg: #111111; /* Darker blue-gray for canvas */
+            --canvas-border: #4db6ac; /* Muted cyan border for canvas */
+            --tab-button-inactive-bg: #1a1a1a;
+            --tab-button-inactive-text: #9e9e9e;
+            --tab-button-active-bg: #000000;
+            --tab-button-active-text: #66cdaa;
+            --border-color: #333333; /* Darker gray border */
+            --textarea-bg: #151515; /* Darker for code editor */
+            --commands-section-bg: #111111; /* Darker background for command sections */
+            --commands-list-border: #333333; /* Commands section border */
+            --line-number-bg: #222222; /* Darker gray for line numbers background */
+            --line-number-text: #757575; /* Muted gray for line numbers text */
+
+            /* Button-specific variables for dark mode */
+            --button-primary-gradient: linear-gradient(to right, #4db6ac, #38a89d); /* Desaturated cyan gradient */
+            --button-primary-gradient-hover: linear-gradient(to right, #38a89d, #2f8e83); /* Darker desaturated cyan on hover */
+            --button-text-light: #212121; /* Dark text for light buttons */
+
+            /* Settings dropdown button base styles (not gradient) */
+            --settings-button-bg: var(--bg-secondary);
+            --settings-button-text: var(--text-primary);
+
+            /* Syntax Highlighting Colors for Dark Mode */
+            --comment-color: #81C784; /* Lighter green for dark mode */
+            --movement-color: #64B5F6; /* Lighter blue for dark mode */
+            --turn-color: #BA68C8; /* Lighter purple for dark mode */
+            --arm-command-color: #FFEB3B; /* Yellow for dark mode */
+        }
+
+        /* Apply CSS variables */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-primary);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            position: relative;
+            color: var(--text-primary);
+            background-image: linear-gradient(to bottom right, var(--bg-primary), var(--bg-primary-end));
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        #app-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 1400px; /* Slightly wider */
+            min-height: 800px; /* Slightly taller */
+            background-color: var(--bg-secondary);
+            border-radius: 1.5rem; /* More rounded */
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4), 0 8px 16px -4px rgba(0, 0, 0, 0.25); /* Stronger shadow */
+            overflow: hidden;
+            border: 1px solid var(--border-color); /* Updated border */
+            transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            padding-top: 5rem; /* More space for settings dropdown */
+        }
+        .dark-mode #app-container {
+            backdrop-filter: blur(8px); /* More blur for dark mode */
+            color: var(--text-secondary);
+        }
+
+        /* Layout rearrangement styles for main content area only */
+        #main-content-area {
+            display: flex;
+            flex-grow: 1;
+        }
+        @media (min-width: 768px) {
+            #main-content-area {
+                flex-direction: row;
+            }
+            #main-content-area.reversed-layout {
+                flex-direction: row-reverse;
+            }
+        }
+        @media (max-width: 767px) {
+            #main-content-area {
+                flex-direction: column;
+            }
+            #main-content-area.reversed-layout {
+                flex-direction: column;
+            }
+        }
+
+        /* Tab Header / Nav Bar Styles (for in-app tabs) */
+        #tab-header {
+            display: flex;
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* More prominent shadow for tabs */
+            z-index: 10;
+            padding: 0;
+            justify-content: center;
+            position: absolute; /* Position tabs below header */
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4rem; /* Fixed height for tab bar */
+        }
+        .tab-button {
+            padding: 1rem 2.5rem; /* Increased padding */
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background-color: var(--tab-button-inactive-bg);
+            color: var(--tab-button-inactive-text);
+            border-bottom: 4px solid transparent; /* Thicker active indicator */
+            transition: all 0.3s ease-in-out;
+            flex-grow: 1;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.1em; /* Slightly larger font */
+            border-radius: 0;
+            max-width: 33.33%; /* Max width for 3 tabs */
+        }
+
+        .tab-button:hover {
+            color: var(--text-heading-main);
+            background-color: var(--tab-button-inactive-bg);
+        }
+
+        .tab-button.active {
+            color: var(--tab-button-active-text);
+            border-bottom: 4px solid var(--text-heading-main);
+            background-color: var(--tab-button-active-bg);
+            box-shadow: inset 0px 0px 15px rgba(20, 184, 166, 0.15); /* Teal glow on active tab */
+            z-index: 1;
+        }
+
+        /* Tab Content Styles */
+        .tab-content {
+            display: none;
+            flex-grow: 1;
+            width: 100%;
+            background-color: transparent;
+            padding-top: 1rem; /* Padding below tab header */
+        }
+        .tab-content.active {
+            display: flex;
+            flex-direction: row;
+            flex-grow: 1;
+        }
+        /* Specific override for commands tab, which should be a column of content */
+        #tab-content-commands.active, #tab-content-specification.active {
+             flex-direction: column;
+        }
+
+        #editor-panel, #simulation-panel {
+            flex: 1;
+            padding: 2rem; /* Increased padding */
+            display: flex;
+            flex-direction: column;
+            background-color: transparent;
+            transition: background-color 0.4s ease, border-color 0.4s ease;
+        }
+        #editor-panel {
+            border-bottom: 1px solid var(--border-color);
+        }
+        @media (min-width: 768px) {
+            #editor-panel {
+                border-right: 1px solid var(--border-color);
+                border-bottom: none;
+            }
+        }
+        canvas {
+            background-color: var(--canvas-bg);
+            border: 2px solid var(--canvas-border);
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 960px;
+            max-height: 480px;
+            border-radius: 1rem; /* More rounded canvas */
+            object-fit: contain;
+            transition: background-color 0.4s ease, border-color 0.4s ease;
+            box-shadow: 0 0 20px rgba(20, 184, 166, 0.5); /* Teal glow */
+        }
+
+        /* Code Editor Container for Line Numbers */
+        .code-editor-container {
+            display: flex;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem; /* More rounded editor */
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Stronger shadow */
+            min-height: 350px; /* Slightly taller editor */
+            flex-grow: 1;
+            transition: min-height 0.3s ease, max-height 0.3s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+        }
+
+        #code-editor {
+            flex-grow: 1;
+            padding: 1.25rem; /* More padding */
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.05rem; /* Slightly larger font */
+            line-height: 1.6; /* More comfortable line height */
+            background-color: transparent;
+            color: transparent;
+            caret-color: var(--text-primary);
+            resize: none;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 2;
+            overflow-y: auto;
+            overflow-x: auto;
+            white-space: pre;
+            word-wrap: normal;
+        }
+        #code-editor:focus {
+            border-color: transparent;
+            box-shadow: none;
+        }
+        .code-editor-container:focus-within {
+            border-color: var(--text-heading-main);
+            box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.3); /* Teal shadow on focus */
+        }
+
+        #highlight-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 1.25rem;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            background-color: var(--textarea-bg);
+            color: var(--text-primary);
+            overflow-y: hidden;
+            overflow-x: auto;
+            white-space: pre;
+            word-wrap: normal;
+            z-index: 1;
+            border-radius: 0.75rem;
+            box-sizing: border-box;
+            pointer-events: none;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Syntax Highlighting Styles */
+        .comment-highlight {
+            color: var(--comment-color);
+        }
+        .movement-highlight {
+            color: var(--movement-color);
+        }
+        .turn-highlight {
+            color: var(--turn-color);
+        }
+        .arm-command-highlight {
+            color: var(--arm-command-color);
+        }
+
+
+        #python-code-display {
+            min-height: 180px; /* Taller display */
+            resize: vertical;
+            font-family: 'Roboto Mono', monospace;
+            border: 1px solid var(--border-color);
+            background-color: var(--textarea-bg);
+            color: var(--text-primary);
+            padding: 1.25rem; /* More padding */
+            border-radius: 0.75rem; /* More rounded */
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            transition: border-color 0.4s ease, background-color 0.4s ease, color 0.4s ease;
+        }
+
+        #console-output {
+            min-height: 120px; /* Taller console */
+            max-height: 250px; /* More max height */
+            overflow-y: auto;
+            background-color: var(--console-bg);
+            color: var(--console-text);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.98rem; /* Slightly increased font size */
+            padding: 1rem; /* More padding */
+            border-radius: 0.75rem; /* More rounded */
+            margin-top: 1.5rem; /* More margin */
+            border: 1px solid var(--border-color);
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+        }
+        #console-output .console-line {
+            padding: 0.3em 0; /* More vertical padding */
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Lighter border for light mode */
+        }
+        .dark-mode #console-output .console-line {
+             border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Lighter border for dark mode */
+        }
+        #console-output .console-line:last-child {
+            border-bottom: none;
+        }
+        .console-timestamp {
+            color: var(--text-inactive-tab);
+            margin-right: 0.6em; /* More margin */
+        }
+        .message-box {
+            position: fixed;
+            top: 1.5rem; /* Slightly lower */
+            right: 1.5rem; /* Slightly more right */
+            background-color: #2ECC71;
+            color: white;
+            padding: 0.85rem 1.4rem; /* More padding */
+            border-radius: 0.65rem; /* Slightly more rounded */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out; /* Added transform transition */
+            transform: translateY(-20px); /* Start slightly above */
+            visibility: hidden;
+        }
+        .message-box.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0); /* Slide into view */
+        }
+        .message-box.error {
+            background-color: #E74C3C;
+        }
+
+        /* Custom text color for headings and paragraphs */
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-heading-main);
+            transition: color 0.4s ease;
+            font-size: 2.5rem; /* Larger main heading */
+            margin-bottom: 2rem; /* More margin */
+        }
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem; /* Larger sub-heading */
+            font-weight: 700;
+            color: var(--text-heading-main);
+            margin-bottom: 1.8rem; /* More margin */
+            transition: color 0.4s ease;
+        }
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.7rem; /* Larger section heading */
+            font-weight: 600;
+            color: var(--text-heading-sub);
+            margin-bottom: 1.2rem; /* More margin */
+            transition: color 0.4s ease;
+        }
+        p, ul, li {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-primary);
+            transition: color 0.4s ease;
+            line-height: 1.7; /* More comfortable line height */
+        }
+        code {
+            font-family: 'Roboto Mono', monospace;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            padding: 0.25em 0.5em; /* Slightly more padding */
+            border-radius: 0.4rem; /* More rounded */
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+        .dark-mode code {
+            background-color: rgba(0,0,0,0.25); /* Slightly darker for dark mode */
+        }
+
+        /* Button specific styles */
+        .button {
+            padding: 1rem 2rem; /* Increased padding */
+            border-radius: 0.85rem; /* More rounded */
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 6px 15px -2px rgba(0, 0, 0, 0.25), 0 3px 6px -1px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.1em; /* Slightly larger font */
+            color: var(--button-text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            position: relative; /* For pseudo-elements */
+            overflow: hidden; /* For hover effects */
+        }
+        .button:hover {
+            transform: translateY(-4px); /* More pronounced lift */
+            box-shadow: 0 10px 22px -3px rgba(0, 0, 0, 0.35), 0 6px 12px -3px rgba(0, 0, 0, 0.2); /* Stronger hover shadow */
+        }
+        /* Button pseudo-element for subtle shine effect */
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: skewX(-30deg);
+            transition: all 0.4s ease;
+        }
+        .button:hover::before {
+            left: 100%;
+        }
+
+        /* Applying primary gradient to action buttons */
+        #run-button, #reset-button, #copy-button, #upload-button,
+        #start-left-button, #start-right-button { /* Removed auto-correct-button */
+            background-image: var(--button-primary-gradient);
+        }
+        #run-button:hover, #reset-button:hover, #copy-button:hover, #upload-button:hover,
+        #start-left-button:hover, #start-right-button:hover { /* Removed auto-correct-button */
+            background-image: var(--button-primary-gradient-hover);
+        }
+
+        /* Ion-icon styling */
+        button ion-icon {
+            font-size: 1.3rem; /* Slightly larger icons */
+            margin-right: 0.6rem; /* More margin */
+        }
+        /* No margin for settings dropdown button icon */
+        #settings-toggle ion-icon {
+            margin-right: 0;
+            font-size: 1.6rem; /* Larger settings icon */
+        }
+
+        /* Settings dropdown button and menu styling */
+        #settings-dropdown {
+            position: absolute;
+            top: 1.5rem; /* Adjusted top position */
+            right: 1.5rem; /* Adjusted right position */
+            z-index: 100;
+        }
+        #settings-toggle {
+            padding: 0.6rem; /* Larger padding for a button */
+            border-radius: 9999px; /* Circular */
+            background-color: var(--settings-button-bg);
+            color: var(--settings-button-text);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+            transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #settings-toggle:hover {
+            opacity: 0.9;
+            transform: scale(1.05); /* Slight scale on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        #settings-menu {
+            position: absolute;
+            top: calc(100% + 0.5rem); /* Below the toggle button with a gap */
+            right: 0;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem; /* More rounded */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+            padding: 0.75rem 0; /* More padding */
+            min-width: 200px; /* Wider menu */
+            display: none;
+            z-index: 100;
+            transform: translateY(-10px); /* Start slightly above */
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        #settings-menu.open {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #settings-menu button {
+            width: 100%;
+            text-align: left;
+            padding: 0.85rem 1.25rem; /* More padding */
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            display: flex;
+            align-items: center;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1em; /* Standard font size */
+        }
+        #settings-menu button:hover {
+            background-color: var(--tab-button-inactive-bg);
+            color: var(--text-heading-main);
+        }
+        #settings-menu button ion-icon {
+            margin-right: 0.85rem; /* More space between icon and text */
+            font-size: 1.3em; /* Slightly larger icons */
+        }
+
+        /* Styles for commands sections */
+        .commands-section {
+            margin-bottom: 1.25rem; /* More margin */
+            background-color: var(--commands-section-bg);
+            border: 1px solid var(--commands-list-border);
+            border-radius: 0.75rem; /* More rounded */
+            padding: 1.5rem; /* More padding */
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04); /* Subtle shadow */
+            transition: background-color 0.4s ease, border-color 0.4s ease;
+        }
+        .commands-section h3 {
+            margin-top: 0;
+            margin-bottom: 0.85rem; /* More margin */
+            font-size: 1.5rem; /* Larger for section titles */
+            color: var(--text-heading-sub);
+        }
+        .commands-section ul {
+            list-style: none;
+            list-style-position: inside;
+            padding: 0;
+            margin: 0;
+        }
+        .commands-section ul li {
+            padding: 0.35rem 0; /* More vertical padding */
+            color: var(--text-primary);
+            font-size: 1em; /* Standard font size */
+        }
+
+        /* Form elements for specification tab */
+        .form-group {
+            margin-bottom: 1.25rem; /* More margin */
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem; /* More margin */
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 1.05em; /* Slightly larger label */
+        }
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%;
+            padding: 0.85rem; /* More padding */
+            border: 1px solid var(--border-color);
+            border-radius: 0.65rem;
+            background-color: var(--textarea-bg);
+            color: var(--text-primary);
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.05rem; /* Slightly larger font */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+        .form-group input[type="number"]:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--text-heading-main);
+            box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.25); /* Teal shadow on focus */
+        }
+
+        /* Auto-correct button active state (now removed, but keeping class for reference if needed) */
+        #auto-correct-button.active-autocorrect {
+            background-image: linear-gradient(to right, #22c55e, #16a34a); /* Green gradient when active */
+            box-shadow: 0 6px 15px -2px rgba(34, 197, 94, 0.3), 0 3px 6px -1px rgba(34, 197, 94, 0.2);
+        }
+        #auto-correct-button.active-autocorrect:hover {
+            background-image: linear-gradient(to right, #16a34a, #15803d);
+            transform: translateY(-4px);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 500px;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-inactive-tab);
+            transition: color 0.2s ease;
+        }
+        .modal-close-button:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-content h3 {
+            color: var(--text-heading-main);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .modal-content .button {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        #paste-code-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            background-color: var(--textarea-bg);
+            color: var(--text-primary);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.95rem;
+            resize: vertical;
+            margin-bottom: 1rem;
+        }
+        #paste-code-textarea:focus {
+            outline: none;
+            border-color: var(--text-heading-main);
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2);
+        }
+    </style>
+</head>
+<body>
+     <!-- Moved includedContent back here -->
+       
+    <div id="app-container">
+ <div id="includedContent"></div>
+        <div id="settings-dropdown" class="relative">
+            <button id="settings-toggle" aria-label="Settings" class="p-2 rounded-full shadow-md transition-all duration-300 ease-in-out">
+                <ion-icon name="ellipsis-vertical-outline" class="text-xl"></ion-icon>
+            </button>
+            <div id="settings-menu" class="absolute hidden bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md shadow-lg py-2 mt-2 right-0 min-w-[180px]">
+                <button id="theme-mode-toggle">
+                    <ion-icon name="moon-outline"></ion-icon>
+                    <span>Dark Mode</span>
+                </button>
+            </div>
+        </div>
+        <!-- In-App Tab Header -->
+        <div id="tab-header">
+            <button class="tab-button active" data-tab-target="tab-content-editor">Code Editor</button>
+            <button class="tab-button" data-tab-target="tab-content-specification">Robot Specification</button>
+            <button class="tab-button" data-tab-target="tab-content-commands">Available Commands</button>
+        </div>
+    
+        <div id="main-content-area">
+            <div id="tab-content-editor" class="tab-content active">
+                <div id="editor-panel" class="flex flex-col">
+                    <h1 class="text-3xl font-bold mb-6 text-center flex items-center justify-center">
+                        <img src="https://placehold.co/40x40/0f766e/ffffff?text=AA" alt="Allied Algorithms Logo" class="h-10 w-auto mr-4 rounded-full">
+                        FLL Bot Programmer
+                    </h1>
+
+                    <div class="code-editor-container flex-grow">
+                        <div id="highlight-overlay"></div> <!-- Highlight Overlay -->
+                        <textarea id="code-editor" class="w-full" spellcheck="false" placeholder="Type your commands here...">
+// Welcome to Allied Algorithms FLL Bot Programmer!
+// Use the commands on the 'Available Commands' tab to control your robot.
+
+print_message("Initializing robot on the field...")
+// Robot starts at the center of the bottom edge of the field, facing up.
+// Let's program it to navigate to a specific mission area.
+
+set_drive_speed(60) // Set a moderate driving speed
+drive(30)           // Drive 30 inches forward (upwards)
+turn(90)            // Turn 90 degrees clockwise (robot now faces right)
+wait(1000)          // Wait for 1 second for the arm to complete action
+display_message("Robot completed mission segment!")
+                        </textarea>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
+                        <button id="run-button" class="button">
+                            <svg class="w-5 h-5 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197 2.132A1 1 0 0110 13.132V9.868c0-.836.828-1.309 1.402-.868l3.197 2.132a1 1 0 010 1.736z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Run Code
+                        </button>
+                        <button id="reset-button" class="button">
+                            <ion-icon name="refresh-outline"></ion-icon>
+                            Reset
+                        </button>
+                        <button id="copy-button" class="button">
+                            <svg class="w-5 h-5 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M17 17h.01"></path></svg>
+                            Copy Python Code
+                        </button>
+                    </div>
+
+                    <h3 class="text-xl font-semibold mb-2">Generated Python Code:</h3>
+                    <textarea id="python-code-display" class="w-full p-4" readonly placeholder="Click 'Copy Python Code' to see the generated script here."></textarea>
+
+                    <div class="mt-6 text-center">
+                        <button id="upload-button" class="button">
+                            <ion-icon name="cloud-upload-outline"></ion-icon>
+                            Upload Code
+                        </button>
+                        <input type="file" id="file-upload" accept=".txt,.py" class="hidden">
+                    </div>
+                </div>
+
+                <div id="simulation-panel" class="flex flex-col items-center">
+                    <h2 class="text-2xl font-bold mb-6 text-center">Bot Simulation</h2>
+                    <div class="flex justify-center items-center flex-grow w-full">
+                        <canvas id="robot-canvas"></canvas>
+                    </div>
+                    <!-- New Buttons for Starting Positions -->
+                    <div class="flex justify-center space-x-4 mt-6">
+                        <button id="start-left-button" class="button">
+                            <ion-icon name="arrow-back-outline"></ion-icon>
+                            Start from Left
+                        </button>
+                        <button id="start-right-button" class="button">
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                            Start from Right
+                        </button>
+                    </div>
+                    <h3 class="text-xl font-semibold mt-6 mb-2">Console Output:</h3>
+                    <div id="console-output" class="w-full"></div>
+                </div>
+            </div>
+
+            <!-- New Robot Specification Tab Content -->
+            <div id="tab-content-specification" class="tab-content p-6">
+                <div class="max-w-2xl mx-auto bg-[var(--bg-secondary)] p-8 rounded-lg shadow-md border border-[var(--border-color)]">
+                    <h2 class="text-2xl font-bold mb-6 text-center">Robot Specifications</h2>
+                    <p class="mb-8 text-center text-[var(--text-primary)]">Define your robot's physical characteristics to ensure accurate simulation and code generation.</p>
+
+                    <div class="form-group">
+                        <label for="wheel-diameter">Wheel Diameter (inches):</label>
+                        <input type="number" id="wheel-diameter" value="" step="0.1" min="0.1" class="w-full">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="motor-degrees-per-rotation">The angle (in degrees) the robot turns when only one wheel moves:</label>
+                        <input type="number" id="motor-degrees-per-rotation" value="" step="1" min="1" class="w-full">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="left-motor-port">Left Motor Port:</label>
+                        <select id="left-motor-port" class="w-full">
+                            <option value="B">B</option>
+                            <option value="A">A</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="right-motor-port">Right Motor Port:</label>
+                        <select id="right-motor-port" class="w-full">
+                            <option value="C">C</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                        </select>
+                    </div>
+
+                    <p class="mt-8 text-center text-[var(--text-inactive-tab)]">These settings will influence how <code class="font-mono">drive()</code> and <code class="font-mono">turn()</code> commands translate to motor actions in the generated Python code.</p>
+                </div>
+            </div>
+
+            <div id="tab-content-commands" class="tab-content">
+                <div class="p-6 flex-grow flex flex-col">
+                    <h2 class="text-2xl font-bold mb-4 text-center">Available Commands</h2>
+                    <p class="mb-6 text-center">These are the commands you can use to program your FLL bot. Distances are in <b>inches</b>, angles in <b>degrees</b>, and time in <b>milliseconds</b>.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow">
+                        <!-- Drive Commands Section -->
+                        <div class="commands-section">
+                            <h3><ion-icon name="caret-forward-outline" class="mr-2"></ion-icon>Drive Commands</h3>
+                            <ul>
+                                <li><code class="font-mono">drive(distance)</code>: Move the robot forward or backward.
+                                    <br><span class="text-gray-500 ml-4">Example: <code class="font-mono">drive(24)</code> moves 24 inches forward. Negative values move backward.</span></li>
+                                <li><code class="font-mono">turn(degrees)</code>: Rotate the robot clockwise or counter-clockwise.
+                                    <br><span class="text-gray-500 ml-4">Example: <code class="font-mono">turn(90)</code> turns 90 degrees clockwise. Negative values turn counter-clockwise.</span></li>
+                                <li><code class="font-mono">set_drive_speed(speed)</code>: Set the robot's driving and turning speed (0-100).
+                                    <br><span class="text-gray-500 ml-4">Example: <code class="font-mono">set_drive_speed(75)</code> sets speed to 75%.</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Motor Commands Section (Modified) -->
+                        <div class="commands-section">
+                            <h3><ion-icon name="construct-outline" class="mr-2"></ion-icon>Motor Commands</h3>
+                            <ul>
+                                <li><code class="font-mono">set_motor_power(port, power)</code>: Control a general motor's power (0-100) for a given port ('A','B','C','D','E','F').
+                                    <br><span class="text-gray-500 ml-4">Example: <code class="font-mono">set_motor_power('B', 60)</code> sets motor 'B' to 60% power.</span></li>
+                                <li><code class="font-mono">stop_motor(port)</code>: Stop a specific general motor.
+                                    <br><span class="text-gray-500 ml-4">Example: <code class="font-mono">stop_motor('B')</code> stops motor 'B'.</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Utility & Communication Commands Section -->
+                        <div class="commands-section">
+                            <h3><ion-icon name="hammer-outline" class="mr-2"></ion-icon>Utility & Communication Commands</h3>
+                            <ul>
+                                <li><code class="font-mono">wait(milliseconds)</code>: Pause code execution for a specified duration.
+                                    <br><span class="text-gray-500 ml-4">Example: <code class="font-mono">wait(1000)</code> pauses for 1 second.</span></li>
+                                <li><code class="font-mono">display_message("Text")</code>: Show a custom message in the simulation console.
+                                    <br><span class="text-gray-500 ml-4">Example: <code class="font-mono">display_message("Mission accomplished!")</code></span></li>
+                                <li><code class="font-mono">print_message("Text")</code>: Alias for `display_message`.</li>
+                            </ul>
+                        </div>
+
+                        <!-- General Notes Section -->
+                        <div class="commands-section">
+                            <h3><ion-icon name="information-circle-outline" class="mr-2"></ion-icon>General Notes</h3>
+                            <ul>
+                                <li><code class="font-mono">// Your Comment</code>: Use double slashes for single-line comments in your code. They are converted to Python's <code class="font-mono">#</code> comments.</li>
+                                <li>The simulation field is 96x48 inches. The robot starts at (48, 24).</li>
+                                <li>Robot direction: 0 degrees is facing right, 90 degrees is facing up.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="bg-gray-900 text-gray-300 py-8 px-4 md:px-8 shadow-inner rounded-b-lg"> <!-- Changed to rounded-b-lg -->
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 text-center md:text-left">
+                <div class="col-span-1 md:col-span-1 lg:col-span-1">
+                    <h3 class="text-xl font-semibold text-white mb-4">Official Resources</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://www.firstlegoleague.org/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition duration-300 ease-in-out rounded-md p-1 block">FIRST LEGO League Official Site</a></li>
+                        <li><a href="https://www.firstinspires.org/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition duration-300 ease-in-out rounded-md p-1 block">FIRST Robotics Official Site</a></li>
+                        <li><a href="https://youtu.be/exWkcUBS0j8?si=oZ2BRTdK8B6WXpFX" target="blank" class="hover:text-white transition duration-300 ease-in-out rounded-md p-1 block">FLL Challenge 25</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-span-1 md:col-span-1 lg:col-span-1">
+                    <h3 class="text-xl font-semibold text-white mb-4">Connect With Us</h3>
+                    <p class="text-sm mb-4">Email: <a target="blank"href="mailto:alliedalgorithms@gmail.com" class="hover:text-white transition duration-300 ease-in-out">alliedalgorithms@gmail.com</a></p>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out text-2xl" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out text-2xl" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out text-2xl" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out text-2xl" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-500">
+                &copy; 2025 Allied Algorithms. All rights reserved. | Powered by LEGO Education & FIRST
+            </div>
+        </footer>
+    </div>
+
+    <div id="message-box" class="message-box"></div>
+
+    <!-- Upload/Paste Code Modal -->
+    <div id="upload-modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <button id="modal-close-button" class="modal-close-button">&times;</button>
+            <h3>Upload or Paste Code</h3>
+            <button id="modal-upload-file-button" class="button">
+                <ion-icon name="document-text-outline"></ion-icon>
+                Upload from File
+            </button>
+            <textarea id="paste-code-textarea" placeholder="Or paste your Python code here..."></textarea>
+            <button id="modal-paste-code-button" class="button">
+                <ion-icon name="clipboard-outline"></ion-icon>
+                Paste Code
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const appContainer = document.getElementById('app-container');
+            const codeEditor = document.getElementById('code-editor');
+            const highlightOverlay = document.getElementById('highlight-overlay');
+            const runButton = document.getElementById('run-button');
+            const resetButton = document.getElementById('reset-button');
+            const copyButton = document.getElementById('copy-button');
+            const uploadButton = document.getElementById('upload-button');
+            const fileUploadInput = document.getElementById('file-upload');
+            const pythonCodeDisplay = document.getElementById('python-code-display');
+            const canvas = document.getElementById('robot-canvas');
+            const ctx = canvas.getContext('2d');
+            const messageBox = document.getElementById('message-box');
+            const consoleOutput = document.getElementById('console-output');
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const mainContentArea = document.getElementById('main-content-area');
+
+            // Settings Dropdown Elements
+            const settingsDropdown = document.getElementById('settings-dropdown');
+            const settingsToggle = document.getElementById('settings-toggle');
+            const settingsMenu = document.getElementById('settings-menu');
+            const themeModeToggleBtn = document.getElementById('theme-mode-toggle');
+
+            // New Start Position Buttons
+            const startLeftButton = document.getElementById('start-left-button');
+            const startRightButton = document.getElementById('start-right-button');
+
+            // Robot Specification elements
+            const wheelDiameterInput = document.getElementById('wheel-diameter');
+            const motorDegreesPerRotationInput = document.getElementById('motor-degrees-per-rotation'); // New input
+            const leftMotorPortSelect = document.getElementById('left-motor-port');
+            const rightMotorPortSelect = document.getElementById('right-motor-port');
+
+            // Modal Elements
+            const uploadModalOverlay = document.getElementById('upload-modal-overlay');
+            const modalCloseButton = document = document.getElementById('modal-close-button');
+            const modalUploadFileButton = document.getElementById('modal-upload-file-button');
+            const pasteCodeTextarea = document.getElementById('paste-code-textarea');
+            const modalPasteCodeButton = document.getElementById('modal-paste-code-button');
+
+
+            // --- Constants for FLL Field and Conversion ---
+            const CANVAS_WIDTH_INCHES = 96; // Standard FLL field width (inches)
+            const CANVAS_HEIGHT_INCHES = 48; // Standard FLL field height (inches)
+            let PIXELS_PER_INCH; // Calculated dynamically
+
+            // Robot properties
+            const ROBOT_WIDTH_INCHES = 8;
+            const ROBOT_HEIGHT_INCHES = 8;
+            let robotX;
+            let robotY;
+            let robotAngle; // 0 degrees is facing right, 90 is up (positive Y), 270 is up (negative Y)
+            let currentDriveSpeed = 50; // Default drive speed (0-100)
+            let currentTurnSpeed = 50; // Default turn speed (0-100)
+            const motorStates = { 'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0, 'F': 0 }; // 0-100 power, added E and F
+
+            // Robot Specification state
+            let robotSpecs = {
+                wheelDiameter: null, // inches, initialized to null
+                motorDegreesPerRotation: null, // degrees per rotation, initialized to null
+                leftMotorPort: 'B',
+                rightMotorPort: 'C'
+            };
+
+            // Auto-correction state - ALWAYS ENABLED
+            const autoCorrectionEnabled = true; // Changed to const as it's always true
+
+            // Animation and Simulation variables
+            let animationFrameId = null;
+            let simulationRunning = false;
+            let commandQueue = [];
+            let currentCommandIndex = 0;
+            let commandStartTime = 0;
+
+            // --- Helper Functions ---
+            function showMessage(message, isError = false) {
+                messageBox.textContent = message;
+                messageBox.className = 'message-box show';
+                if (isError) {
+                    messageBox.classList.add('error');
+                } else {
+                    messageBox.classList.remove('error');
+                }
+                setTimeout(() => {
+                    messageBox.classList.remove('show');
+                }, 3000);
+            }
+
+            function logToConsole(message, type = 'info') {
+                const timestamp = new Date().toLocaleTimeString();
+                const messageElement = document.createElement('div');
+                messageElement.className = `console-line`; // Use the new class for styling
+                messageElement.innerHTML = `<span class="console-timestamp">${timestamp}</span><span style="color: var(--console-text);">${message}</span>`;
+                consoleOutput.appendChild(messageElement);
+                consoleOutput.scrollTop = consoleOutput.scrollHeight; // Auto-scroll to bottom
+            }
+
+            // --- Syntax Highlighting Functionality ---
+            function highlightCode() {
+                const code = codeEditor.value;
+                let highlightedHtml = code;
+
+                // Escape HTML for safe display
+                highlightedHtml = highlightedHtml.replace(/&/g, '&amp;')
+                                                 .replace(/</g, '&lt;')
+                                                 .replace(/>/g, '&gt;');
+
+                // Regex for comments (//...)
+                highlightedHtml = highlightedHtml.replace(/(\/\/.*)/g, '<span class="comment-highlight">$1</span>');
+
+                // Regex for movement commands: drive, set_drive_speed
+                highlightedHtml = highlightedHtml.replace(/\b(drive|set_drive_speed)\b/g, '<span class="movement-highlight">$&</span>');
+
+                // Regex for turn commands: turn
+                highlightedHtml = highlightedHtml.replace(/\b(turn)\b/g, '<span class="turn-highlight">$&</span>');
+
+                highlightOverlay.innerHTML = highlightedHtml;
+            }
+
+            codeEditor.addEventListener('input', () => {
+                highlightCode(); // Update highlighting on input
+            });
+            codeEditor.addEventListener('scroll', () => {
+                highlightOverlay.scrollTop = codeEditor.scrollTop; // Sync overlay scroll
+            });
+
+            // Initial highlight on load
+            highlightCode();
+
+
+            // --- Tab Switching Logic ---
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTabId = button.dataset.tabTarget;
+
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    button.classList.add('active');
+                    document.getElementById(targetTabId).classList.add('active');
+                    // Re-calculate canvas size if switching to editor tab
+                    if (targetTabId === 'tab-content-editor') {
+                        resizeCanvas();
+                    }
+                });
+            });
+
+            // --- Theme Toggle ---
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    themeModeToggleBtn.querySelector('span').textContent = 'Light Mode';
+                    themeModeToggleBtn.querySelector('ion-icon').setAttribute('name', 'sunny-outline');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    themeModeToggleBtn.querySelector('span').textContent = 'Dark Mode';
+                    themeModeToggleBtn.querySelector('ion-icon').setAttribute('name', 'moon-outline');
+                }
+                drawRobot(); // Redraw canvas with new colors
+                highlightCode(); // Re-highlight with new theme colors
+            }
+
+            themeModeToggleBtn.addEventListener('click', () => {
+                const currentTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                applyTheme(newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+
+            // Apply saved theme on load
+            const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark mode if not set
+            applyTheme(savedTheme);
+
+
+            // --- Settings Dropdown Toggle ---
+            settingsToggle.addEventListener('click', () => {
+                settingsMenu.classList.toggle('open');
+            });
+
+            // Close settings menu when clicking outside
+            document.addEventListener('click', (event) => {
+                if (!settingsDropdown.contains(event.target)) {
+                    settingsMenu.classList.remove('open');
+                }
+            });
+
+
+            // --- Robot Canvas Drawing ---
+            function resizeCanvas() {
+                const simulationPanel = document.getElementById('simulation-panel');
+                // Ensure the panel is visible before calculating sizes
+                if (simulationPanel.offsetParent === null) { // Check if element is hidden
+                    return;
+                }
+
+                // Consider padding for the simulation panel (1.5rem = 24px per side)
+                const panelWidth = simulationPanel.clientWidth - (1.5 * 16 * 2);
+                const availableHeight = simulationPanel.clientHeight;
+
+                // Adjust for other elements within the simulation panel
+                const h2Height = document.querySelector('#simulation-panel h2').offsetHeight || 0;
+                const h3Height = document.querySelector('#simulation-panel h3').offsetHeight || 0;
+                const consoleHeight = consoleOutput.offsetHeight || 0;
+                const verticalPadding = (1.5 * 16 * 2); // Top/bottom panel padding
+
+                const remainingHeightForCanvas = availableHeight - h2Height - h3Height - consoleHeight - verticalPadding - 32; // Additional buffer
+
+                // Maintain aspect ratio of 96:48 (2:1) for the FLL field
+                let canvasRenderWidth = panelWidth;
+                let canvasRenderHeight = panelWidth / 2;
+
+                if (canvasRenderHeight > remainingHeightForCanvas) {
+                    canvasRenderHeight = remainingHeightForCanvas;
+                    canvasRenderWidth = remainingHeightForCanvas * 2;
+                }
+
+                canvas.width = canvasRenderWidth;
+                canvas.height = canvasRenderHeight;
+                PIXELS_PER_INCH = canvas.width / CANVAS_WIDTH_INCHES;
+
+                drawRobot();
+            }
+
+            function drawRobot() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw field boundary
+                ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--canvas-border').trim();
+                ctx.lineWidth = 2;
+                ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+                // Convert robot position from inches to pixels
+                const robotX_px = robotX * PIXELS_PER_INCH;
+                const robotY_px = robotY * PIXELS_PER_INCH;
+                const robotWidth_px = ROBOT_WIDTH_INCHES * PIXELS_PER_INCH;
+                const robotHeight_px = ROBOT_HEIGHT_INCHES * PIXELS_PER_INCH;
+
+                ctx.save(); // Save the current state of the canvas
+                ctx.translate(robotX_px, robotY_px); // Move to the robot's center
+                ctx.rotate((robotAngle * Math.PI) / 180); // Rotate the canvas
+
+                // Robot body (blue bulldozer-like shape)
+                ctx.fillStyle = '#1e3a8a'; // Darker blue for body
+                ctx.fillRect(-robotWidth_px / 2, -robotHeight_px / 2, robotWidth_px, robotHeight_px);
+                ctx.strokeStyle = '#0f224d'; // Even darker blue border
+                ctx.lineWidth = 2;
+                ctx.strokeRect(-robotWidth_px / 2, -robotHeight_px / 2, robotWidth_px, robotHeight_px);
+
+                // Front blade (metallic grey)
+                const bladeTotalWidth_px = robotWidth_px * 1.2; // Overall horizontal width of the blade
+                const bladeDepth_px = robotHeight_px * 0.2; // Thickness/depth of the blade
+
+                ctx.fillStyle = '#a0a0a0'; // Metallic grey
+                ctx.strokeStyle = '#505050'; // Darker grey for blade border
+                ctx.lineWidth = 2;
+                // Position the blade at the front of the robot, centered vertically
+                // x: front edge of robot
+                // y: centered vertically around 0 (robot's center)
+                // width: depth of the blade (extends forward)
+                // height: total width of the blade
+                ctx.fillRect(robotWidth_px / 2, -bladeTotalWidth_px / 2, bladeDepth_px, bladeTotalWidth_px);
+                ctx.strokeRect(robotWidth_px / 2, -bladeTotalWidth_px / 2, bladeDepth_px, bladeTotalWidth_px);
+
+                // Eyes (on top of the body, slightly towards the back)
+                const eyeRadius_px = robotWidth_px * 0.1;
+                const eyeSeparation = robotWidth_px * 0.3; // Distance from center to each eye horizontally
+                const eyeBackOffset = robotHeight_px * 0.2; // Distance from center towards back along robot's length
+
+                // Left eye (relative to robot's center, then rotated)
+                ctx.fillStyle = 'white';
+                ctx.beginPath();
+                ctx.arc(-eyeBackOffset, -eyeSeparation / 2, eyeRadius_px, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                // Left pupil
+                ctx.fillStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(-eyeBackOffset + eyeRadius_px * 0.2, -eyeSeparation / 2 - eyeRadius_px * 0.2, eyeRadius_px * 0.5, 0, Math.PI * 2); // Pupil offset
+                ctx.fill();
+
+                // Right eye
+                ctx.fillStyle = 'white';
+                ctx.beginPath();
+                ctx.arc(-eyeBackOffset, eyeSeparation / 2, eyeRadius_px, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                // Right pupil
+                ctx.fillStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(-eyeBackOffset + eyeRadius_px * 0.2, eyeSeparation / 2 - eyeRadius_px * 0.2, eyeRadius_px * 0.5, 0, Math.PI * 2); // Pupil offset
+                ctx.fill();
+
+                ctx.restore(); // Restore the canvas state to before translation and rotation
+            }
+
+            // --- Command Execution Functions (Simulated) ---
+            function parseCode(code) {
+                const lines = code.split('\n').map(line => line.trim()).filter(line => line.length > 0 && !line.startsWith('//'));
+                const parsedCommands = [];
+
+                lines.forEach(line => {
+                    if (line.startsWith('drive(') && line.endsWith(')')) {
+                        const distance = parseFloat(line.substring(6, line.length - 1));
+                        if (!isNaN(distance)) {
+                            parsedCommands.push({ type: 'drive', value: distance });
+                        } else {
+                            logToConsole(`Error: Invalid distance in drive command: ${line}`, 'error');
+                        }
+                    } else if (line.startsWith('turn(') && line.endsWith(')')) {
+                        const degrees = parseFloat(line.substring(5, line.length - 1));
+                        if (!isNaN(degrees)) {
+                            parsedCommands.push({ type: 'turn', value: degrees });
+                        } else {
+                            logToConsole(`Error: Invalid degrees in turn command: ${line}`, 'error');
+                        }
+                    } else if (line.startsWith('wait(') && line.endsWith(')')) {
+                        const milliseconds = parseInt(line.substring(5, line.length - 1));
+                        if (!isNaN(milliseconds)) {
+                            parsedCommands.push({ type: 'wait', value: milliseconds });
+                        } else {
+                            logToConsole(`Error: Invalid milliseconds in wait command: ${line}`, 'error');
+                        }
+                    } else if (line.startsWith('set_motor_power(') && line.endsWith(')')) {
+                        const parts = line.substring(16, line.length - 1).split(',').map(p => p.trim());
+                        if (parts.length === 2) {
+                            const port = parts[0].replace(/['"]/g, '');
+                            const power = parseInt(parts[1]);
+                            if (['A', 'B', 'C', 'D', 'E', 'F'].includes(port) && !isNaN(power) && power >= 0 && power <= 100) {
+                                parsedCommands.push({ type: 'set_motor_power', port: port, power: power });
+                            } else {
+                                logToConsole(`Error: Invalid port or power in set_motor_power command: ${line}`, 'error');
+                            }
+                        } else {
+                            logToConsole(`Error: Invalid format for set_motor_power command: ${line}`, 'error');
+                        }
+                    } else if (line.startsWith('stop_motor(') && line.endsWith(')')) {
+                        const port = line.substring(11, line.length - 1).replace(/['']/g, '');
+                        if (['A', 'B', 'C', 'D', 'E', 'F'].includes(port)) {
+                            parsedCommands.push({ type: 'stop_motor', port: port });
+                        } else {
+                            logToConsole(`Error: Invalid port in stop_motor command: ${line}`, 'error');
+                        }
+                    } else if (line.startsWith('set_drive_speed(') && line.endsWith(')')) {
+                        const speed = parseInt(line.substring(16, line.length - 1));
+                        if (!isNaN(speed) && speed >= 0 && speed <= 100) {
+                            parsedCommands.push({ type: 'set_drive_speed', value: speed });
+                        } else {
+                            logToConsole(`Error: Invalid speed in set_drive_speed command: ${line}`, 'error');
+                        }
+                    } else if (line.startsWith('display_message(') && line.endsWith(')')) {
+                        const message = line.substring(16, line.length - 1).replace(/['']/g, '');
+                        parsedCommands.push({ type: 'print_message', value: message });
+                    } else if (line.startsWith('print_message(') && line.endsWith(')')) {
+                        const message = line.substring(14, line.length - 1).replace(/['']/g, '');
+                        parsedCommands.push({ type: 'print_message', value: message });
+                    }
+                    else {
+                        logToConsole(`Warning: Unknown command or syntax error: ${line}`, 'warn');
+                    }
+                });
+                return parsedCommands;
+            }
+
+            function generatePython(commands) {
+                let pythonCode = ``;
+
+                // Use actual values from robotSpecs or fall back to defaults
+                const actualWheelDiameter = robotSpecs.wheelDiameter !== null && !isNaN(robotSpecs.wheelDiameter) ? robotSpecs.wheelDiameter : 2.5;
+                const actualMotorDegreesPerRotation = robotSpecs.motorDegreesPerRotation !== null && !isNaN(robotSpecs.motorDegreesPerRotation) ? robotSpecs.motorDegreesPerRotation : 360;
+
+
+                // Since autoCorrectionEnabled is always true, we can simplify this block
+                pythonCode += `from spike import PrimeHub, Motor, MotorPair\n`;
+                pythonCode += `from spike.control import wait_for_seconds\n`;
+                pythonCode += `from hub import motion_sensor, port\n`;
+                pythonCode += `import math\n`;
+                pythonCode += `import time\n\n`;
+
+                pythonCode += `hub = PrimeHub()\n`;
+                pythonCode += `hub.motion_sensor.reset_yaw_angle() # Reset gyro for consistent heading\n\n`;
+
+                pythonCode += `# Robot physical specifications from Allied Algorithms FLL Bot Programmer\n`;
+                pythonCode += `WHEEL_DIAMETER = ${actualWheelDiameter}\n`;
+                pythonCode += `LEFT_MOTOR_PORT = '${robotSpecs.leftMotorPort}'\n`;
+                pythonCode += `RIGHT_MOTOR_PORT = '${robotSpecs.rightMotorPort}'\n`;
+                pythonCode += `WHEEL_CIRCUMFERENCE = math.pi * WHEEL_DIAMETER\n`;
+                pythonCode += `ROBOT_TRACK_WIDTH = 10.0 # Approximate distance between wheels (inches) - adjust as needed for your robot\n\n`;
+
+                pythonCode += `# --- Auto Correction System Configuration (Calibration Values) ---\n`;
+                pythonCode += `# These values are crucial and must be determined by calibrating your\n`;
+                pythonCode += `# specific Spike Prime robot.\n\n`;
+                pythonCode += `GYRO_CHANGE_PER_WHEEL_ROTATION_STRAIGHT = 0.5  # degrees per wheel rotation (example value)\n`;
+                pythonCode += `ANGLE_PER_WHEEL_ROTATION_IN_PLACE = 10.0  # degrees per wheel rotation (example value)\n`;
+                pythonCode += `MOTOR_DEGREES_PER_WHEEL_ROTATION = ${actualMotorDegreesPerRotation}\n\n`; // Use the new spec value
+
+                // Motor Setup for lower-level control
+                pythonCode += `# Motor Setup for lower-level control (used by auto-correction functions)\n`;
+                pythonCode += `left_motor = port.${robotSpecs.leftMotorPort}.motor\n`;
+                pythonCode += `right_motor = port.${robotSpecs.rightMotorPort}.motor\n\n`;
+
+                // Utility function to get a motor object by port letter (adapted for hub.port.X.motor)
+                pythonCode += `# Utility function to get a motor object by port letter\n`;
+                pythonCode += `def get_motor_by_port(port_letter):\n`;
+                pythonCode += `    if port_letter == 'A': return port.A.motor\n`;
+                pythonCode += `    if port_letter == 'B': return port.B.motor\n`;
+                pythonCode += `    if port_letter == 'C': return port.C.motor\n`;
+                pythonCode += `    if port_letter == 'D': return port.D.motor\n`;
+                pythonCode += `    if port_letter == 'E': return port.E.motor\n`;
+                pythonCode += `    if port_letter == 'F': return port.F.motor\n`;
+                pythonCode += `    return None\n\n`;
+
+                // calculate_target_position function
+                pythonCode += `def calculate_target_position(\n`;
+                pythonCode += `    starting_pos_x: float,\n`;
+                pythonCode += `    starting_pos_y: float,\n`;
+                pythonCode += `    inches_wanted_to_move_x: float,\n`;
+                pythonCode += `    inches_wanted_to_move_y: float,\n`;
+                pythonCode += `    inches_per_gyro_unit: float\n`;
+                pythonCode += `) -> dict:\n`;
+                pythonCode += `    if inches_per_gyro_unit == 0:\n`;
+                pythonCode += `        print("Error: inches_per_gyro_unit cannot be zero to avoid division by zero.")\n`;
+                pythonCode += `        return {\n`;
+                pythonCode += `            'target_pos_x': starting_pos_x,\n`;
+                pythonCode += `            'target_pos_y': starting_pos_y,\n`;
+                pythonCode += `            'change_x_gyro_units': 0,\n`;
+                pythonCode += `            'change_y_gyro_units': 0\n`;
+                pythonCode += `        }\n`;
+                pythonCode += `    change_x_gyro_units = inches_wanted_to_move_x / inches_per_gyro_unit\n`;
+                pythonCode += `    change_y_gyro_units = inches_wanted_to_move_y / inches_per_gyro_unit\n`;
+                pythonCode += `    target_pos_x = starting_pos_x + inches_wanted_to_move_x\n`;
+                pythonCode += `    target_pos_y = starting_pos_y + inches_wanted_to_move_y\n`;
+                pythonCode += `    return {\n`;
+                pythonCode += `        'target_pos_x': target_pos_x,\n`;
+                pythonCode += `        'target_pos_y': target_pos_y,\n`;
+                pythonCode += `        'change_x_gyro_units': change_x_gyro_units,\n`;
+                pythonCode += `        'change_y_gyro_units': change_y_gyro_units\n`;
+                pythonCode += `    }\n\n`;
+
+                // calculate_desired_rotation_wheel_rotations function
+                pythonCode += `def calculate_desired_rotation_wheel_rotations(\n`;
+                pythonCode += `    target_heading_degrees: float,\n`;
+                pythonCode += `    current_angle_changed_degrees: float,\n`;
+                pythonCode += `    angle_per_wheel_rotation_in_place: float,\n`;
+                pythonCode += `    motor_degrees_per_wheel_rotation: int = MOTOR_DEGREES_PER_WHEEL_ROTATION\n`;
+                pythonCode += `) -> float:\n`;
+                pythonCode += `    if angle_per_wheel_rotation_in_place == 0:\n`;
+                pythonCode += `        print("Error: angle_per_wheel_rotation_in_place cannot be zero to avoid division by zero.")\n`;
+                pythonCode += `        return 0.0\n`;
+                pythonCode += `    angular_difference = target_heading_degrees - current_angle_changed_degrees\n`;
+                pythonCode += `    desired_wheel_rotations = angular_difference / angle_per_wheel_rotation_in_place\n`;
+                pythonCode += `    return desired_wheel_rotations\n\n`;
+
+                // move_straight_inches function
+                pythonCode += `def move_straight_inches(inches: float, speed: int = 50):\n`;
+                pythonCode += `    inches_per_wheel_rotation = WHEEL_CIRCUMFERENCE / (MOTOR_DEGREES_PER_WHEEL_ROTATION / 360) # Calibrate this based on your robot\n`;
+                pythonCode += `    if inches_per_wheel_rotation == 0:\n`;
+                pythonCode += `        print("Error: inches_per_wheel_rotation cannot be zero.")\n`;
+                pythonCode += `        return\n`;
+                pythonCode += `    motor_degrees_to_run = (inches / inches_per_wheel_rotation) * MOTOR_DEGREES_PER_WHEEL_ROTATION\n`;
+                pythonCode += `    print(f"Moving straight {inches:.2f} inches ({motor_degrees_to_run:.0f} motor degrees)")\n`;
+                pythonCode += `    left_motor.run_for_degrees(motor_degrees_to_run, speed)\n`;
+                pythonCode += `    right_motor.run_for_degrees(motor_degrees_to_run, speed)\n`;
+                pythonCode += `    left_motor.wait_until_not_moving()\n`;
+                pythonCode += `    right_motor.wait_until_not_moving()\n\n`;
+
+                // turn_degrees function
+                pythonCode += `def turn_degrees(degrees: float, speed: int = 50):\n`;
+                pythonCode += `    motion_sensor.reset_yaw_angle()\n`;
+                pythonCode += `    time.sleep(0.1)\n`;
+                pythonCode += `    rotations_needed = calculate_desired_rotation_wheel_rotations(\n`;
+                pythonCode += `        degrees,\n`;
+                pythonCode += `        0.0,\n`;
+                pythonCode += `        ANGLE_PER_WHEEL_ROTATION_IN_PLACE\n`;
+                pythonCode += `    )\n`;
+                pythonCode += `    motor_degrees_to_run = rotations_needed * MOTOR_DEGREES_PER_WHEEL_ROTATION\n`;
+                pythonCode += `    print(f"Turning {degrees:.2f} degrees ({motor_degrees_to_run:.0f} motor degrees per wheel)")\n`;
+                pythonCode += `    left_motor.run_for_degrees(motor_degrees_to_run, speed)\n`;
+                pythonCode += `    right_motor.run_for_degrees(-motor_degrees_to_run, speed)\n`;
+                pythonCode += `    left_motor.wait_until_not_moving()\n`;
+                pythonCode += `    right_motor.wait_until_not_moving()\n`;
+                pythonCode += `    actual_turn = motion_sensor.get_yaw_angle()\n`;
+                pythonCode += `    print(f"Actual turn observed by gyro: {actual_turn:.2f} degrees")\n\n`;
+
+
+                pythonCode += `print("Robot Program Initializing...")\n`;
+                pythonCode += `hub.display.set_icon('HAPPY')\n`;
+                pythonCode += `hub.light_matrix.show_image('HAPPY')\n`; // Show happy face on Hub
+
+                commands.forEach(cmd => {
+                    switch (cmd.type) {
+                        case 'drive':
+                            pythonCode += `\n# Drive command: drive(${cmd.value})\n`;
+                            pythonCode += `if ${cmd.value} != 0:\n`;
+                            pythonCode += `    move_straight_inches(${cmd.value}, ${currentDriveSpeed})\n`;
+                            pythonCode += `else:\n`;
+                            pythonCode += `    print("Drive distance is zero, skipping movement.")\n`;
+                            break;
+                        case 'turn':
+                            pythonCode += `\n# Turn command: turn(${cmd.value})\n`;
+                            pythonCode += `if ${cmd.value} != 0:\n`;
+                            pythonCode += `    turn_degrees(${cmd.value}, ${currentTurnSpeed})\n`;
+                            pythonCode += `else:\n`;
+                            pythonCode += `    print("Turn angle is zero, skipping turn.")\n`;
+                            break;
+                        case 'wait':
+                            pythonCode += `\n# Wait command: wait(${cmd.value})\n`;
+                            pythonCode += `print(f"Waiting ${cmd.value} milliseconds...")\n`;
+                            pythonCode += `wait_for_seconds(${cmd.value} / 1000.0)\n`;
+                            break;
+                        case 'set_motor_power':
+                            pythonCode += `\n# Set motor power command: set_motor_power('${cmd.port}', ${cmd.power})\n`;
+                            pythonCode += `motor_obj = get_motor_by_port('${cmd.port}')\n`;
+                            pythonCode += `if motor_obj:\n`;
+                            pythonCode += `    motor_obj.start(${cmd.power})\n`;
+                            pythonCode += `    print(f"Setting motor ${cmd.port} power to ${cmd.power}%.")\n`;
+                            pythonCode += `else:\n`;
+                            pythonCode += `    hub.display.print(f"Invalid motor port {cmd.port}")\n`;
+                            break;
+                        case 'stop_motor':
+                            pythonCode += `\n# Stop motor command: stop_motor('${cmd.port}')\n`;
+                            pythonCode += `motor_obj = get_motor_by_port('${cmd.port}')\n`;
+                            pythonCode += `if motor_obj:\n`;
+                            pythonCode += `    motor_obj.stop()\n`;
+                            pythonCode += `    print(f"Stopping motor ${cmd.port}.")\n`;
+                            break;
+                        case 'set_drive_speed':
+                            pythonCode += `\n# Set drive speed command: set_drive_speed(${cmd.value})\n`;
+                            pythonCode += `print(f"Setting default drive speed to ${cmd.value}%.")\n`;
+                            // This command affects the speed passed to move_straight_inches/turn_degrees
+                            // No direct motor_pair.set_default_speed needed as auto-correction functions handle speed
+                            break;
+                        case 'print_message':
+                            pythonCode += `\n# Display message command: display_message("${cmd.value}")\n`;
+                            pythonCode += `print(f"MESSAGE: ${cmd.value}")\n`;
+                            pythonCode += `hub.display.print("${cmd.value}")\n`;
+                            break;
+                    }
+                });
+
+                pythonCode += `\nprint("Program finished.")\n`;
+                pythonCode += `hub.display.set_icon('GIGGLE') # Show giggle face on Hub at end\n`;
+                pythonCode += `hub.light_matrix.show_image('GIGGLE')\n`;
+                return pythonCode;
+            }
+
+            /**
+             * Sets the robot's position and angle, clearing any ongoing simulation.
+             * @param {number} x - The new X coordinate in inches.
+             * @param {number} y - The new Y coordinate in inches.
+             * @param {number} angle - The new angle in degrees.
+             */
+            function setRobotState(x, y, angle) {
+                cancelAnimationFrame(animationFrameId); // Stop any ongoing simulation
+                simulationRunning = false; // Ensure simulation is stopped
+                commandQueue = []; // Clear command queue
+                currentCommandIndex = 0; // Reset index
+                commandStartTime = 0; // Reset start time
+
+                robotX = x;
+                robotY = y;
+                robotAngle = angle;
+                currentDriveSpeed = 50; // Reset speeds
+                currentTurnSpeed = 50;
+                for (const port in motorStates) {
+                    motorStates[port] = 0;
+                }
+                drawRobot();
+                consoleOutput.innerHTML = ''; // Clear console on state change
+            }
+
+            /**
+             * Resets only the simulation execution state (commands, console),
+             * keeping the current robot position and angle.
+             */
+            function resetSimulationExecution() {
+                cancelAnimationFrame(animationFrameId);
+                simulationRunning = false;
+                commandQueue = [];
+                currentCommandIndex = 0;
+                commandStartTime = 0;
+                
+                consoleOutput.innerHTML = ''; // Clear console only
+                logToConsole("Simulation execution reset. Robot position maintained.");
+            }
+
+            function executeCommand(command, deltaTime) {
+                if (!simulationRunning) return; // Ensure simulation is still active
+
+                switch (command.type) {
+                    case 'drive':
+                        const driveSpeedPerMs = (currentDriveSpeed / 100) * 0.1; // inches per ms
+                        const distanceToDrive = command.value; // Total distance for this command
+                        const distanceCoveredSoFar = (command.traveled || 0);
+                        const distanceRemainingForCommand = distanceToDrive - distanceCoveredSoFar;
+                        const direction = Math.sign(distanceToDrive); // +1 for forward, -1 for backward
+
+                        // Calculate the maximum distance the robot *could* move this frame based on speed and time
+                        let maxMoveDistanceThisFrame = driveSpeedPerMs * deltaTime;
+
+                        // Calculate the target angle in radians
+                        const angleRad = (robotAngle * Math.PI) / 180;
+                        const cosAngle = Math.cos(angleRad);
+                        const sinAngle = Math.sin(angleRad);
+
+                        // Determine the actual distance to attempt to move this frame, limited by both speed and remaining command distance
+                        let actualDistanceToMoveThisFrame = Math.min(maxMoveDistanceThisFrame, Math.abs(distanceRemainingForCommand));
+                        actualDistanceToMoveThisFrame *= direction; // Apply direction
+
+                        // Calculate potential new X and Y based on this frame's movement
+                        let dx = cosAngle * actualDistanceToMoveThisFrame;
+                        let dy = sinAngle * actualDistanceToMoveThisFrame;
+
+                        // Robot half-dimensions
+                        const halfRobotWidth = ROBOT_WIDTH_INCHES / 2;
+                        const halfRobotHeight = ROBOT_HEIGHT_INCHES / 2;
+
+                        // Calculate the absolute boundaries for the robot's center
+                        const minX = halfRobotWidth;
+                        const maxX = CANVAS_WIDTH_INCHES - halfRobotWidth;
+                        const minY = halfRobotHeight;
+                        const maxY = CANVAS_HEIGHT_INCHES - halfRobotHeight;
+
+                        // Calculate the new robot position before clamping
+                        let newRobotX = robotX + dx;
+                        let newRobotY = robotY + dy;
+
+                        let hitBoundary = false;
+                        let edgeHitMessages = [];
+
+                        // Clamp X position
+                        if (newRobotX < minX) {
+                            dx = minX - robotX; // Adjust dx to stop at boundary
+                            newRobotX = minX;
+                            hitBoundary = true;
+                            edgeHitMessages.push('left');
+                        } else if (newRobotX > maxX) {
+                            dx = maxX - robotX; // Adjust dx to stop at boundary
+                            newRobotX = maxX;
+                            hitBoundary = true;
+                            edgeHitMessages.push('right');
+                        }
+
+                        // Clamp Y position
+                        if (newRobotY < minY) {
+                            dy = minY - robotY; // Adjust dy to stop at boundary
+                            newRobotY = minY;
+                            hitBoundary = true;
+                            edgeHitMessages.push('top');
+                        } else if (newRobotY > maxY) {
+                            dy = maxY - robotY; // Adjust dy to stop at boundary
+                            newRobotY = maxY;
+                            hitBoundary = true;
+                            edgeHitMessages.push('bottom');
+                        }
+
+                        // Apply the adjusted (or original) movement to robot's actual position
+                        robotX += dx;
+                        robotY += dy;
+
+                        // Calculate the actual distance moved in this frame after any boundary adjustments
+                        const actualDistanceMovedInFrame = Math.sqrt(dx * dx + dy * dy);
+
+                        // Update the total distance traveled for the command.
+                        // If a boundary was hit, we only count the distance up to the boundary.
+                        command.traveled = distanceCoveredSoFar + (actualDistanceMovedInFrame * direction);
+
+                        // Check if the command is completed (either by reaching target or hitting boundary)
+                        if (Math.abs(command.traveled) >= Math.abs(distanceToDrive) - 0.01 || hitBoundary) {
+                            command.completed = true;
+                            if (hitBoundary) {
+                                logToConsole(`Error: Robot hit the ${edgeHitMessages.join(' and ')} boundary! Stopping simulation.`, 'error');
+                                simulationRunning = false; // Stop simulation immediately on boundary hit
+                            }
+                        }
+                        break;
+
+                    case 'turn':
+                        const turnDegreesPerMs = (currentTurnSpeed / 100) * 0.1;
+                        const degreesToTurn = command.value;
+                        const degreesTurnedThisFrame = turnDegreesPerMs * deltaTime;
+
+                        let remainingDegrees = degreesToTurn - (command.turned || 0);
+                        let actualDegreesThisFrame = Math.min(Math.abs(remainingDegrees), turnDegreesPerMs * deltaTime); // Re-calculate based on remaining time
+                        if (remainingDegrees < 0) {
+                            actualDegreesThisFrame = -actualDegreesThisFrame;
+                        }
+
+                        if (Math.abs(remainingDegrees) <= 0.01) {
+                            command.completed = true;
+                        } else {
+                            command.turned = (command.turned || 0) + actualDegreesThisFrame;
+                            robotAngle += actualDegreesThisFrame;
+                            robotAngle = (robotAngle + 360) % 360;
+
+                            if (Math.abs(command.turned) >= Math.abs(degreesToTurn) - 0.01) {
+                                command.completed = true;
+                            }
+                        }
+                        break;
+
+                    case 'wait':
+                        if (!commandStartTime) {
+                            commandStartTime = performance.now();
+                        }
+                        const elapsedTime = performance.now() - commandStartTime;
+                        if (elapsedTime >= command.value) {
+                            command.completed = true;
+                        }
+                        break;
+
+                    case 'set_motor_power':
+                        motorStates[command.port] = command.power;
+                        logToConsole(`Motor ${command.port} set to ${command.power}% power.`);
+                        command.completed = true;
+                        break;
+                    case 'stop_motor':
+                        motorStates[command.port] = 0;
+                        logToConsole(`Motor ${command.port} stopped.`);
+                        command.completed = true;
+                        break;
+                    case 'set_drive_speed':
+                        currentDriveSpeed = command.value;
+                        logToConsole(`Drive speed set to ${command.value}%.`);
+                        command.completed = true;
+                        break;
+                    case 'print_message':
+                        logToConsole(command.value);
+                        command.completed = true;
+                        break;
+                }
+            }
+
+
+            let lastUpdateTime = 0;
+            function animateSimulation(currentTime) {
+                if (!simulationRunning) return;
+
+                const deltaTime = currentTime - lastUpdateTime;
+                lastUpdateTime = currentTime;
+
+                if (currentCommandIndex < commandQueue.length) {
+                    const command = commandQueue[currentCommandIndex];
+
+                    executeCommand(command, deltaTime);
+
+                    if (command.completed) {
+                        currentCommandIndex++;
+                        commandStartTime = 0;
+                        delete command.traveled;
+                        delete command.turned;
+                    }
+                } else {
+                    simulationRunning = false;
+                    logToConsole("Program execution finished.");
+                }
+
+                drawRobot();
+                animationFrameId = requestAnimationFrame(animateSimulation);
+            }
+
+
+            // --- Event Listeners ---
+            runButton.addEventListener('click', () => {
+                // Check for null robot specs before running
+                if (robotSpecs.wheelDiameter === null || robotSpecs.motorDegreesPerRotation === null) {
+                    showMessage("Please Fill Out Robot Specs", true); // Show error pop-up
+                    return; // Stop execution
+                }
+
+                resetSimulationExecution(); // Only reset simulation execution, not robot state
+                commandQueue = parseCode(codeEditor.value);
+
+                // Generate and display Python code immediately when "Run Code" is clicked
+                const parsed = parseCode(codeEditor.value);
+                const python = generatePython(parsed);
+                pythonCodeDisplay.value = python;
+
+                if (commandQueue.length > 0) {
+                    simulationRunning = true;
+                    lastUpdateTime = performance.now();
+                    animationFrameId = requestAnimationFrame(animateSimulation);
+                    logToConsole("Running code from current robot position...");
+                } else {
+                    logToConsole("No commands to run.", 'warn');
+                }
+            });
+
+            resetButton.addEventListener('click', () => {
+                // This button now fully resets the robot's state AND simulation execution
+                setRobotState(
+                    CANVAS_WIDTH_INCHES / 2,
+                    CANVAS_HEIGHT_INCHES - (ROBOT_HEIGHT_INCHES / 2),
+                    270 // Default start angle
+                );
+                logToConsole("Robot and simulation fully reset to default start.");
+            });
+
+            copyButton.addEventListener('click', () => {
+                const parsed = parseCode(codeEditor.value);
+                const python = generatePython(parsed);
+                pythonCodeDisplay.value = python;
+                document.execCommand('copy');
+                showMessage('Python code copied to clipboard!');
+            });
+
+            // Modified Upload Button: Show modal instead of directly opening file input
+            uploadButton.addEventListener('click', () => {
+                uploadModalOverlay.classList.add('show');
+            });
+
+            // Modal Close Button
+            modalCloseButton.addEventListener('click', () => {
+                uploadModalOverlay.classList.remove('show');
+                pasteCodeTextarea.value = ''; // Clear textarea on close
+            });
+
+            // Modal Upload from File Button
+            modalUploadFileButton.addEventListener('click', () => {
+                fileUploadInput.click(); // Trigger the hidden file input
+                uploadModalOverlay.classList.remove('show'); // Close modal
+            });
+
+            // Modal Paste Code Button
+            modalPasteCodeButton.addEventListener('click', () => {
+                const pastedCode = pasteCodeTextarea.value;
+                if (pastedCode) {
+                    codeEditor.value = pastedCode;
+                    highlightCode();
+                    showMessage('Code pasted successfully!');
+                    uploadModalOverlay.classList.remove('show'); // Close modal
+                    pasteCodeTextarea.value = ''; // Clear textarea
+                } else {
+                    showMessage('Paste area is empty.', true);
+                }
+            });
+
+
+            fileUploadInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        codeEditor.value = e.target.result;
+                        highlightCode(); // Highlight newly loaded code
+                        showMessage(`File "${file.name}" loaded successfully.`);
+                    };
+                    reader.onerror = () => {
+                        showMessage('Failed to read file.', true);
+                    };
+                    fileUploadInput.value = ''; // Clear file input
+                }
+            });
+
+            // New button event listeners
+            startLeftButton.addEventListener('click', () => {
+                setRobotState(
+                    ROBOT_WIDTH_INCHES / 2, // Left edge
+                    CANVAS_HEIGHT_INCHES - (ROBOT_HEIGHT_INCHES / 2), // Bottom center
+                    270 // Facing up
+                );
+                logToConsole("Robot moved to bottom-left, facing up.");
+            });
+
+            startRightButton.addEventListener('click', () => {
+                setRobotState(
+                    CANVAS_WIDTH_INCHES - (ROBOT_WIDTH_INCHES / 2), // Right edge
+                    CANVAS_HEIGHT_INCHES - (ROBOT_HEIGHT_INCHES / 2), // Bottom center
+                    270 // Facing up
+                );
+                logToConsole("Robot moved to bottom-right, facing up.");
+            });
+
+            // --- Robot Specification Logic ---
+            function loadRobotSpecs() {
+                const savedSpecs = localStorage.getItem('robotSpecs');
+                if (savedSpecs) {
+                    robotSpecs = JSON.parse(savedSpecs);
+                }
+                // Apply loaded (or default) specs to the UI
+                wheelDiameterInput.value = robotSpecs.wheelDiameter !== null ? robotSpecs.wheelDiameter : '';
+                motorDegreesPerRotationInput.value = robotSpecs.motorDegreesPerRotation !== null ? robotSpecs.motorDegreesPerRotation : '';
+                leftMotorPortSelect.value = robotSpecs.leftMotorPort;
+                rightMotorPortSelect.value = robotSpecs.rightMotorPort;
+            }
+
+            function saveRobotSpecs() {
+                // Use ternary operator to store null if input is empty, otherwise parse float/int
+                robotSpecs.wheelDiameter = wheelDiameterInput.value === '' ? null : parseFloat(wheelDiameterInput.value);
+                robotSpecs.motorDegreesPerRotation = motorDegreesPerRotationInput.value === '' ? null : parseInt(motorDegreesPerRotationInput.value);
+                robotSpecs.leftMotorPort = leftMotorPortSelect.value;
+                robotSpecs.rightMotorPort = rightMotorPortSelect.value;
+                localStorage.setItem('robotSpecs', JSON.stringify(robotSpecs));
+                showMessage('Robot specifications saved!');
+            }
+
+            // Event listeners for specification inputs
+            wheelDiameterInput.addEventListener('change', saveRobotSpecs);
+            motorDegreesPerRotationInput.addEventListener('change', saveRobotSpecs); // Add event listener for new input
+            leftMotorPortSelect.addEventListener('change', saveRobotSpecs);
+            rightMotorPortSelect.addEventListener('change', saveRobotSpecs);
+
+            // Initial setup on load
+            setRobotState(
+                CANVAS_WIDTH_INCHES / 2,
+                CANVAS_HEIGHT_INCHES - (ROBOT_HEIGHT_INCHES / 2),
+                270 // Initial robot angle
+            );
+            loadRobotSpecs(); // Load specs when the page loads
+
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas(); // Initial canvas resize and draw
+        });
+    </script>
+</body>
+</html>
