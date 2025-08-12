@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allied Algorithms</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MG0KYH98NN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-MG0KYH98NN');
+    </script>
+
+    <link rel="apple-touch-icon" sizes="500x500" href="./images/logo.png">
+    <link rel="icon" type="image/x-icon" href="./images/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        $(function () {
+            $("#includedContent").load("header.html");
+            $("#Content").load("footer.html");
+        });
+    </script>
+    <style>
+        .missions {
+            border-bottom: 2px solid white;
+            padding-bottom: 3px;
+        }
+
+        /* Apply Inter font family */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            /* Light gray background for the page */
+            display: flex;
+            flex-direction: column; /* Changed to column to stack header, main, and footer */
+            min-height: 100vh;
+            /* Ensure it takes full viewport height */
+            margin: 0;
+            padding: 0; /* Removed padding here, will add to internal containers */
+            box-sizing: border-box;
+            /* Include padding in element's total width and height */
+        }
+
+        /* Custom aspect ratio for responsive video */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            /* Apply rounded corners to the video container */
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Styling for images within the table */
+        .table-image {
+            width: 100px;
+            /* Fixed width for consistency */
+            height: 100px;
+            /* Fixed height for consistency */
+            object-fit: cover;
+            /* Cover the area, cropping if necessary */
+            border-radius: 0.5rem;
+            /* Rounded corners for images */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div id="includedContent" class="w-full">
+        </div>
+
+    <main class="flex-grow container mx-auto px-4 py-8"> <div class="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="p-6">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center"> Missions </h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 rounded-lg">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">
+                                    Video Content
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Description
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
+                                    Picture
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                                    <div class="video-container">
+                                        <iframe src="https://www.youtube.com/watch?v=B0CU-GzCc50" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    This mission displays our unique, but easy way for solving this problem.
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    <img src="https://placehold.co/100x100/A0B3C8/FFFFFF?text=Pic1"
+                                        alt="Placeholder Image 1" class="table-image">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                                    <div class="video-container">
+                                        <iframe src="https://www.youtube.com/watch?v=B0CU-GzCc50" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    Description for Video 2.
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    <img src="https://placehold.co/100x100/B3C8A0/FFFFFF?text=Pic2"
+                                        alt="Placeholder Image 2" class="table-image">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                                    <div class="video-container">
+                                        <iframe src="https://www.youtube.com/watch?v=B0CU-GzCc50" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    Description for Video 3.
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    <img src="https://placehold.co/100x100/C8A0B3/FFFFFF?text=Pic3"
+                                        alt="Placeholder Image 3" class="table-image">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                                    <div class="video-container">
+                                        <iframe src="https://www.youtube.com/watch?v=B0CU-GzCc50" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    Description for Video 4.
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    <img src="https://placehold.co/100x100/A0C8B3/FFFFFF?text=Pic4"
+                                        alt="Placeholder Image 4" class="table-image">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                                    <div class="video-container">
+                                        <iframe src="https://www.youtube.com/watch?v=B0CU-GzCc50" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    Description for Video 5.
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    <img src="https://placehold.co/100x100/B3A0C8/FFFFFF?text=Pic5"
+                                        alt="Placeholder Image 5" class="table-image">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                                    <div class="video-container">
+                                        <iframe src="https://www.youtube.com/watch?v=B0CU-GzCc50" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    Description for Video 6.
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    <img src="https://placehold.co/100x100/C8B3A0/FFFFFF?text=Pic6"
+                                        alt="Placeholder Image 6" class="table-image">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                                    <div class="video-container">
+                                        <iframe src="https://www.youtube.com/watch?v=B0CU-GzCc50" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    Description for Video 7.
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    <img src="https://placehold.co/100x100/A0C8B3/FFFFFF?text=Pic7"
+                                        alt="Placeholder Image 7" class="table-image">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                                    <div class="video-container">
+                                        <iframe src="https://www.youtube.com/watch?v=B0CU-GzCc50" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    Description for Video 8.
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    <img src="https://placehold.co/100x100/B3A0C8/FFFFFF?text=Pic8"
+                                        alt="Placeholder Image 8" class="table-image">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                                    <div class="video-container">
+                                        <iframe src="https://www.youtube.com/watch?v=B0CU-GzCc50" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    Description for Video 9.
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    <img src="https://placehold.co/100x100/C8B3A0/FFFFFF?text=Pic9"
+                                        alt="Placeholder Image 9" class="table-image">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 rounded-bl-lg">
+                                    <div class="video-container">
+                                        <iframe src="https://www.youtube.com/watch?v=B0CU-GzCc50" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    Description for Video 10.
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 rounded-br-lg">
+                                    <img src="https://placehold.co/100x100/A0B3C8/FFFFFF?text=Pic10"
+                                        alt="Placeholder Image 10" class="table-image">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="Content" class="w-full">
+        </div>
+</body>
+
+</html>
