@@ -1,0 +1,554 @@
+/* Main stylesheet for the application */
+
+/* Import core component styles from base.css */
+@import url("base.css");
+<script>
+    let lastScrollY = window.scrollY;
+    const nav = document.querySelector('.main-nav');
+
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+
+        // Add `.scrolled` when user scrolls down even slightly
+        if (currentScrollY > 10) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+
+        // Detect scroll direction
+        if (currentScrollY > lastScrollY) {
+            // Scrolling down
+            nav.classList.remove('show-on-scroll-up');
+            nav.classList.add('hide-on-scroll-down');
+        } else {
+            // Scrolling up
+            nav.classList.remove('hide-on-scroll-down');
+            nav.classList.add('show-on-scroll-up');
+        }
+
+        lastScrollY = currentScrollY;
+    });
+</script>
+
+/* --- Global Body Styles --- */
+body {
+    font-family: 'Inter', sans-serif;
+    /* Consistent font with React app */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+    /* Updated to a blue-purple gradient inspired by the image */
+    background-image: linear-gradient(to right, #110e20, #2a0b4d);
+    /* Dark blue to dark purple */
+    background-size: cover;
+    background-attachment: fixed;
+    color: white;
+    /* Default text color for the body */
+    text-align: center;
+    /* Centers all inline content */
+    transition: background-color 0.3s ease;
+}
+
+/* Keyframe animations for hero section text and button */
+@keyframes fadeInMoveUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animation to specific elements */
+.animate-fade-in-up {
+    animation: fadeInMoveUp 1s ease-out forwards;
+}
+
+/* Animation for elements with a delay */
+.animate-fade-in-delay-1 {
+    animation: fadeInMoveUp 1s ease-out 0.5s forwards;
+    /* 0.5s delay */
+}
+
+.animate-fade-in-delay-2 {
+    animation: fadeInMoveUp 1s ease-out 1s forwards;
+    /* 1s delay */
+}
+
+/* Ensure elements are initially hidden before animation */
+.animate-fade-in-up,
+.animate-fade-in-delay-1,
+.animate-fade-in-delay-2 {
+    opacity: 0;
+    /* Start invisible */
+}
+
+/* Simple pattern background for visual interest */
+.bg-pattern {
+    background-image: radial-gradient(#4a5568 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* --- Table Styles (keeping base for general structure, but expecting Tailwind for colors) --- */
+/* Removed explicit white background and black text as tables are now dark via Tailwind classes in React app */
+table,
+tr,
+td {
+    border-radius: 7px;
+    width: 100%;
+}
+
+/* --- Parent div for Navbar --- */
+.bebas-neue-regular {
+    display: block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+}
+
+/* --- Main Navigation Container --- */
+.main-nav {
+    display: flex;
+    background-color: #1a202c;
+    /* Dark background */
+    border-radius: 0;
+    opacity: 0.95;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: opacity 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    /* Changed to space-between to push logo left, buttons right, and allow links to center */
+    justify-content: space-between;
+    align-items: center;
+    /* Align items vertically in the middle */
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    min-height: 60px;
+}
+
+.main-nav:hover {
+    opacity: 1;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Hamburger Menu Icon & Checkbox (for mobile) --- */
+.menu-toggle-checkbox {
+    display: none;
+}
+
+.hamburger-icon {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.hamburger-icon .bar {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hamburger animation: bars transform into an 'X' */
+.menu-toggle-checkbox:checked+.hamburger-icon .bar:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+
+.menu-toggle-checkbox:checked+.hamburger-icon .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle-checkbox:checked+.hamburger-icon .bar:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+/* --- New container for the Logo --- */
+.nav-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Prevent it from growing, let nav-links-container take up space */
+    flex-shrink: 0;
+}
+
+.nav-logo-container .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.nav-logo-container .logo-link img {
+    width: 35px;
+    height: 35px;
+}
+
+/* --- New container for Main Nav Links --- */
+.nav-links-container {
+    display: flex;
+    justify-content: center;
+    /* Centers the ul within this container */
+    flex-grow: 1;
+    /* Allows this container to take up available space */
+}
+
+/* --- Navigation Links (UL) --- */
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    align-items: center;
+    transition: transform 0.3s ease-in-out;
+    /* Reset flex-grow here as its parent nav-links-container handles it */
+    flex-grow: 0;
+}
+
+.nav-links li {
+    padding: 0;
+    width: auto;
+    text-align: center;
+}
+
+/* --- Individual Navigation Links with Hover Line Animation --- */
+.nav-links a {
+    color: #d1d5db;
+    /* Light gray text */
+    text-align: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    white-space: nowrap;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-radius 0.3s ease-in-out;
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.3s ease-out;
+}
+
+.nav-links a:hover::before {
+    width: calc(100% - 30px);
+}
+
+.nav-links a:hover {
+    color: white;
+    background-color: #374151;
+    /* Darker gray on hover */
+    border-radius: 5px;
+}
+
+/* --- New container for buttons on the right --- */
+.nav-buttons-group {
+    display: flex;
+    gap: 15px;
+    /* Space between buttons */
+    align-items: center;
+    flex-shrink: 0;
+    /* Prevent it from shrinking */
+}
+
+/* --- Login Button (and now Program Button) styling --- */
+.login-button,
+.program-button {
+    background-color: #368bc1;
+    /* A contrasting blue color */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 400;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    white-space: nowrap;
+}
+
+.login-button:hover,
+.program-button:hover {
+    background-color: #4a9edc;
+    /* Lighter blue on hover */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    /* White glow on hover */
+}
+
+/* --- Greeting Message Styles --- */
+#greetingMessage {
+    font-family: 'Inter', sans-serif;
+    /* Consistent font with React app */
+    font-size: 3rem;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease;
+}
+
+
+/* --- Media Queries for Mobile/Desktop Switching --- */
+
+/* Mobile Styles (up to 768px viewport width) */
+@media (max-width: 768px) {
+    /* Hide the greeting message on mobile */
+    #greetingMessage {
+        display: none;
+    }
+
+    .main-nav {
+        flex-wrap: nowrap; /* Prevent wrapping in the top bar itself */
+        justify-content: space-between;
+        padding: 10px;
+        min-height: auto;
+        width: 100%;
+    }
+
+    .hamburger-icon {
+        display: flex;
+        order: 2; /* Place hamburger on the right */
+    }
+
+    .nav-logo-container {
+        order: 1; /* Place logo on the left */
+        margin-right: auto; /* Push logo left, filling space to the right of it */
+    }
+
+    /* The new wrapper for all mobile menu content */
+    .mobile-menu-content-wrapper {
+        position: fixed;
+        top: 0; /* Aligns to top of viewport */
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 998; /* Below hamburger, above other content */
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        background-color: #1a202c;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Start content from top */
+        align-items: center;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        border-radius: 0;
+        padding-top: 80px; /* Space for the fixed nav bar */
+        padding-bottom: 20px;
+        transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+        overflow-y: auto; /* Allow scrolling if content is too tall */
+    }
+
+    /* Hide these containers by default on mobile, they are managed by the wrapper */
+    .nav-links-container,
+    .nav-buttons-group {
+        position: static; /* Reset fixed positioning */
+        width: 100%; /* Take full width within the wrapper */
+        height: auto; /* Auto height */
+        transform: none; /* Reset transform */
+        opacity: 1; /* Always visible within wrapper */
+        visibility: visible; /* Always visible within wrapper */
+        background-color: transparent; /* Reset background */
+        box-shadow: none; /* Reset shadow */
+        border-radius: 0;
+        padding: 0; /* Reset padding from previous rule */
+        margin: 0; /* Reset margins */
+        flex-grow: 0; /* Let mobile-menu-content-wrapper handle growth */
+        flex-shrink: 0; /* Don't shrink */
+    }
+
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+        flex-grow: 1; /* Allow links to take up space in the menu */
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: left;
+    }
+
+    .nav-links a {
+        padding: 15px 20px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .nav-links a::before {
+        display: none;
+    }
+
+    /* Logo container within the mobile menu (if it appears there, otherwise remove) */
+    /* If the logo should NOT be part of the full-screen menu, remove this rule */
+    .nav-logo-container.in-menu { /* You'd add 'in-menu' class with JS if moving logo into menu */
+        justify-content: center;
+        width: 100%;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 10px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Individual buttons within the group should stack */
+    .nav-buttons-group {
+        flex-direction: column;
+        width: calc(100% - 40px);
+        /* Adjust width for padding */
+        margin-top: 20px;
+        /* Space from links */
+        gap: 10px;
+        /* Space between buttons */
+    }
+
+    .login-button,
+    .program-button {
+        display: block;
+        width: 100%;
+        /* Full width for mobile buttons */
+        padding: 15px 20px;
+        text-align: center;
+    }
+
+    /* When checkbox is checked (menu is open), show the mobile-menu-content-wrapper */
+    .menu-toggle-checkbox:checked~.mobile-menu-content-wrapper {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* Desktop Styles (min-width: 769px viewport width) */
+@media (min-width: 769px) {
+    .hamburger-icon {
+        display: none;
+    }
+
+    /* Hide the mobile menu content wrapper on desktop */
+    .mobile-menu-content-wrapper {
+        display: contents; /* Makes children participate in main-nav's flex layout */
+        position: static;
+        width: auto;
+        height: auto;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0;
+        overflow-y: visible;
+    }
+
+    .nav-logo-container {
+        position: static;
+        width: auto;
+        height: auto;
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        background-color: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        overflow-y: visible;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        margin-right: 20px;
+        /* Add some space to the right of the logo */
+    }
+
+    .nav-links-container {
+        position: static;
+        width: auto;
+        height: auto;
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        background-color: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        overflow-y: visible;
+        flex-grow: 1;
+        /* Allow it to take up middle space */
+        justify-content: center;
+        /* Centering the ul inside */
+    }
+
+    .nav-links {
+        flex-direction: row;
+        width: auto;
+        gap: 25px;
+        flex-grow: 0;
+        /* No need to grow the ul itself within its container */
+    }
+
+    .nav-links a::before {
+        display: block;
+    }
+
+    .nav-buttons-group {
+        position: static;
+        width: auto;
+        height: auto;
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        background-color: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        overflow-y: visible;
+        flex-direction: row;
+        justify-content: flex-end;
+        /* Push buttons to the right */
+        align-items: center;
+        margin-left: 20px;
+        /* Space between links and buttons */
+    }
+
+    .login-button,
+    .program-button {
+        margin-left: 0;
+        /* Reset previous left margin if it existed */
+    }
+}
