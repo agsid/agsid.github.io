@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MG0KYH98NN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-MG0KYH98NN');
+    </script>
+    <link rel="apple-touch-icon" sizes="500x500" href="./images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rubik+Wet+Paint&display=swap"
+        rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./images/logo.png">
+    <title>Algorithm Allies</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="bebas-neue-regular">
+        <nav class="main-nav">
+            <input type="checkbox" id="menu-toggle" class="menu-toggle-checkbox">
+
+            <label for="menu-toggle" class="hamburger-icon">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </label>
+
+            <div class="nav-logo-container"> <a href="index.html" class="logo-link">
+                    <img src="./images/logo.png" alt="Logo">
+                    <div class="index">Allied Algorithms</div>
+                </a>
+            </div>
+
+            <div class="mobile-menu-content-wrapper">
+                <div class="nav-links-container"> <ul class="nav-links">
+                        <li>
+                            <div class="index"><a href="index.html">Home</a></div>
+                        </li>
+                        <li>
+                            <div class="abtus"><a href="abtus.html">Members</a></div>
+                        </li>
+                        <li>
+                            <div class="seasons"><a href="seasons.html">Seasons</a></div>
+                        </li>
+                        <li>
+                            <div class="robot"><a href="robot.html">Robot Design</a></div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-buttons-group"> <a href="hello.html" class="program-button">Program</a>
+                    </div>
+            </div>
+            </nav>
+    </div>
+
+    <script>
+        /**
+         * Detects device type based on screen width and displays a greeting.
+         * "Hello!" for mobile (max-width: 767px), "Hi!" for desktop (min-width: 768px).
+         */
+        function displayGreeting() {
+            const greetingElement = document.getElementById('greetingMessage');
+            const mobileMediaQuery = window.matchMedia("(max-width: 767px)");
+
+            if (mobileMediaQuery.matches) {
+                greetingElement.textContent = "Hello!"; // For mobile devices
+            } else {
+                greetingElement.textContent = "Hi!";    // For desktop devices
+            }
+        }
+
+        /**
+         * Handles the state of the mobile menu, including preventing body scroll
+         * and adjusting classes for device type.
+         */
+        function handleDeviceAdaptation() {
+            const menuToggleCheckbox = document.getElementById('menu-toggle');
+            // Use 768px for navbar breakpoint as defined in your CSS
+            const mobileNavbarMediaQuery = window.matchMedia("(max-width: 768px)");
+
+            // --- Control body scroll for full-screen menu ---
+            if (mobileNavbarMediaQuery.matches) { // If currently in mobile navbar view
+                if (menuToggleCheckbox.checked) {
+                    document.body.style.overflow = 'hidden'; // Prevent body scroll
+                } else {
+                    document.body.style.overflow = ''; // Allow body scroll
+                }
+            } else { // If currently in desktop view
+                document.body.style.overflow = ''; // Always allow body scroll on desktop
+            }
+
+            // --- Example of 'switching' content/layout with JS ---
+            // You can add or remove classes, change text, or restructure elements here.
+            const contentArea = document.querySelector('.bebas-neue-regular'); // Or any other main content div
+            if (mobileNavbarMediaQuery.matches) {
+                // Actions specific to mobile
+                contentArea.classList.add('mobile-layout-active');
+                contentArea.classList.remove('desktop-layout-active');
+                // console.log('Switched to mobile layout (via JS)');
+            } else {
+                // Actions specific to desktop
+                contentArea.classList.add('desktop-layout-active');
+                contentArea.classList.remove('mobile-layout-active');
+                // console.log('Switched to desktop layout (via JS)');
+
+                // IMPORTANT: When switching from mobile to desktop, ensure the menu is closed
+                // and body scroll is reset, in case it was left open.
+                menuToggleCheckbox.checked = false; // Uncheck the menu checkbox
+                document.body.style.overflow = ''; // Ensure body scroll is re-enabled
+            }
+        }
+
+        // Initial calls when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            displayGreeting();
+            handleDeviceAdaptation(); // Run initial device adaptation
+        });
+
+        // Listen for changes in screen size (e.g., tablet rotation, browser resize)
+        window.matchMedia("(max-width: 767px)").addEventListener('change', displayGreeting); // Only for greeting message
+        window.matchMedia("(max-width: 768px)").addEventListener('change', handleDeviceAdaptation); // For navbar and other adaptations
+
+        // Listen for the hamburger menu toggle to change state
+        document.getElementById('menu-toggle').addEventListener('change', handleDeviceAdaptation);
+    </script>
+</body>
+
+</html>
