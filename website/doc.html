@@ -1,108 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <link rel="icon" type="image/x-icon" href="./images/logo.png">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
-        $(function () {
-            $("#includedContent").load("header.html");
-            $("#Content").load("footer.html");
-        });
-    </script>
+  <link rel="icon" type="image/x-icon" href="https://placehold.co/16x16/000000/FFFFFF?text=L">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Allied Work</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Scrollbar Styling */
-    
-    a{
-        font-size:18px;
-        font-family: sans-serif;
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: sans-serif; /* Fallback for general text */
+      background-color: #f3f4f6; /* bg-gray-100 */
+      height: 100vh; /* h-screen */
+      display: flex; /* flex */
+      flex-direction: column; /* flex-col */
+      overflow: hidden; /* Prevent body scrolling, let children manage */
     }
+
+    /* Anchor Tag Styling */
+    a {
+      font-size: 18px;
+      font-family: sans-serif;
+      text-decoration: none; /* Remove underline by default */
+      color: inherit; /* Inherit color from parent for sidebar links */
+    }
+
+    /* Custom Scrollbar Styling for better aesthetics */
+    body::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    body::-webkit-scrollbar-track {
+        background: #e0e0e0;
+        border-radius: 10px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background-color: #38a169; /* Green-700 */
+        border-radius: 10px;
+        border: 3px solid #e0e0e0;
+    }
+
+    /* Style for the main content scrollbar */
+    #mainContent::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    #mainContent::-webkit-scrollbar-track {
+        background: #f3f4f6; /* Gray-100 */
+        border-radius: 10px;
+    }
+
+    #mainContent::-webkit-scrollbar-thumb {
+        background-color: #1f4e2e; /* A darker green for the main content */
+        border-radius: 10px;
+        border: 3px solid #f3f4f6;
+    }
+
+    /* Main Container for Sidebar and Content */
+    .content-wrapper {
+      display: flex; /* flex */
+      flex-grow: 1; /* flex-grow */
+      overflow: hidden; /* overflow-hidden */
+    }
+
+    /* Sidebar Styles */
+    #sidebar {
+      width: 20%; /* w-1/5 */
+      background-color: #1f4e2e; /* bg-green-800 (initial color) */
+      color: #ffffff; /* text-white */
+      padding: 1.5rem 1rem; /* py-6 px-4 */
+      overflow-y: auto; /* overflow-y-auto */
+      transition: background-color 0.5s ease-in-out; /* transition-colors duration-500 */
+      flex-shrink: 0; /* flex-shrink-0 */
+      border-top-right-radius: 0.75rem; /* rounded-tr-xl */
+      border-bottom-right-radius: 0.75rem; /* rounded-br-xl */
+      box-shadow: 6px 0 10px rgba(0, 0, 0, 0.1); /* shadow-lg */
+    }
+
+    #sidebar h3 {
+      font-size: 1.25rem; /* text-xl */
+      font-weight: bold; /* font-bold */
+      margin-bottom: 1.5rem; /* mb-6 */
+      text-align: center; /* text-center */
+    }
+
+    #sidebar ul {
+      list-style: none; /* Remove bullet points */
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem; /* space-y-4 */
+    }
+
+    #sidebar ul li a {
+      display: block; /* block */
+      padding: 0.5rem 1rem; /* p-2 */
+      border-radius: 0.375rem; /* rounded-md */
+      transition: background-color 0.2s ease-in-out; /* transition-colors duration-200 */
+    }
+
+    #sidebar ul li a:hover {
+      background-color: #065f46; /* hover:bg-green-700 */
+      text-decoration: underline;
+    }
+
+    /* Main Content Styles */
+    #mainContent {
+      width: 80%; /* w-4/5 */
+      background-color: #ffffff; /* bg-white */
+      padding: 2.5rem; /* p-10 */
+      overflow-y: auto; /* overflow-y-auto */
+      scroll-behavior: smooth; /* scroll-smooth */
+      display: flex;
+      flex-direction: column;
+      gap: 4rem; /* space-y-16 */
+      flex-grow: 1; /* flex-grow */
+      border-top-left-radius: 0.75rem; /* rounded-tl-xl */
+      border-bottom-left-radius: 0.75rem; /* rounded-bl-xl */
+      box-shadow: -6px 0 10px rgba(0, 0, 0, 0.05); /* shadow-inner */
+    }
+
+    /* Section Styles */
+    #mainContent > div {
+      margin-bottom: 3rem; /* mb-12 */
+      padding: 1.5rem; /* p-6 */
+      background-color: #f9fafb; /* bg-gray-50 */
+      border-radius: 0.5rem; /* rounded-lg */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* shadow-md */
+    }
+
+    #mainContent h2 {
+      font-size: 2.25rem; /* text-4xl */
+      font-weight: bold; /* font-bold */
+      margin-bottom: 1rem; /* mb-4 */
+      color: #064e3b; /* text-green-900 */
+    }
+
+    #mainContent p {
+      font-size: 1.125rem; /* text-lg */
+      font-weight: 600; /* font-semibold */
+      color: #374151; /* text-gray-700 */
+      line-height: 1.625; /* leading-relaxed */
+    }
+
+    #mainContent p + p {
+      margin-top: 1rem; /* mt-4 for subsequent paragraphs */
+    
   </style>
 </head>
-<body class="bg-gray-100 h-screen overflow-hidden">
+<body class="bg-gray-100 h-screen flex flex-col">
 
-  <!-- NavBar -->
-   <div id="includedContent"></div>
-
-  <div class="flex h-[calc(100%-4rem)]">
+  <!-- Flex container for Sidebar and Main Content, takes remaining height -->
+  <div class="content-wrapper">
 
     <!-- Sidebar -->
-    <nav id="sidebar" class="w-1/5 bg-green-800 text-white py-6 px-4 overflow-y-auto transition-colors duration-500">
-      <ul class="space-y-4 text-sm">
-        <li><a href="#what-is-it" class="hover:underline">Allied Work</a></li>
-        <li><a href="#autocorrection" class="hover:underline">Allied AutoCorrection</a></li>
-        <li><a href="#related" class="hover:underline">How they are related</a></li>
-        <li><a href="#AACWork" class="hover:underline">How does Allied AutoCorrection Work?</a></li>
+    <nav id="sidebar">
+      <h3>Sections</h3>
+      <ul>
+        <li><a href="#what-is-it">Allied Work</a></li>
+        <li><a href="#autocorrection">Allied AutoCorrection</a></li>
+        <li><a href="#related">How they are related</a></li>
+        <li><a href="#AACWork">How does Allied AutoCorrection Work?</a></li>
+        <li><a href="#benefits">Benefits & Impact</a></li>
       </ul>
     </nav>
 
     <!-- Main Content -->
-    <main class="w-4/5 bg-white p-10 overflow-y-auto scroll-smooth space-y-16" id="mainContent">
+    <main id="mainContent">
       
       <!-- Section: What is it -->
       <div id="what-is-it">
-        <h2 class="text-4xl font-bold mb-4">Allied Work</h2>
-        <p class="text-lg font-semibold">
-          Allied Work allows user to see where their robots will go on the game mat with the built in visualizer. This is very helpful because many times teams are using trial and error to reach where they want to on the game mat. Not only can teams do this they can also code with ease. The Allied Workspace allows users to code in its native language called Allied Work. Allied Work is made to be simple so everybody can code their robot. When the you are done coding you path you can press the run button to see the path of the robot then copy the python code from the built in python generator.
-
+        <h2>Allied Work</h2>
+        <p>
+          Allied Work allows users to see where their robots will go on the game mat with the built-in visualizer. This is very helpful because many times teams are using trial and error to reach their desired location on the game mat. Not only can teams do this, but they can also code with ease. The Allied Workspace allows users to code in its native language called Allied Work. Allied Work is made to be simple so everybody can code their robot. When you are done coding your path, you can press the run button to see the path of the robot, then copy the Python code from the built-in Python generator.
         </p>
       </div>
 
       <!-- Section: Allied AutoCorrection -->
       <div id="autocorrection">
-        <h2 class="text-4xl font-bold mb-4">Allied AutoCorrection</h2>
-        <p class="text-lg font-semibold">
-         Allied AutoCorrection is a beautiful and helpful function for all FLL teams. The function provides precision in all aspects. Imagine you are walking straight and you trip. Now you will get back in the same Line you were walking in, and walk until you reach your final destination. Allied AutoCorrection is here to help the robot to do the same. One of the sensors used is the gyro sensor. A gyro sensor helps track the robots position in a graph. The gyro sensor helps with the x, y, and z plane. This helps us to see if the robot has encountered an error.
+        <h2>Allied AutoCorrection</h2>
+        <p>
+          Allied AutoCorrection is a beautiful and helpful function for all FLL teams. The function provides precision in all aspects. Imagine you are walking straight and you trip. Now you will get back in the same line you were walking in, and walk until you reach your final destination. Allied AutoCorrection is here to help the robot do the same. One of the sensors used is the gyro sensor. A gyro sensor helps track the robot's position in a graph. The gyro sensor helps with the x, y, and z plane. This helps us to see if the robot has encountered an error.
         </p>
       </div>
 
       <!-- Section: How are they related -->
       <div id="related">
-        <h2 class="text-4xl font-bold mb-4">How are they related</h2>
-        <p class="text-lg font-semibold">
-          You may be asking how a autocorrection software and an auto correction function related. Well in the Allied Work editor whenever you code a command for movement such as drive it takes the Allie auto correction function and uses it to give accurate movements
+        <h2>How are they related</h2>
+        <p>
+          You may be asking how an autocorrection software and an auto correction function are related. Well, in the Allied Work editor whenever you code a command for movement such as `drive`, it takes the Allied AutoCorrection function and uses it to give accurate movements.
         </p>
       </div>
- <div id="AACWork">
-        <h2 class="text-4xl font-bold mb-4">How Does Allied AutoCorrection Work?</h2>
-        <p class="text-lg font-semibold">
-         
+
+      <!-- Section: How Does Allied AutoCorrection Work? -->
+      <div id="AACWork">
+        <h2>How Does Allied AutoCorrection Work?</h2>
+        <p>
+          Allied AutoCorrection works by continuously monitoring the robot's orientation and position using sensors, primarily the gyro sensor. If the robot deviates from its intended path or heading, the system automatically calculates the necessary corrections and adjusts the motor outputs to bring the robot back on track. This real-time feedback loop ensures that the robot maintains precision throughout its movement commands, compensating for external disturbances or inherent mechanical inaccuracies. This makes the robot's movements much more reliable and repeatable in a competitive environment.
+        </p>
+        <p>
+          Beyond the gyro sensor, Allied AutoCorrection can integrate data from other sensors like encoders on wheels to measure distance traveled, or even color sensors to detect lines on the game mat. By combining these sensor inputs, the system creates a more comprehensive understanding of the robot's state and environment. This multi-sensor fusion allows for more accurate deviation detection and more precise corrective actions.
+        </p>
+        <p>
+          The core of the auto-correction mechanism involves a PID (Proportional-Integral-Derivative) controller, or a similar control loop. This controller takes the error (the difference between the desired state and the actual state) and calculates an output to minimize that error. For instance, if the robot drifts slightly to the left, the controller would slightly increase the power to the right motor and decrease power to the left motor until the robot is back on its intended heading. The tuning of these control parameters is crucial for smooth and stable correction.
         </p>
       </div>
+
+      <!-- Section: Benefits and Impact -->
+      <div id="benefits">
+        <h2>Benefits & Impact</h2>
+        <p>
+          The combination of Allied Work's intuitive coding environment and Allied AutoCorrection's precision offers significant benefits to FLL teams. Firstly, it drastically reduces the learning curve for new team members, enabling them to contribute to robot programming much faster. The visualizer provides immediate feedback, transforming abstract code into tangible robot movements, which is invaluable for debugging and understanding complex paths.
+        </p>
+        <p>
+          Secondly, and perhaps most critically, Allied AutoCorrection empowers teams to achieve higher scores in competitions. By ensuring consistent and accurate robot movements, it minimizes errors that often lead to missed mission objectives. This increased reliability allows teams to focus on refining their strategies and attempting more challenging tasks, rather than constantly troubleshooting basic movement issues. Ultimately, Allied Work fosters a more efficient, engaging, and successful robotics experience for students.
+        </p>
+      </div>
+
+      <!-- Adding more content to make scrolling evident -->
+      <div>
+        <h2>Additional Considerations</h2>
+        <p>
+          When implementing complex robot movements, integrating features like Allied AutoCorrection is crucial for consistent performance. Without it, minor errors can accumulate, leading to significant deviations from the desired path. The visualizer in Allied Work provides an immediate feedback loop for developers, allowing them to quickly identify and rectify any issues before deploying code to the physical robot. This significantly reduces the time spent on trial and error and improves overall development efficiency. Consider incorporating odometry for even greater accuracy.
+        </p>
+      </div>
+
+      <div>
+        <h2>Future Enhancements</h2>
+        <p>
+          Future enhancements for Allied Work could include more advanced path planning algorithms, integration with vision systems for object recognition and avoidance, and machine learning capabilities to optimize movement patterns over time. Imagine a robot that learns from its past runs and automatically refines its auto-correction parameters for even greater precision. These advancements would push the boundaries of what FLL teams can achieve with their robots.
+        </p>
+      </div>
+
+      <div>
+        <h2>Community and Support</h2>
+        <p>
+          Building a strong community around Allied Work is essential. Providing forums, tutorials, and examples would empower users to get the most out of the platform. Sharing best practices for implementing Allied AutoCorrection in different scenarios could further enhance its utility. A dedicated support channel would ensure that teams receive timely assistance with any challenges they encounter, fostering a collaborative environment for innovation in robotics education.
+        </p>
+      </div>
+
     </main>
   </div>
-   <div id="Content"></div>
+
+  <!-- Footer -->
+
   <!-- JavaScript for Scroll Detection and Theme Switching -->
   <script>
     const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+
+    const sections = ['what-is-it', 'autocorrection', 'related', 'AACWork', 'benefits']; 
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) { 
             const id = entry.target.id;
-
-            if (id === 'autocorrection') {
-              sidebar.style.backgroundColor = '#1f4e2e';
-            } else {
-              sidebar.style.backgroundColor = '#9b59b6';
+            switch (id) {
+              case 'what-is-it':
+                sidebar.style.backgroundColor = '#10B981'; /* Green-500 */
+                break;
+              case 'autocorrection':
+                sidebar.style.backgroundColor = '#059669'; /* Green-600 */
+                break;
+              case 'related':
+                sidebar.style.backgroundColor = '#047857'; /* Green-700 */
+                break;
+              case 'AACWork':
+                sidebar.style.backgroundColor = '#065F46'; /* Green-800 */
+                break;
+              case 'benefits': 
+                sidebar.style.backgroundColor = '#0B4D3A'; /* Darker green */
+                break;
+              default:
+                sidebar.style.backgroundColor = '#1f4e2e'; /* Default green */
             }
           }
         });
       },
       {
-        root: null,
-        threshold: 0.6
+        root: mainContent, 
+        threshold: 0.6 
       }
     );
 
-    // Observe sections
-    ['what-is-it', 'autocorrection', 'related'].forEach(id => {
-      observer.observe(document.getElementById(id));
+    sections.forEach(id => {
+      const sectionElement = document.getElementById(id);
+      if (sectionElement) {
+        observer.observe(sectionElement);
+      }
     });
+
+    // Ensure initial sidebar color based on first section
+    // This runs once on load to set the correct color if the first section is already in view
+    if (document.getElementById('what-is-it') && document.getElementById('what-is-it').getBoundingClientRect().top < mainContent.clientHeight * 0.6) {
+        sidebar.style.backgroundColor = '#10B981';
+    }
   </script>
 
 </body>
