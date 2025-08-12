@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+    <script src="members.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Members</title>
+    <base target="_self">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("#includedContent").load("header.html");
+            $("#Content").load("footer.html");
+        });
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-MG0KYH98NN');
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .member-card {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #00FFFF, #8A2BE2);
+            z-index: -1;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div id="includedContent"></div>
+    <main class="container mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">Our Team Members</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                Meet the talented individuals who make our team thrive.
+            </p>
+        </div>
+
+        <div id="members-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        </div>
+    </main>
+    <div id="Content"></div>
+    <script>
+        // Members data array (5 members)
+        // DOM elements
+        const membersContainer = document.getElementById('members-container');
+
+        // Generate member cards
+        function renderMembers() {
+            membersContainer.innerHTML = '';
+
+            members.forEach((member, index) => {
+                const memberCard = document.createElement('div');
+                memberCard.className = `member-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md animate-fade-in`;
+                memberCard.style.animationDelay = `${index * 0.1}s`;
+
+                memberCard.innerHTML = `
+                    <div class="p-6">
+                        <div class="flex justify-center mb-4">
+                            <img src="${member.image}" alt="${member.name}" class="w-24 h-24 rounded-full object-cover border-4 border-primary-100 dark:border-gray-700">
+                        </div>
+                        <div class="text-center">
+                            <h3 class="text-xl font-semibold text-gray-800 dark:text-white">${member.name}</h3>
+                            <p class="text-primary-600 dark:text-primary-400 mb-2">${member.role}</p>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">${member.bio}</p>
+                        </div>
+                    </div>
+                `;
+
+                membersContainer.appendChild(memberCard);
+            });
+        }
+
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Initial render
+        renderMembers();
+    </script>
+</body>
+
+</html>
