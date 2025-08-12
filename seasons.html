@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+      <script src="seasons.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allied Algorithms - FLL Team Accomplishments</title>
+
+    <link rel="apple-touch-icon" sizes="500x500" href="./images/logo.png">
+    <link rel="icon" type="image/x-icon" href="./images/logo.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+            display: flex; /* For sticky footer layout */
+            flex-direction: column; /* For sticky footer layout */
+            min-height: 100vh; /* For sticky footer layout */
+            margin: 0;
+        }
+
+        main {
+            flex-grow: 1; /* Allows main content to take up available space, pushing footer down */
+        }
+
+
+        /* Styles for the "Currently" section */
+        .current-stats {
+            background-color: #fff;
+            border: 2px dashed #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .current-stats .stat-item {
+            text-align: center;
+            padding: 10px;
+            flex-grow: 1;
+            min-width: 120px;
+        }
+
+        .current-stats .stat-item h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a73e8;
+            line-height: 1.1;
+        }
+
+        .current-stats .stat-item p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        /* Styles for the main season cards (using Flexbox/Grid) */
+        .season-card {
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            .season-card {
+                flex-direction: row;
+            }
+
+            .season-card.reverse-order {
+                flex-direction: row-reverse;
+            }
+        }
+
+        .season-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .season-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        @media (min-width: 768px) {
+            .season-card img {
+                width: 40%;
+                height: auto;
+                max-height: 300px;
+            }
+        }
+
+        .season-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .season-content h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #0d47a1;
+            margin-bottom: 5px;
+        }
+
+        .season-content h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #4a4a4a;
+            margin-bottom: 15px;
+        }
+
+        .season-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* Specific style for the FLL season logo link */
+        .fll-logo-link {
+            display: block;
+            width: 100%;
+            max-width: 250px;
+            margin: 0 auto 20px auto;
+        }
+
+        .fll-logo-link img {
+            background-color: #e5e7eb;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(214, 239, 250, 2);
+            transition: transform 0.2s ease;
+        }
+
+        .fll-logo-link img:hover {
+            transform: scale(1.03);
+        }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MG0KYH98NN"></script>
+    <script>
+        // Function to load HTML content into a div
+        async function loadHTML(elementId, filePath) {
+            try {
+                const response = await fetch(filePath);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const html = await response.text();
+                document.getElementById(elementId).innerHTML = html;
+            } catch (error) {
+                console.error(`Could not load ${filePath}:`, error);
+            }
+        }
+
+        // Data for past seasons
+      
+        // Function to render past season cards
+        function renderPastSeasons() {
+            const pastSeasonsContainer = document.getElementById('past-seasons-container');
+            if (!pastSeasonsContainer) return; // Exit if container not found
+
+            pastSeasonsContainer.innerHTML = ''; // Clear existing content
+
+            pastSeasons.forEach((season, index) => {
+                const card = document.createElement('div');
+                // Alternate the image and text direction for visual variety
+                const orderClass = (index % 2 === 0) ? '' : 'reverse-order';
+                card.className = `season-card ${orderClass}`;
+
+                card.innerHTML = `
+                    <img src="${season.image}" alt="${season.alt}">
+                    <div class="season-content">
+                        <h1>${season.year}</h1>
+                        <h4>${season.title}</h4>
+                        <p>${season.description}</p>
+                    </div>
+                `;
+                pastSeasonsContainer.appendChild(card);
+            });
+        }
+
+
+        // Run functions when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHTML('includedContent', 'header.html');
+            loadHTML('Content', 'footer.html');
+            renderPastSeasons(); // Call this to populate the past seasons
+        });
+    </script>
+</head>
+
+<body>
+    <div id="includedContent"></div>
+
+   <main class="container mx-auto px-4 py-12 text-white">
+
+        <section class="mb-12 text-center">
+            <h2 class="text-3xl font-bold text-white-800 mb-6">Current Season: 2025-2026</h2>
+
+            <div class="current-stats">
+                <div class="stat-item">
+                    <p>Hours Spent</p>
+                    <h2>40</h2>
+                </div>
+                <div class="stat-item">
+                    <p>People Impacted</p>
+                    <h2>50</h2>
+                </div>
+                <div class="stat-item">
+                    <p>Missions Completed</p>
+                    <h2>0</h2>
+                </div>
+            </div>
+
+            <a href="https://info.firstinspires.org/first-age" target="_blank" rel="noopener noreferrer"
+                class="fll-logo-link">
+                <img src="https://info.firstinspires.org/hs-fs/hubfs/2026%20Season/Season%20Assets/first_age_fll_unearthed_logo_vertical_rgb_fullcolor.png?width=334&height=334&name=first_age_fll_unearthed_logo_vertical_rgb_fullcolor.png"
+                    alt="FIRST LEGO League UNEARTHED Season Logo">
+            </a>
+
+            <div class="season-description text-lg text-white-700 max-w-6xl mx-autocontainer mx-auto px-4 py-18 text-white">
+                <h4>Unearthed</h4>
+                <p>Next year will be a landmark season for our team, as we will have created a comprehensive team website. This digital platform will become our central hub, enabling us to share our journey, document our progress, and connect with a wider audience. Concurrently, we will be meticulously planning for the upcoming season, setting ambitious goals and strategically outlining the steps required to achieve them. A key focus of our off-season will be the full development and implementation of a PID system, a sophisticated control algorithm that will significantly enhance our robot's precision and responsiveness, ultimately giving us a competitive edge.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-3xl font-bold text-white-1000 mb-8 text-center">Our Past Seasons</h2>
+            <div id="past-seasons-container">
+                </div>
+        </section>
+
+    </main>
+    <div id="Content"></div>
+</body>
+
+</html>
