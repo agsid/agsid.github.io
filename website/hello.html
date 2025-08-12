@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <link rel="icon" type="image/x-icon" href="./images/logo.png">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         $(function () {
             $("#includedContent").load("header.html");
-            $("#Content").load("footer.html");
+            // Removed: $("#Content").load("footer.html"); as footer is now directly in HTML
         });
     </script>
     <meta charset="UTF-8">
@@ -19,44 +19,39 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         $(function () {
-            // These lines are for loading external header/footer,
-            // which are not provided in this single HTML file.
-            // Keeping them commented out or removing them as they might cause errors
-            // if header.html/footer.html are not present.
             $("#includedContent").load("header.html");
-            // $("#Content").load("footer.html");
         });
     </script>
     <style>
         /* Define CSS Variables for themes */
         :root {
             /* Light Mode Colors - Creamy Palette */
-            --bg-primary: #f5cba7; /* Creamy orange for body */
-            --bg-primary-end: #f2b27a; /* Slightly darker end for gradient */
-            --bg-secondary: #fff8e1; /* Card/Container background */
-            --text-primary: #4a3b2e; /* Warm dark brown for main text */
-            --text-secondary: #3a2d22; /* Even darker for strong text */
-            --text-heading-main: #a0522d; /* Sienna for main headings */
-            --text-heading-sub: #c06a3f; /* Lighter sienna for subheadings */
-            --text-inactive-tab: #8b7b6e; /* Muted brown-gray for inactive elements */
-            --console-bg: #f0e6d6; /* Light creamy brown for console */
-            --console-text: #4a3b2e; /* Dark text for console */
-            --canvas-bg: #fffcf5; /* Very light cream for canvas */
-            --canvas-border: #a0522d; /* Sienna border for canvas */
+            --bg-primary: #f5cba7;
+            --bg-primary-end: #f2b27a;
+            --bg-secondary: #fff8e1;
+            --text-primary: #4a3b2e;
+            --text-secondary: #3a2d22;
+            --text-heading-main: #a0522d;
+            --text-heading-sub: #c06a3f;
+            --text-inactive-tab: #8b7b6e;
+            --console-bg: #f0e6d6;
+            --console-text: #4a3b2e;
+            --canvas-bg: #fffcf5;
+            --canvas-border: #a0522d;
             --tab-button-inactive-bg: #f0e6d6;
             --tab-button-inactive-text: #8b7b6e;
             --tab-button-active-bg: #fff8e1;
             --tab-button-active-text: #a0522d;
-            --border-color: #d4c1ae; /* Soft light brown border */
-            --textarea-bg: #fffdfa; /* Off-white for code editor */
-            --commands-section-bg: #f0e6d6; /* Lighter background for command sections */
-            --commands-list-border: #d4c1ae; /* Commands section border */
-            --line-number-bg: #e9e0d4; /* Light gray for line numbers background */
-            --line-number-text: #a69a8e; /* Muted gray for line numbers text */
+            --border-color: #d4c1ae;
+            --textarea-bg: #fffdfa;
+            --commands-section-bg: #f0e6d6;
+            --commands-list-border: #d4c1ae;
+            --line-number-bg: #e9e0d4;
+            --line-number-text: #a69a8e;
 
             /* Button-specific variables for light mode */
-            --button-primary-gradient: linear-gradient(to right, #c06a3f, #a0522d); /* Terracotta gradient */
-            --button-primary-gradient-hover: linear-gradient(to right, #a0522d, #804124); /* Darker terracotta on hover */
+            --button-primary-gradient: linear-gradient(to right, #c06a3f, #a0522d);
+            --button-primary-gradient-hover: linear-gradient(to right, #a0522d, #804124);
             --button-text-light: #ffffff;
 
             /* Settings dropdown button base styles */
@@ -64,51 +59,51 @@
             --settings-button-text: var(--text-primary);
 
             /* Syntax Highlighting Colors */
-            --comment-color: #6b8e23; /* Olive Green */
-            --movement-color: #4682b4; /* Steel Blue */
-            --turn-color: #8a2be2;   /* Blue Violet */
-            --arm-command-color: #daa520; /* Goldenrod */
+            --comment-color: #6b8e23;
+            --movement-color: #4682b4;
+            --turn-color: #8a2be2;
+            --arm-command-color: #daa520;
         }
 
         .dark-mode {
-            /* Dark Mode Colors - Modern & Deep Palette */
-            --bg-primary: #000000; /* Black for body */
-            --bg-primary-end: #0a0a0a; /* Slightly lighter end for gradient */
-            --bg-secondary: #1a1a1a; /* Card/Container background */
-            --text-primary: #e0e0e0; /* Reverted to #e0e0e0 */
-            --text-secondary: #f0f0f0; /* Reverted to #f0f0f0 */
-            --text-heading-main: #9b59b6; /* Desaturated teal for main headings */
-            --text-heading-sub: #9b59b6; /* Muted teal for subheadings */
-            --text-inactive-tab: #9e9e9e; /* Muted gray for inactive elements */
-            --console-bg: #0d0d0d; /* Darker console background */
-            --console-text: #e0e0e0; /* Light text for console */
-            --canvas-bg: #111111; /* Darker blue-gray for canvas */
-            --canvas-border: #4db6ac; /* Muted cyan border for canvas */
-            --tab-button-inactive-bg: #1a1a1a;
-            --tab-button-inactive-text: #9e9e9e;
-            --tab-button-active-bg: #000000;
-            --tab-button-active-text: #66cdaa;
-            --border-color: #333333; /* Darker gray border */
-            --textarea-bg: #151515; /* Darker for code editor */
-            --commands-section-bg: #111111; /* Darker background for command sections */
-            --commands-list-border: #333333; /* Commands section border */
-            --line-number-bg: #222222; /* Darker gray for line numbers background */
-            --line-number-text: #757575; /* Muted gray for line numbers text */
+            /* Dark Mode Colors - "Twilight Abyss" Palette */
+            --bg-primary: #282a36;
+            --bg-primary-end: #1e2029;
+            --bg-secondary: #44475a;
+            --text-primary: #f8f8f2;
+            --text-secondary: #f8f8f2;
+            --text-heading-main: #ff79c6;
+            --text-heading-sub: #66d9ef;
+            --text-inactive-tab: #6272a4;
+            --console-bg: #1f212a;
+            --console-text: #f8f8f2;
+            --canvas-bg: #2f313d;
+            --canvas-border: #50fa7b;
+            --tab-button-inactive-bg: #333544;
+            --tab-button-inactive-text: #6272a4;
+            --tab-button-active-bg: #22242b;
+            --tab-button-active-text: #50fa7b;
+            --border-color: #4a4c5a;
+            --textarea-bg: #2e303d;
+            --commands-section-bg: #383a4a;
+            --commands-list-border: #4a4c5a;
+            --line-number-bg: #44475a;
+            --line-number-text: #6272a4;
 
             /* Button-specific variables for dark mode */
-            --button-primary-gradient: linear-gradient(to right, #4db6ac, #38a89d); /* Desaturated cyan gradient */
-            --button-primary-gradient-hover: linear-gradient(to right, #38a89d, #2f8e83); /* Darker desaturated cyan on hover */
-            --button-text-light: #212121; /* Dark text for light buttons */
+            --button-primary-gradient: linear-gradient(to right, #50fa7b, #8be9fd);
+            --button-primary-gradient-hover: linear-gradient(to right, #3ca85a, #6a71cb);
+            --button-text-light: #ffffff;
 
-            /* Settings dropdown button base styles (not gradient) */
+            /* Settings dropdown button base styles */
             --settings-button-bg: var(--bg-secondary);
             --settings-button-text: var(--text-primary);
 
-            /* Syntax Highlighting Colors for Dark Mode */
-            --comment-color: #81C784; /* Lighter green for dark mode */
-            --movement-color: #64B5F6; /* Lighter blue for dark mode */
-            --turn-color: #BA68C8; /* Lighter purple for dark mode */
-            --arm-command-color: #FFEB3B; /* Yellow for dark mode */
+            /* Syntax Highlighting Colors for Dark Mode (mapped to Twilight Abyss) */
+            --comment-color: #6272a4;
+            --movement-color: #50fa7b;
+            --turn-color: #ff79c6;
+            --arm-command-color: #8be9fd;
         }
 
         /* Apply CSS variables */
@@ -136,19 +131,19 @@
             display: flex;
             flex-direction: column;
             width: 100%;
-            max-width: 1400px; /* Slightly wider */
-            min-height: 800px; /* Slightly taller */
+            max-width: 1400px;
+            min-height: 800px;
             background-color: var(--bg-secondary);
-            border-radius: 1.5rem; /* More rounded */
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4), 0 8px 16px -4px rgba(0, 0, 0, 0.25); /* Stronger shadow */
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4), 0 8px 16px -4px rgba(0, 0, 0, 0.25);
             overflow: hidden;
-            border: 1px solid var(--border-color); /* Updated border */
+            border: 1px solid var(--border-color);
             transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
             position: relative;
-            padding-top: 5rem; /* More space for settings dropdown */
+            padding-top: 5rem;
         }
         .dark-mode #app-container {
-            backdrop-filter: blur(8px); /* More blur for dark mode */
+            backdrop-filter: blur(8px);
             color: var(--text-secondary);
         }
 
@@ -179,24 +174,24 @@
             display: flex;
             background-color: var(--bg-secondary);
             border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* More prominent shadow for tabs */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             z-index: 10;
             padding: 0;
             justify-content: center;
-            position: absolute; /* Position tabs below header */
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 4rem; /* Fixed height for tab bar */
+            height: 4rem;
         }
         .tab-button {
-            padding: 1rem 2.5rem; /* Increased padding */
+            padding: 1rem 2.5rem;
             font-weight: 600;
             cursor: pointer;
             border: none;
             background-color: var(--tab-button-inactive-bg);
             color: var(--tab-button-inactive-text);
-            border-bottom: 4px solid transparent; /* Thicker active indicator */
+            border-bottom: 4px solid transparent;
             transition: all 0.3s ease-in-out;
             flex-grow: 1;
             text-align: center;
@@ -204,9 +199,9 @@
             overflow: hidden;
             text-overflow: ellipsis;
             font-family: 'Roboto', sans-serif;
-            font-size: 1.1em; /* Slightly larger font */
+            font-size: 1.1em;
             border-radius: 0;
-            max-width: 33.33%; /* Max width for 3 tabs */
+            max-width: 33.33%;
         }
 
         .tab-button:hover {
@@ -218,7 +213,7 @@
             color: var(--tab-button-active-text);
             border-bottom: 4px solid var(--text-heading-main);
             background-color: var(--tab-button-active-bg);
-            box-shadow: inset 0px 0px 15px rgba(20, 184, 166, 0.15); /* Teal glow on active tab */
+            box-shadow: inset 0px 0px 15px rgba(20, 184, 166, 0.15);
             z-index: 1;
         }
 
@@ -228,21 +223,20 @@
             flex-grow: 1;
             width: 100%;
             background-color: transparent;
-            padding-top: 1rem; /* Padding below tab header */
+            padding-top: 1rem;
         }
         .tab-content.active {
             display: flex;
             flex-direction: row;
             flex-grow: 1;
         }
-        /* Specific override for commands tab, which should be a column of content */
         #tab-content-commands.active, #tab-content-specification.active {
              flex-direction: column;
         }
 
         #editor-panel, #simulation-panel {
             flex: 1;
-            padding: 2rem; /* Increased padding */
+            padding: 2rem;
             display: flex;
             flex-direction: column;
             background-color: transparent;
@@ -265,21 +259,21 @@
             height: auto;
             max-width: 960px;
             max-height: 480px;
-            border-radius: 1rem; /* More rounded canvas */
+            border-radius: 1rem;
             object-fit: contain;
             transition: background-color 0.4s ease, border-color 0.4s ease;
-            box-shadow: 0 0 20px rgba(20, 184, 166, 0.5); /* Teal glow */
+            box-shadow: 0 0 20px rgba(20, 184, 166, 0.5);
         }
 
         /* Code Editor Container for Line Numbers */
         .code-editor-container {
             display: flex;
             border: 1px solid var(--border-color);
-            border-radius: 0.75rem; /* More rounded editor */
+            border-radius: 0.75rem;
             overflow: hidden;
             margin-bottom: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Stronger shadow */
-            min-height: 350px; /* Slightly taller editor */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            min-height: 350px;
             flex-grow: 1;
             transition: min-height 0.3s ease, max-height 0.3s ease, border-color 0.4s ease, box-shadow 0.4s ease;
             position: relative;
@@ -287,12 +281,12 @@
 
         #code-editor {
             flex-grow: 1;
-            padding: 1.25rem; /* More padding */
+            padding: 1.25rem;
             font-family: 'Roboto Mono', monospace;
-            font-size: 1.05rem; /* Slightly larger font */
-            line-height: 1.6; /* More comfortable line height */
+            font-size: 1.05rem;
+            line-height: 1.6;
             background-color: transparent;
-            color: transparent;
+            color: transparent; /* Makes text invisible, highlight overlay shows color */
             caret-color: var(--text-primary);
             resize: none;
             border: none;
@@ -306,13 +300,9 @@
             white-space: pre;
             word-wrap: normal;
         }
-        #code-editor:focus {
-            border-color: transparent;
-            box-shadow: none;
-        }
         .code-editor-container:focus-within {
             border-color: var(--text-heading-main);
-            box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.3); /* Teal shadow on focus */
+            box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.3);
         }
 
         #highlight-overlay {
@@ -327,92 +317,80 @@
             line-height: 1.6;
             background-color: var(--textarea-bg);
             color: var(--text-primary);
-            overflow-y: hidden;
+            overflow-y: hidden; /* Synced with textarea, no independent scroll */
             overflow-x: auto;
             white-space: pre;
             word-wrap: normal;
             z-index: 1;
             border-radius: 0.75rem;
             box-sizing: border-box;
-            pointer-events: none;
+            pointer-events: none; /* Allows clicks to pass through to textarea */
             transition: background-color 0.4s ease, color 0.4s ease;
         }
 
         /* Syntax Highlighting Styles */
-        .comment-highlight {
-            color: var(--comment-color);
-        }
-        .movement-highlight {
-            color: var(--movement-color);
-        }
-        .turn-highlight {
-            color: var(--turn-color);
-        }
-        .arm-command-highlight {
-            color: var(--arm-command-color);
-        }
-
+        .comment-highlight { color: var(--comment-color); }
+        .movement-highlight { color: var(--movement-color); }
+        .turn-highlight { color: var(--turn-color); }
+        .arm-command-highlight { color: var(--arm-command-color); }
 
         #python-code-display {
-            min-height: 180px; /* Taller display */
+            min-height: 180px;
             resize: vertical;
             font-family: 'Roboto Mono', monospace;
             border: 1px solid var(--border-color);
             background-color: var(--textarea-bg);
             color: var(--text-primary);
-            padding: 1.25rem; /* More padding */
-            border-radius: 0.75rem; /* More rounded */
+            padding: 1.25rem;
+            border-radius: 0.75rem;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
             transition: border-color 0.4s ease, background-color 0.4s ease, color 0.4s ease;
         }
 
         #console-output {
-            min-height: 120px; /* Taller console */
-            max-height: 250px; /* More max height */
+            min-height: 120px;
+            max-height: 250px;
             overflow-y: auto;
             background-color: var(--console-bg);
             color: var(--console-text);
             font-family: 'Roboto Mono', monospace;
-            font-size: 0.98rem; /* Slightly increased font size */
-            padding: 1rem; /* More padding */
-            border-radius: 0.75rem; /* More rounded */
-            margin-top: 1.5rem; /* More margin */
+            font-size: 0.98rem;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
             border: 1px solid var(--border-color);
             transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
         }
         #console-output .console-line {
-            padding: 0.3em 0; /* More vertical padding */
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Lighter border for light mode */
+            padding: 0.3em 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
         .dark-mode #console-output .console-line {
-             border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Lighter border for dark mode */
-        }
-        #console-output .console-line:last-child {
-            border-bottom: none;
+             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         .console-timestamp {
             color: var(--text-inactive-tab);
-            margin-right: 0.6em; /* More margin */
+            margin-right: 0.6em;
         }
         .message-box {
             position: fixed;
-            top: 1.5rem; /* Slightly lower */
-            right: 1.5rem; /* Slightly more right */
+            top: 1.5rem;
+            right: 1.5rem;
             background-color: #2ECC71;
             color: white;
-            padding: 0.85rem 1.4rem; /* More padding */
-            border-radius: 0.65rem; /* Slightly more rounded */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+            padding: 0.85rem 1.4rem;
+            border-radius: 0.65rem;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
             z-index: 1000;
             opacity: 0;
-            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out; /* Added transform transition */
-            transform: translateY(-20px); /* Start slightly above */
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            transform: translateY(-20px);
             visibility: hidden;
         }
         .message-box.show {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0); /* Slide into view */
+            transform: translateY(0);
         }
         .message-box.error {
             background-color: #E74C3C;
@@ -423,66 +401,65 @@
             font-family: 'Montserrat', sans-serif;
             color: var(--text-heading-main);
             transition: color 0.4s ease;
-            font-size: 2.5rem; /* Larger main heading */
-            margin-bottom: 2rem; /* More margin */
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
         }
         h2 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 2.2rem; /* Larger sub-heading */
+            font-size: 2.2rem;
             font-weight: 700;
             color: var(--text-heading-main);
-            margin-bottom: 1.8rem; /* More margin */
+            margin-bottom: 1.8rem;
             transition: color 0.4s ease;
         }
         h3 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.7rem; /* Larger section heading */
+            font-size: 1.7rem;
             font-weight: 600;
             color: var(--text-heading-sub);
-            margin-bottom: 1.2rem; /* More margin */
+            margin-bottom: 1.2rem;
             transition: color 0.4s ease;
         }
         p, ul, li {
             font-family: 'Roboto', sans-serif;
             color: var(--text-primary);
             transition: color 0.4s ease;
-            line-height: 1.7; /* More comfortable line height */
+            line-height: 1.7;
         }
         code {
             font-family: 'Roboto Mono', monospace;
             color: var(--text-primary);
             background-color: var(--bg-primary);
-            padding: 0.25em 0.5em; /* Slightly more padding */
-            border-radius: 0.4rem; /* More rounded */
+            padding: 0.25em 0.5em;
+            border-radius: 0.4rem;
             transition: background-color 0.4s ease, color 0.4s ease;
         }
         .dark-mode code {
-            background-color: rgba(0,0,0,0.25); /* Slightly darker for dark mode */
+            background-color: rgba(0,0,0,0.25);
         }
 
         /* Button specific styles */
         .button {
-            padding: 1rem 2rem; /* Increased padding */
-            border-radius: 0.85rem; /* More rounded */
+            padding: 1rem 2rem;
+            border-radius: 0.85rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease-in-out;
-            box-shadow: 0 6px 15px -2px rgba(0, 0, 0, 0.25), 0 3px 6px -1px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+            box-shadow: 0 6px 15px -2px rgba(0, 0, 0, 0.25), 0 3px 6px -1px rgba(0, 0, 0, 0.15);
             font-family: 'Roboto', sans-serif;
-            font-size: 1.1em; /* Slightly larger font */
+            font-size: 1.1em;
             color: var(--button-text-light);
             display: flex;
             align-items: center;
             justify-content: center;
             border: none;
-            position: relative; /* For pseudo-elements */
-            overflow: hidden; /* For hover effects */
+            position: relative;
+            overflow: hidden;
         }
         .button:hover {
-            transform: translateY(-4px); /* More pronounced lift */
-            box-shadow: 0 10px 22px -3px rgba(0, 0, 0, 0.35), 0 6px 12px -3px rgba(0, 0, 0, 0.2); /* Stronger hover shadow */
+            transform: translateY(-4px);
+            box-shadow: 0 10px 22px -3px rgba(0, 0, 0, 0.35), 0 6px 12px -3px rgba(0, 0, 0, 0.2);
         }
-        /* Button pseudo-element for subtle shine effect */
         .button::before {
             content: '';
             position: absolute;
@@ -500,38 +477,37 @@
 
         /* Applying primary gradient to action buttons */
         #run-button, #reset-button, #copy-button, #upload-button,
-        #start-left-button, #start-right-button { /* Removed auto-correct-button */
+        #start-left-button, #start-right-button {
             background-image: var(--button-primary-gradient);
         }
         #run-button:hover, #reset-button:hover, #copy-button:hover, #upload-button:hover,
-        #start-left-button:hover, #start-right-button:hover { /* Removed auto-correct-button */
+        #start-left-button:hover, #start-right-button:hover {
             background-image: var(--button-primary-gradient-hover);
         }
 
         /* Ion-icon styling */
         button ion-icon {
-            font-size: 1.3rem; /* Slightly larger icons */
-            margin-right: 0.6rem; /* More margin */
+            font-size: 1.3rem;
+            margin-right: 0.6rem;
         }
-        /* No margin for settings dropdown button icon */
         #settings-toggle ion-icon {
             margin-right: 0;
-            font-size: 1.6rem; /* Larger settings icon */
+            font-size: 1.6rem;
         }
 
         /* Settings dropdown button and menu styling */
         #settings-dropdown {
             position: absolute;
-            top: 1.5rem; /* Adjusted top position */
-            right: 1.5rem; /* Adjusted right position */
+            top: 1.5rem;
+            right: 1.5rem;
             z-index: 100;
         }
         #settings-toggle {
-            padding: 0.6rem; /* Larger padding for a button */
-            border-radius: 9999px; /* Circular */
+            padding: 0.6rem;
+            border-radius: 9999px;
             background-color: var(--settings-button-bg);
             color: var(--settings-button-text);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
             cursor: pointer;
             border: none;
@@ -541,23 +517,23 @@
         }
         #settings-toggle:hover {
             opacity: 0.9;
-            transform: scale(1.05); /* Slight scale on hover */
+            transform: scale(1.05);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
         }
 
         #settings-menu {
             position: absolute;
-            top: calc(100% + 0.5rem); /* Below the toggle button with a gap */
+            top: calc(100% + 0.5rem);
             right: 0;
             background-color: var(--bg-secondary);
             border: 1px solid var(--border-color);
-            border-radius: 0.75rem; /* More rounded */
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow */
-            padding: 0.75rem 0; /* More padding */
-            min-width: 200px; /* Wider menu */
+            border-radius: 0.75rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            padding: 0.75rem 0;
+            min-width: 200px;
             display: none;
             z-index: 100;
-            transform: translateY(-10px); /* Start slightly above */
+            transform: translateY(-10px);
             opacity: 0;
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
@@ -569,7 +545,7 @@
         #settings-menu button {
             width: 100%;
             text-align: left;
-            padding: 0.85rem 1.25rem; /* More padding */
+            padding: 0.85rem 1.25rem;
             background: none;
             border: none;
             color: var(--text-primary);
@@ -578,31 +554,31 @@
             display: flex;
             align-items: center;
             font-family: 'Roboto', sans-serif;
-            font-size: 1em; /* Standard font size */
+            font-size: 1em;
         }
         #settings-menu button:hover {
             background-color: var(--tab-button-inactive-bg);
             color: var(--text-heading-main);
         }
         #settings-menu button ion-icon {
-            margin-right: 0.85rem; /* More space between icon and text */
-            font-size: 1.3em; /* Slightly larger icons */
+            margin-right: 0.85rem;
+            font-size: 1.3em;
         }
 
         /* Styles for commands sections */
         .commands-section {
-            margin-bottom: 1.25rem; /* More margin */
+            margin-bottom: 1.25rem;
             background-color: var(--commands-section-bg);
             border: 1px solid var(--commands-list-border);
-            border-radius: 0.75rem; /* More rounded */
-            padding: 1.5rem; /* More padding */
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04); /* Subtle shadow */
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
             transition: background-color 0.4s ease, border-color 0.4s ease;
         }
         .commands-section h3 {
             margin-top: 0;
-            margin-bottom: 0.85rem; /* More margin */
-            font-size: 1.5rem; /* Larger for section titles */
+            margin-bottom: 0.85rem;
+            font-size: 1.5rem;
             color: var(--text-heading-sub);
         }
         .commands-section ul {
@@ -612,49 +588,39 @@
             margin: 0;
         }
         .commands-section ul li {
-            padding: 0.35rem 0; /* More vertical padding */
+            padding: 0.35rem 0;
             color: var(--text-primary);
-            font-size: 1em; /* Standard font size */
+            font-size: 1em;
         }
 
         /* Form elements for specification tab */
         .form-group {
-            margin-bottom: 1.25rem; /* More margin */
+            margin-bottom: 1.25rem;
         }
         .form-group label {
             display: block;
-            margin-bottom: 0.6rem; /* More margin */
+            margin-bottom: 0.6rem;
             font-weight: 500;
             color: var(--text-primary);
-            font-size: 1.05em; /* Slightly larger label */
+            font-size: 1.05em;
         }
         .form-group input[type="number"],
         .form-group select {
             width: 100%;
-            padding: 0.85rem; /* More padding */
+            padding: 0.85rem;
             border: 1px solid var(--border-color);
             border-radius: 0.65rem;
             background-color: var(--textarea-bg);
             color: var(--text-primary);
             font-family: 'Roboto', sans-serif;
-            font-size: 1.05rem; /* Slightly larger font */
+            font-size: 1.05rem;
             transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
         }
         .form-group input[type="number"]:focus,
         .form-group select:focus {
             outline: none;
             border-color: var(--text-heading-main);
-            box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.25); /* Teal shadow on focus */
-        }
-
-        /* Auto-correct button active state (now removed, but keeping class for reference if needed) */
-        #auto-correct-button.active-autocorrect {
-            background-image: linear-gradient(to right, #22c55e, #16a34a); /* Green gradient when active */
-            box-shadow: 0 6px 15px -2px rgba(34, 197, 94, 0.3), 0 3px 6px -1px rgba(34, 197, 94, 0.2);
-        }
-        #auto-correct-button.active-autocorrect:hover {
-            background-image: linear-gradient(to right, #16a34a, #15803d);
-            transform: translateY(-4px);
+            box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.25);
         }
 
         /* Modal Styles */
@@ -664,7 +630,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+            background-color: rgba(0, 0, 0, 0.6);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -940,7 +906,7 @@ display_message("Robot completed mission segment!")
                 </div>
             </div>
         </div>
-        <footer class="bg-gray-900 text-gray-300 py-8 px-4 md:px-8 shadow-inner rounded-b-lg"> <!-- Changed to rounded-b-lg -->
+        <footer class="bg-gray-900 text-gray-300 py-8 px-4 md:px-8 shadow-inner rounded-b-lg">
             <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 text-center md:text-left">
                 <div class="col-span-1 md:col-span-1 lg:col-span-1">
                     <h3 class="text-xl font-semibold text-white mb-4">Official Resources</h3>
@@ -1020,13 +986,13 @@ display_message("Robot completed mission segment!")
 
             // Robot Specification elements
             const wheelDiameterInput = document.getElementById('wheel-diameter');
-            const motorDegreesPerRotationInput = document.getElementById('motor-degrees-per-rotation'); // New input
+            const motorDegreesPerRotationInput = document.getElementById('motor-degrees-per-rotation');
             const leftMotorPortSelect = document.getElementById('left-motor-port');
             const rightMotorPortSelect = document.getElementById('right-motor-port');
 
             // Modal Elements
             const uploadModalOverlay = document.getElementById('upload-modal-overlay');
-            const modalCloseButton = document = document.getElementById('modal-close-button');
+            const modalCloseButton = document.getElementById('modal-close-button'); // Corrected assignment
             const modalUploadFileButton = document.getElementById('modal-upload-file-button');
             const pasteCodeTextarea = document.getElementById('paste-code-textarea');
             const modalPasteCodeButton = document.getElementById('modal-paste-code-button');
@@ -1049,14 +1015,14 @@ display_message("Robot completed mission segment!")
 
             // Robot Specification state
             let robotSpecs = {
-                wheelDiameter: null, // inches, initialized to null
-                motorDegreesPerRotation: null, // degrees per rotation, initialized to null
+                wheelDiameter: null,
+                motorDegreesPerRotation: null,
                 leftMotorPort: 'B',
                 rightMotorPort: 'C'
             };
 
             // Auto-correction state - ALWAYS ENABLED
-            const autoCorrectionEnabled = true; // Changed to const as it's always true
+            const autoCorrectionEnabled = true;
 
             // Animation and Simulation variables
             let animationFrameId = null;
@@ -1082,10 +1048,10 @@ display_message("Robot completed mission segment!")
             function logToConsole(message, type = 'info') {
                 const timestamp = new Date().toLocaleTimeString();
                 const messageElement = document.createElement('div');
-                messageElement.className = `console-line`; // Use the new class for styling
+                messageElement.className = `console-line`;
                 messageElement.innerHTML = `<span class="console-timestamp">${timestamp}</span><span style="color: var(--console-text);">${message}</span>`;
                 consoleOutput.appendChild(messageElement);
-                consoleOutput.scrollTop = consoleOutput.scrollHeight; // Auto-scroll to bottom
+                consoleOutput.scrollTop = consoleOutput.scrollHeight;
             }
 
             // --- Syntax Highlighting Functionality ---
@@ -1093,32 +1059,24 @@ display_message("Robot completed mission segment!")
                 const code = codeEditor.value;
                 let highlightedHtml = code;
 
-                // Escape HTML for safe display
                 highlightedHtml = highlightedHtml.replace(/&/g, '&amp;')
                                                  .replace(/</g, '&lt;')
                                                  .replace(/>/g, '&gt;');
 
-                // Regex for comments (//...)
                 highlightedHtml = highlightedHtml.replace(/(\/\/.*)/g, '<span class="comment-highlight">$1</span>');
-
-                // Regex for movement commands: drive, set_drive_speed
                 highlightedHtml = highlightedHtml.replace(/\b(drive|set_drive_speed)\b/g, '<span class="movement-highlight">$&</span>');
-
-                // Regex for turn commands: turn
                 highlightedHtml = highlightedHtml.replace(/\b(turn)\b/g, '<span class="turn-highlight">$&</span>');
+                highlightedHtml = highlightedHtml.replace(/\b(set_motor_power|stop_motor)\b/g, '<span class="arm-command-highlight">$&</span>');
 
                 highlightOverlay.innerHTML = highlightedHtml;
             }
 
-            codeEditor.addEventListener('input', () => {
-                highlightCode(); // Update highlighting on input
-            });
+            codeEditor.addEventListener('input', highlightCode);
             codeEditor.addEventListener('scroll', () => {
-                highlightOverlay.scrollTop = codeEditor.scrollTop; // Sync overlay scroll
+                highlightOverlay.scrollTop = codeEditor.scrollTop;
             });
 
-            // Initial highlight on load
-            highlightCode();
+            highlightCode(); // Initial highlight on load
 
 
             // --- Tab Switching Logic ---
@@ -1131,7 +1089,6 @@ display_message("Robot completed mission segment!")
 
                     button.classList.add('active');
                     document.getElementById(targetTabId).classList.add('active');
-                    // Re-calculate canvas size if switching to editor tab
                     if (targetTabId === 'tab-content-editor') {
                         resizeCanvas();
                     }
@@ -1149,8 +1106,8 @@ display_message("Robot completed mission segment!")
                     themeModeToggleBtn.querySelector('span').textContent = 'Dark Mode';
                     themeModeToggleBtn.querySelector('ion-icon').setAttribute('name', 'moon-outline');
                 }
-                drawRobot(); // Redraw canvas with new colors
-                highlightCode(); // Re-highlight with new theme colors
+                drawRobot();
+                highlightCode();
             }
 
             themeModeToggleBtn.addEventListener('click', () => {
@@ -1160,8 +1117,7 @@ display_message("Robot completed mission segment!")
                 localStorage.setItem('theme', newTheme);
             });
 
-            // Apply saved theme on load
-            const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark mode if not set
+            const savedTheme = localStorage.getItem('theme') || 'dark';
             applyTheme(savedTheme);
 
 
@@ -1170,7 +1126,6 @@ display_message("Robot completed mission segment!")
                 settingsMenu.classList.toggle('open');
             });
 
-            // Close settings menu when clicking outside
             document.addEventListener('click', (event) => {
                 if (!settingsDropdown.contains(event.target)) {
                     settingsMenu.classList.remove('open');
@@ -1181,24 +1136,20 @@ display_message("Robot completed mission segment!")
             // --- Robot Canvas Drawing ---
             function resizeCanvas() {
                 const simulationPanel = document.getElementById('simulation-panel');
-                // Ensure the panel is visible before calculating sizes
-                if (simulationPanel.offsetParent === null) { // Check if element is hidden
+                if (simulationPanel.offsetParent === null) {
                     return;
                 }
 
-                // Consider padding for the simulation panel (1.5rem = 24px per side)
                 const panelWidth = simulationPanel.clientWidth - (1.5 * 16 * 2);
                 const availableHeight = simulationPanel.clientHeight;
 
-                // Adjust for other elements within the simulation panel
                 const h2Height = document.querySelector('#simulation-panel h2').offsetHeight || 0;
                 const h3Height = document.querySelector('#simulation-panel h3').offsetHeight || 0;
                 const consoleHeight = consoleOutput.offsetHeight || 0;
-                const verticalPadding = (1.5 * 16 * 2); // Top/bottom panel padding
+                const verticalPadding = (1.5 * 16 * 2);
 
-                const remainingHeightForCanvas = availableHeight - h2Height - h3Height - consoleHeight - verticalPadding - 32; // Additional buffer
+                const remainingHeightForCanvas = availableHeight - h2Height - h3Height - consoleHeight - verticalPadding - 32;
 
-                // Maintain aspect ratio of 96:48 (2:1) for the FLL field
                 let canvasRenderWidth = panelWidth;
                 let canvasRenderHeight = panelWidth / 2;
 
@@ -1217,49 +1168,39 @@ display_message("Robot completed mission segment!")
             function drawRobot() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                // Draw field boundary
                 ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--canvas-border').trim();
                 ctx.lineWidth = 2;
                 ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
-                // Convert robot position from inches to pixels
                 const robotX_px = robotX * PIXELS_PER_INCH;
                 const robotY_px = robotY * PIXELS_PER_INCH;
                 const robotWidth_px = ROBOT_WIDTH_INCHES * PIXELS_PER_INCH;
                 const robotHeight_px = ROBOT_HEIGHT_INCHES * PIXELS_PER_INCH;
 
-                ctx.save(); // Save the current state of the canvas
-                ctx.translate(robotX_px, robotY_px); // Move to the robot's center
-                ctx.rotate((robotAngle * Math.PI) / 180); // Rotate the canvas
+                ctx.save();
+                ctx.translate(robotX_px, robotY_px);
+                ctx.rotate((robotAngle * Math.PI) / 180);
 
-                // Robot body (blue bulldozer-like shape)
-                ctx.fillStyle = '#1e3a8a'; // Darker blue for body
+                ctx.fillStyle = '#1e3a8a';
                 ctx.fillRect(-robotWidth_px / 2, -robotHeight_px / 2, robotWidth_px, robotHeight_px);
-                ctx.strokeStyle = '#0f224d'; // Even darker blue border
+                ctx.strokeStyle = '#0f224d';
                 ctx.lineWidth = 2;
                 ctx.strokeRect(-robotWidth_px / 2, -robotHeight_px / 2, robotWidth_px, robotHeight_px);
 
-                // Front blade (metallic grey)
-                const bladeTotalWidth_px = robotWidth_px * 1.2; // Overall horizontal width of the blade
-                const bladeDepth_px = robotHeight_px * 0.2; // Thickness/depth of the blade
+                const bladeTotalWidth_px = robotWidth_px * 1.2;
+                const bladeDepth_px = robotHeight_px * 0.2;
 
-                ctx.fillStyle = '#a0a0a0'; // Metallic grey
-                ctx.strokeStyle = '#505050'; // Darker grey for blade border
+                ctx.fillStyle = '#a0a0a0';
+                ctx.strokeStyle = '#505050';
                 ctx.lineWidth = 2;
-                // Position the blade at the front of the robot, centered vertically
-                // x: front edge of robot
-                // y: centered vertically around 0 (robot's center)
-                // width: depth of the blade (extends forward)
-                // height: total width of the blade
                 ctx.fillRect(robotWidth_px / 2, -bladeTotalWidth_px / 2, bladeDepth_px, bladeTotalWidth_px);
                 ctx.strokeRect(robotWidth_px / 2, -bladeTotalWidth_px / 2, bladeDepth_px, bladeTotalWidth_px);
 
-                // Eyes (on top of the body, slightly towards the back)
                 const eyeRadius_px = robotWidth_px * 0.1;
-                const eyeSeparation = robotWidth_px * 0.3; // Distance from center to each eye horizontally
-                const eyeBackOffset = robotHeight_px * 0.2; // Distance from center towards back along robot's length
+                const eyeSeparation = robotWidth_px * 0.3;
+                const eyeBackOffset = robotHeight_px * 0.2;
 
-                // Left eye (relative to robot's center, then rotated)
+                // Left eye
                 ctx.fillStyle = 'white';
                 ctx.beginPath();
                 ctx.arc(-eyeBackOffset, -eyeSeparation / 2, eyeRadius_px, 0, Math.PI * 2);
@@ -1271,7 +1212,7 @@ display_message("Robot completed mission segment!")
                 // Left pupil
                 ctx.fillStyle = 'black';
                 ctx.beginPath();
-                ctx.arc(-eyeBackOffset + eyeRadius_px * 0.2, -eyeSeparation / 2 - eyeRadius_px * 0.2, eyeRadius_px * 0.5, 0, Math.PI * 2); // Pupil offset
+                ctx.arc(-eyeBackOffset + eyeRadius_px * 0.2, -eyeSeparation / 2 - eyeRadius_px * 0.2, eyeRadius_px * 0.5, 0, Math.PI * 2);
                 ctx.fill();
 
                 // Right eye
@@ -1286,10 +1227,10 @@ display_message("Robot completed mission segment!")
                 // Right pupil
                 ctx.fillStyle = 'black';
                 ctx.beginPath();
-                ctx.arc(-eyeBackOffset + eyeRadius_px * 0.2, eyeSeparation / 2 - eyeRadius_px * 0.2, eyeRadius_px * 0.5, 0, Math.PI * 2); // Pupil offset
+                ctx.arc(-eyeBackOffset + eyeRadius_px * 0.2, eyeSeparation / 2 - eyeRadius_px * 0.2, eyeRadius_px * 0.5, 0, Math.PI * 2);
                 ctx.fill();
 
-                ctx.restore(); // Restore the canvas state to before translation and rotation
+                ctx.restore();
             }
 
             // --- Command Execution Functions (Simulated) ---
@@ -1363,12 +1304,9 @@ display_message("Robot completed mission segment!")
             function generatePython(commands) {
                 let pythonCode = ``;
 
-                // Use actual values from robotSpecs or fall back to defaults
                 const actualWheelDiameter = robotSpecs.wheelDiameter !== null && !isNaN(robotSpecs.wheelDiameter) ? robotSpecs.wheelDiameter : 2.5;
                 const actualMotorDegreesPerRotation = robotSpecs.motorDegreesPerRotation !== null && !isNaN(robotSpecs.motorDegreesPerRotation) ? robotSpecs.motorDegreesPerRotation : 360;
 
-
-                // Since autoCorrectionEnabled is always true, we can simplify this block
                 pythonCode += `from spike import PrimeHub, Motor, MotorPair\n`;
                 pythonCode += `from spike.control import wait_for_seconds\n`;
                 pythonCode += `from hub import motion_sensor, port\n`;
@@ -1388,16 +1326,14 @@ display_message("Robot completed mission segment!")
                 pythonCode += `# --- Auto Correction System Configuration (Calibration Values) ---\n`;
                 pythonCode += `# These values are crucial and must be determined by calibrating your\n`;
                 pythonCode += `# specific Spike Prime robot.\n\n`;
-                pythonCode += `GYRO_CHANGE_PER_WHEEL_ROTATION_STRAIGHT = 0.5  # degrees per wheel rotation (example value)\n`;
-                pythonCode += `ANGLE_PER_WHEEL_ROTATION_IN_PLACE = 10.0  # degrees per wheel rotation (example value)\n`;
-                pythonCode += `MOTOR_DEGREES_PER_WHEEL_ROTATION = ${actualMotorDegreesPerRotation}\n\n`; // Use the new spec value
+                pythonCode += `GYRO_CHANGE_PER_WHEEL_ROTATION_STRAIGHT = 0.5\n`;
+                pythonCode += `ANGLE_PER_WHEEL_ROTATION_IN_PLACE = 10.0\n`;
+                pythonCode += `MOTOR_DEGREES_PER_WHEEL_ROTATION = ${actualMotorDegreesPerRotation}\n\n`;
 
-                // Motor Setup for lower-level control
-                pythonCode += `# Motor Setup for lower-level control (used by auto-correction functions)\n`;
+                pythonCode += `# Motor Setup for lower-level control\n`;
                 pythonCode += `left_motor = port.${robotSpecs.leftMotorPort}.motor\n`;
                 pythonCode += `right_motor = port.${robotSpecs.rightMotorPort}.motor\n\n`;
 
-                // Utility function to get a motor object by port letter (adapted for hub.port.X.motor)
                 pythonCode += `# Utility function to get a motor object by port letter\n`;
                 pythonCode += `def get_motor_by_port(port_letter):\n`;
                 pythonCode += `    if port_letter == 'A': return port.A.motor\n`;
@@ -1408,7 +1344,6 @@ display_message("Robot completed mission segment!")
                 pythonCode += `    if port_letter == 'F': return port.F.motor\n`;
                 pythonCode += `    return None\n\n`;
 
-                // calculate_target_position function
                 pythonCode += `def calculate_target_position(\n`;
                 pythonCode += `    starting_pos_x: float,\n`;
                 pythonCode += `    starting_pos_y: float,\n`;
@@ -1431,11 +1366,10 @@ display_message("Robot completed mission segment!")
                 pythonCode += `    return {\n`;
                 pythonCode += `        'target_pos_x': target_pos_x,\n`;
                 pythonCode += `        'target_pos_y': target_pos_y,\n`;
-                pythonCode += `        'change_x_gyro_units': change_x_gyro_units,\n`;
-                pythonCode += `        'change_y_gyro_units': change_y_gyro_units\n`;
+                pythonCode += `        'change_x_gyro_units': 0,\n`;
+                pythonCode += `        'change_y_gyro_units': 0\n`;
                 pythonCode += `    }\n\n`;
 
-                // calculate_desired_rotation_wheel_rotations function
                 pythonCode += `def calculate_desired_rotation_wheel_rotations(\n`;
                 pythonCode += `    target_heading_degrees: float,\n`;
                 pythonCode += `    current_angle_changed_degrees: float,\n`;
@@ -1449,9 +1383,8 @@ display_message("Robot completed mission segment!")
                 pythonCode += `    desired_wheel_rotations = angular_difference / angle_per_wheel_rotation_in_place\n`;
                 pythonCode += `    return desired_wheel_rotations\n\n`;
 
-                // move_straight_inches function
                 pythonCode += `def move_straight_inches(inches: float, speed: int = 50):\n`;
-                pythonCode += `    inches_per_wheel_rotation = WHEEL_CIRCUMFERENCE / (MOTOR_DEGREES_PER_WHEEL_ROTATION / 360) # Calibrate this based on your robot\n`;
+                pythonCode += `    inches_per_wheel_rotation = WHEEL_CIRCUMFERENCE / (MOTOR_DEGREES_PER_WHEEL_ROTATION / 360)\n`;
                 pythonCode += `    if inches_per_wheel_rotation == 0:\n`;
                 pythonCode += `        print("Error: inches_per_wheel_rotation cannot be zero.")\n`;
                 pythonCode += `        return\n`;
@@ -1462,7 +1395,6 @@ display_message("Robot completed mission segment!")
                 pythonCode += `    left_motor.wait_until_not_moving()\n`;
                 pythonCode += `    right_motor.wait_until_not_moving()\n\n`;
 
-                // turn_degrees function
                 pythonCode += `def turn_degrees(degrees: float, speed: int = 50):\n`;
                 pythonCode += `    motion_sensor.reset_yaw_angle()\n`;
                 pythonCode += `    time.sleep(0.1)\n`;
@@ -1483,7 +1415,7 @@ display_message("Robot completed mission segment!")
 
                 pythonCode += `print("Robot Program Initializing...")\n`;
                 pythonCode += `hub.display.set_icon('HAPPY')\n`;
-                pythonCode += `hub.light_matrix.show_image('HAPPY')\n`; // Show happy face on Hub
+                pythonCode += `hub.light_matrix.show_image('HAPPY')\n`;
 
                 commands.forEach(cmd => {
                     switch (cmd.type) {
@@ -1525,8 +1457,6 @@ display_message("Robot completed mission segment!")
                         case 'set_drive_speed':
                             pythonCode += `\n# Set drive speed command: set_drive_speed(${cmd.value})\n`;
                             pythonCode += `print(f"Setting default drive speed to ${cmd.value}%.")\n`;
-                            // This command affects the speed passed to move_straight_inches/turn_degrees
-                            // No direct motor_pair.set_default_speed needed as auto-correction functions handle speed
                             break;
                         case 'print_message':
                             pythonCode += `\n# Display message command: display_message("${cmd.value}")\n`;
@@ -1537,40 +1467,30 @@ display_message("Robot completed mission segment!")
                 });
 
                 pythonCode += `\nprint("Program finished.")\n`;
-                pythonCode += `hub.display.set_icon('GIGGLE') # Show giggle face on Hub at end\n`;
+                pythonCode += `hub.display.set_icon('GIGGLE')\n`;
                 pythonCode += `hub.light_matrix.show_image('GIGGLE')\n`;
                 return pythonCode;
             }
 
-            /**
-             * Sets the robot's position and angle, clearing any ongoing simulation.
-             * @param {number} x - The new X coordinate in inches.
-             * @param {number} y - The new Y coordinate in inches.
-             * @param {number} angle - The new angle in degrees.
-             */
             function setRobotState(x, y, angle) {
-                cancelAnimationFrame(animationFrameId); // Stop any ongoing simulation
-                simulationRunning = false; // Ensure simulation is stopped
-                commandQueue = []; // Clear command queue
-                currentCommandIndex = 0; // Reset index
-                commandStartTime = 0; // Reset start time
+                cancelAnimationFrame(animationFrameId);
+                simulationRunning = false;
+                commandQueue = [];
+                currentCommandIndex = 0;
+                commandStartTime = 0;
 
                 robotX = x;
                 robotY = y;
                 robotAngle = angle;
-                currentDriveSpeed = 50; // Reset speeds
+                currentDriveSpeed = 50;
                 currentTurnSpeed = 50;
                 for (const port in motorStates) {
                     motorStates[port] = 0;
                 }
                 drawRobot();
-                consoleOutput.innerHTML = ''; // Clear console on state change
+                consoleOutput.innerHTML = '';
             }
 
-            /**
-             * Resets only the simulation execution state (commands, console),
-             * keeping the current robot position and angle.
-             */
             function resetSimulationExecution() {
                 cancelAnimationFrame(animationFrameId);
                 simulationRunning = false;
@@ -1578,97 +1498,83 @@ display_message("Robot completed mission segment!")
                 currentCommandIndex = 0;
                 commandStartTime = 0;
                 
-                consoleOutput.innerHTML = ''; // Clear console only
+                consoleOutput.innerHTML = '';
                 logToConsole("Simulation execution reset. Robot position maintained.");
             }
 
             function executeCommand(command, deltaTime) {
-                if (!simulationRunning) return; // Ensure simulation is still active
+                if (!simulationRunning) return;
 
                 switch (command.type) {
                     case 'drive':
-                        const driveSpeedPerMs = (currentDriveSpeed / 100) * 0.1; // inches per ms
-                        const distanceToDrive = command.value; // Total distance for this command
+                        const driveSpeedPerMs = (currentDriveSpeed / 100) * 0.1;
+                        const distanceToDrive = command.value;
                         const distanceCoveredSoFar = (command.traveled || 0);
                         const distanceRemainingForCommand = distanceToDrive - distanceCoveredSoFar;
-                        const direction = Math.sign(distanceToDrive); // +1 for forward, -1 for backward
+                        const direction = Math.sign(distanceToDrive);
 
-                        // Calculate the maximum distance the robot *could* move this frame based on speed and time
                         let maxMoveDistanceThisFrame = driveSpeedPerMs * deltaTime;
 
-                        // Calculate the target angle in radians
                         const angleRad = (robotAngle * Math.PI) / 180;
                         const cosAngle = Math.cos(angleRad);
                         const sinAngle = Math.sin(angleRad);
 
-                        // Determine the actual distance to attempt to move this frame, limited by both speed and remaining command distance
                         let actualDistanceToMoveThisFrame = Math.min(maxMoveDistanceThisFrame, Math.abs(distanceRemainingForCommand));
-                        actualDistanceToMoveThisFrame *= direction; // Apply direction
+                        actualDistanceToMoveThisFrame *= direction;
 
-                        // Calculate potential new X and Y based on this frame's movement
                         let dx = cosAngle * actualDistanceToMoveThisFrame;
                         let dy = sinAngle * actualDistanceToMoveThisFrame;
 
-                        // Robot half-dimensions
                         const halfRobotWidth = ROBOT_WIDTH_INCHES / 2;
                         const halfRobotHeight = ROBOT_HEIGHT_INCHES / 2;
 
-                        // Calculate the absolute boundaries for the robot's center
                         const minX = halfRobotWidth;
                         const maxX = CANVAS_WIDTH_INCHES - halfRobotWidth;
                         const minY = halfRobotHeight;
                         const maxY = CANVAS_HEIGHT_INCHES - halfRobotHeight;
 
-                        // Calculate the new robot position before clamping
                         let newRobotX = robotX + dx;
                         let newRobotY = robotY + dy;
 
                         let hitBoundary = false;
                         let edgeHitMessages = [];
 
-                        // Clamp X position
                         if (newRobotX < minX) {
-                            dx = minX - robotX; // Adjust dx to stop at boundary
+                            dx = minX - robotX;
                             newRobotX = minX;
                             hitBoundary = true;
                             edgeHitMessages.push('left');
                         } else if (newRobotX > maxX) {
-                            dx = maxX - robotX; // Adjust dx to stop at boundary
+                            dx = maxX - robotX;
                             newRobotX = maxX;
                             hitBoundary = true;
                             edgeHitMessages.push('right');
                         }
 
-                        // Clamp Y position
                         if (newRobotY < minY) {
-                            dy = minY - robotY; // Adjust dy to stop at boundary
+                            dy = minY - robotY;
                             newRobotY = minY;
                             hitBoundary = true;
                             edgeHitMessages.push('top');
                         } else if (newRobotY > maxY) {
-                            dy = maxY - robotY; // Adjust dy to stop at boundary
+                            dy = maxY - robotY;
                             newRobotY = maxY;
                             hitBoundary = true;
                             edgeHitMessages.push('bottom');
                         }
 
-                        // Apply the adjusted (or original) movement to robot's actual position
                         robotX += dx;
                         robotY += dy;
 
-                        // Calculate the actual distance moved in this frame after any boundary adjustments
                         const actualDistanceMovedInFrame = Math.sqrt(dx * dx + dy * dy);
 
-                        // Update the total distance traveled for the command.
-                        // If a boundary was hit, we only count the distance up to the boundary.
                         command.traveled = distanceCoveredSoFar + (actualDistanceMovedInFrame * direction);
 
-                        // Check if the command is completed (either by reaching target or hitting boundary)
                         if (Math.abs(command.traveled) >= Math.abs(distanceToDrive) - 0.01 || hitBoundary) {
                             command.completed = true;
                             if (hitBoundary) {
                                 logToConsole(`Error: Robot hit the ${edgeHitMessages.join(' and ')} boundary! Stopping simulation.`, 'error');
-                                simulationRunning = false; // Stop simulation immediately on boundary hit
+                                simulationRunning = false;
                             }
                         }
                         break;
@@ -1679,7 +1585,7 @@ display_message("Robot completed mission segment!")
                         const degreesTurnedThisFrame = turnDegreesPerMs * deltaTime;
 
                         let remainingDegrees = degreesToTurn - (command.turned || 0);
-                        let actualDegreesThisFrame = Math.min(Math.abs(remainingDegrees), turnDegreesPerMs * deltaTime); // Re-calculate based on remaining time
+                        let actualDegreesThisFrame = Math.min(Math.abs(remainingDegrees), turnDegreesPerMs * deltaTime);
                         if (remainingDegrees < 0) {
                             actualDegreesThisFrame = -actualDegreesThisFrame;
                         }
@@ -1760,16 +1666,14 @@ display_message("Robot completed mission segment!")
 
             // --- Event Listeners ---
             runButton.addEventListener('click', () => {
-                // Check for null robot specs before running
                 if (robotSpecs.wheelDiameter === null || robotSpecs.motorDegreesPerRotation === null) {
-                    showMessage("Please Fill Out Robot Specs", true); // Show error pop-up
-                    return; // Stop execution
+                    showMessage("Please Fill Out Robot Specs", true);
+                    return;
                 }
 
-                resetSimulationExecution(); // Only reset simulation execution, not robot state
+                resetSimulationExecution();
                 commandQueue = parseCode(codeEditor.value);
 
-                // Generate and display Python code immediately when "Run Code" is clicked
                 const parsed = parseCode(codeEditor.value);
                 const python = generatePython(parsed);
                 pythonCodeDisplay.value = python;
@@ -1785,11 +1689,10 @@ display_message("Robot completed mission segment!")
             });
 
             resetButton.addEventListener('click', () => {
-                // This button now fully resets the robot's state AND simulation execution
                 setRobotState(
                     CANVAS_WIDTH_INCHES / 2,
                     CANVAS_HEIGHT_INCHES - (ROBOT_HEIGHT_INCHES / 2),
-                    270 // Default start angle
+                    270
                 );
                 logToConsole("Robot and simulation fully reset to default start.");
             });
@@ -1802,32 +1705,28 @@ display_message("Robot completed mission segment!")
                 showMessage('Python code copied to clipboard!');
             });
 
-            // Modified Upload Button: Show modal instead of directly opening file input
             uploadButton.addEventListener('click', () => {
                 uploadModalOverlay.classList.add('show');
             });
 
-            // Modal Close Button
             modalCloseButton.addEventListener('click', () => {
                 uploadModalOverlay.classList.remove('show');
-                pasteCodeTextarea.value = ''; // Clear textarea on close
+                pasteCodeTextarea.value = '';
             });
 
-            // Modal Upload from File Button
             modalUploadFileButton.addEventListener('click', () => {
-                fileUploadInput.click(); // Trigger the hidden file input
-                uploadModalOverlay.classList.remove('show'); // Close modal
+                fileUploadInput.click();
+                uploadModalOverlay.classList.remove('show');
             });
 
-            // Modal Paste Code Button
             modalPasteCodeButton.addEventListener('click', () => {
                 const pastedCode = pasteCodeTextarea.value;
                 if (pastedCode) {
                     codeEditor.value = pastedCode;
                     highlightCode();
                     showMessage('Code pasted successfully!');
-                    uploadModalOverlay.classList.remove('show'); // Close modal
-                    pasteCodeTextarea.value = ''; // Clear textarea
+                    uploadModalOverlay.classList.remove('show');
+                    pasteCodeTextarea.value = '';
                 } else {
                     showMessage('Paste area is empty.', true);
                 }
@@ -1840,31 +1739,30 @@ display_message("Robot completed mission segment!")
                     const reader = new FileReader();
                     reader.onload = (e) => {
                         codeEditor.value = e.target.result;
-                        highlightCode(); // Highlight newly loaded code
+                        highlightCode();
                         showMessage(`File "${file.name}" loaded successfully.`);
                     };
                     reader.onerror = () => {
                         showMessage('Failed to read file.', true);
                     };
-                    fileUploadInput.value = ''; // Clear file input
+                    fileUploadInput.value = '';
                 }
             });
 
-            // New button event listeners
             startLeftButton.addEventListener('click', () => {
                 setRobotState(
-                    ROBOT_WIDTH_INCHES / 2, // Left edge
-                    CANVAS_HEIGHT_INCHES - (ROBOT_HEIGHT_INCHES / 2), // Bottom center
-                    270 // Facing up
+                    ROBOT_WIDTH_INCHES / 2,
+                    CANVAS_HEIGHT_INCHES - (ROBOT_HEIGHT_INCHES / 2),
+                    270
                 );
                 logToConsole("Robot moved to bottom-left, facing up.");
             });
 
             startRightButton.addEventListener('click', () => {
                 setRobotState(
-                    CANVAS_WIDTH_INCHES - (ROBOT_WIDTH_INCHES / 2), // Right edge
-                    CANVAS_HEIGHT_INCHES - (ROBOT_HEIGHT_INCHES / 2), // Bottom center
-                    270 // Facing up
+                    CANVAS_WIDTH_INCHES - (ROBOT_WIDTH_INCHES / 2),
+                    CANVAS_HEIGHT_INCHES - (ROBOT_HEIGHT_INCHES / 2),
+                    270
                 );
                 logToConsole("Robot moved to bottom-right, facing up.");
             });
@@ -1875,7 +1773,6 @@ display_message("Robot completed mission segment!")
                 if (savedSpecs) {
                     robotSpecs = JSON.parse(savedSpecs);
                 }
-                // Apply loaded (or default) specs to the UI
                 wheelDiameterInput.value = robotSpecs.wheelDiameter !== null ? robotSpecs.wheelDiameter : '';
                 motorDegreesPerRotationInput.value = robotSpecs.motorDegreesPerRotation !== null ? robotSpecs.motorDegreesPerRotation : '';
                 leftMotorPortSelect.value = robotSpecs.leftMotorPort;
@@ -1883,7 +1780,6 @@ display_message("Robot completed mission segment!")
             }
 
             function saveRobotSpecs() {
-                // Use ternary operator to store null if input is empty, otherwise parse float/int
                 robotSpecs.wheelDiameter = wheelDiameterInput.value === '' ? null : parseFloat(wheelDiameterInput.value);
                 robotSpecs.motorDegreesPerRotation = motorDegreesPerRotationInput.value === '' ? null : parseInt(motorDegreesPerRotationInput.value);
                 robotSpecs.leftMotorPort = leftMotorPortSelect.value;
@@ -1892,22 +1788,20 @@ display_message("Robot completed mission segment!")
                 showMessage('Robot specifications saved!');
             }
 
-            // Event listeners for specification inputs
             wheelDiameterInput.addEventListener('change', saveRobotSpecs);
-            motorDegreesPerRotationInput.addEventListener('change', saveRobotSpecs); // Add event listener for new input
+            motorDegreesPerRotationInput.addEventListener('change', saveRobotSpecs);
             leftMotorPortSelect.addEventListener('change', saveRobotSpecs);
             rightMotorPortSelect.addEventListener('change', saveRobotSpecs);
 
-            // Initial setup on load
             setRobotState(
                 CANVAS_WIDTH_INCHES / 2,
                 CANVAS_HEIGHT_INCHES - (ROBOT_HEIGHT_INCHES / 2),
-                270 // Initial robot angle
+                270
             );
-            loadRobotSpecs(); // Load specs when the page loads
+            loadRobotSpecs();
 
             window.addEventListener('resize', resizeCanvas);
-            resizeCanvas(); // Initial canvas resize and draw
+            resizeCanvas();
         });
     </script>
 </body>
