@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <link rel="icon" type="image/x-icon" href="./images/logo.png">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+        $(function () {
+            $("#includedContent").load("header.html");
+            $("#Content").load("footer.html");
+        });
+    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Allied Work</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Scrollbar Styling */
+    
+    a{
+        font-size:18px;
+        font-family: sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 h-screen overflow-hidden">
+
+  <!-- NavBar -->
+   <div id="includedContent"></div>
+
+  <div class="flex h-[calc(100%-4rem)]">
+
+    <!-- Sidebar -->
+    <nav id="sidebar" class="w-1/5 bg-green-800 text-white py-6 px-4 overflow-y-auto transition-colors duration-500">
+      <ul class="space-y-4 text-sm">
+        <li><a href="#what-is-it" class="hover:underline">Allied Work</a></li>
+        <li><a href="#autocorrection" class="hover:underline">Allied AutoCorrection</a></li>
+        <li><a href="#related" class="hover:underline">How they are related</a></li>
+        <li><a href="#AACWork" class="hover:underline">How does Allied AutoCorrection Work?</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="w-4/5 bg-white p-10 overflow-y-auto scroll-smooth space-y-16" id="mainContent">
+      
+      <!-- Section: What is it -->
+      <div id="what-is-it">
+        <h2 class="text-4xl font-bold mb-4">Allied Work</h2>
+        <p class="text-lg font-semibold">
+          Allied Work allows user to see where their robots will go on the game mat with the built in visualizer. This is very helpful because many times teams are using trial and error to reach where they want to on the game mat. Not only can teams do this they can also code with ease. The Allied Workspace allows users to code in its native language called Allied Work. Allied Work is made to be simple so everybody can code their robot. When the you are done coding you path you can press the run button to see the path of the robot then copy the python code from the built in python generator.
+
+        </p>
+      </div>
+
+      <!-- Section: Allied AutoCorrection -->
+      <div id="autocorrection">
+        <h2 class="text-4xl font-bold mb-4">Allied AutoCorrection</h2>
+        <p class="text-lg font-semibold">
+         Allied AutoCorrection is a beautiful and helpful function for all FLL teams. The function provides precision in all aspects. Imagine you are walking straight and you trip. Now you will get back in the same Line you were walking in, and walk until you reach your final destination. Allied AutoCorrection is here to help the robot to do the same. One of the sensors used is the gyro sensor. A gyro sensor helps track the robots position in a graph. The gyro sensor helps with the x, y, and z plane. This helps us to see if the robot has encountered an error.
+        </p>
+      </div>
+
+      <!-- Section: How are they related -->
+      <div id="related">
+        <h2 class="text-4xl font-bold mb-4">How are they related</h2>
+        <p class="text-lg font-semibold">
+          You may be asking how a autocorrection software and an auto correction function related. Well in the Allied Work editor whenever you code a command for movement such as drive it takes the Allie auto correction function and uses it to give accurate movements
+        </p>
+      </div>
+ <div id="AACWork">
+        <h2 class="text-4xl font-bold mb-4">How Does Allied AutoCorrection Work?</h2>
+        <p class="text-lg font-semibold">
+         
+        </p>
+      </div>
+    </main>
+  </div>
+   <div id="Content"></div>
+  <!-- JavaScript for Scroll Detection and Theme Switching -->
+  <script>
+    const sidebar = document.getElementById('sidebar');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+
+            if (id === 'autocorrection') {
+              sidebar.style.backgroundColor = '#1f4e2e';
+            } else {
+              sidebar.style.backgroundColor = '#9b59b6';
+            }
+          }
+        });
+      },
+      {
+        root: null,
+        threshold: 0.6
+      }
+    );
+
+    // Observe sections
+    ['what-is-it', 'autocorrection', 'related'].forEach(id => {
+      observer.observe(document.getElementById(id));
+    });
+  </script>
+
+</body>
+</html>
