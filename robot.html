@@ -1,0 +1,380 @@
+        <!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-MG0KYH98NN"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-MG0KYH98NN');
+            </script>
+
+            <link rel="apple-touch-icon" sizes="500x500" href="./images/logo.png">
+            <link rel="icon" type="image/x-icon" href="./images/logo.png">
+            <title>Allied Algorithms</title>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+            <script src="https://cdn.tailwindcss.com"></script>
+
+            <style>
+                /* Core styles for content cards, inputs, and buttons */
+
+                /* @import for Inter font - included here as it's a fundamental stylistic choice */
+                @import url('https://rsms.me/inter/inter.css');
+
+                :root {
+                    --color-bg-dark: #1a202c; /* Deeper dark background for body */
+                    --color-card-bg: #2d3748; /* Darker gray background for cards */
+                    --color-text-light: #e2e8f0; /* Light gray text for general content */
+                    --color-text-heading: #ffffff; /* Pure white for headings for max contrast */
+                    --color-border-dark: #4a5568; /* Darker border for inputs */
+                    --color-blue-primary: #4299e1; /* Original blue button */
+                    --color-blue-hover: #3182ce; /* Darker blue on hover */
+                    --color-purple-link: #9f7aea; /* Original purple link */
+                    --color-purple-hover: #b794f4; /* Lighter purple on hover */
+                    --color-focus-ring: rgba(99, 179, 237, 0.5); /* Blue focus ring */
+                }
+
+                body {
+                    font-family: 'Inter', sans-serif;
+                    background-color: var(--color-bg-dark); /* Deeper dark background */
+                    color: var(--color-text-light); /* Default text color */
+                }
+
+                .robot {
+                    border-bottom: 2px solid white; /* Still white border if needed, consider adjusting for dark theme */
+                    padding-bottom: 3px;
+                }
+
+                /* Main content card wrapper */
+                .main-content-card {
+                    display: flex;
+                    flex-direction: column; /* Default to column on small screens */
+                    max-width: 1200px;
+                    width: 100%;
+                    background-color: var(--color-card-bg); /* Darker gray background */
+                    border-radius: 1rem;
+                    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); /* Stronger shadow for depth */
+                    overflow: hidden;
+                    margin-bottom: 2rem; /* Add space between cards */
+                    border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle white border for definition */
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+
+                .main-content-card:hover {
+                    transform: translateY(-5px); /* Lift card on hover */
+                    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5); /* Enhanced shadow on hover */
+                }
+
+                /* Desktop layout for cards */
+                @media (min-width: 768px) {
+                    .main-content-card {
+                        flex-direction: row; /* Row on medium and larger screens */
+                    }
+                }
+
+                .image-container {
+                    flex: 1;
+                    /* Ensures image container takes available space */
+                    background-color: var(--color-border-dark); /* Darker gray background for image placeholder */
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    overflow: hidden;
+                    border-radius: 1rem 1rem 0 0; /* Top corners rounded for column layout */
+                    min-height: 250px; /* Ensure a minimum height for image */
+                }
+                @media (min-width: 768px) {
+                    .image-container {
+                        border-radius: 1rem 0 0 1rem; /* Left corners rounded for row layout */
+                    }
+                }
+
+                .image-container img {
+                    width: 100%;
+                    height: 100%; /* Make image fill container */
+                    object-fit: cover; /* Cover the area, cropping if necessary */
+                    border-radius: inherit; /* Inherit border radius from parent */
+                }
+
+                .content-container {
+                    flex: 1;
+                    padding: 2.5rem; /* Slightly more padding */
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    border-radius: 0 0 1rem 1rem; /* Bottom corners rounded for column layout */
+                    color: var(--color-text-light); /* Ensure content text is light */
+                }
+                @media (min-width: 768px) {
+                    .content-container {
+                        border-radius: 0 1rem 1rem 0; /* Right corners rounded for row layout */
+                    }
+                }
+
+
+                .heading-text {
+                    font-size: 2rem; /* Larger heading */
+                    font-weight: 800; /* Extra bold */
+                    color: var(--color-text-heading); /* Pure white heading */
+                    margin-bottom: 1.5rem;
+                    text-align: center;
+                    letter-spacing: -0.05em; /* Slightly tighter letter spacing */
+                    line-height: 1.2;
+                }
+
+                /* Adjust input field for consistent look */
+                input[type="text"] {
+                    border: 1px solid var(--color-border-dark); /* Darker border */
+                    outline: none;
+                    background-color: var(--color-card-bg); /* Match card background for input */
+                    color: var(--color-text-light); /* Light text color */
+                    padding: 0.75rem 1rem; /* Consistent padding */
+                    border-radius: 0.5rem; /* Softer corners */
+                    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2); /* Inner shadow for depth */
+                }
+                input[type="text"]:focus {
+                    border-color: var(--color-blue-primary); /* Lighter blue on focus */
+                    box-shadow: 0 0 0 3px var(--color-focus-ring); /* Lighter blue ring */
+                    background-color: rgba(255, 255, 255, 0.05); /* Slightly lighter on focus */
+                }
+                input::placeholder {
+                    color: #a0aec0; /* Lighter placeholder text */
+                    opacity: 0.7;
+                }
+
+                /* Styles for the button with SVG */
+                .action-button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.75rem; /* More space around icon */
+                    background-color: var(--color-blue-primary); /* Blue-500 */
+                    color: white;
+                    font-weight: bold;
+                    padding: 1rem 1.5rem; /* Larger button */
+                    border-radius: 0.75rem; /* More rounded corners */
+                    border: none;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow for button */
+                    margin-top: 1.5rem; /* More space above button */
+                    align-self: stretch; /* Make button full width in column */
+                }
+                .action-button:hover {
+                    background-color: var(--color-blue-hover); /* Blue-600 */
+                    transform: translateY(-2px); /* Slight lift on hover */
+                    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+                }
+                .action-button:active {
+                    transform: translateY(0); /* Press effect */
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                }
+                .action-button:focus {
+                    outline: none;
+                    box-shadow: 0 0 0 4px var(--color-focus-ring); /* Wider focus ring */
+                }
+                .action-button .download-icon {
+                    width: 1.5rem; /* Larger icon */
+                    height: 1.5rem; /* Larger icon */
+                    fill: currentColor;
+                }
+
+                /* Styles for the CAD link */
+                .cad-link {
+                    align-self: center; /* Center the link */
+                    margin-top: 1.5rem; /* More space above */
+                    color: var(--color-purple-link); /* Light purple for link */
+                    text-decoration: none;
+                    font-size: 1rem; /* Slightly larger font */
+                    font-weight: 600; /* Semi-bold */
+                    transition: color 0.3s ease, transform 0.3s ease;
+                    display: flex; /* Allow icon next to text if added */
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+                .cad-link:hover {
+                    color: var(--color-purple-hover); /* Lighter purple on hover */
+                    transform: translateY(-1px); /* Slight lift */
+                    text-decoration: underline; /* Underline on hover */
+                }
+
+                /* Status message styling */
+                .status-message {
+                    margin-top: 1.5rem;
+                    padding-top: 1rem;
+                    text-align: center;
+                    font-size: 0.95rem;
+                    font-weight: 500;
+                    color: #cbd5e0; /* Default neutral gray */
+                }
+                .status-message.error {
+                    color: #fc8181; /* Red for errors */
+                }
+                .status-message.success {
+                    color: #68d391; /* Green for success */
+                }
+                .status-message.loading {
+                    color: #63b3ed; /* Blue for loading */
+                }
+
+                hr {
+                    border: none;
+                    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white divider */
+                    margin: 3rem auto; /* More vertical spacing for dividers */
+                    width: 80%; /* Shorter line */
+                }
+
+            </style>
+        </head>
+
+        <body>
+            <div id="includedContent"></div>
+
+            <main class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+                <div class="main-content-card">
+                    <div class="image-container">
+                        <img src="images/robot/BaseBot.jpg" alt="Robot Design #1">
+                    </div>
+                    <div class="content-container">
+                        <h2 class="heading-text">Robot Design #1</h2>
+                        <div>
+                            <label for="teamNumberInput1" class="block text-sm font-semibold mb-2">
+                                Team Number:
+                            </label>
+                            <input type="text" id="teamNumberInput1" placeholder="e.g. 58590, Allied Algo"
+                                class="w-full">
+                        </div>
+                        <button onclick="handleDownload(1, 'teamNumberInput1', 'statusMessage1', 'instructions/basebot.pdf')"
+                            class="action-button">
+                            <svg class="download-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M16 11c-.55 0-1 .45-1 1v4H9v-4c0-.55-.45-1-1-1s-1 .45-1 1v4c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2v-4c0-.55-.45-1-1-1zM12 3L7 8h3v4h4V8h3l-5-5z" />
+                            </svg>
+                            Download Files
+                        </button>
+                        <a href="https://www.bricklink.com/v3/studio/design.page?idModel=694818"
+                            target="_blank" rel="noopener noreferrer" class="cad-link">
+                            
+                            View CAD Link
+                        </a>
+                    </div>
+                </div>
+                <p id="statusMessage1" class="status-message"></p>
+
+                <hr>
+
+                <div class="main-content-card">
+                    <div class="image-container">
+                        <img src="images/robot/BaseBot2.jpg" alt="Robot Design #2">
+                    </div>
+                    <div class="content-container">
+                        <h2 class="heading-text">Robot Design #2</h2>
+                        <div>
+                            <label for="teamNumberInput2" class="block text-sm font-semibold mb-2">
+                                Team Number:
+                            </label>
+                            <input type="text" id="teamNumberInput2" placeholder="e.g. 12345, RoboMasters"
+                                class="w-full">
+                        </div>
+                        <button onclick="handleDownload(2, 'teamNumberInput2', 'statusMessage2', 'instructions/basebot2.pdf')"
+                            class="action-button">
+                            <svg class="download-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M16 11c-.55 0-1 .45-1 1v4H9v-4c0-.55-.45-1-1-1s-1 .45-1 1v4c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2v-4c0-.55-.45-1-1-1zM12 3L7 8h3v4h4V8h3l-5-5z" />
+                            </svg>
+                            Download Files
+                        </button>
+                        <a href="https://www.bricklink.com/v3/studio/design.page?idModel=694816"
+                            target="_blank" rel="noopener noreferrer" class="cad-link">
+                            
+                            View CAD Link
+                        </a>
+                    </div>
+                </div>
+                <p id="statusMessage2" class="status-message"></p>
+
+            </main>
+            <div id="Content"></div>
+
+            <script>
+                $(function () {
+                    $("#includedContent").load("header.html");
+                    $("#Content").load("footer.html");
+                });
+
+                const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1377087321203150941/iK28JWFiXjPouGOpEVnvhExkIqPdp8H7P7HT5oSJHdpPFOgMsOde9s8fD-xSnyl_MNbQ";
+
+                async function handleDownload(robotVersion, teamNumberInputId, statusMessageId, downloadFilePath) {
+                    const teamNumberInput = document.getElementById(teamNumberInputId);
+                    const statusMessage = document.getElementById(statusMessageId);
+                    const teamNumber = teamNumberInput.value.trim();
+
+                    statusMessage.textContent = ''; // Clear previous messages
+                    statusMessage.className = 'status-message'; // Reset classes
+
+                    if (!teamNumber) {
+                        statusMessage.textContent = "Please enter a team number before downloading.";
+                        statusMessage.classList.add("error");
+                        return;
+                    }
+
+                    const anchor = document.createElement('a');
+                    anchor.href = downloadFilePath;
+                    anchor.download = downloadFilePath.split('/').pop();
+                    document.body.appendChild(anchor);
+                    anchor.click();
+                    document.body.removeChild(anchor);
+
+                    await sendDiscordMessageFromBrowser(teamNumberInputId, statusMessageId, robotVersion);
+                }
+
+                async function sendDiscordMessageFromBrowser(teamNumberInputId, statusMessageId, robotVersion) {
+                    const teamNumberInput = document.getElementById(teamNumberInputId);
+                    const statusMessage = document.getElementById(statusMessageId);
+                    const teamNumber = teamNumberInput.value.trim();
+
+                    if (!teamNumber) {
+                        return;
+                    }
+
+                    const messageContent = `Team ${teamNumber} has downloaded robot version ${robotVersion} on ${new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })}`;
+
+                    const payload = {
+                        content: messageContent
+                    };
+
+                    statusMessage.textContent = "Notifying Discord...";
+                    statusMessage.classList.remove("error", "success");
+                    statusMessage.classList.add("loading");
+
+                    try {
+                        const response = await fetch(DISCORD_WEBHOOK_URL, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (response.ok) {
+                            statusMessage.textContent = `Team ${teamNumber} downloaded robot version ${robotVersion}!`;
+                            statusMessage.classList.remove("loading", "error");
+                            statusMessage.classList.add("success");
+                            teamNumberInput.value = '';
+                        } else {
+                            const errorDetails = await response.text();
+                            statusMessage.textContent = `Failed to send download notification. Status: ${response.status}.`;
+                            statusMessage.classList.remove("loading", "success");
+                            statusMessage.classList.add("error"); // Use error class for failed notifications
+                            console.error("Discord API Error:", response.status, errorDetails);
+                        }
+                    } catch (error) {
+                        statusMessage.textContent = `An error occurred while sending notification.`;
+                        statusMessage.classList.remove("loading", "success");
+                        statusMessage.classList.add("error"); // Use error class for network errors
+                        console.error("Fetch operation failed:", error);
+                    }
+                }
+            </script>
+        </body>
+
+        </html>
