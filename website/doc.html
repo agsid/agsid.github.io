@@ -5,6 +5,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Allied Work</title>
+   <script>
+        $(function () {
+            $("#includedContent").load("header.html");
+            $("#Content").load("footer.html");
+        });
+    </script>
   <style>
     /* Global Styles */
     body {
@@ -151,7 +157,7 @@
   </style>
 </head>
 <body class="bg-gray-100 h-screen flex flex-col">
-
+ <div id="includedContent"></div>
   <!-- Flex container for Sidebar and Main Content, takes remaining height -->
   <div class="content-wrapper">
 
@@ -245,7 +251,7 @@
   </div>
 
   <!-- Footer -->
-
+   <div id="Content"></div>
   <!-- JavaScript for Scroll Detection and Theme Switching -->
   <script>
     const sidebar = document.getElementById('sidebar');
