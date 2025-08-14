@@ -2,7 +2,8 @@
 <html lang="en">
 
 <head>
-      <script src="seasons.js"></script>
+    <!-- Ensure your JavaScript file is correctly linked -->
+    <script src="season-data.js"></script> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Allied Algorithms - FLL Team Accomplishments</title>
@@ -19,7 +20,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-               background-color: #1a202c;
+            background-color: #1a202c;
             color: #333;
             display: flex; /* For sticky footer layout */
             flex-direction: column; /* For sticky footer layout */
@@ -175,8 +176,57 @@
             }
         }
 
-        // Data for past seasons
-      
+        /**
+         * Renders the current season's data dynamically from the seasonsData array.
+         * Assumes seasonsData is globally available (or imported if using modules).
+         */
+        function renderCurrentSeason() {
+            // Find the most recent season (assuming it's the first in the array)
+            const currentSeason = seasonsData[0]; 
+
+            if (!currentSeason) {
+                console.error("No current season data found in seasonsData array.");
+                return;
+            }
+
+            // Update the main current season title
+            const currentSeasonTitle = document.querySelector('.current-season-title');
+            if (currentSeasonTitle) {
+                currentSeasonTitle.textContent = `Current Season: ${currentSeason.year}`;
+            }
+
+            // Update the stat items
+            const hoursSpentElement = document.querySelector('.current-stats .stat-item:nth-child(1) h2');
+            if (hoursSpentElement) hoursSpentElement.textContent = currentSeason.hoursSpent;
+
+            const peopleImpactedElement = document.querySelector('.current-stats .stat-item:nth-child(2) h2');
+            if (peopleImpactedElement) peopleImpactedElement.textContent = currentSeason.peopleImpacted;
+
+            const missionsCompletedElement = document.querySelector('.current-stats .stat-item:nth-child(3) h2');
+            if (missionsCompletedElement) missionsCompletedElement.textContent = currentSeason.missionsCompleted;
+
+            // Update the FLL logo link and image
+            const fllLogoLink = document.querySelector('.fll-logo-link');
+            const fllLogoImg = fllLogoLink ? fllLogoLink.querySelector('img') : null;
+
+            if (fllLogoLink) {
+                // The prompt HTML didn't specify a link for the FLL logo, so I'm leaving it as is.
+                // If you want to link it to the current season's specific page, update the href here:
+                // fllLogoLink.href = "YOUR_CURRENT_SEASON_LINK_HERE";
+            }
+            if (fllLogoImg) {
+                fllLogoImg.src = currentSeason.image;
+                fllLogoImg.alt = currentSeason.alt;
+            }
+            
+            // Update the season description
+            const seasonDescriptionTitle = document.querySelector('.season-description h4');
+            if (seasonDescriptionTitle) seasonDescriptionTitle.textContent = currentSeason.title;
+
+            const seasonDescriptionParagraph = document.querySelector('.season-description p');
+            if (seasonDescriptionParagraph) seasonDescriptionParagraph.textContent = currentSeason.description;
+        }
+
         // Function to render past season cards
         function renderPastSeasons() {
             const pastSeasonsContainer = document.getElementById('past-seasons-container');
@@ -184,9 +234,14 @@
 
             pastSeasonsContainer.innerHTML = ''; // Clear existing content
 
-            pastSeasons.forEach((season, index) => {
+            // We now use seasonsData, and assume current season is the first entry,
+            // so we'll render all *except* the first entry for "past" seasons.
+            // If you want to include all, including current in the "past seasons" list,
+            // you can change seasonsData.slice(1) to seasonsData.
+            seasonsData.slice(1).forEach((season, index) => { 
                 const card = document.createElement('div');
                 // Alternate the image and text direction for visual variety
+                // Adjusting index for slice() so the first past season is index 0 for alternating
                 const orderClass = (index % 2 === 0) ? '' : 'reverse-order';
                 card.className = `season-card ${orderClass}`;
 
@@ -207,6 +262,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadHTML('includedContent', 'header.html');
             loadHTML('Content', 'footer.html');
+            renderCurrentSeason(); // Call this to populate the current season details
             renderPastSeasons(); // Call this to populate the past seasons
         });
     </script>
@@ -215,42 +271,45 @@
 <body>
     <div id="includedContent"></div>
 
-   <main class="container mx-auto px-4 py-12 text-white">
+    <main class="container mx-auto px-4 py-12 text-white">
 
         <section class="mb-12 text-center">
-            <h2 class="text-3xl font-bold text-white-800 mb-6">Current Season: 2025-2026</h2>
+            <!-- The H2 text is now dynamically updated by renderCurrentSeason() -->
+            <h2 class="text-3xl font-bold text-white-800 mb-6 current-season-title">Current Season: 2025-2026</h2>
 
             <div class="current-stats">
                 <div class="stat-item">
                     <p>Hours Spent</p>
-                    <h2>40</h2>
+                    <!-- These H2s are now dynamically updated by renderCurrentSeason() -->
+                    <h2></h2> 
                 </div>
                 <div class="stat-item">
                     <p>People Impacted</p>
-                    <h2>50</h2>
+                    <h2></h2>
                 </div>
                 <div class="stat-item">
                     <p>Missions Completed</p>
-                    <h2>0</h2>
+                    <h2></h2>
                 </div>
             </div>
 
             <a href="https://info.firstinspires.org/first-age" target="_blank" rel="noopener noreferrer"
                 class="fll-logo-link">
-                <img src="https://info.firstinspires.org/hs-fs/hubfs/2026%20Season/Season%20Assets/first_age_fll_unearthed_logo_vertical_rgb_fullcolor.png?width=334&height=334&name=first_age_fll_unearthed_logo_vertical_rgb_fullcolor.png"
-                    alt="FIRST LEGO League UNEARTHED Season Logo">
+                <!-- Image source and alt are now dynamically updated by renderCurrentSeason() -->
+                <img src="" alt="">
             </a>
 
             <div class="season-description text-lg text-white-700 max-w-6xl mx-autocontainer mx-auto px-4 py-18 text-white">
-                <h4>Unearthed</h4>
-                <p>Next year will be a landmark season for our team, as we will have created a comprehensive team website. This digital platform will become our central hub, enabling us to share our journey, document our progress, and connect with a wider audience. Concurrently, we will be meticulously planning for the upcoming season, setting ambitious goals and strategically outlining the steps required to achieve them. A key focus of our off-season will be the full development and implementation of a PID system, a sophisticated control algorithm that will significantly enhance our robot's precision and responsiveness, ultimately giving us a competitive edge.</p>
+                <!-- H4 and P are now dynamically updated by renderCurrentSeason() -->
+                <h4></h4>
+                <p></p>
             </div>
         </section>
 
         <section>
             <h2 class="text-3xl font-bold text-white-1000 mb-8 text-center">Our Past Seasons</h2>
             <div id="past-seasons-container">
-                </div>
+            </div>
         </section>
 
     </main>
