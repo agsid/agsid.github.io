@@ -10,14 +10,14 @@
                 year: "2023-2024",
                 title: "Masterpiece",
                 description: "The 2023-2024 Masterpiece season was truly unforgettable! Our robotics team poured countless hours into designing, building, and programming our robot to tackle the art-themed challenges with precision and creativity. The dedication and teamwork truly paid off, as we made it to states.",
-                image: "./images/seasons/yr_24-25.JPEG",
+                image: "./images/seasons/yr_23-24.jpg",
                 alt: "Team Allied Algorithms in the 2023-2024 Masterpiece season"
             },
             {
                 year: "2022-2023",
                 title: "SUPERPOWERED",
                 description: "In this high-energy season, our team explored the future of energy, innovating solutions and refining our robot game strategy. We focused on teamwork and problem-solving, leading to significant growth in our programming and collaboration skills. *Add specific accomplishments like awards or project details here.*",
-                image: "./images/past_yrs/yr_22-23.JPEG",
+                image: "./images/past_yrs/yr_22-23.jpg",
                 alt: "Team Allied Algorithms in the 2022-2023 season"
             },
             {
