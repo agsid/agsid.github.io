@@ -3,7 +3,7 @@
                 year: "2024-2025",
                 title: "Submerged",
                 description: "Our team dedicated this year to the development of a new robot design, alongside our innovation project. We had no changes to the team. We were lucky enough to have a chance to present our robot and innovation project to our board of education who were not only amazed, but informed about FIRST in their community.",
-                image: "./images/seasons/yr_24-25.JPEG",
+                image: "website/images/seasons/yr_24-25.JPEG",
                 alt: "Team Allied Algorithms in the 2024-2025 Submerged season"
             },
             {
