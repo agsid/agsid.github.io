@@ -13,7 +13,7 @@ const seasonsData = [
         year: "2024-2025",
         title: "Submerged",
         description: "Our team dedicated this year to the development of a new robot design, alongside our innovation project. We had no changes to the team. We were lucky enough to have a chance to present our robot and innovation project to our board of education who were not only amazed, but informed about FIRST in their community.",
-        image: "website/images/seasons/yr_24-25.jpg",
+        image: "./images/seasons/yr_24-25.jpg",
         alt: "Team Allied Algorithms in the 2024-2025 Submerged season"
     },
     {
@@ -27,7 +27,7 @@ const seasonsData = [
         year: "2022-2023",
         title: "SUPERPOWERED",
         description: "In this high-energy season, our team explored the future of energy, innovating solutions and refining our robot game strategy. We focused on teamwork and problem-solving, leading to significant growth in our programming and collaboration skills. *Add specific accomplishments like awards or project details here.*",
-        image: "./images/past_yrs/yr_22-23.jpg",
+        image: "./images/seasons/yr_22-23.jpg",
         alt: "Team Allied Algorithms in the 2022-2023 season"
     },
     {
