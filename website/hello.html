@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="./images/logo.png">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
+     <script>
         $(function () {
             $("#includedContent").load("header.html");
-            // Removed: $("#Content").load("footer.html"); as footer is now directly in HTML
+            $("#Content").load("footer.html");
         });
     </script>
+    <link rel="icon" type="image/x-icon" href="./images/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Allied Work</title>
@@ -17,93 +16,47 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:400&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        $(function () {
-            $("#includedContent").load("header.html");
-        });
-    </script>
     <style>
         /* Define CSS Variables for themes */
         :root {
-            /* Light Mode Colors - Creamy Palette */
-            --bg-primary: #f5cba7;
-            --bg-primary-end: #f2b27a;
-            --bg-secondary: #fff8e1;
-            --text-primary: #4a3b2e;
-            --text-secondary: #3a2d22;
-            --text-heading-main: #a0522d;
-            --text-heading-sub: #c06a3f;
-            --text-inactive-tab: #8b7b6e;
-            --console-bg: #f0e6d6;
-            --console-text: #4a3b2e;
-            --canvas-bg: #fffcf5;
-            --canvas-border: #a0522d;
-            --tab-button-inactive-bg: #f0e6d6;
-            --tab-button-inactive-text: #8b7b6e;
-            --tab-button-active-bg: #fff8e1;
-            --tab-button-active-text: #a0522d;
-            --border-color: #d4c1ae;
-            --textarea-bg: #fffdfa;
-            --commands-section-bg: #f0e6d6;
-            --commands-list-border: #d4c1ae;
-            --line-number-bg: #e9e0d4;
-            --line-number-text: #a69a8e;
-
-            /* Button-specific variables for light mode */
-            --button-primary-gradient: linear-gradient(to right, #c06a3f, #a0522d);
-            --button-primary-gradient-hover: linear-gradient(to right, #a0522d, #804124);
-            --button-text-light: #ffffff;
-
-            /* Settings dropdown button base styles */
-            --settings-button-bg: var(--bg-secondary);
-            --settings-button-text: var(--text-primary);
-
-            /* Syntax Highlighting Colors */
-            --comment-color: #6b8e23;
-            --movement-color: #4682b4;
-            --turn-color: #8a2be2;
-            --arm-command-color: #daa520;
-        }
-
-        .dark-mode {
-            /* Dark Mode Colors - "Twilight Abyss" Palette */
-            --bg-primary: #282a36;
-            --bg-primary-end: #1e2029;
-            --bg-secondary: #44475a;
-            --text-primary: #f8f8f2;
-            --text-secondary: #f8f8f2;
-            --text-heading-main: #ff79c6;
-            --text-heading-sub: #66d9ef;
-            --text-inactive-tab: #6272a4;
-            --console-bg: #1f212a;
-            --console-text: #f8f8f2;
-            --canvas-bg: #2f313d;
-            --canvas-border: #50fa7b;
-            --tab-button-inactive-bg: #333544;
-            --tab-button-inactive-text: #6272a4;
-            --tab-button-active-bg: #22242b;
-            --tab-button-active-text: #50fa7b;
-            --border-color: #4a4c5a;
-            --textarea-bg: #2e303d;
-            --commands-section-bg: #383a4a;
-            --commands-list-border: #4a4c5a;
-            --line-number-bg: #44475a;
-            --line-number-text: #6272a4;
+            /* Dark Mode Colors - New Palette */
+            --bg-primary: #1a1a1a; /* Very dark gray for main background */
+            --bg-primary-end: #2a2a2a; /* Slightly lighter dark gray for gradient end */
+            --bg-secondary: #2f2f2f; /* Slightly lighter than primary for containers */
+            --text-primary: #cccccc; /* Light gray for general text */
+            --text-secondary: #aaaaaa; /* Slightly darker light gray for secondary text */
+            --text-heading-main: #6A9C85; /* Highlighted green for main headings */
+            --text-heading-sub: #8BC34A; /* Lighter green for subheadings */
+            --text-inactive-tab: #999999; /* Muted light gray for inactive tab text */
+            --console-bg: #000000; /* Black for console background (requested) */
+            --console-text: #eeeeee; /* Light text for console */
+            --canvas-bg: #000000; /* Black for canvas background (requested) */
+            --canvas-border: #6A9C85; /* Green for canvas border */
+            --tab-button-inactive-bg: #CFBCBC; /* Requested color for inactive tabs */
+            --tab-button-inactive-text: #4a3b2e; /* Dark text for light tabs */
+            --tab-button-active-bg: #CFBCBC; /* Requested color for active tabs */
+            --tab-button-active-text: #a0522d; /* Contrasting dark text for active tabs */
+            --border-color: #444444; /* Subtle dark border color */
+            --textarea-bg: #3a3a3a; /* Dark background for textarea */
+            --commands-section-bg: #353535; /* Slightly lighter dark for command sections */
+            --commands-list-border: #555555; /* Subtle border for command lists */
+            --line-number-bg: #333333; /* Dark background for line numbers */
+            --line-number-text: #888888; /* Light color for line numbers */
 
             /* Button-specific variables for dark mode */
-            --button-primary-gradient: linear-gradient(to right, #50fa7b, #8be9fd);
-            --button-primary-gradient-hover: linear-gradient(to right, #3ca85a, #6a71cb);
-            --button-text-light: #ffffff;
+            --button-primary-gradient: linear-gradient(to right, #6A9C85, #4A7C64); /* Green gradient for buttons */
+            --button-primary-gradient-hover: linear-gradient(to right, #4A7C64, #3B6B50); /* Darker green on hover */
+            --button-text-light: #ffffff; /* White text for buttons */
 
             /* Settings dropdown button base styles */
-            --settings-button-bg: var(--bg-secondary);
-            --settings-button-text: var(--text-primary);
+            --settings-button-bg: #4a4a4a; /* Dark gray for settings button */
+            --settings-button-text: #cccccc; /* Light text for settings button */
 
-            /* Syntax Highlighting Colors for Dark Mode (mapped to Twilight Abyss) */
-            --comment-color: #6272a4;
-            --movement-color: #50fa7b;
-            --turn-color: #ff79c6;
-            --arm-command-color: #8be9fd;
+            /* Syntax Highlighting Colors (based on #6A9C85) */
+            --comment-color: #6A9C85; /* Requested highlight color for comments */
+            --movement-color: #5CB3A0; /* A different shade of green/teal for movement */
+            --turn-color: #8FBC8F; /* Another green shade for turns */
+            --arm-command-color: #ADD8E6; /* Light blue for arm commands */
         }
 
         /* Apply CSS variables */
@@ -127,6 +80,26 @@
             background-attachment: fixed;
         }
 
+        /* New class on <body> to indicate fullscreen mode */
+        body.fullscreen-active {
+            overflow: hidden; /* Prevent scrolling when a panel is fullscreen */
+        }
+
+        body.fullscreen-active #app-container {
+            width: 100vw;
+            height: 100vh;
+            max-width: none;
+            min-height: 100vh;
+            border-radius: 0;
+            box-shadow: none;
+            padding-top: 0; /* No padding if header is hidden */
+        }
+
+        body.fullscreen-active #tab-header,
+        body.fullscreen-active footer {
+            display: none !important;
+        }
+
         #app-container {
             display: flex;
             flex-direction: column;
@@ -141,10 +114,6 @@
             transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
             position: relative;
             padding-top: 5rem;
-        }
-        .dark-mode #app-container {
-            backdrop-filter: blur(8px);
-            color: var(--text-secondary);
         }
 
         /* Layout rearrangement styles for main content area only */
@@ -234,6 +203,29 @@
              flex-direction: column;
         }
 
+        /* Base style for any panel that goes fullscreen */
+        .fullscreen-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 999;
+            background-color: var(--bg-secondary); /* Match app background or specific */
+            padding: 2rem; /* Add generous padding for fullscreen content */
+            box-sizing: border-box; /* Include padding in width/height */
+            display: flex !important; /* Ensure it's visible and takes flex properties */
+            flex-direction: column;
+            justify-content: flex-start; /* Align content to start */
+            align-items: center; /* Center horizontally */
+        }
+
+        /* Hide the non-fullscreen panel when one is active */
+        body.fullscreen-active #main-content-area #editor-panel:not(.fullscreen-panel),
+        body.fullscreen-active #main-content-area #simulation-panel:not(.fullscreen-panel) {
+            display: none !important;
+        }
+
         #editor-panel, #simulation-panel {
             flex: 1;
             padding: 2rem;
@@ -278,6 +270,34 @@
             transition: min-height 0.3s ease, max-height 0.3s ease, border-color 0.4s ease, box-shadow 0.4s ease;
             position: relative;
         }
+
+        /* Adjust the text area and canvas inside fullscreen panels */
+        #editor-panel.fullscreen-panel .code-editor-container {
+            flex-grow: 1; /* Allow editor to take available space */
+            min-height: unset; /* Override min-height */
+            height: auto; /* Allow height to adjust */
+        }
+
+        #simulation-panel.fullscreen-panel .flex-grow.w-full { /* This targets the div containing canvas */
+            flex-grow: 1;
+            display: flex; /* Make it a flex container to center canvas */
+            justify-content: center;
+            align-items: center;
+            width: 100%; /* Ensure it takes full width */
+        }
+
+        #simulation-panel.fullscreen-panel #robot-canvas {
+            max-width: 100%; /* Fill available space */
+            max-height: 100%; /* Fill available space */
+            object-fit: contain; /* Maintain aspect ratio */
+        }
+
+        /* Ensure console output also adapts in fullscreen simulation */
+        #simulation-panel.fullscreen-panel #console-output {
+            max-height: 30%; /* Give it some max height but not too much */
+            min-height: 100px;
+        }
+
 
         #code-editor {
             flex-grow: 1;
@@ -365,9 +385,6 @@
             padding: 0.3em 0;
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
-        .dark-mode #console-output .console-line {
-             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
         .console-timestamp {
             color: var(--text-inactive-tab);
             margin-right: 0.6em;
@@ -433,9 +450,6 @@
             padding: 0.25em 0.5em;
             border-radius: 0.4rem;
             transition: background-color 0.4s ease, color 0.4s ease;
-        }
-        .dark-mode code {
-            background-color: rgba(0,0,0,0.25);
         }
 
         /* Button specific styles */
@@ -712,18 +726,20 @@
     </style>
 </head>
 <body>
-     <!-- Moved includedContent back here -->
-       
     <div id="app-container">
- <div id="includedContent"></div>
+   <div id="includedContent"></div>
         <div id="settings-dropdown" class="relative">
             <button id="settings-toggle" aria-label="Settings" class="p-2 rounded-full shadow-md transition-all duration-300 ease-in-out">
                 <ion-icon name="ellipsis-vertical-outline" class="text-xl"></ion-icon>
             </button>
             <div id="settings-menu" class="absolute hidden bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md shadow-lg py-2 mt-2 right-0 min-w-[180px]">
-                <button id="theme-mode-toggle">
-                    <ion-icon name="moon-outline"></ion-icon>
-                    <span>Dark Mode</span>
+                <button id="fullscreen-editor-toggle" class="w-full text-left px-5 py-3 hover:bg-[var(--tab-button-inactive-bg)] hover:text-[var(--text-heading-main)] flex items-center">
+                    <ion-icon name="code-slash-outline"></ion-icon>
+                    Fullscreen Editor
+                </button>
+                <button id="fullscreen-simulation-toggle" class="w-full text-left px-5 py-3 hover:bg-[var(--tab-button-inactive-bg)] hover:text-[var(--text-heading-main)] flex items-center">
+                    <ion-icon name="cube-outline"></ion-icon>
+                    Fullscreen Simulation
                 </button>
             </div>
         </div>
@@ -733,7 +749,7 @@
             <button class="tab-button" data-tab-target="tab-content-specification">Robot Specification</button>
             <button class="tab-button" data-tab-target="tab-content-commands">Available Commands</button>
         </div>
-    
+
         <div id="main-content-area">
             <div id="tab-content-editor" class="tab-content active">
                 <div id="editor-panel" class="flex flex-col">
@@ -746,7 +762,7 @@
                         <div id="highlight-overlay"></div> <!-- Highlight Overlay -->
                         <textarea id="code-editor" class="w-full" spellcheck="false" placeholder="Type your commands here...">
 // Welcome to Allied Algorithms FLL Bot Programmer!
-// Use the commands on the 'Available Commands' tab to control your robot.
+// Use the commands on 'Available Commands' tab to control your robot.
 
 print_message("Initializing robot on the field...")
 // Robot starts at the center of the bottom edge of the field, facing up.
@@ -906,32 +922,8 @@ display_message("Robot completed mission segment!")
                 </div>
             </div>
         </div>
-        <footer class="bg-gray-900 text-gray-300 py-8 px-4 md:px-8 shadow-inner rounded-b-lg">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 text-center md:text-left">
-                <div class="col-span-1 md:col-span-1 lg:col-span-1">
-                    <h3 class="text-xl font-semibold text-white mb-4">Official Resources</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="https://www.firstlegoleague.org/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition duration-300 ease-in-out rounded-md p-1 block">FIRST LEGO League Official Site</a></li>
-                        <li><a href="https://www.firstinspires.org/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition duration-300 ease-in-out rounded-md p-1 block">FIRST Robotics Official Site</a></li>
-                        <li><a href="https://youtu.be/exWkcUBS0j8?si=oZ2BRTdK8B6WXpFX" target="blank" class="hover:text-white transition duration-300 ease-in-out rounded-md p-1 block">FLL Challenge 25</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-span-1 md:col-span-1 lg:col-span-1">
-                    <h3 class="text-xl font-semibold text-white mb-4">Connect With Us</h3>
-                    <p class="text-sm mb-4">Email: <a target="blank"href="mailto:alliedalgorithms@gmail.com" class="hover:text-white transition duration-300 ease-in-out">alliedalgorithms@gmail.com</a></p>
-                    <div class="flex justify-center md:justify-start space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out text-2xl" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out text-2xl" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out text-2xl" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out text-2xl" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-500">
-                &copy; 2025 Allied Algorithms. All rights reserved. | Powered by LEGO Education & FIRST
-            </div>
+       <footer>
+         <div id="Content"></div>
         </footer>
     </div>
 
@@ -978,7 +970,8 @@ display_message("Robot completed mission segment!")
             const settingsDropdown = document.getElementById('settings-dropdown');
             const settingsToggle = document.getElementById('settings-toggle');
             const settingsMenu = document.getElementById('settings-menu');
-            const themeModeToggleBtn = document.getElementById('theme-mode-toggle');
+            const fullscreenEditorToggle = document.getElementById('fullscreen-editor-toggle');
+            const fullscreenSimulationToggle = document.getElementById('fullscreen-simulation-toggle');
 
             // New Start Position Buttons
             const startLeftButton = document.getElementById('start-left-button');
@@ -992,7 +985,7 @@ display_message("Robot completed mission segment!")
 
             // Modal Elements
             const uploadModalOverlay = document.getElementById('upload-modal-overlay');
-            const modalCloseButton = document.getElementById('modal-close-button'); // Corrected assignment
+            const modalCloseButton = document.getElementById('modal-close-button');
             const modalUploadFileButton = document.getElementById('modal-upload-file-button');
             const pasteCodeTextarea = document.getElementById('paste-code-textarea');
             const modalPasteCodeButton = document.getElementById('modal-paste-code-button');
@@ -1030,6 +1023,9 @@ display_message("Robot completed mission segment!")
             let commandQueue = [];
             let currentCommandIndex = 0;
             let commandStartTime = 0;
+
+            // Global state for fullscreen
+            let currentFullscreenPanel = null; // 'editor' or 'simulation'
 
             // --- Helper Functions ---
             function showMessage(message, isError = false) {
@@ -1095,32 +1091,6 @@ display_message("Robot completed mission segment!")
                 });
             });
 
-            // --- Theme Toggle ---
-            function applyTheme(theme) {
-                if (theme === 'dark') {
-                    document.body.classList.add('dark-mode');
-                    themeModeToggleBtn.querySelector('span').textContent = 'Light Mode';
-                    themeModeToggleBtn.querySelector('ion-icon').setAttribute('name', 'sunny-outline');
-                } else {
-                    document.body.classList.remove('dark-mode');
-                    themeModeToggleBtn.querySelector('span').textContent = 'Dark Mode';
-                    themeModeToggleBtn.querySelector('ion-icon').setAttribute('name', 'moon-outline');
-                }
-                drawRobot();
-                highlightCode();
-            }
-
-            themeModeToggleBtn.addEventListener('click', () => {
-                const currentTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                applyTheme(newTheme);
-                localStorage.setItem('theme', newTheme);
-            });
-
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            applyTheme(savedTheme);
-
-
             // --- Settings Dropdown Toggle ---
             settingsToggle.addEventListener('click', () => {
                 settingsMenu.classList.toggle('open');
@@ -1132,36 +1102,162 @@ display_message("Robot completed mission segment!")
                 }
             });
 
+            // --- Fullscreen Toggle Logic ---
+            function toggleFullscreen(panelType) {
+                const body = document.body;
+                const editorPanel = document.getElementById('editor-panel');
+                const simulationPanel = document.getElementById('simulation-panel');
+                const tabHeader = document.getElementById('tab-header');
+                const footer = document.querySelector('footer');
+                const headerArea = document.getElementById('main-header-area'); // Get the new header area
+                const editorTabContent = document.getElementById('tab-content-editor');
+
+                if (currentFullscreenPanel === panelType) {
+                    // Exit fullscreen
+                    body.classList.remove('fullscreen-active');
+                    editorPanel.classList.remove('fullscreen-panel');
+                    simulationPanel.classList.remove('fullscreen-panel');
+
+                    // Restore header, tab header, and footer
+                    headerArea.style.display = 'block'; // Show the header area
+                    tabHeader.style.display = 'flex';
+                    footer.style.display = 'block';
+                    appContainer.style.paddingTop = '5rem'; // Restore original padding-top
+
+                    // Restore tab content visibility based on active tab
+                    tabContents.forEach(content => {
+                        if (content.classList.contains('active')) {
+                            content.style.display = 'flex';
+                        } else {
+                            content.style.display = 'none';
+                        }
+                    });
+
+                    // Ensure editor and simulation panels within the active tab content are flexed
+                    if (editorTabContent.classList.contains('active')) {
+                        editorPanel.style.display = 'flex';
+                        simulationPanel.style.display = 'flex';
+                    }
+
+                    currentFullscreenPanel = null;
+                    resizeCanvas();
+                } else {
+                    // Enter fullscreen
+                    // First, ensure all non-active tab contents are hidden and the target's parent tab is visible
+                    tabContents.forEach(content => content.style.display = 'none');
+                    editorTabContent.style.display = 'flex'; // The parent of editor/simulation panels must be visible
+
+                    // Hide header, tab header, and footer
+                    headerArea.style.display = 'none'; // Hide the header area
+                    tabHeader.style.display = 'none';
+                    footer.style.display = 'none';
+                    appContainer.style.paddingTop = '0'; // Remove padding when header is hidden
+
+
+                    body.classList.add('fullscreen-active'); // Add body class to trigger global fullscreen styles
+
+                    if (panelType === 'editor') {
+                        editorPanel.classList.add('fullscreen-panel');
+                        simulationPanel.classList.remove('fullscreen-panel'); // Ensure simulation is not fullscreen
+                        editorPanel.style.display = 'flex'; // Explicitly show editor
+                        simulationPanel.style.display = 'none'; // Explicitly hide simulation
+                        currentFullscreenPanel = 'editor';
+                    } else if (panelType === 'simulation') {
+                        simulationPanel.classList.add('fullscreen-panel');
+                        editorPanel.classList.remove('fullscreen-panel'); // Ensure editor is not fullscreen
+                        simulationPanel.style.display = 'flex'; // Explicitly show simulation
+                        editorPanel.style.display = 'none'; // Explicitly hide editor
+                        currentFullscreenPanel = 'simulation';
+                        resizeCanvas();
+                    }
+                }
+                settingsMenu.classList.remove('open'); // Close settings menu
+            }
+
+            fullscreenEditorToggle.addEventListener('click', () => toggleFullscreen('editor'));
+            fullscreenSimulationToggle.addEventListener('click', () => toggleFullscreen('simulation'));
+
 
             // --- Robot Canvas Drawing ---
             function resizeCanvas() {
                 const simulationPanel = document.getElementById('simulation-panel');
-                if (simulationPanel.offsetParent === null) {
-                    return;
+                const consoleOutput = document.getElementById('console-output');
+
+                if (currentFullscreenPanel === 'simulation') {
+                    // Get actual computed padding of the fullscreen panel
+                    const style = getComputedStyle(simulationPanel);
+                    const paddingTop = parseFloat(style.paddingTop);
+                    const paddingBottom = parseFloat(style.paddingBottom);
+                    const paddingLeft = parseFloat(style.paddingLeft);
+                    const paddingRight = parseFloat(style.paddingRight);
+
+                    let panelWidth = window.innerWidth - paddingLeft - paddingRight;
+                    let availableHeight = window.innerHeight - paddingTop - paddingBottom;
+
+                    // Account for other elements within the fullscreen simulation panel
+                    const h2Height = simulationPanel.querySelector('h2').offsetHeight || 0;
+                    const h3Height = simulationPanel.querySelector('h3').offsetHeight || 0;
+                    const buttonsContainer = simulationPanel.querySelector('#simulation-panel .flex.justify-center.space-x-4.mt-6');
+                    const buttonsHeight = buttonsContainer ? buttonsContainer.offsetHeight : 0;
+                    const buttonsMarginTop = buttonsContainer ? parseFloat(getComputedStyle(buttonsContainer).marginTop) : 0;
+                    const h3MarginTop = simulationPanel.querySelector('h3') ? parseFloat(getComputedStyle(simulationPanel.querySelector('h3')).marginTop) : 0;
+                    const consoleMarginTop = parseFloat(getComputedStyle(consoleOutput).marginTop) || 0;
+                    const consoleHeight = consoleOutput.offsetHeight || 0;
+
+
+                    const spaceUsedByOtherElements = h2Height + h3Height + consoleHeight + buttonsHeight + buttonsMarginTop + h3MarginTop + consoleMarginTop;
+                    availableHeight -= spaceUsedByOtherElements;
+
+                    // Ensure the canvas container itself also doesn't have extra padding
+                    const canvasContainer = simulationPanel.querySelector('.flex.justify-center.items-center.flex-grow.w-full');
+                    const canvasContainerPaddingTop = canvasContainer ? parseFloat(getComputedStyle(canvasContainer).paddingTop) : 0;
+                    const canvasContainerPaddingBottom = canvasContainer ? parseFloat(getComputedStyle(canvasContainer).paddingBottom) : 0;
+                    availableHeight -= (canvasContainerPaddingTop + canvasContainerPaddingBottom);
+
+
+                    let canvasRenderWidth = panelWidth;
+                    let canvasRenderHeight = panelWidth / 2; // Aspect ratio 2:1
+
+                    // Adjust if height is the limiting factor
+                    if (canvasRenderHeight > availableHeight) {
+                        canvasRenderHeight = availableHeight;
+                        canvasRenderWidth = availableHeight * 2;
+                    }
+                    canvas.width = canvasRenderWidth;
+                    canvas.height = canvasRenderHeight;
+
+                } else {
+                    // Original logic for non-fullscreen mode
+                    if (simulationPanel.offsetParent === null) {
+                        return; // Only resize if simulation panel is visible (or fullscreen)
+                    }
+                    const panelWidth = simulationPanel.clientWidth - (2 * 16); // Account for padding around panel
+                    let availableHeight = simulationPanel.clientHeight;
+
+                    const h2Height = document.querySelector('#simulation-panel h2').offsetHeight || 0;
+                    const h3Height = document.querySelector('#simulation-panel h3').offsetHeight || 0;
+                    const buttonsContainer = simulationPanel.querySelector('#simulation-panel .flex.justify-center.space-x-4.mt-6');
+                    const buttonsHeight = buttonsContainer ? buttonsContainer.offsetHeight : 0;
+                    const buttonsMarginTop = buttonsContainer ? parseFloat(getComputedStyle(buttonsContainer).marginTop) : 0;
+                    const h3MarginTop = simulationPanel.querySelector('h3') ? parseFloat(getComputedStyle(simulationPanel.querySelector('h3')).marginTop) : 0;
+                    const consoleMarginTop = parseFloat(getComputedStyle(consoleOutput).marginTop) || 0;
+                    const consoleHeight = consoleOutput.offsetHeight || 0;
+
+                    const spaceUsedByOtherElements = h2Height + h3Height + consoleHeight + buttonsHeight + buttonsMarginTop + h3MarginTop + consoleMarginTop;
+                    availableHeight -= spaceUsedByOtherElements;
+                    availableHeight -= (2 * 16); // Panel's own top/bottom padding
+
+                    let canvasRenderWidth = panelWidth;
+                    let canvasRenderHeight = panelWidth / 2;
+
+                    if (canvasRenderHeight > availableHeight) {
+                        canvasRenderHeight = availableHeight;
+                        canvasRenderWidth = availableHeight * 2;
+                    }
+                    canvas.width = canvasRenderWidth;
+                    canvas.height = canvasRenderHeight;
                 }
-
-                const panelWidth = simulationPanel.clientWidth - (1.5 * 16 * 2);
-                const availableHeight = simulationPanel.clientHeight;
-
-                const h2Height = document.querySelector('#simulation-panel h2').offsetHeight || 0;
-                const h3Height = document.querySelector('#simulation-panel h3').offsetHeight || 0;
-                const consoleHeight = consoleOutput.offsetHeight || 0;
-                const verticalPadding = (1.5 * 16 * 2);
-
-                const remainingHeightForCanvas = availableHeight - h2Height - h3Height - consoleHeight - verticalPadding - 32;
-
-                let canvasRenderWidth = panelWidth;
-                let canvasRenderHeight = panelWidth / 2;
-
-                if (canvasRenderHeight > remainingHeightForCanvas) {
-                    canvasRenderHeight = remainingHeightForCanvas;
-                    canvasRenderWidth = remainingHeightForCanvas * 2;
-                }
-
-                canvas.width = canvasRenderWidth;
-                canvas.height = canvasRenderHeight;
                 PIXELS_PER_INCH = canvas.width / CANVAS_WIDTH_INCHES;
-
                 drawRobot();
             }
 
@@ -1497,7 +1593,7 @@ display_message("Robot completed mission segment!")
                 commandQueue = [];
                 currentCommandIndex = 0;
                 commandStartTime = 0;
-                
+
                 consoleOutput.innerHTML = '';
                 logToConsole("Simulation execution reset. Robot position maintained.");
             }
@@ -1625,7 +1721,7 @@ display_message("Robot completed mission segment!")
                         break;
                     case 'set_drive_speed':
                         currentDriveSpeed = command.value;
-                        logToConsole(`Drive speed set to ${command.value}%.`);
+                        logToConsole(`Drive speed set to ${cmd.value}%.`);
                         command.completed = true;
                         break;
                     case 'print_message':
