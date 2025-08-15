@@ -26,7 +26,7 @@ const seasonsData = [
     {
         year: "2022-2023",
         title: "SUPERPOWERED",
-        description: "In this high-energy season, our team explored the future of energy, innovating solutions and refining our robot game strategy. We focused on teamwork and problem-solving, leading to significant growth in our programming and collaboration skills. *Add specific accomplishments like awards or project details here.*",
+        description: "In this high-energy season, our team explored the future of energy, innovating solutions and refining our robot game strategy. We focused on teamwork and problem-solving, leading to significant growth in our programming and collaboration skills. All of this was worth while because we achieved the programming award.",
         image: "./images/seasons/yr_22-23.jpg",
         alt: "Team Allied Algorithms in the 2022-2023 season"
     },
