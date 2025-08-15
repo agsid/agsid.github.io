@@ -30,11 +30,4 @@ const seasonsData = [
         image: "./images/seasons/yr_22-23.jpg",
         alt: "Team Allied Algorithms in the 2022-2023 season"
     },
-    {
-        year: "2021-2022",
-        title: "CARGO CONNECT",
-        description: "This season was all about reimagining global transportation. Our team designed innovative solutions for efficient cargo delivery and built a robust robot to navigate complex missions. We learned a lot about supply chains and logistics, earning *mention any specific awards or achievements*.",
-        image: "./images/past_yrs/yr_21-22.JPEG",
-        alt: "Team Allied Algorithms in the 2021-2022 season"
-    }
 ];
