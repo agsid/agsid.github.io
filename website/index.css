@@ -98,7 +98,7 @@
             position: absolute; /* Positions braces relative to the h1 */
             top: 50%; /* Vertically centers the brace */
             transform: translateY(-50%); /* Adjusts for true vertical centering */
-            color: #00ffc9; /* Matches the glow color of the rings */
+            color: #fff; /* Matches the glow color of the rings */
             pointer-events: none; /* Prevents braces from blocking text selection */
         }
 
