@@ -1,4 +1,3 @@
-    <style>
         /* Custom CSS for base styles, glowing rings, and text elements */
         body {
             /* Ensures the body takes full viewport height */
@@ -164,4 +163,3 @@
                 left: calc(50% - 25px); /* Pushed left by 25px for mobile */
             }
         }
-    </style>
