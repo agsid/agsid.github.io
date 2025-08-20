@@ -1,6 +1,12 @@
 <html>
   <head>
     <style>
+    
+      .navbar:hover{
+        opacity:1;
+        background-color: #1D2926;
+        transition: opacity 0.3s ease;
+      }
       .navbar {
             position: fixed; /* Changed to fixed to keep it in place during scroll */
             top: 20px; /* Distance from the top of the viewport */
@@ -12,9 +18,10 @@
             display: flex; /* Uses flexbox for internal layout (logo and links) */
             justify-content: space-between; /* Puts space between logo and links */
             align-items: center; /* Vertically aligns items in the navbar */
-            background-color: rgba(26, 26, 26, 0.8); /* Semi-transparent dark grey background */
+            background-color:#070707; /* Semi-transparent dark grey background */
             padding: 10px 20px; /* Padding inside the navbar */
-            border-radius: 15px; /* Rounded corners for the entire navbar */
+            border-radius: 15px;
+            opacity:0.8; /* Rounded corners for the entire navbar */
             box-shadow: 0 4px 15px rgba(92, 84, 84, 0.2); /* Subtle shadow for depth */
         }
 
@@ -25,12 +32,6 @@
             font-weight: bold; /* Bold text */
             display: flex; /* Flexbox for aligning dots and text */
             align-items: center; /* Vertically aligns dots and text */
-        }
-
-        .navbar .logo-dots {
-            font-size: 1.5rem; /* Slightly smaller size for the decorative dots */
-            margin-right: 8px; /* Space between dots and text */
-            color: #00ffc9; /* Glow color for the dots */
         }
 
         .navbar-links {
@@ -48,7 +49,7 @@
         }
 
         .navbar-links a:hover {
-            background-color: rgba(40, 40, 40, 0.8); /* Darker background on hover */
+            background-color: #00694B; /* Darker background on hover */
         }
         
         /* Style for the current active page link */

@@ -12,6 +12,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-color: #070707;
 
     font-family: 'Inter', sans-serif;
     color: white; /* Set default text color to white */
@@ -19,56 +20,13 @@ body {
     padding-top: 0;
     overflow-x: hidden;
 }
-
-/* Styling for the Main Content Area */
-.main-content {
-    flex: none;
-    width: 100%;
-    z-index: 10;
-    text-align: center;
-    padding: 20px;
-    max-width: 900px;
-}
-
-.main-content h1 {
-    font-size: 4.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    position: relative;
-    display: inline-block;
-    line-height: 1.2;
-}
-
-.main-content p {
-    font-size: 1.8rem;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-/* Style for the curly braces */
-.main-content h1::before, .main-content h1::after {
-    content: "}";
-    font-size: 6rem;
-    color: #00FFFF; /* Cyan color for neon effect */
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%) scaleY(2);
-}
-
-.main-content h1::before {
-    content: "{";
-    left: -1.5rem;
-}
-
-.main-content h1::after {
-    right: -1.5rem;
-}
-
 /* Hide the other sections to replicate the provided image's look */
 .team-action-section, .fll-section, .footer {
     display: none;
 }
-
+img {
+    padding-bottom: 10px;
+}
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
     .main-content h1 {
