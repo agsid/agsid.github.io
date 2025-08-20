@@ -8,7 +8,7 @@ body {
     justify-content: center; /* Center content vertically as well */
 
     /* Background with circles */
-    background-image: url("../images/background-with-circles.png");
+    background-image: url("website/images/index_plan.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
