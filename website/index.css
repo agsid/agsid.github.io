@@ -38,7 +38,7 @@
         .ring {
             background-color: black; /* Added background color to ensure the border is visible on the starry background */
             position: absolute; /* Positions each ring within its container */
-            border: 15px solid #fff; /* Changed border color to #00ffc9 */
+            border: 15px solid #00ffc9; /* Changed border color to #00ffc9 */
             border-radius: 50%; /* Makes the element a perfect circle */
             /* Multiple box-shadows for a layered glow effect with color #00ffc9 */
             /* Increased intensity and spread of the glow */
