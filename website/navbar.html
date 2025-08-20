@@ -1,0 +1,103 @@
+<html>
+  <head>
+    <style>
+      .navbar {
+            position: fixed; /* Changed to fixed to keep it in place during scroll */
+            top: 20px; /* Distance from the top of the viewport */
+            left: 50%; /* Starts at the horizontal center */
+            transform: translateX(-50%); /* Moves it back by half its width to truly center */
+            width: 90%; /* Responsive width for the navbar */
+            max-width: 1200px; /* Maximum width for larger screens to maintain design */
+            z-index: 20; /* Ensures the navbar is always on top of other content */
+            display: flex; /* Uses flexbox for internal layout (logo and links) */
+            justify-content: space-between; /* Puts space between logo and links */
+            align-items: center; /* Vertically aligns items in the navbar */
+            background-color: rgba(26, 26, 26, 0.8); /* Semi-transparent dark grey background */
+            padding: 10px 20px; /* Padding inside the navbar */
+            border-radius: 15px; /* Rounded corners for the entire navbar */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth */
+        }
+
+        .navbar .logo {
+            color: white; /* White text for the logo */
+            font-size: 1.75rem; /* Large font size for the logo */
+            font-weight: bold; /* Bold text */
+            display: flex; /* Flexbox for aligning dots and text */
+            align-items: center; /* Vertically aligns dots and text */
+        }
+
+        .navbar .logo-dots {
+            font-size: 1.5rem; /* Slightly smaller size for the decorative dots */
+            margin-right: 8px; /* Space between dots and text */
+            color: #00ffc9; /* Glow color for the dots */
+        }
+
+        .navbar-links {
+            display: flex; /* Flexbox for navigation links */
+            gap: 1.5rem; /* Spacing between links (equivalent to Tailwind's space-x-6) */
+        }
+
+        .navbar-links a {
+            color: white; /* White text for links */
+            font-size: 1.125rem; /* Medium font size */
+            font-weight: 500; /* Medium font-weight */
+            padding: 8px 16px; /* Padding around link text */
+            border-radius: 8px; /* Rounded corners for link buttons */
+            transition: background-color 0.3s ease; /* Smooth transition on hover */
+        }
+
+        .navbar-links a:hover {
+            background-color: rgba(40, 40, 40, 0.8); /* Darker background on hover */
+        }
+        
+        /* Style for the current active page link */
+        .navbar-links a.current-page {
+            background-color: rgba(40, 40, 40, 0.8); /* Matches the hover effect */
+        }
+       /* Responsive Adjustments for Tablets and smaller desktops (1024px) */
+        @media (max-width: 1024px) {
+            .navbar {
+                width: 95%; /* Increased width for better fit */
+                padding: 8px 15px;
+            }
+            .navbar .logo {
+                font-size: 1.5rem;
+            }
+            .navbar-links a {
+                font-size: 1rem;
+                padding: 6px 12px;
+            }
+      }
+       @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column; /* Stacks logo and links vertically */
+                align-items: flex-start; /* Aligns items to the left */
+                padding: 10px;
+            }
+            .navbar-links {
+                flex-wrap: wrap; /* Allows links to wrap to the next line */
+                justify-content: center; /* Centers links if they wrap */
+                margin-top: 10px;
+                width: 100%; /* Takes full width */
+            }
+            .navbar-links a {
+                margin: 5px; /* Adds margin around wrapped links */
+            }
+      }
+    </style>
+  </head>
+  <body>
+      <nav class="navbar">
+        <div class="logo">
+            <span class="logo-dots"><img src ="Allied Algorithms.svg"></span> Allied
+        </div>
+        <div class="navbar-links">
+            <a href="#" class="current-page">Home</a>
+            <a href="#">Members</a>
+            <a href="#">Seasons</a>
+            <a href="#">Robot Design</a>
+        </div>
+    </nav>
+
+  </body>
+</html>
