@@ -15,7 +15,7 @@
             /* Sets the primary font to Inter with a generic sans-serif fallback */
             font-family: 'Inter', sans-serif;
             /* Updated Starry background image for the body, covers the entire area */
-            background-image: 'website/images/index/backdrop.svg'; 
+            background-image: 'website/images/index_plan.svg'; 
             background-size: cover; /* Ensures the image covers the entire background */
             background-position: center; /* Centers the background image */
             background-repeat: no-repeat; /* Prevents the image from repeating */
