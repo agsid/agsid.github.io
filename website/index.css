@@ -1,117 +1,105 @@
 /* Custom CSS for base styles and text elements */
 body {
-    /* Ensures the body takes full viewport height and enables flexbox layout */
     min-height: 100vh;
     margin: 0;
     display: flex;
-    flex-direction: column; /* Stacks children vertically */
-    align-items: center;    /* Centers children horizontally */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically as well */
 
-    /* Background styles */
-    background-color: #000;
-    /* CORRECTED the background image path */
-    background-image: url("../images/index_plan.svg");
+    /* Background with circles */
+    background-image: url("../images/background-with-circles.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
     font-family: 'Inter', sans-serif;
+    color: white; /* Set default text color to white */
     position: relative;
-    padding-top: 80px;   /* Space for fixed navbar */
-    overflow-x: hidden;  /* Prevents horizontal scrollbars */
+    padding-top: 0;
+    overflow-x: hidden;
 }
 
 /* Styling for the Main Content Area */
 .main-content {
-    /* ADDED flex property to make this element grow and push the footer down */
-    flex: 1 0 auto;
-    width: 100%; /* Ensures it takes up available width */
+    flex: none;
+    width: 100%;
     z-index: 10;
     text-align: center;
     padding: 20px;
-    max-width: 800px;
-    color: white;
+    max-width: 900px;
 }
 
 .main-content h1 {
-    font-size: 4rem;
+    font-size: 4.5rem;
     font-weight: bold;
     margin-bottom: 1rem;
     position: relative;
     display: inline-block;
+    line-height: 1.2;
 }
 
 .main-content p {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 300;
     color: rgba(255, 255, 255, 0.8);
 }
 
-/* New section styles for a consistent look */
-.team-action-section, .fll-section {
-    width: 100%;
-    max-width: 800px;
-    padding: 20px;
-    margin-top: 40px;
-    color: white;
+/* Style for the curly braces */
+.main-content h1::before, .main-content h1::after {
+    content: "}";
+    font-size: 6rem;
+    color: #00FFFF; /* Cyan color for neon effect */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) scaleY(2);
 }
 
-.team-action-section h2, .fll-section h2 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
+.main-content h1::before {
+    content: "{";
+    left: -1.5rem;
 }
 
-.team-action-section h3 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+.main-content h1::after {
+    right: -1.5rem;
 }
 
-.team-action-section p, .fll-section p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.9);
+/* Hide the other sections to replicate the provided image's look */
+.team-action-section, .fll-section, .footer {
+    display: none;
 }
 
-/* Responsive Adjustments for Tablets and smaller desktops (1024px) */
+/* Responsive Adjustments */
 @media (max-width: 1024px) {
     .main-content h1 {
-        font-size: 3rem;
+        font-size: 3.5rem;
+    }
+    .main-content p {
+        font-size: 1.5rem;
+    }
+    .main-content h1::before {
+        left: -1rem;
+        font-size: 5rem;
+    }
+    .main-content h1::after {
+        right: -1rem;
+        font-size: 5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content h1 {
+        font-size: 2.5rem;
     }
     .main-content p {
         font-size: 1.2rem;
     }
-    .team-action-section h2, .fll-section h2 {
-        font-size: 2rem;
+    .main-content h1::before {
+        left: -0.5rem;
+        font-size: 4rem;
     }
-    .team-action-section p, .fll-section p {
-        font-size: 1.1rem;
+    .main-content h1::after {
+        right: -0.5rem;
+        font-size: 4rem;
     }
-}
-
-/* Responsive Adjustments for Mobile Devices (768px) */
-/* FIXED syntax error inside this media query */
-@media (max-width: 768px) {
-    body {
-        padding-top: 120px;
-    }
-    .main-content h1 {
-        font-size: 2.2rem;
-    }
-    .main-content p {
-        font-size: 1rem;
-    }
-    .team-action-section h2, .fll-section h2 {
-        font-size: 1.8rem;
-    }
-    .team-action-section p, .fll-section p {
-        font-size: 1rem;
-    }
-}
-
-/* Styling for the Footer wrapper */
-/* FIXED syntax error by removing the trailing comma */
-.footer {
-    width: 100%;
 }
