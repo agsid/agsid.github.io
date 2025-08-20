@@ -1,69 +1,78 @@
-        /* Custom CSS for base styles, glowing rings, and text elements */
-        body {
-            /* Ensures the body takes full viewport height */
-            min-height: 100vh;
-            margin: 0;
-            /* Flexbox to center the main content vertically and horizontally */
-            display: flex;
-            flex-direction: column; /* Allows content and nav to stack if needed */
-            justify-content: center;
-            align-items: center;
-            /* Black background to match the image */
-            background-color: #000;
-            /* Hides any overflow, preventing scrollbars from rings going off-screen */
-            overflow: hidden;
-            /* Sets the primary font to Inter with a generic sans-serif fallback */
-            font-family: 'Inter', sans-serif;
-            /* Updated Starry background image for the body, covers the entire area */
-            background-image: 'website/images/index_plan.svg'; 
-            background-size: cover; /* Ensures the image covers the entire background */
-            background-position: center; /* Centers the background image */
-            background-repeat: no-repeat; /* Prevents the image from repeating */
-            position: relative; /* Essential for absolute positioning of child elements like rings */
-            padding-top: 80px; /* Add padding to prevent content from hiding behind fixed navbar */
-        }   /* Styling for the Main Content Area */
-        .main-content {
-            z-index: 10; /* Ensures the main content is on top of the rings */
-            text-align: center; /* Centers text horizontally */
-            padding: 20px; /* Padding around the content */
-            max-width: 800px; /* Limits the width for better readability on large screens */
-            color: white; /* Default text color */
-        }
+/* Custom CSS for base styles and text elements */
+body {
+    /* Ensures the body takes full viewport height and enables flexbox layout */
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* Stacks children vertically */
+    align-items: center;    /* Centers children horizontally */
 
-        .main-content h1 {
-            font-size: 4rem; /* Large font size for the main heading */
-            font-weight: bold; /* Bold text */
-            margin-bottom: 1rem; /* Space below the heading */
-            position: relative; /* Required for absolute positioning of curly braces */
-            display: inline-block; /* Allows curly braces to be positioned relative to the text width */
-        }
+    /* Background styles */
+    background-color: #000;
+    /* CORRECTED the background image path */
+    background-image: url("../images/index_plan.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    padding-top: 80px;   /* Space for fixed navbar */
+    overflow-x: hidden;  /* Prevents horizontal scrollbars */
+}
 
-        .main-content p {
-            font-size: 1.5rem; /* Medium font size for the description */
-            font-weight: 300; /* Light font-weight for contrast */
-            color: rgba(255, 255, 255, 0.8); /* Slightly less bright white */
-        }
+/* Styling for the Main Content Area */
+.main-content {
+    /* ADDED flex property to make this element grow and push the footer down */
+    flex: 1 0 auto;
+    width: 100%; /* Ensures it takes up available width */
+    z-index: 10;
+    text-align: center;
+    padding: 20px;
+    max-width: 800px;
+    color: white;
+}
 
-        /* Responsive Adjustments for Tablets and smaller desktops (1024px) */
-        @media (max-width: 1024px) {
-            .main-content h1 {
-                font-size: 3rem; /* Smaller heading on tablets */
-            }
-            .main-content p {
-                font-size: 1.2rem;
-            }
-        }
+.main-content h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+}
 
-        /* Responsive Adjustments for Mobile Devices (768px) */
-        @media (max-width: 768px) {
-            body {
-                padding-top: 120px; /* Increased padding for mobile as navbar might take more vertical space */
-            .main-content h1 {
-                font-size: 2.2rem; /* Even smaller heading on mobile */
-            }
-            }
-            .main-content p {
-                font-size: 1rem;
-            }
-            }
+.main-content p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive Adjustments for Tablets and smaller desktops (1024px) */
+@media (max-width: 1024px) {
+    .main-content h1 {
+        font-size: 3rem;
+    }
+    .main-content p {
+        font-size: 1.2rem;
+    }
+}
+
+/* Responsive Adjustments for Mobile Devices (768px) */
+/* FIXED syntax error inside this media query */
+@media (max-width: 768px) {
+    body {
+        padding-top: 120px;
+    }
+    .main-content h1 {
+        font-size: 2.2rem;
+    }
+    .main-content p {
+        font-size: 1rem;
+    }
+}
+
+/* Styling for the Footer wrapper */
+/* FIXED syntax error by removing the trailing comma */
+.footer {
+    width: 100%;
+}

@@ -1,35 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-      <script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
         $(function () {
             $("#navbar").load("navbar.html");
+            $("#footer").load("footer.html");
         });
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Allied Algorithms</title>
-    <!-- Tailwind CSS CDN for utility classes and responsive design -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/website/index.css">
 </head>
 <body>
  <div id="navbar"></div>
 
-    <!-- Main Content Area -->
-    <!-- This div holds the central text and is automatically centered by the body's flex properties. -->
     <div class="main-content">
         <h1 class="relative">
-            <!-- Left curly brace, positioned absolutely relative to the H1 -->
-            
-            Innovating the Future, One Robot at a Time
-            <!-- Right curly brace, positioned absolutely relative to the H1 -->
-            
-        </h1>
+            { Innovating the Future, One Robot at a Time }
+            </h1>
         <p>Welcome to Allied Algorithms - where engineering meets creativity.</p>
     </div>
 
-    <!-- The JavaScript for mouse animation has been removed as requested. -->
+    <div class="team-action-section">
+        <h2 class="text-3xl font-bold text-white mb-4 text-center">Team in Action</h2>
+        <h3 class="text-2xl font-semibold text-white mb-2">Innovation and Teamwork</h3>
+        <p class="text-white text-lg mb-4">
+            Our FIRST LEGO League team is driven by a passion for innovation and a commitment to teamwork. Each season, we dive deep into the challenge, brainstorming creative solutions, designing unique robots, and refining our programming skills.
+            Beyond the robot game, our team focuses on the Core Values of FLL. Gracious professionalism, discovery, and inclusion. We support each other, celebrate successes, and learn from our mistakes, building not just robots, but also strong friendships and valuable life skills.
+            We are constantly exploring new ideas and pushing the boundaries of what's possible with LEGO robotics. Join us on our journey of discovery and innovation!
+        </p>
+    </div>
+
+    <div class="fll-section">
+        <h2 class="text-3xl font-bold text-white mb-4 text-center">What is FIRST LEGO League (FLL)?</h2>
+        <p class="text-white text-lg mb-4">
+            FIRST LEGO League (FLL) is a global robotics competition that introduces young people to the exciting world of STEM through hands-on learning. Teams typically aged 9-16 (ages may vary by region) work together to design, build, and program LEGO robots to complete a series of missions on a themed playing field.
+        </p>
+        <p class="text-white text-lg">
+            But FLL is much more than just robots! It also challenges teams to identify a real-world problem related to the annual theme and develop an innovative solution, which they present to a panel of judges. Through this process, participants develop critical thinking, problem-solving, and presentation skills, all while embodying FLL's core values like teamwork and gracious professionalism.
+            It's an incredible opportunity for students to explore science and technology in a fun, competitive, and supportive environment, preparing them for future success in a rapidly evolving world.
+        </p>
+    </div>
+    
+    <div class = "footer">
+     <div id="footer"></div>
+    </div>
 </body>
 </html>
