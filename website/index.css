@@ -15,67 +15,13 @@
             /* Sets the primary font to Inter with a generic sans-serif fallback */
             font-family: 'Inter', sans-serif;
             /* Updated Starry background image for the body, covers the entire area */
-            background-image: url('https://images.unsplash.com/photo-1719859061156-d3d762d2cf20?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3RhcnMlMjB3YWxscGFwZXJ8ZW58MHx8MHx8fDA%3D'); 
+            background-image: 'website/images/index/backdrop.svg'; 
             background-size: cover; /* Ensures the image covers the entire background */
             background-position: center; /* Centers the background image */
             background-repeat: no-repeat; /* Prevents the image from repeating */
             position: relative; /* Essential for absolute positioning of child elements like rings */
             padding-top: 80px; /* Add padding to prevent content from hiding behind fixed navbar */
-        }
-
-        /* Styling for the Glowing Rings */
-        .ring-container {
-            position: absolute; /* Positions the ring container relative to the body */
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            /* Allows mouse events to pass through this container to elements beneath */
-            pointer-events: none; 
-            z-index: 5; /* Rings are below the main content and navbar */
-        }
-
-        .ring {
-            background-color: black; /* Added background color to ensure the border is visible on the starry background */
-            position: absolute; /* Positions each ring within its container */
-            border: 15px solid #00ffc9; /* Changed border color to #00ffc9 */
-            border-radius: 50%; /* Makes the element a perfect circle */
-            /* Multiple box-shadows for a layered glow effect with color #00ffc9 */
-            /* Increased intensity and spread of the glow */
-            box-shadow: 
-                0 0 80px #00ffc9,   /* Increased blur and spread for bigger glow */
-                0 0 160px #00ffc9,  /* Increased blur and spread for bigger glow */
-                0 0 240px #00ffc9,  /* Increased blur and spread for bigger glow */
-                inset 0 0 50px #00ffc9, /* Increased blur for inner glow */
-                inset 0 0 100px #00ffc9; /* Increased blur for inner glow */
-            /* Removed transition for transform as there are no animations */
-            pointer-events: auto; /* Re-enables pointer events for individual rings */
-        }
-
-        /* Specific positioning and sizing for each ring to match the image */
-        #ring1 {
-            top: -90px; /* Pushed up by 40px (was -50px) */
-            left: -75px; /* Pushed right by 25px (was -100px) */
-            width: 300px;
-            height: 300px;
-        }
-
-        #ring2 {
-            bottom: -150px; /* Pushed down by an additional 50px (was -100px) */
-            left: calc(50% - 50px); /* Pushed left by 50px from center */
-            transform: translateX(-50%); /* Adjusts for true horizontal centering relative to the new 'left' */
-            width: 300px;
-            height: 300px;
-        }
-
-        #ring3 {
-            top: -100px; /* Partially off-screen at the top */
-            right: -100px; /* Partially off-screen at the right */
-            width: 300px;
-            height: 300px;
-        }
-
-        /* Styling for the Main Content Area */
+        }   /* Styling for the Main Content Area */
         .main-content {
             z-index: 10; /* Ensures the main content is on top of the rings */
             text-align: center; /* Centers text horizontally */
@@ -92,23 +38,6 @@
             display: inline-block; /* Allows curly braces to be positioned relative to the text width */
         }
 
-        .curly-brace {
-            font-size: 6rem; /* Very large font size for the curly braces */
-            line-height: 1; /* Adjusts line height to prevent affecting text layout */
-            position: absolute; /* Positions braces relative to the h1 */
-            top: 50%; /* Vertically centers the brace */
-            transform: translateY(-50%); /* Adjusts for true vertical centering */
-            color: #fff; /* Matches the glow color of the rings */
-            pointer-events: none; /* Prevents braces from blocking text selection */
-        }
-
-        .left-brace {
-            left: -50px; /* Positions the left brace outside the text */
-        }
-
-        .right-brace {
-            right: -50px; /* Positions the right brace outside the text */
-        }
 
         .main-content p {
             font-size: 1.5rem; /* Medium font size for the description */
@@ -120,11 +49,6 @@
         @media (max-width: 1024px) {
             .main-content h1 {
                 font-size: 3rem; /* Smaller heading on tablets */
-            }
-            .curly-brace {
-                font-size: 4.5rem;
-                left: -35px;
-                right: -35px;
             }
             .main-content p {
                 font-size: 1.2rem;
@@ -138,28 +62,8 @@
             .main-content h1 {
                 font-size: 2.2rem; /* Even smaller heading on mobile */
             }
-            .curly-brace {
-                font-size: 3.5rem;
-                left: -25px;
-                right: -25px;
             }
             .main-content p {
                 font-size: 1rem;
             }
-            /* Adjust ring sizes for smaller screens to prevent them from dominating */
-            .ring {
-                background-color: black; /* Added background color for mobile */
-                width: 200px;
-                height: 200px;
-                border: 10px solid #00ffc9; /* Changed border color for mobile */
             }
-            /* Adjust ring positions to keep them partially off-screen */
-            #ring1 {
-                top: -90px; /* Pushed up by 40px for mobile */
-                left: -75px; /* Pushed left by 25px for mobile */
-            }
-            #ring2 {
-                bottom: -100px; /* Adjusted to -100px for mobile in sync with desktop changes */
-                left: calc(50% - 25px); /* Pushed left by 25px for mobile */
-            }
-        }
