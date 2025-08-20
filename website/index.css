@@ -47,6 +47,33 @@ body {
     color: rgba(255, 255, 255, 0.8);
 }
 
+/* New section styles for a consistent look */
+.team-action-section, .fll-section {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    margin-top: 40px;
+    color: white;
+}
+
+.team-action-section h2, .fll-section h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.team-action-section h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.team-action-section p, .fll-section p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+}
+
 /* Responsive Adjustments for Tablets and smaller desktops (1024px) */
 @media (max-width: 1024px) {
     .main-content h1 {
@@ -54,6 +81,12 @@ body {
     }
     .main-content p {
         font-size: 1.2rem;
+    }
+    .team-action-section h2, .fll-section h2 {
+        font-size: 2rem;
+    }
+    .team-action-section p, .fll-section p {
+        font-size: 1.1rem;
     }
 }
 
@@ -67,6 +100,12 @@ body {
         font-size: 2.2rem;
     }
     .main-content p {
+        font-size: 1rem;
+    }
+    .team-action-section h2, .fll-section h2 {
+        font-size: 1.8rem;
+    }
+    .team-action-section p, .fll-section p {
         font-size: 1rem;
     }
 }
