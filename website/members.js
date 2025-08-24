@@ -8,7 +8,7 @@
                 },
                 {
                     id: 2,
-                    name: "Ariv Mulki",
+                    name: "Aariv Mulki",
                     role: "Design Lead",
                     bio: "  ",
                     image: "images/aboutus/aariv.png    "
