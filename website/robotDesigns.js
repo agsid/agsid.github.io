@@ -2,8 +2,8 @@ const robotDesigns = [
     {
         heading: 'Robot Design #1',
         images: [
-            { src: 'images/robot/BsaeBot.jpg', alt: 'Robot Design #1 - View 1' },
-            { src: 'images/robot/1basebot.jpg.jpg', alt: 'Robot Design #1 - View 2' }
+            { src: 'images/robot/BsaeBot.png', alt: 'Robot Design #1 - View 1' },
+            { src: 'images/robot/1basebot.png', alt: 'Robot Design #1 - View 2' }
         ],
         teamNumberInputId: 'teamNumberInput1',
         statusMessageId: 'statusMessage1',
@@ -13,8 +13,8 @@ const robotDesigns = [
     {
         heading: 'Robot Design #2',
         images: [
-            { src: 'images/robot/BaseBot2.jpg', alt: 'Robot Design #2 - View 1' },
-            { src: 'images/robot/1basebot2.jpg.jpg', alt: 'Robot Design #2 - View 2' }
+            { src: 'images/robot/BaseBot2.png', alt: 'Robot Design #2 - View 1' },
+            { src: 'images/robot/1basebot2.png', alt: 'Robot Design #2 - View 2' }
         ],
         teamNumberInputId: 'teamNumberInput2',
         statusMessageId: 'statusMessage2',
@@ -24,9 +24,9 @@ const robotDesigns = [
     {
         heading: 'Robot Design #3',
         images: [
-            { src: 'images/robot/UntitledModel.jpg', alt: 'Robot Design #3 - View 1' },
-            { src: 'images/robot/UntitledModel_2.jpg', alt: 'Robot Design #3 - View 2' },
-            { src: 'images/robot/UntitledModel_3.jpg', alt: 'Robot Design #3 - View 3' }
+            { src: 'images/robot/UntitledModel.png', alt: 'Robot Design #3 - View 1' },
+            { src: 'images/robot/UntitledModel_2.png', alt: 'Robot Design #3 - View 2' },
+            { src: 'images/robot/UntitledModel_3.png', alt: 'Robot Design #3 - View 3' }
         ],
         teamNumberInputId: 'teamNumberInput3',
         statusMessageId: 'statusMessage3',
