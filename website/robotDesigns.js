@@ -13,8 +13,8 @@ const robotDesigns = [
     {
         heading: 'Robot Design #2',
         images: [
-            { src: './robot/baseBot2.png', alt: 'Robot Design #2 - View 1' },
-            { src: 'website/robot/1basebot2.jpg.png', alt: 'Robot Design #2 - View 2' }
+            { src: './robot/1basebot2.jpg.png', alt: 'Robot Design #2 - View 1' },
+            { src: './robot/basebot2.jpg.png', alt: 'Robot Design #2 - View 2' }
         ],
         teamNumberInputId: 'teamNumberInput2',
         statusMessageId: 'statusMessage2',
