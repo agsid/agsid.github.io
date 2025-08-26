@@ -1,38 +1,58 @@
-            const members = [
-                {
-                    id: 1,
-                    name: "Sid Agrawal",
-                    role: "Build and Code",
-                    bio: " I am an 8th grader with 6 years of experience in FLL. I love to play with things that move. Outside of robotics I also play the trumpet and practice Taekwondo.",
-                    image: "images/aboutus/sid.jpg"
-                },
-                {
-                    id: 2,
-                    name: "Aariv Mulki",
-                    role: "Design Lead",
-                    bio: "  ",
-                    image: "images/aboutus/aariv.png    "
-                },
-                {
-                    id: 3,
-                    name: "Tanush Nardeddy",
-                    role: "Code Lead",
-                    bio: "",
-                    image: "images/aboutus/tanush.jpg"
-                },
-                {
-                    id: 4,
-                    name: "Ganesh Mulki",
-                    role: "Coach ",
-                    bio: "Drives brand growth", 
-                    image: "https://cdn.dribbble.com/userupload/24896180/file/original-c250b2ac5ee879252e2b7703f70ed95a.gif"
-                },
-                {
-                    id: 5,
-                    name: "Amit Agrawal",
-                    role: "Coach",
-                    bio: "Bridges the gap between technical teams",
-                    image: "https://i.pinimg.com/originals/d9/92/64/d99264eefc942c2d10ef0521ab0656ff.gif"
-                }
-            ];
+const members = [
+    {
+        name: "Sid Agrawal",
+        description: "I am an 8th grader with 6 years of experience in FLL. I love to play with things that move. Outside of robotics I also play the trumpet, and practice Taekwondo.",
+        image: "path/to/sid-agrawal-image.jpg" // Replace with a link to your image
+    },
+    {
+        name: "Name",
+        description: "Description",
+        image: "path/to/default-image.jpg"
+    },
+    {
+        name: "Name",
+        description: "Description",
+        image: "path/to/default-image.jpg"
+    },
+    {
+        name: "Name",
+        description: "Description",
+        image: "path/to/default-image.jpg"
+    },
+    {
+        name: "Name",
+        description: "Description",
+        image: "path/to/default-image.jpg"
+    },
+    {
+        name: "Name",
+        description: "Description",
+        image: "path/to/default-image.jpg"
+    }
+];
 
+function renderMembers() {
+    const membersContainer = document.getElementById('members-container');
+    
+    // Clear existing content
+    membersContainer.innerHTML = '';
+    
+    members.forEach((member, index) => {
+        const memberCard = document.createElement('div');
+        memberCard.className = `member-card p-8 text-center flex flex-col justify-center h-full animate-fade-in`;
+        memberCard.style.animationDelay = `${index * 0.1}s`; // Stagger animation
+
+        memberCard.innerHTML = `
+            <div class="flex-shrink-0 flex justify-center mb-4">
+                <div class="profile-icon flex items-center justify-center">
+                    <img src="${member.image}" alt="${member.name}" class="w-24 h-24 rounded-full object-cover">
+                </div>
+            </div>
+            <div>
+                <h2 class="text-3xl font-bold mb-2">${member.name}</h2>
+                <p class="text-lg text-gray-300">${member.description}</p>
+            </div>
+        `;
+        membersContainer.appendChild(memberCard);
+    });
+}
