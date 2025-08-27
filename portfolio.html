@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Professional Web Development Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #f9fafb; /* Lighter background */
+            color: #1f2937; /* Darker text for professionalism */
+        }
+
+        /* Custom blur and background transition for desktop navbar on scroll */
+        .navbar-scrolled {
+            background-color: rgba(31, 41, 55, 0.9) !important; /* Darker gray-900 with opacity */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.2), 0 4px 8px -2px rgba(0, 0, 0, 0.1);
+        }
+        /* Gradient for non-scrolled state */
+        .navbar-top {
+            background-image: linear-gradient(to right, #1e40af, #3730a3); /* Deeper blue to indigo */
+        }
+
+        /* Custom card header gradients for skills section (more professional tones) */
+        .gradient-html { background: linear-gradient(to right top, #ff8c00, #ffa500); } /* Deep Orange */
+        .gradient-css { background: linear-gradient(to right top, #007bff, #1a73e8); } /* Royal Blue */
+        .gradient-js { background: linear-gradient(to right top, #f0db4f, #f7df1e); } /* Yellow */
+        .gradient-java { background: linear-gradient(to right top, #e74c3c, #c0392b); } /* Red Orange */
+        .gradient-python { background: linear-gradient(to right top, #3498db, #2980b9); } /* Light Blue */
+        .gradient-blocks { background: linear-gradient(to right top, #2ecc71, #27ae60); } /* Emerald Green */
+        .gradient-cpp { background: linear-gradient(to right top, #9b59b6, #8e44ad); } /* Amethyst */
+        .gradient-spike { background: linear-gradient(to right top, #34495e, #2c3e50); } /* Wet Asphalt */
+        
+        .skill-card-header {
+            border-bottom-left-radius: 2rem; /* Rounded bottom-left */
+            border-bottom-right-radius: 2rem; /* Rounded bottom-right */
+            clip-path: ellipse(120% 100% at 50% 100%); /* Organic curve effect */
+        }
+
+        /* Adjust body padding for fixed bottom nav on mobile */
+        @media (max-width: 1023px) { /* Adjust breakpoint as needed, lg by default for Tailwind */
+            body {
+                padding-bottom: 5rem; /* Space for the fixed bottom nav */
+            }
+        }
+
+        /* Animation classes */
+        .animate-fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animate-fade-in-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .animate-delay-100 { transition-delay: 0.1s; }
+        .animate-delay-200 { transition-delay: 0.2s; }
+        .animate-delay-300 { transition-delay: 0.3s; }
+        .animate-delay-400 { transition-delay: 0.4s; }
+        .animate-delay-500 { transition-delay: 0.5s; }
+        .animate-delay-600 { transition-delay: 0.6s; }
+        .animate-delay-700 { transition-delay: 0.7s; }
+        .animate-delay-800 { transition-delay: 0.8s; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header Section (Desktop Navbar) -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out navbar-top bg-gradient-to-r from-blue-800 to-indigo-900 hidden lg:block">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <!-- Logo/Site Title -->
+            <a href="#" class="text-white text-3xl font-extrabold tracking-tight rounded-lg px-2 py-1 bg-white bg-opacity-10">
+                My Portfolio
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="flex space-x-8">
+                <a href="#languages" class="text-lg font-medium text-white hover:text-blue-200 transition duration-300 ease-in-out">Skills</a>
+                <a href="#projects" class="text-lg font-medium text-white hover:text-blue-200 transition duration-300 ease-in-out">Projects</a>
+                <a href="#contact" class="text-lg font-medium text-white hover:text-blue-200 transition duration-300 ease-in-out">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Offset for fixed desktop header -->
+    <div class="pt-24 sm:pt-28 hidden lg:block"></div>
+
+    <!-- Hero Section -->
+    <section class="bg-white py-16 sm:py-24 text-center overflow-hidden">
+        <div class="container mx-auto px-4">
+            <h2 class="text-5xl sm:text-6xl font-bold text-gray-900 mb-6 leading-tight animate-fade-in-up">
+                Showcasing Creative Web Solutions
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-10 animate-fade-in-up animate-delay-200">
+                Welcome to my collection of web development projects, built with passion and precision. Explore interactive experiences and dynamic applications.
+            </p>
+            <a href="#projects" class="inline-block bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 animate-fade-in-up animate-delay-400">
+                View My Projects
+            </a>
+        </div>
+    </section>
+
+    <!-- Languages/Skills Section -->
+    <section id="languages" class="py-16 sm:py-20 bg-gray-100">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-12 animate-fade-in-up">
+                My Skills & Technologies
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-6xl mx-auto">
+
+                <!-- HTML5 Card -->
+                <div class="skill-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden animate-fade-in-up animate-delay-100">
+                    <div class="card-header w-full p-8 flex flex-col items-center justify-center text-white skill-card-header gradient-html h-40">
+                        <svg class="w-16 h-16 mb-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.588-2.438zm17.611 2.222l-1.6 17.033-6.524 1.85-6.505-1.848-.431-4.803h2.613l.235 2.551 4.088 1.157 4.072-1.157.426-4.639H5.166l-.286-3.208h12.59l-.338-3.791H4.145L3.8 2.222z"/>
+                        </svg>
+                        <span class="text-xl font-bold">HTML5</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">HTML5</h3>
+                        <p class="text-gray-600 text-sm mb-4">Proficient in structuring web content with the latest HTML standards.</p>
+                        <span class="inline-block bg-gray-200 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full">Web Markup</span>
+                    </div>
+                </div>
+
+                <!-- CSS3 Card -->
+                <div class="skill-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden animate-fade-in-up animate-delay-200">
+                    <div class="card-header w-full p-8 flex flex-col items-center justify-center text-white skill-card-header gradient-css h-40">
+                        <svg class="w-16 h-16 mb-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.545 0l-2.001 22.474 11.456 3.526 11.456-3.526-2.001-22.474zm15.429 8.019l-4.103-.996-.282-3.15h-4.629l-.282 3.149-4.102.996.551 6.096 7.915 2.015 7.916-2.015zm-7.916 9.471l-3.34-1.002.247-2.733h4.63zm3.89-6.938h-4.116l-.282-3.15h4.629l.282 3.15z"/>
+                        </svg>
+                        <span class="text-xl font-bold">CSS3</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">CSS3</h3>
+                        <p class="text-gray-600 text-sm mb-4">Skilled in styling and layout, creating responsive and visually appealing designs.</p>
+                        <span class="inline-block bg-gray-200 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full">Styling</span>
+                    </div>
+                </div>
+
+                <!-- JavaScript Card -->
+                <div class="skill-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden animate-fade-in-up animate-delay-300">
+                    <div class="card-header w-full p-8 flex flex-col items-center justify-center text-white skill-card-header gradient-js h-40">
+                        <svg class="w-16 h-16 mb-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h24v24H0V0zm16.485 17.151c-.604.57-1.385.952-2.31.952-1.344 0-2.327-.611-2.955-1.785l1.649-.691c.3.567.689.927 1.306.927.427 0 .762-.178.762-.647 0-.39-.24-.593-.846-.867l-2.016-.902c-1.218-.544-2.009-1.574-2.009-3.085 0-1.874 1.332-3.235 3.51-3.235 1.054 0 1.952.348 2.68.995l-1.46.772c-.39-.335-.873-.615-1.42-.615-.494 0-.792.203-.792.673 0 .408.232.585.879.882l2.007.893c1.23.55 2.022 1.579 2.022 3.125.001 1.98-1.42 3.327-3.832 3.327-1.077-.001-2.006-.381-2.784-1.026l1.503-.789zm-6.138-1.04h-1.381V9.222h1.381v6.889z"/>
+                        </svg>
+                        <span class="text-xl font-bold">JavaScript</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">JavaScript</h3>
+                        <p class="text-gray-600 text-sm mb-4">Experienced in building dynamic and interactive web applications.</p>
+                        <span class="inline-block bg-gray-200 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full">Interactivity</span>
+                    </div>
+                </div>
+
+                <!-- Java Card -->
+                <div class="skill-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden animate-fade-in-up animate-delay-400">
+                    <div class="card-header w-full p-8 flex flex-col items-center justify-center text-white skill-card-header gradient-java h-40">
+                        <svg class="w-16 h-16 mb-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-3.045 16.622c-1.309-1.168-1.573-2.164-1.573-3.619 0-2.316 1.15-3.805 3.386-3.805 2.112 0 3.362 1.547 3.362 3.805 0 1.547-.384 2.503-1.637 3.619-1.125 1.054-2.457 1.487-3.538 1.487-1.189 0-2.39-.462-3.411-1.487zm.761-12.637c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408c.777 0 1.408-.631 1.408-1.408s-.631-1.408-1.408-1.408z"/>
+                        </svg>
+                        <span class="text-xl font-bold">Java</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Java</h3>
+                        <p class="text-gray-600 text-sm mb-4">Proficient in enterprise-level application development and backend services.</p>
+                        <span class="inline-block bg-gray-200 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full">Backend</span>
+                    </div>
+                </div>
+
+                <!-- Python Card -->
+                <div class="skill-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden animate-fade-in-up animate-delay-500">
+                    <div class="card-header w-full p-8 flex flex-col items-center justify-center text-white skill-card-header gradient-python h-40">
+                        <svg class="w-16 h-16 mb-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-3.045 16.622c-1.309-1.168-1.573-2.164-1.573-3.619 0-2.316 1.15-3.805 3.386-3.805 2.112 0 3.362 1.547 3.362 3.805 0 1.547-.384 2.503-1.637 3.619-1.125 1.054-2.457 1.487-3.538 1.487-1.189 0-2.39-.462-3.411-1.487zm.761-12.637c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408c.777 0 1.408-.631 1.408-1.408s-.631-1.408-1.408-1.408z"/>
+                        </svg>
+                        <span class="text-xl font-bold">Python</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Python</h3>
+                        <p class="text-gray-600 text-sm mb-4">A versatile language for web development, data analysis, and automation.</p>
+                        <span class="inline-block bg-gray-200 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full">General Purpose</span>
+                    </div>
+                </div>
+
+                <!-- Block Coding Card -->
+                <div class="skill-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden animate-fade-in-up animate-delay-600">
+                    <div class="card-header w-full p-8 flex flex-col items-center justify-center text-white skill-card-header gradient-blocks h-40">
+                        <svg class="w-16 h-16 mb-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 11.995c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm13 0c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm-12 0c0-1.104.896-2 2-2s2 .896 2 2-.896 2-2 2-2-.896-2-2zm-9 0c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm-3 0c0-1.104.896-2 2-2s2 .896 2 2-.896 2-2 2-2-.896-2-2zm9 0c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm-6 0c0-1.104.896-2 2-2s2 .896 2 2-.896 2-2 2-2-.896-2-2z"/>
+                            <path d="M2.25 15.5h19.5a.75.75 0 000-1.5H2.25a.75.75 0 000 1.5zM3.5 12.75h17a.75.75 0 000-1.5H3.5a.75.75 0 000 1.5zM4.75 10h14.5a.75.75 0 000-1.5H4.75a.75.75 0 000 1.5zM6 7.25h12a.75.75 0 000-1.5H6a.75.75 0 000 1.5z"/>
+                        </svg>
+                        <span class="text-xl font-bold">Block Coding</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Block Coding</h3>
+                        <p class="text-gray-600 text-sm mb-4">Foundational programming skills using visual block-based environments.</p>
+                        <span class="inline-block bg-gray-200 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full">Visual Programming</span>
+                    </div>
+                </div>
+
+                <!-- C++ for Arduino Card -->
+                <div class="skill-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden animate-fade-in-up animate-delay-700">
+                    <div class="card-header w-full p-8 flex flex-col items-center justify-center text-white skill-card-header gradient-cpp h-40">
+                         <svg class="w-16 h-16 mb-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-3.045 16.622c-1.309-1.168-1.573-2.164-1.573-3.619 0-2.316 1.15-3.805 3.386-3.805 2.112 0 3.362 1.547 3.362 3.805 0 1.547-.384 2.503-1.637 3.619-1.125 1.054-2.457 1.487-3.538 1.487-1.189 0-2.39-.462-3.411-1.487zm.761-12.637c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408c.777 0 1.408-.631 1.408-1.408s-.631-1.408-1.408-1.408z"/>
+                        </svg>
+                        <span class="text-xl font-bold">C++ (Arduino)</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">C++ (Arduino)</h3>
+                        <p class="text-gray-600 text-sm mb-4">Experience with microcontrollers for robotics and embedded systems.</p>
+                        <span class="inline-block bg-gray-200 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full">Embedded</span>
+                    </div>
+                </div>
+
+                <!-- Python for Spike Prime Card -->
+                <div class="skill-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden animate-fade-in-up animate-delay-800">
+                    <div class="card-header w-full p-8 flex flex-col items-center justify-center text-white skill-card-header gradient-spike h-40">
+                         <svg class="w-16 h-16 mb-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-3.045 16.622c-1.309-1.168-1.573-2.164-1.573-3.619 0-2.316 1.15-3.805 3.386-3.805 2.112 0 3.362 1.547 3.362 3.805 0 1.547-.384 2.503-1.637 3.619-1.125 1.054-2.457 1.487-3.538 1.487-1.189 0-2.39-.462-3.411-1.487zm.761-12.637c-.777 0-1.408.631-1.408 1.408s.631 1.408 1.408 1.408c.777 0 1.408-.631 1.408-1.408s-.631-1.408-1.408-1.408z"/>
+                        </svg>
+                        <span class="text-xl font-bold">Python (Spike Prime)</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Python (Spike Prime)</h3>
+                        <p class="text-gray-600 text-sm mb-4">Programming LEGO® Education SPIKE™ Prime for robotics and STEM projects.</p>
+                        <span class="inline-block bg-gray-200 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full">Robotics</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 sm:py-20 bg-white flex-grow">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl sm:text-5xl font-bold text-center text-gray-900 mb-12 animate-fade-in-up">
+                My Projects
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Project Card 1: Spanish Class Website -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden animate-fade-in-up animate-delay-100">
+                    <img src="https://placehold.co/600x400/3B82F6/FFFFFF?text=Spanish+Website" alt="Spanish Class Website Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3">Spanish Class Website</h3>
+                        <p class="text-gray-600 mb-4">A website created for my Spanish class, showcasing language concepts and cultural elements.</p>
+                        <a href="https://agsid.w3spaces.com/" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:text-blue-800 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project Card 2: Login Page -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden animate-fade-in-up animate-delay-200">
+                    <img src="https://placehold.co/600x400/6366F1/FFFFFF?text=Login+Page" alt="Login Page Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3">Login Page</h3>
+                        <p class="text-gray-600 mb-4">A clean and functional login page designed for user authentication.</p>
+                        <a href="https://ag-sid.w3spaces.com/login.html" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:text-blue-800 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project Card 3: Full Page Website -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden animate-fade-in-up animate-delay-300">
+                    <img src="https://placehold.co/600x400/EC4899/FFFFFF?text=Full+Website" alt="Full Page Website Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3">Full Page Website</h3>
+                        <p class="text-gray-600 mb-4">A comprehensive website demonstrating various web design and development skills.</p>
+                        <a href="https://agsid.github.io/website/index.html" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:text-blue-800 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Keeping some placeholders for additional projects -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden animate-fade-in-up animate-delay-400">
+                    <img src="https://placehold.co/600x400/10B981/FFFFFF?text=Project+4" alt="Project 4 Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3">Weather Dashboard</h3>
+                        <p class="text-gray-600 mb-4">An interactive weather application displaying current conditions and forecasts for various locations.</p>
+                        <a href="https://example.com/project4" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:text-blue-800 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden animate-fade-in-up animate-delay-500">
+                    <img src="https://placehold.co/600x400/F59E0B/FFFFFF?text=Project+5" alt="Project 5 Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3">Recipe Finder</h3>
+                        <p class="text-gray-600 mb-4">A web app that allows users to search for recipes based on ingredients and dietary preferences.</p>
+                        <a href="https://example.com/project5" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:text-blue-800 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden animate-fade-in-up animate-delay-600">
+                    <img src="https://placehold.co/600x400/EF4444/FFFFFF?text=Project+6" alt="Project 6 Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-3">Portfolio Website (v1)</h3>
+                        <p class="text-gray-600 mb-4">A previous iteration of my personal portfolio, showcasing design skills and early projects.</p>
+                        <a href="https://example.com/project6" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:text-blue-800 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-gradient-to-r from-blue-800 to-indigo-900 text-white py-16 sm:py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl sm:text-5xl font-bold mb-8 animate-fade-in-up">Get in Touch</h2>
+            <p class="text-xl max-w-2xl mx-auto mb-10 animate-fade-in-up animate-delay-200">
+                Have a project in mind or just want to chat? Feel free to reach out to me!
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 animate-fade-in-up animate-delay-400">
+                <a href="mailto:your.email@example.com" class="inline-block bg-white text-blue-700 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out hover:bg-gray-100 transform hover:scale-105">
+                    Email Me
+                </a>
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" class="inline-block bg-white text-blue-700 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out hover:bg-gray-100 transform hover:scale-105">
+                    Connect on LinkedIn
+                </a>
+                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="inline-block bg-white text-blue-700 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out hover:bg-gray-100 transform hover:scale-105">
+                    View on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-gray-300 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 **[Your Name Here]**. All rights reserved.</p>
+            <p class="mt-2 text-sm">Built with <span class="text-red-500">&hearts;</span> and Tailwind CSS</p>
+            <p class="mt-2 text-sm">Find me on <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">GitHub</a></p>
+        </div>
+    </footer>
+
+    <!-- Bottom Navigation for Phone View -->
+    <nav class="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white shadow-2xl rounded-t-3xl p-4">
+        <div class="flex justify-around items-center h-full max-w-md mx-auto">
+            <a href="#languages" class="flex flex-col items-center text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <span class="text-xs mt-1 font-medium">Skills</span>
+            </a>
+            <a href="#projects" class="flex flex-col items-center text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V6.25a.75.75 0 01.75-.75h12.5a.75.75 0 01.75.75V19M4 19h16M10 3h4M12 11v6m-3-3h6"></path></svg>
+                <span class="text-xs mt-1 font-medium">Projects</span>
+            </a>
+            <a href="#contact" class="flex flex-col items-center text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-9 13V3"></path></svg>
+                <span class="text-xs mt-1 font-medium">Contact</span>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        const header = document.querySelector('header');
+        
+        // Navbar scroll effect for desktop only
+        window.addEventListener('scroll', () => {
+            if (window.innerWidth >= 1024) { // Only apply on desktop (lg breakpoint and up)
+                if (window.scrollY > 50) { // Apply effect after scrolling 50px
+                    header.classList.add('navbar-scrolled');
+                    header.classList.remove('navbar-top'); // Remove initial gradient
+                } else {
+                    header.classList.remove('navbar-scrolled');
+                    header.classList.add('navbar-top'); // Add initial gradient back
+                }
+            }
+        });
+
+        // Intersection Observer for scroll-triggered animations
+        const animateOnScrollElements = document.querySelectorAll('.animate-fade-in-up');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Stop observing once visible
+                }
+            });
+        }, {
+            threshold: 0.1, // Trigger when 10% of the element is visible
+            rootMargin: "0px 0px -50px 0px" // Start animation slightly before entering viewport
+        });
+
+        animateOnScrollElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // Initial check for elements in viewport on load for those that might already be visible
+        window.addEventListener('load', () => {
+            animateOnScrollElements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    element.classList.add('is-visible');
+                    observer.unobserve(element);
+                }
+            });
+        });
+
+        // Apply initial fade-in-up to hero elements without observer, for immediate effect on load
+        document.querySelectorAll('.hero-section .animate-fade-in-up').forEach(element => {
+            element.classList.add('is-visible');
+        });
+
+        // Mark hero elements for immediate animation (they are within the initial viewport)
+        document.querySelector('.hero-section h2').classList.add('is-visible');
+        document.querySelector('.hero-section p').classList.add('is-visible');
+        document.querySelector('.hero-section a').classList.add('is-visible');
+
+    </script>
+
+</body>
+</html>
