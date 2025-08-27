@@ -70,9 +70,66 @@
         .animate-delay-600 { transition-delay: 0.6s; }
         .animate-delay-700 { transition-delay: 0.7s; }
         .animate-delay-800 { transition-delay: 0.8s; }
+
+        /* Website Under Construction Mask */
+        .construction-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent overlay */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000; /* Ensure it's on top of everything */
+            color: white;
+            text-align: center;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+        }
+        .construction-mask.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .construction-mask img {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 1.5rem;
+            animation: bounce 2s infinite ease-in-out; /* Simple bounce animation */
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        .construction-mask h1 {
+            font-size: 2.5rem; /* Large text */
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .construction-mask p {
+            font-size: 1.25rem;
+            max-width: 600px;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
+
+    <!-- Website Under Construction Mask -->
+    <div id="construction-mask" class="construction-mask">
+        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDhjbms2cHh4cWkweDR3ODNoMGIxMTViandvdjlnYnI0Nnp3YXIyZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/dfYEp3X8dUugs6TyjZ/giphy.gif" alt="Construction Cone Icon" />
+        <h1 class="text-white text-5xl font-extrabold mb-4">Website Under Construction</h1>
+        <p class="text-white text-lg max-w-xl">
+            We're busy building something amazing! Please check back soon for the full experience.
+        </p>
+        <button id="close-mask-btn" class="mt-8 px-6 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition duration-300">
+            Continue to Website (Not Recommended)
+        </button>
+    </div>
 
     <!-- Header Section (Desktop Navbar) -->
     <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out navbar-top bg-gradient-to-r from-blue-800 to-indigo-900 hidden lg:block">
@@ -401,7 +458,9 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target); // Stop observing once visible
+                    // Removed unobserve here to allow elements to animate back if scrolled out and in again
+                } else {
+                    entry.target.classList.remove('is-visible'); // Hide if scrolled out
                 }
             });
         }, {
@@ -413,26 +472,18 @@
             observer.observe(element);
         });
 
-        // Initial check for elements in viewport on load for those that might already be visible
-        window.addEventListener('load', () => {
-            animateOnScrollElements.forEach(element => {
-                const rect = element.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    element.classList.add('is-visible');
-                    observer.unobserve(element);
-                }
-            });
+        // Close mask functionality
+        const constructionMask = document.getElementById('construction-mask');
+        const closeMaskBtn = document.getElementById('close-mask-btn');
+
+        closeMaskBtn.addEventListener('click', () => {
+            constructionMask.classList.add('hidden');
         });
 
-        // Apply initial fade-in-up to hero elements without observer, for immediate effect on load
-        document.querySelectorAll('.hero-section .animate-fade-in-up').forEach(element => {
-            element.classList.add('is-visible');
-        });
-
-        // Mark hero elements for immediate animation (they are within the initial viewport)
-        document.querySelector('.hero-section h2').classList.add('is-visible');
-        document.querySelector('.hero-section p').classList.add('is-visible');
-        document.querySelector('.hero-section a').classList.add('is-visible');
+        // Optional: Make the mask disappear after a delay on page load (e.g., 5 seconds)
+        // setTimeout(() => {
+        //     constructionMask.classList.add('hidden');
+        // }, 5000); 
 
     </script>
 
