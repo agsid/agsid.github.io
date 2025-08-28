@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sid Ag - Web Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="fixed top-0 left-0 right-0 z-50 p-4 hidden lg:flex justify-center">
+        <div class="navbar-custom flex items-center space-x-4 p-2 shadow-xl">
+            <a href="#" class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-gray-900 shadow-md">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h2.5M21 11H19a2 2 0 01-2-2V7a2 2 0 00-2-2h-2.5C7.5 1 4.5 7 3 11m18 0l-3 6m0 0l-5 2.5M21 11z"></path>
+                </svg>
+            </a>
+
+            <nav class="flex space-x-2 text-gray-800 font-medium">
+                <a href="#skills" class="navbar-link">Skills</a>
+                <a href="#projects" class="navbar-link">Projects</a>
+                <a href="#contact" class="navbar-link">Contact</a>
+            </nav>
+
+            <a href="mailto:agsid502@gmail.com" class="navbar-email text-sm whitespace-nowrap">
+                agsid502@gmail.com
+            </a>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-r from-[#3A3982] to-[#4A47A9] text-white py-20 sm:py-32 text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
+                Hi, I'm **Sid Ag**, <br> a Passionate Web Developer.
+            </h1>
+            <p class="text-lg sm:text-xl max-w-3xl mx-auto mb-8 opacity-90">
+                Crafting clean, elegant, and responsive web applications from concept to deployment.
+            </p>
+            <a href="#projects" class="inline-block bg-white text-blue-700 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gray-100">
+                View My Work
+            </a>
+        </div>
+    </section>
+
+    <section id="skills" class="py-16 sm:py-24">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12">
+                My Core Skills
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 max-w-6xl mx-auto">
+                <div class="flex flex-col items-center justify-center p-4 bg-white bg-opacity-10 rounded-xl shadow-lg">
+                    <i class="devicon-html5-plain skill-icon"></i>
+                    <span class="text-lg font-semibold mt-2 text-white">HTML5</span>
+                </div>
+                <div class="flex flex-col items-center justify-center p-4 bg-white bg-opacity-10 rounded-xl shadow-lg">
+                    <i class="devicon-css3-plain skill-icon"></i>
+                    <span class="text-lg font-semibold mt-2 text-white">CSS3</span>
+                </div>
+                <div class="flex flex-col items-center justify-center p-4 bg-white bg-opacity-10 rounded-xl shadow-lg">
+                    <i class="devicon-javascript-plain skill-icon"></i>
+                    <span class="text-lg font-semibold mt-2 text-white">JavaScript</span>
+                </div>
+                <div class="flex flex-col items-center justify-center p-4 bg-white bg-opacity-10 rounded-xl shadow-lg">
+                    <i class="devicon-python-plain skill-icon"></i>
+                    <span class="text-lg font-semibold mt-2 text-white">Python</span>
+                </div>
+                <div class="flex flex-col items-center justify-center p-4 bg-white bg-opacity-10 rounded-xl shadow-lg">
+                    <i class="devicon-cplusplus-plain skill-icon"></i>
+                    <span class="text-lg font-semibold mt-2 text-white">C++</span>
+                </div>
+                <div class="flex flex-col items-center justify-center p-4 bg-white bg-opacity-10 rounded-xl shadow-lg">
+                    <i class="devicon-arduino-plain skill-icon"></i>
+                    <span class="text-lg font-semibold mt-2 text-white">Arduino</span>
+                </div>
+                <div class="flex flex-col items-center justify-center p-4 bg-white bg-opacity-10 rounded-xl shadow-lg">
+                    <svg class="h-16 w-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                    <span class="text-lg font-semibold mt-2 text-white">Block Coding</span>
+                </div>
+                <div class="flex flex-col items-center justify-center p-4 bg-white bg-opacity-10 rounded-xl shadow-lg">
+                    <svg class="h-16 w-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 12h2m10 0h2M3 9h2m14 0h2M3 15h2m14 0h2M12 3c-1.105 0-2 .895-2 2v2a2 2 0 104 0V5c0-1.105-.895-2-2-2zM4 10h16v4H4v-4z"></path>
+                    </svg>
+                    <span class="text-lg font-semibold mt-2 text-white">Spike Prime</span>
+                </div>
+                <div class="flex flex-col items-center justify-center p-4 bg-white bg-opacity-10 rounded-xl shadow-lg">
+                    <i class="devicon-java-plain skill-icon"></i>
+                    <span class="text-lg font-semibold mt-2 text-white">Java</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-16 sm:py-24">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-12">
+                My Projects
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white bg-opacity-10 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <img src="image_88b19f.jpg" alt="Spanish Class Website Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-white mb-2">Spanish Class Website</h3>
+                        <p class="text-gray-300 text-sm mb-4">Developed a fully responsive website for a Spanish class in just three days, featuring cultural information and language learning resources. This project demonstrated rapid prototyping and efficient content integration.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-blue-600 text-white">HTML</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-blue-600 text-white">CSS</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-blue-600 text-white">JavaScript</span>
+                        </div>
+                        <a href="https://agsid.w3spaces.com/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-200 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <img src="image_88b177.jpg" alt="Login Page Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-white mb-2">Secure Login Portal</h3>
+                        <p class="text-gray-300 text-sm mb-4">Developed a robust login page integrated with Google Firebase for authentication and database management. This project showcases secure user sign-in and data persistence capabilities.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-indigo-600 text-white">HTML</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-indigo-600 text-white">CSS</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-indigo-600 text-white">JavaScript</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-red-600 text-white">Firebase</span>
+                        </div>
+                        <a href="https://ag-sid.w3spaces.com/login.html" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-200 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <img src="image_88a6f1.jpg" alt="Robotics Team Website Version 1 Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-white mb-2">Robotics Team Website (V1)</h3>
+                        <p class="text-gray-300 text-sm mb-4">The initial iteration of the robotics team website, setting the foundation for team presence and information sharing with a focus on core information.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-green-600 text-white">HTML</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-green-600 text-white">CSS</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-green-600 text-white">JavaScript</span>
+                        </div>
+                        <a href="https://sidag.w3spaces.com/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-200 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <img src="image_88a676.jpg" alt="Robotics Team Website Version 2 Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-white mb-2">Robotics Team Website (V2)</h3>
+                        <p class="text-gray-300 text-sm mb-4">An enhanced version of the robotics team website, featuring updated content, improved navigation, and a more dynamic user interface for better engagement.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-green-600 text-white">HTML</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-green-600 text-white">CSS</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-green-600 text-white">JavaScript</span>
+                        </div>
+                        <a href="https://allied-algorithms.w3spaces.com/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-200 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <img src="image_88aa99.jpg" alt="Robotics Team Website Version 3 Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-white mb-2">Robotics Team Website (V3)</h3>
+                        <p class="text-gray-300 text-sm mb-4">The latest iteration of the robotics team website, featuring advanced sections, improved aesthetics, and expanded content for comprehensive team representation.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-green-600 text-white">HTML</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-green-600 text-white">CSS</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-green-600 text-white">JavaScript</span>
+                        </div>
+                        <a href="https://agsid.github.io/website/index.html" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-200 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <img src="https://placehold.co/600x400/8B4513/FFFFFF?text=Bears+Website" alt="Bears Website Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-white mb-2">Bears Website</h3>
+                        <p class="text-gray-300 text-sm mb-4">An informative website dedicated to various bear species, their habitats, and conservation efforts, designed with engaging visuals and educational content.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-yellow-600 text-white">HTML</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-yellow-600 text-white">CSS</span>
+                        </div>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-200 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <img src="https://placehold.co/600x400/5E35B1/FFFFFF?text=Folktales+Website" alt="Folktales Website Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-white mb-2">Folktales Website</h3>
+                        <p class="text-gray-300 text-sm mb-4">An interactive website featuring a curated collection of traditional folktales from diverse cultures, designed to entertain and educate users of all ages.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-purple-600 text-white">HTML</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-purple-600 text-white">CSS</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-purple-600 text-white">JavaScript</span>
+                        </div>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-200 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <img src="https://placehold.co/600x400/4CAF50/FFFFFF?text=School+Project" alt="School Project Website Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-white mb-2">School Project Website</h3>
+                        <p class="text-gray-300 text-sm mb-4">A responsive website created for a school assignment, showcasing fundamental web development skills, design principles, and academic concepts.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-lime-600 text-white">HTML</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-lime-600 text-white">CSS</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-lime-600 text-white">JavaScript</span>
+                        </div>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-200 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <img src="https://placehold.co/600x400/E53935/FFFFFF?text=Hotwheels+Site" alt="Hotwheels Car Website Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-white mb-2">Hotwheels Car Website</h3>
+                        <p class="text-gray-300 text-sm mb-4">A vibrant and interactive website dedicated to Hotwheels car collections, showcasing models, rare editions, and custom designs with engaging animations.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-red-600 text-white">HTML</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-red-600 text-white">CSS</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-red-600 text-white">JavaScript</span>
+                        </div>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-200 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <img src="https://placehold.co/600x400/F44336/FFFFFF?text=Java+Project" alt="Java Code Project Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-white mb-2">Java Backend Application</h3>
+                        <p class="text-gray-300 text-sm mb-4">A robust backend application developed using Java, demonstrating object-oriented programming, API design, and database integration for scalable solutions.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-orange-600 text-white">Java</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-orange-600 text-white">Spring Boot</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-orange-600 text-white">SQL</span>
+                        </div>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-200 font-medium inline-flex items-center">
+                            View Project Code
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <img src="https://placehold.co/600x400/3F51B5/FFFFFF?text=Python+Project" alt="Python Project Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-white mb-2">Python Data Analysis Tool</h3>
+                        <p class="text-gray-300 text-sm mb-4">A Python-based tool for data analysis and visualization, leveraging libraries like Pandas and Matplotlib to extract insights from complex datasets.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-blue-800 text-white">Python</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-blue-800 text-white">Pandas</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-blue-800 text-white">Matplotlib</span>
+                        </div>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-200 font-medium inline-flex items-center">
+                            View Project Code
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <img src="https://placehold.co/600x400/000000/FFFFFF?text=macOS+Scratch" alt="macOS-inspired Scratch Project Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-white mb-2">macOS-inspired Scratch Project</h3>
+                        <p class="text-gray-300 text-sm mb-4">A creative Scratch project replicating key elements and functionalities of the macOS interface, demonstrating visual programming skills and attention to detail.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-gray-600 text-white">Scratch</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-gray-600 text-white">Visual Programming</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-gray-600 text-white">UI/UX Design</span>
+                        </div>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-200 font-medium inline-flex items-center">
+                            View Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <img src="https://placehold.co/600x400/334155/FFFFFF?text=Linux+Homepage" alt="Linux Software Homepage Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-white mb-2">Linux Software Homepage</h3>
+                        <p class="text-gray-300 text-sm mb-4">Designed and developed a sleek and informative homepage for a Linux software project, focusing on user experience and clear presentation of features and documentation.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-slate-600 text-white">HTML</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-slate-600 text-white">CSS</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-slate-600 text-white">JavaScript</span>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-slate-600 text-white">Linux</span>
+                        </div>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-200 font-medium inline-flex items-center">
+                            View Live Project
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="bg-white bg-opacity-10 text-white py-16 sm:py-24">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-6">Let's Build Something Great Together</h2>
+            <p class="text-lg max-w-2xl mx-auto mb-8 opacity-80">
+                I'm currently open to new opportunities and collaborations. Feel free to reach out and say hello!
+            </p>
+            <a href="mailto:agsid502@gmail.com" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                Email Me
+            </a>
+            <div class="flex justify-center space-x-6 mt-8">
+                <a href="https://github.com/agsid" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors duration-300">
+                    <i class="devicon-github-original text-2xl"></i>
+                </a>
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors duration-300">
+                    <i class="devicon-linkedin-plain text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 bg-opacity-20 text-gray-400 py-6 text-center">
+        <div class="container mx-auto px-4">
+            <p class="text-sm">&copy; 2025 Sid Ag. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <nav class="fixed bottom-0 left-0 right-0 lg:hidden bg-gray-900 bg-opacity-90 backdrop-blur-md rounded-t-xl py-2 shadow-xl z-50">
+        <div class="flex justify-around items-center h-16 max-w-lg mx-auto">
+            <a href="#skills" class="mobile-nav-item active">
+                <div class="icon-bg"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Skills</span>
+            </a>
+            <a href="#projects" class="mobile-nav-item">
+                <div class="icon-bg"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-1-3m-6.938-9h11.876L19.5 17H4.5L2.062 8H1.5M11.999 7.425C11.999 5.86 10.745 4.5 9.18 4.5S6.36 5.86 6.36 7.425c0 1.564 1.254 2.825 2.819 2.825s2.82-1.261 2.82-2.825zM12 11h9v5l-3 2h-6l-3-2V11z" />
+                </svg>
+                <span>Projects</span>
+            </a>
+            <a href="#contact" class="mobile-nav-item">
+                <div class="icon-bg"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 2v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6m0-4a2 2 0 012-2h10a2 2 0 012 2v2a2 2 0 01-2 2H7a2 2 0 01-2-2V6z" />
+                </svg>
+                <span>Contact</span>
+            </a>
+        </div>
+    </nav>
+    <script src="script.js"></script>
+</body>
+</html>
