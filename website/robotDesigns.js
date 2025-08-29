@@ -31,6 +31,6 @@ const robotDesigns = [
         teamNumberInputId: 'teamNumberInput3',
         statusMessageId: 'statusMessage3',
         downloadFilePath: './robot/instructions/Basebot3.pdf',
-        cadLink: 'https://www.bricklink.com/v3/studio/design.page?idModel=694817'
+        cadLink: 'https://www.bricklink.com/v3/studio/design.page?idModel=726673'
     }
 ];
