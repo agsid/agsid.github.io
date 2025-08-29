@@ -1,0 +1,159 @@
+const projects = [
+    {
+        image: "image_88b19f.jpg",
+        alt: "Spanish Class Website Thumbnail",
+        title: "Spanish Class Website",
+        description: "Developed a fully responsive website for a Spanish class in just three days, featuring cultural information and language learning resources. This project demonstrated rapid prototyping and efficient content integration.",
+        technologies: [
+            { name: "HTML", color: "bg-blue-600" },
+            { name: "CSS", color: "bg-blue-600" },
+            { name: "JavaScript", color: "bg-blue-600" }
+        ],
+        link: "https://agsid.w3spaces.com/"
+    },
+    {
+        image: "image_88b177.jpg",
+        alt: "Login Page Thumbnail",
+        title: "Secure Login Portal",
+        description: "Developed a robust login page integrated with Google Firebase for authentication and database management. This project showcases secure user sign-in and data persistence capabilities.",
+        technologies: [
+            { name: "HTML", color: "bg-indigo-600" },
+            { name: "CSS", color: "bg-indigo-600" },
+            { name: "JavaScript", color: "bg-indigo-600" },
+            { name: "Firebase", color: "bg-red-600" }
+        ],
+        link: "https://ag-sid.w3spaces.com/login.html"
+    },
+    {
+        image: "image_88a6f1.jpg",
+        alt: "Robotics Team Website Version 1 Thumbnail",
+        title: "Robotics Team Website (V1)",
+        description: "The initial iteration of the robotics team website, setting the foundation for team presence and information sharing with a focus on core information.",
+        technologies: [
+            { name: "HTML", color: "bg-green-600" },
+            { name: "CSS", color: "bg-green-600" },
+            { name: "JavaScript", color: "bg-green-600" }
+        ],
+        link: "https://sidag.w3spaces.com/"
+    },
+    {
+        image: "image_88a676.jpg",
+        alt: "Robotics Team Website Version 2 Thumbnail",
+        title: "Robotics Team Website (V2)",
+        description: "An enhanced version of the robotics team website, featuring updated content, improved navigation, and a more dynamic user interface for better engagement.",
+        technologies: [
+            { name: "HTML", color: "bg-green-600" },
+            { name: "CSS", color: "bg-green-600" },
+            { name: "JavaScript", color: "bg-green-600" }
+        ],
+        link: "https://allied-algorithms.w3spaces.com/"
+    },
+    {
+        image: "image_88aa99.jpg",
+        alt: "Robotics Team Website Version 3 Thumbnail",
+        title: "Robotics Team Website (V3)",
+        description: "The latest iteration of the robotics team website, featuring advanced sections, improved aesthetics, and expanded content for comprehensive team representation.",
+        technologies: [
+            { name: "HTML", color: "bg-green-600" },
+            { name: "CSS", color: "bg-green-600" },
+            { name: "JavaScript", color: "bg-green-600" }
+        ],
+        link: "https://agsid.github.io/website/index.html"
+    },
+    {
+        image: "https://placehold.co/600x400/8B4513/FFFFFF?text=Bears+Website",
+        alt: "Bears Website Thumbnail",
+        title: "Bears Website",
+        description: "An informative website dedicated to various bear species, their habitats, and conservation efforts, designed with engaging visuals and educational content.",
+        technologies: [
+            { name: "HTML", color: "bg-yellow-600" },
+            { name: "CSS", color: "bg-yellow-600" }
+        ],
+        link: "#"
+    },
+    {
+        image: "https://placehold.co/600x400/5E35B1/FFFFFF?text=Folktales+Website",
+        alt: "Folktales Website Thumbnail",
+        title: "Folktales Website",
+        description: "An interactive website featuring a curated collection of traditional folktales from diverse cultures, designed to entertain and educate users of all ages.",
+        technologies: [
+            { name: "HTML", color: "bg-purple-600" },
+            { name: "CSS", color: "bg-purple-600" },
+            { name: "JavaScript", color: "bg-purple-600" }
+        ],
+        link: "#"
+    },
+    {
+        image: "https://placehold.co/600x400/4CAF50/FFFFFF?text=School+Project",
+        alt: "School Project Website Thumbnail",
+        title: "School Project Website",
+        description: "A responsive website created for a school assignment, showcasing fundamental web development skills, design principles, and academic concepts.",
+        technologies: [
+            { name: "HTML", color: "bg-lime-600" },
+            { name: "CSS", color: "bg-lime-600" },
+            { name: "JavaScript", color: "bg-lime-600" }
+        ],
+        link: "#"
+    },
+    {
+        image: "https://placehold.co/600x400/E53935/FFFFFF?text=Hotwheels+Site",
+        alt: "Hotwheels Car Website Thumbnail",
+        title: "Hotwheels Car Website",
+        description: "A vibrant and interactive website dedicated to Hotwheels car collections, showcasing models, rare editions, and custom designs with engaging animations.",
+        technologies: [
+            { name: "HTML", color: "bg-red-600" },
+            { name: "CSS", color: "bg-red-600" },
+            { name: "JavaScript", color: "bg-red-600" }
+        ],
+        link: "#"
+    },
+    {
+        image: "https://placehold.co/600x400/F44336/FFFFFF?text=Java+Project",
+        alt: "Java Code Project Thumbnail",
+        title: "Java Backend Application",
+        description: "A robust backend application developed using Java, demonstrating object-oriented programming, API design, and database integration for scalable solutions.",
+        technologies: [
+            { name: "Java", color: "bg-orange-600" },
+            { name: "Spring Boot", color: "bg-orange-600" },
+            { name: "SQL", color: "bg-orange-600" }
+        ],
+        link: "#"
+    },
+    {
+        image: "https://placehold.co/600x400/3F51B5/FFFFFF?text=Python+Project",
+        alt: "Python Project Thumbnail",
+        title: "Python Data Analysis Tool",
+        description: "A Python-based tool for data analysis and visualization, leveraging libraries like Pandas and Matplotlib to extract insights from complex datasets.",
+        technologies: [
+            { name: "Python", color: "bg-blue-800" },
+            { name: "Pandas", color: "bg-blue-800" },
+            { name: "Matplotlib", color: "bg-blue-800" }
+        ],
+        link: "#"
+    },
+    {
+        image: "https://placehold.co/600x400/000000/FFFFFF?text=macOS+Scratch",
+        alt: "macOS-inspired Scratch Project Thumbnail",
+        title: "macOS-inspired Scratch Project",
+        description: "A creative Scratch project replicating key elements and functionalities of the macOS interface, demonstrating visual programming skills and attention to detail.",
+        technologies: [
+            { name: "Scratch", color: "bg-gray-600" },
+            { name: "Visual Programming", color: "bg-gray-600" },
+            { name: "UI/UX Design", color: "bg-gray-600" }
+        ],
+        link: "#"
+    },
+    {
+        image: "https://placehold.co/600x400/334155/FFFFFF?text=Linux+Homepage",
+        alt: "Linux Software Homepage Thumbnail",
+        title: "Linux Software Homepage",
+        description: "Designed and developed a sleek and informative homepage for a Linux software project, focusing on user experience and clear presentation of features and documentation.",
+        technologies: [
+            { name: "HTML", color: "bg-slate-600" },
+            { name: "CSS", color: "bg-slate-600" },
+            { name: "JavaScript", color: "bg-slate-600" },
+            { name: "Linux", color: "bg-slate-600" }
+        ],
+        link: "#"
+    }
+];
