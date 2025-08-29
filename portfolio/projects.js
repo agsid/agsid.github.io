@@ -1,3 +1,4 @@
+// projects.js
 const projects = [
     {
         image: "image_88b19f.jpg",
