@@ -1,16 +1,16 @@
 // projects.js
 const projects = [
-    {
-        image: "image_88b19f.jpg",
-        alt: "Spanish Class Website Thumbnail",
-        title: "Spanish Class Website",
-        description: "Developed a fully responsive website for a Spanish class in just three days, featuring cultural information and language learning resources. This project demonstrated rapid prototyping and efficient content integration.",
+       {
+        image: "image_88aa99.jpg",
+        alt: "Robotics Team Website Version 3 Thumbnail",
+        title: "Robotics Team Website (V3)",
+        description: "The latest iteration of the robotics team website, featuring advanced sections, improved aesthetics, and expanded content for comprehensive team representation.",
         technologies: [
-            { name: "HTML", color: "bg-blue-600" },
-            { name: "CSS", color: "bg-blue-600" },
-            { name: "JavaScript", color: "bg-blue-600" }
+            { name: "HTML", color: "bg-green-600" },
+            { name: "CSS", color: "bg-green-600" },
+            { name: "JavaScript", color: "bg-green-600" }
         ],
-        link: "https://agsid.w3spaces.com/"
+        link: "https://agsid.github.io/website/index.html"
     },
     {
         image: "image_88b177.jpg",
@@ -26,6 +26,74 @@ const projects = [
         link: "https://ag-sid.w3spaces.com/login.html"
     },
     {
+        image: "https://placehold.co/600x400/334155/FFFFFF?text=Linux+Homepage",
+        alt: "Linux Software Homepage Thumbnail",
+        title: "Linux Software Homepage",
+        description: "Designed and developed a sleek and informative homepage for a Linux software project, focusing on user experience and clear presentation of features and documentation.",
+        technologies: [
+            { name: "HTML", color: "bg-slate-600" },
+            { name: "CSS", color: "bg-slate-600" },
+            { name: "JavaScript", color: "bg-slate-600" },
+            { name: "Linux", color: "bg-slate-600" }
+        ],
+        link: "#"
+    },
+    {
+        image: "https://placehold.co/600x400/8B4513/FFFFFF?text=Bears+Website",
+        alt: "Bears Website Thumbnail",
+        title: "Bears Website",
+        description: "This was my first webstie that i made some basic changes to with css. I made this webstie with ni css the first time around. I was 10 years old and was the proudest kid alive.",
+        technologies: [
+            { name: "HTML", color: "bg-yellow-600" },
+            { name: "CSS", color: "bg-yellow-600" }
+        ],
+        link: "https://sites.google.com/view/bearbysid/untitled-page"
+    },
+        {
+        image: "https://placehold.co/600x400/F44336/FFFFFF?text=Java+Project",
+        alt: "Java Code Project Thumbnail",
+        title: "Java coded Robot",
+        description: "I wanted to learn how to code an FTC robot in java. These files show my understanding of how java works, and gives you acsess to files for a competition ready robot.",
+        technologies: [
+            { name: "Java", color: "bg-orange-600" },
+        ],
+        link: "https://github.com/agsid/ftc1"
+    },
+    {
+        image: "https://placehold.co/600x400/5E35B1/FFFFFF?text=Folktales+Website",
+        alt: "Folktales Website Thumbnail",
+        title: "Folktales Website",
+        description: "An interactive website featuring a curated collection of traditional folktales from diverse cultures, designed to entertain and educate users of all ages.",
+        technologies: [
+            { name: "HTML", color: "bg-purple-600" },
+            { name: "CSS", color: "bg-purple-600" },
+            { name: "JavaScript", color: "bg-purple-600" }
+        ],
+        link: "https://sites.google.com/view/worldtales/other"
+    },
+    {
+        image: "https://placehold.co/600x400/E53935/FFFFFF?text=Hotwheels+Site",
+        alt: "Hotwheels Car Website Thumbnail",
+        title: "Hotwheels Car Website",
+        description: "THis was the first website, and last that I made entirely through AI. It impressedme, but it needed alot of time to make it and underdstand my promt.",
+        technologies: [
+            { name: "HTML", color: "bg-red-600" },
+            { name: "CSS", color: "bg-red-600" },
+            { name: "JavaScript", color: "bg-red-600" }
+        ],
+        link: "https://sites.google.com/view/hotwheelsid/hotwheel"
+    },
+    {
+        image: "https://placehold.co/600x400/3F51B5/FFFFFF?text=Python+Project",
+        alt: "Python Project Thumbnail",
+        title: "Python Data Analysis Tool",
+        description: "I love cars and coding. This project combines them. This project is  apython car dealership I made in 2023. This is where I learned the importance of proper indentation in python.",
+        technologies: [
+            { name: "Python", color: "bg-blue-800" },    
+        ],
+        link: "https://replit.com/@SiddharthAgra16/test-2"
+    },
+     {
         image: "image_88a6f1.jpg",
         alt: "Robotics Team Website Version 1 Thumbnail",
         title: "Robotics Team Website (V1)",
@@ -49,112 +117,29 @@ const projects = [
         ],
         link: "https://allied-algorithms.w3spaces.com/"
     },
-    {
-        image: "image_88aa99.jpg",
-        alt: "Robotics Team Website Version 3 Thumbnail",
-        title: "Robotics Team Website (V3)",
-        description: "The latest iteration of the robotics team website, featuring advanced sections, improved aesthetics, and expanded content for comprehensive team representation.",
+      {
+        image: "image_88b19f.jpg",
+        alt: "Spanish Class Website Thumbnail",
+        title: "Spanish Class Website",
+        description: "Developed a fully responsive website for a Spanish class in just three days, THe project was based on an airbnb. We had to showcase it while using spanish. I wanted to challenge myself with a deadline. I made the deadline, but if i had more time i could've made it look better,",
         technologies: [
-            { name: "HTML", color: "bg-green-600" },
-            { name: "CSS", color: "bg-green-600" },
-            { name: "JavaScript", color: "bg-green-600" }
+            { name: "HTML", color: "bg-blue-600" },
+            { name: "CSS", color: "bg-blue-600" },
+            { name: "JavaScript", color: "bg-blue-600" }
         ],
-        link: "https://agsid.github.io/website/index.html"
-    },
-    {
-        image: "https://placehold.co/600x400/8B4513/FFFFFF?text=Bears+Website",
-        alt: "Bears Website Thumbnail",
-        title: "Bears Website",
-        description: "An informative website dedicated to various bear species, their habitats, and conservation efforts, designed with engaging visuals and educational content.",
-        technologies: [
-            { name: "HTML", color: "bg-yellow-600" },
-            { name: "CSS", color: "bg-yellow-600" }
-        ],
-        link: "#"
-    },
-    {
-        image: "https://placehold.co/600x400/5E35B1/FFFFFF?text=Folktales+Website",
-        alt: "Folktales Website Thumbnail",
-        title: "Folktales Website",
-        description: "An interactive website featuring a curated collection of traditional folktales from diverse cultures, designed to entertain and educate users of all ages.",
-        technologies: [
-            { name: "HTML", color: "bg-purple-600" },
-            { name: "CSS", color: "bg-purple-600" },
-            { name: "JavaScript", color: "bg-purple-600" }
-        ],
-        link: "#"
-    },
-    {
-        image: "https://placehold.co/600x400/4CAF50/FFFFFF?text=School+Project",
-        alt: "School Project Website Thumbnail",
-        title: "School Project Website",
-        description: "A responsive website created for a school assignment, showcasing fundamental web development skills, design principles, and academic concepts.",
-        technologies: [
-            { name: "HTML", color: "bg-lime-600" },
-            { name: "CSS", color: "bg-lime-600" },
-            { name: "JavaScript", color: "bg-lime-600" }
-        ],
-        link: "#"
-    },
-    {
-        image: "https://placehold.co/600x400/E53935/FFFFFF?text=Hotwheels+Site",
-        alt: "Hotwheels Car Website Thumbnail",
-        title: "Hotwheels Car Website",
-        description: "A vibrant and interactive website dedicated to Hotwheels car collections, showcasing models, rare editions, and custom designs with engaging animations.",
-        technologies: [
-            { name: "HTML", color: "bg-red-600" },
-            { name: "CSS", color: "bg-red-600" },
-            { name: "JavaScript", color: "bg-red-600" }
-        ],
-        link: "#"
-    },
-    {
-        image: "https://placehold.co/600x400/F44336/FFFFFF?text=Java+Project",
-        alt: "Java Code Project Thumbnail",
-        title: "Java Backend Application",
-        description: "A robust backend application developed using Java, demonstrating object-oriented programming, API design, and database integration for scalable solutions.",
-        technologies: [
-            { name: "Java", color: "bg-orange-600" },
-            { name: "Spring Boot", color: "bg-orange-600" },
-            { name: "SQL", color: "bg-orange-600" }
-        ],
-        link: "#"
-    },
-    {
-        image: "https://placehold.co/600x400/3F51B5/FFFFFF?text=Python+Project",
-        alt: "Python Project Thumbnail",
-        title: "Python Data Analysis Tool",
-        description: "A Python-based tool for data analysis and visualization, leveraging libraries like Pandas and Matplotlib to extract insights from complex datasets.",
-        technologies: [
-            { name: "Python", color: "bg-blue-800" },
-            { name: "Pandas", color: "bg-blue-800" },
-            { name: "Matplotlib", color: "bg-blue-800" }
-        ],
-        link: "#"
+        link: "https://agsid.w3spaces.com/"
     },
     {
         image: "https://placehold.co/600x400/000000/FFFFFF?text=macOS+Scratch",
         alt: "macOS-inspired Scratch Project Thumbnail",
         title: "macOS-inspired Scratch Project",
-        description: "A creative Scratch project replicating key elements and functionalities of the macOS interface, demonstrating visual programming skills and attention to detail.",
+        description: "A creative Scratch project replicating key elements and functionalities of the macOS interface. I made this project from 4th-6th grade, and learned about the engineering process. I was most proud of the password system i made in this. ",
         technologies: [
             { name: "Scratch", color: "bg-gray-600" },
             { name: "Visual Programming", color: "bg-gray-600" },
             { name: "UI/UX Design", color: "bg-gray-600" }
         ],
-        link: "#"
-    },
-    {
-        image: "https://placehold.co/600x400/334155/FFFFFF?text=Linux+Homepage",
-        alt: "Linux Software Homepage Thumbnail",
-        title: "Linux Software Homepage",
-        description: "Designed and developed a sleek and informative homepage for a Linux software project, focusing on user experience and clear presentation of features and documentation.",
-        technologies: [
-            { name: "HTML", color: "bg-slate-600" },
-            { name: "CSS", color: "bg-slate-600" },
-            { name: "JavaScript", color: "bg-slate-600" },
-            { name: "Linux", color: "bg-slate-600" }
-        ],
-        link: "#"
+        link: "https://scratch.mit.edu/projects/431680875/"
     }
+
 ];
