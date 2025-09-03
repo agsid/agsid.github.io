@@ -1,7 +1,66 @@
 window.addEventListener('DOMContentLoaded', () => {
-    // --- Canvas and other setup here if needed ---
+    // --- Canvas Setup: Draw simple robot for testing ---
+    const canvas = document.getElementById('robot-canvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // 1. Copy Python code to clipboard
+        // Draw ground scene
+        ctx.fillStyle = "#bfc4ca";
+        ctx.fillRect(0, canvas.height - 40, canvas.width, 40);
+
+        // Draw left and right white "walls"
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, canvas.height - 80, 80, 40);
+        ctx.fillRect(canvas.width - 80, canvas.height - 80, 80, 40);
+
+        // Draw robot (simple representation)
+        ctx.save();
+        ctx.translate(canvas.width/2, canvas.height - 80);
+        // body
+        ctx.fillStyle = "#7fcaff";
+        ctx.fillRect(-22, -22, 44, 36);
+        // eyes
+        ctx.fillStyle = "#333";
+        ctx.beginPath();
+        ctx.arc(-10, -12, 7, 0, 2 * Math.PI);
+        ctx.arc(10, -12, 7, 0, 2 * Math.PI);
+        ctx.fill();
+        // wheels
+        ctx.fillStyle = "#333";
+        ctx.fillRect(-22, 14, 14, 9);
+        ctx.fillRect(8, 14, 14, 9);
+        ctx.restore();
+    }
+
+    // --- Editor line numbers ---
+    const codeEditor = document.getElementById('code-editor');
+    const editorLines = document.getElementById('editor-line-numbers');
+    function updateLineNumbers() {
+        if (!codeEditor || !editorLines) return;
+        const lines = codeEditor.value.split('\n').length || 1;
+        editorLines.textContent = Array.from({length: lines}, (_, i) => i + 1).join('\n');
+    }
+    if (codeEditor && editorLines) {
+        codeEditor.addEventListener('input', updateLineNumbers);
+        codeEditor.addEventListener('scroll', () => {
+            editorLines.scrollTop = codeEditor.scrollTop;
+        });
+        updateLineNumbers();
+    }
+
+    // --- Save editor code to localStorage and restore ---
+    const STORAGE_KEY = 'fll-bot-editor-code';
+    if (codeEditor) {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved !== null) codeEditor.value = saved;
+        codeEditor.addEventListener('input', () => {
+            localStorage.setItem(STORAGE_KEY, codeEditor.value);
+        });
+        updateLineNumbers();
+    }
+
+    // --- Copy Python code to clipboard ---
     const copyBtn = document.getElementById('copy-button');
     const pythonCodeDisplay = document.getElementById('python-code-display');
     copyBtn?.addEventListener('click', () => {
@@ -11,19 +70,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 .catch(() => showMessage('Failed to copy to clipboard.'));
         }
     });
-
-    // 2. Save editor code to localStorage and restore on load
-    const codeEditor = document.getElementById('code-editor');
-    const STORAGE_KEY = 'fll-bot-editor-code';
-
-    // Restore saved code
-    if (codeEditor) {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved !== null) codeEditor.value = saved;
-        codeEditor.addEventListener('input', () => {
-            localStorage.setItem(STORAGE_KEY, codeEditor.value);
-        });
-    }
 
     // --- Utility: show message ---
     function showMessage(msg) {
@@ -35,18 +81,14 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         box.textContent = msg;
         box.style.display = 'block';
-        box.style.position = 'fixed';
-        box.style.top = '24px';
-        box.style.right = '24px';
-        box.style.background = '#292929';
-        box.style.color = '#fff';
-        box.style.padding = '14px 22px';
-        box.style.borderRadius = '16px';
-        box.style.boxShadow = '0 2px 18px #0007';
-        box.style.fontSize = '1.1rem';
-        box.style.zIndex = 1000;
         setTimeout(() => {
             box.style.display = 'none';
         }, 1800);
     }
+
+    // --- Example: Run/Reset/Start buttons (add your own logic here) ---
+    document.getElementById('run-button')?.addEventListener('click', () => showMessage('Run simulation!'));
+    document.getElementById('reset-button')?.addEventListener('click', () => showMessage('Simulation reset.'));
+    document.getElementById('start-left-button')?.addEventListener('click', () => showMessage('Started from left.'));
+    document.getElementById('start-right-button')?.addEventListener('click', () => showMessage('Started from right.'));
 });

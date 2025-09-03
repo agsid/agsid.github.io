@@ -13,23 +13,32 @@
         <section class="editor-panel card">
             <div class="card-header">
                 <span>Editor</span>
-                <button id="copy-button" class="icon-btn" title="Copy"></button>
+                <button id="copy-button" class="icon-btn" title="Copy">
+                    <!-- Copy SVG icon -->
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                        <rect x="6" y="6" width="12" height="12" rx="4" stroke="#fff" stroke-width="2"/>
+                        <rect x="2" y="2" width="12" height="12" rx="4" stroke="#fff" stroke-width="2"/>
+                    </svg>
+                </button>
             </div>
-            <div class="card-content">
-                <div class="editor-lines">
-                    <!-- Line numbers go here dynamically -->
-                    <pre id="editor-line-numbers"></pre>
-                </div>
-                <textarea id="code-editor" class="editor-textarea" spellcheck="false"></textarea>
+            <div class="card-content editor-content">
+                <pre id="editor-line-numbers" class="editor-lines"></pre>
+                <textarea id="code-editor" class="editor-textarea" spellcheck="false" placeholder="Type your code here..."></textarea>
             </div>
         </section>
-        <!-- Simulation Panel -->
+        <!-- Simulation and Console Panel -->
         <section class="sim-panel">
             <div class="sim-card card">
                 <div class="card-header">
                     <button id="run-button" class="sim-btn">Run</button>
                     <span>Robot Simulation</span>
-                    <button id="reset-button" class="icon-btn" title="Reset"></button>
+                    <button id="reset-button" class="icon-btn" title="Reset">
+                        <!-- Reset SVG icon -->
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                            <path d="M11 3a8 8 0 1 1-8 8" stroke="#fff" stroke-width="2" fill="none"/>
+                            <polyline points="3,7 3,3 7,3" stroke="#fff" stroke-width="2" fill="none"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="card-content sim-bg">
                     <canvas id="robot-canvas" width="400" height="220"></canvas>
@@ -39,17 +48,17 @@
                     <button id="start-right-button" class="sim-btn">Start From Right</button>
                 </div>
             </div>
-            <!-- Console Panel -->
             <div class="console-card card">
                 <div class="card-header">
                     <span>Console</span>
                 </div>
                 <div class="card-content">
-                    <div id="console-output" class="console-output"></div>
+                    <textarea id="python-code-display" class="console-output" readonly placeholder="Python code will appear here..."></textarea>
                 </div>
             </div>
         </section>
     </main>
+    <div id="message-box" style="display:none;"></div>
     <script src="./work.js"></script>
 </body>
 </html>
