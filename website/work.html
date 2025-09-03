@@ -5,90 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FLL Bot Programmer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="./work.css">
-    <script>
-        $(function () {
-            $("#navbar").load("navabr.html");
-            $("#Content").load("footer.html");
-        });
-    </script>
 </head>
-<body class="font-sans text-white">
-    <div id="navbar"></div>
-    <main class="container mx-auto px-4 py-16 min-h-screen flex items-center justify-center">
-        <div id="app-container" class="glass-card w-full max-w-4xl mx-auto p-8">
-            <div id="settings-dropdown" class="relative mb-4 flex justify-end">
-                <button id="settings-toggle" aria-label="Settings" class="p-2 rounded-full glass-btn">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="6" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="18" r="1.5"/></svg>
-                </button>
-                <div id="settings-menu" class="absolute right-0 mt-2 hidden glass-menu">
-                    <button id="fullscreen-editor-toggle" class="w-full px-4 py-2 text-left">Fullscreen Editor</button>
-                    <button id="fullscreen-simulation-toggle" class="w-full px-4 py-2 text-left">Fullscreen Simulation</button>
+<body class="bg-darkstar text-white">
+    <main class="main-layout">
+        <!-- Editor Panel -->
+        <section class="editor-panel card">
+            <div class="card-header">
+                <span>Editor</span>
+                <button id="copy-button" class="icon-btn" title="Copy"></button>
+            </div>
+            <div class="card-content">
+                <div class="editor-lines">
+                    <!-- Line numbers go here dynamically -->
+                    <pre id="editor-line-numbers"></pre>
+                </div>
+                <textarea id="code-editor" class="editor-textarea" spellcheck="false"></textarea>
+            </div>
+        </section>
+        <!-- Simulation Panel -->
+        <section class="sim-panel">
+            <div class="sim-card card">
+                <div class="card-header">
+                    <button id="run-button" class="sim-btn">Run</button>
+                    <span>Robot Simulation</span>
+                    <button id="reset-button" class="icon-btn" title="Reset"></button>
+                </div>
+                <div class="card-content sim-bg">
+                    <canvas id="robot-canvas" width="400" height="220"></canvas>
+                </div>
+                <div class="sim-controls">
+                    <button id="start-left-button" class="sim-btn">Start From Left</button>
+                    <button id="start-right-button" class="sim-btn">Start From Right</button>
                 </div>
             </div>
-            <h1 class="text-4xl font-bold mb-6 text-center flex items-center justify-center">
-                <span class="profile-icon mr-4"></span>
-                FLL Bot Programmer
-            </h1>
-            <div id="main-content-area" class="flex flex-col md:flex-row gap-8">
-                <div id="editor-panel" class="flex flex-col flex-1">
-                    <div class="code-editor-container flex-grow mb-4">
-                        <div id="highlight-overlay"></div>
-                        <textarea id="code-editor" class="w-full" spellcheck="false" placeholder="Type your commands here...">
-# Welcome to Allied Algorithms FLL Bot Programmer!
-# Type your code below.
-
-speed(70)             # Set drivetrain speed to 70%
-drive(30)             # Drive forward 30 inches
-turn(90)              # Turn right 90 degrees
-speed_motor(50)       # Set robot arm motor speed to 50%
-turn_motor('A', 180)  # Turn the robot arm on port 'A' for 180 degrees
-wait(1000)            # Wait for 1 second
-print("Robot completed mission segment!")   # Show message in console
-                        </textarea>
-                    </div>
-                    <div class="flex flex-col sm:flex-row justify-center gap-4 mb-6">
-                        <button id="run-button" class="button">Run Code</button>
-                        <button id="reset-button" class="button">Reset</button>
-                        <button id="copy-button" class="button">Copy Python Code</button>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2 text-accent">Generated Python Code:</h3>
-                    <textarea id="python-code-display" class="w-full p-4 mb-4" readonly placeholder="Click 'Copy Python Code' to see the generated script here."></textarea>
-                    <div class="mt-6 text-center">
-                        <button id="upload-button" class="button">Upload Code</button>
-                        <input type="file" id="file-upload" accept=".txt,.py" class="hidden">
-                    </div>
+            <!-- Console Panel -->
+            <div class="console-card card">
+                <div class="card-header">
+                    <span>Console</span>
                 </div>
-                <div id="simulation-panel" class="flex flex-col items-center flex-1">
-                    <h2 class="text-2xl font-bold mb-6 text-center text-accent">Bot Simulation</h2>
-                    <div class="flex justify-center items-center flex-grow w-full mb-4">
-                        <canvas id="robot-canvas" class="rounded-xl border border-accent"></canvas>
-                    </div>
-                    <div class="flex justify-center gap-4 mt-6">
-                        <button id="start-left-button" class="button">Start from Left</button>
-                        <button id="start-right-button" class="button">Start from Right</button>
-                    </div>
-                    <h3 class="text-xl font-semibold mt-6 mb-2 text-accent">Console Output:</h3>
-                    <div id="console-output" class="w-full glass-console"></div>
+                <div class="card-content">
+                    <div id="console-output" class="console-output"></div>
                 </div>
             </div>
-            <footer>
-                <div id="Content"></div>
-            </footer>
-        </div>
+        </section>
     </main>
-    <div id="message-box" class="message-box"></div>
-    <div id="upload-modal-overlay" class="modal-overlay">
-        <div class="modal-content">
-            <button id="modal-close-button" class="modal-close-button">&times;</button>
-            <h3>Upload or Paste Code</h3>
-            <button id="modal-upload-file-button" class="button">Upload from File</button>
-            <textarea id="paste-code-textarea" placeholder="Or paste your Python code here..."></textarea>
-            <button id="modal-paste-code-button" class="button">Paste Code</button>
-        </div>
-    </div>
     <script src="./work.js"></script>
 </body>
 </html>
