@@ -1,62 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="./images/logo.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FLL Bot Programmer</title>
     <link rel="stylesheet" href="./work.css">
 </head>
-<body class="bg-darkstar">
-    <main class="main-layout">
-        <!-- Editor Panel -->
-        <section class="editor-panel card">
-            <div class="card-header">
-                <span>Editor</span>
-                <button id="copy-button" class="icon-btn" title="Copy">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                        <rect x="6" y="6" width="12" height="12" rx="4" stroke="#fff" stroke-width="2"/>
-                        <rect x="2" y="2" width="12" height="12" rx="4" stroke="#fff" stroke-width="2"/>
-                    </svg>
-                </button>
+<body>
+    <!-- Docs Button -->
+    <button id="docs-button" class="docs-btn">Docs</button>
+    <div class="main-grid">
+        <!-- Editor Section -->
+        <section class="editor-section" id="editor-panel">
+            <div class="panel-top panel-top-left">
+                <button class="slide-arrow slide-arrow-left" id="editor-slide-out">&#8592;</button>
+                <span class="panel-title">Editor</span>
+                <button class="slide-arrow slide-arrow-right" id="editor-slide-in" style="display:none;">&#8594;</button>
             </div>
-            <div class="card-content editor-content">
-                <pre id="editor-line-numbers" class="editor-lines"></pre>
-                <textarea id="code-editor" class="editor-textarea" spellcheck="false" placeholder="Type your code here..."></textarea>
+            <div class="editor-area">
+                <div class="editor-lines" id="editor-line-numbers"></div>
+                <textarea id="code-editor" class="editor-textarea" spellcheck="false" placeholder="# Type robot commands here..."></textarea>
+            </div>
+            <div class="panel-bottom panel-bottom-left">
+                <button id="copy-button" class="panel-bottom-btn">Copy Python Code</button>
+                <span class="panel-bottom-arrow">&#x25BC;</span>
             </div>
         </section>
-        <!-- Simulation and Console Panel -->
-        <section class="sim-panel">
-            <div class="sim-card card">
-                <div class="card-header">
-                    <button id="run-button" class="sim-btn">Run</button>
-                    <span>Robot Simulation</span>
-                    <button id="reset-button" class="icon-btn" title="Reset">
-                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                            <path d="M11 3a8 8 0 1 1-8 8" stroke="#fff" stroke-width="2" fill="none"/>
-                            <polyline points="3,7 3,3 7,3" stroke="#fff" stroke-width="2" fill="none"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="card-content sim-bg">
-                    <canvas id="robot-canvas" width="400" height="220"></canvas>
+        <!-- Simulation + Console Section -->
+        <section class="sim-console-section" id="sim-panel">
+            <div class="panel-top panel-top-right">
+                <button class="slide-arrow slide-arrow-left" id="sim-slide-out">&#8592;</button>
+                <span class="panel-title">Robot Sim</span>
+                <button class="slide-arrow slide-arrow-right" id="sim-slide-in" style="display:none;">&#8594;</button>
+            </div>
+            <div class="sim-area">
+                <div class="sim-bg">
+                    <canvas id="robot-canvas" width="500" height="300"></canvas>
                 </div>
                 <div class="sim-controls">
+                    <button id="run-button" class="sim-btn">Run</button>
                     <button id="start-left-button" class="sim-btn">Start From Left</button>
                     <button id="start-right-button" class="sim-btn">Start From Right</button>
                 </div>
             </div>
-            <div class="console-card card">
-                <div class="card-header">
-                    <span>Console</span>
+            <div class="sim-console-bottom">
+                <div class="panel-bottom panel-bottom-right">
+                    <span class="panel-title">Console</span>
+                    <span class="panel-bottom-arrow">&#x25BC;</span>
                 </div>
-                <div class="card-content">
-                    <textarea id="python-code-display" class="console-output" readonly placeholder="Python code will appear here..."></textarea>
+                <div class="console-area">
+                    <div id="console-output" class="console-output"></div>
                 </div>
             </div>
         </section>
-    </main>
-    <div id="message-box" style="display:none;"></div>
+    </div>
+    <div id="message-box" class="message-box"></div>
     <script src="./work.js"></script>
 </body>
 </html>
