@@ -3,34 +3,60 @@
 <head>
     <link rel="icon" type="image/x-icon" href="./images/logo.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        $(function () {
-            // These lines are for loading external header/footer,
-            // which are not provided in this single HTML file.
-            // Keeping them commented out or removing them as they might cause errors
-            // if header.html/footer.html are not present.
-            $("#includedContent").load("header.html");
-            // $("#Content").load("footer.html");
-        });
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Allied Work</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-primary': 'var(--bg-primary)',
+                        'bg-secondary': 'var(--bg-secondary)',
+                        'bg-tertiary': 'var(--bg-tertiary)',
+                        'text-primary': 'var(--text-primary)',
+                        'text-secondary': 'var(--text-secondary)',
+                        'text-heading-main': 'var(--text-heading-main)',
+                        'text-heading-sub': 'var(--text-heading-sub)',
+                        'border-color': 'var(--border-color)',
+                        'tab-bg-active': 'var(--tab-bg-active)',
+                        'tab-bg-inactive': 'var(--tab-bg-inactive)',
+                        'tab-border-active': 'var(--tab-border-active)',
+                        'tab-border-inactive': 'var(--tab-border-inactive)',
+                        'console-bg': 'var(--console-bg)',
+                        'console-text': 'var(--console-text)',
+                        'status-bar-bg': 'var(--status-bar-bg)',
+                        'status-bar-text': 'var(--status-bar-text)',
+                        'comment-color': 'var(--comment-color)',
+                        'keyword-color': 'var(--keyword-color)',
+                        'string-color': 'var(--string-color)',
+                        'function-color': 'var(--function-color)',
+                        'resizer-bg': 'var(--resizer-bg)',
+                        'resizer-hover-bg': 'var(--resizer-hover-bg)',
+                        'drive-color': 'var(--drive-color)',
+                        'arm-color': 'var(--arm-color)',
+                        'turn-color': 'var(--turn-color)',
+                        'wait-color': 'var(--wait-color)',
+                        'print-color': 'var(--print-color)',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* New VS Code inspired color variables */
         :root {
             /* VS Code-like Light Theme */
-            --bg-primary: #FFFFFF; /* Editor background */
-            --bg-secondary: #F3F3F3; /* Sidebar/UI background */
-            --bg-tertiary: #E7E7E7; /* Bottom panel/console background */
-            --text-primary: #333333;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F3F3F3;
+            --bg-tertiary: #E7E7E7;
+            --text-primary: #FF5722;
             --text-secondary: #666666;
-            --text-heading-main: #007ACC; /* VS Code blue for primary headings */
+            --text-heading-main: #007ACC;
             --text-heading-sub: #005A9C;
             --border-color: #CCCCCC;
             --tab-bg-active: #FFFFFF;
@@ -41,21 +67,24 @@
             --console-text: #333333;
             --status-bar-bg: #007ACC;
             --status-bar-text: #FFFFFF;
-            /* Syntax highlighting for light mode */
-            --comment-color: #008000;
+            --comment-color: #4CAF50;
             --keyword-color: #0000FF;
             --string-color: #A31515;
             --function-color: #795E26;
             --resizer-bg: #E0E0E0;
             --resizer-hover-bg: #007ACC;
+            --drive-color: #2196F3;
+            --arm-color: #9C27B0;
+            --turn-color: #F44336;
+            --wait-color: #FFC107;
+            --print-color: #4CAF50;
         }
 
         .dark-mode {
-            /* VS Code-like Dark Theme */
             --bg-primary: #1E1E1E;
             --bg-secondary: #252526;
             --bg-tertiary: #333333;
-            --text-primary: #D4D4D4;
+            --text-primary: #D4D4D4; /* Made primary text white for the code editor */
             --text-secondary: #9B9B9B;
             --text-heading-main: #569CD6;
             --text-heading-sub: #4EC9B0;
@@ -68,139 +97,34 @@
             --console-text: #D4D4D4;
             --status-bar-bg: #007ACC;
             --status-bar-text: #FFFFFF;
-            /* Syntax highlighting for dark mode */
-            --comment-color: #6A9955;
+            --comment-color: #4CAF50;
             --keyword-color: #569CD6;
             --string-color: #CE9178;
             --function-color: #DCDCAA;
             --resizer-bg: #4C4C4C;
             --resizer-hover-bg: #569CD6;
+            --drive-color: #2196F3;
+            --arm-color: #9C27B0;
+            --turn-color: #F44336;
+            --wait-color: #FFC107;
+            --print-color: #4CAF50;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-secondary);
-            transition: background-color 0.4s ease, color 0.4s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
             box-sizing: border-box;
+            background-color: var(--bg-secondary);
             color: var(--text-primary);
-        }
-
-        #app-container {
-            display: grid;
-            grid-template-columns: 50px 1fr;
-            grid-template-rows: 1fr auto;
-            width: 100%;
-            height: 100vh;
-            background-color: var(--bg-primary);
-            overflow: hidden;
-        }
-
-        /* Left sidebar for classic VS Code look */
-        #left-sidebar {
-            background-color: var(--bg-secondary);
-            border-right: 1px solid var(--border-color);
-            grid-row: 1 / 3;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding-top: 1rem;
-            color: var(--text-secondary);
-            gap: 1.5rem;
-        }
-
-        #left-sidebar ion-icon {
-            font-size: 1.8rem;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-        
-        #left-sidebar a {
-            color: var(--text-secondary);
-            transition: color 0.2s ease;
-        }
-
-        #left-sidebar ion-icon.active, #left-sidebar ion-icon:hover, #left-sidebar a:hover {
-            color: var(--text-primary);
-        }
-        
-        #main-content-area {
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows: auto 1fr auto;
-            height: 100%;
-        }
-
-        #top-bar {
-            grid-row: 1;
-            display: flex;
-            background-color: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            padding-left: 1rem;
-            align-items: center;
-        }
-        
-        #editor-and-simulation {
-            display: flex;
-            grid-row: 2;
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-
-        #editor-panel, #simulation-panel {
-            flex: 1;
-            height: 100%;
-            padding: 1rem;
-            background-color: var(--bg-primary);
-            display: flex;
-            flex-direction: column;
-            min-width: 250px; /* Minimum width for panels */
-        }
-
-        #editor-panel {
-            border-right: 1px solid var(--border-color);
-        }
-
-        #simulation-panel {
-            padding: 1rem;
-            background-color: var(--bg-secondary);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        #editor-resizer {
-            width: 5px;
-            background-color: var(--resizer-bg);
-            cursor: col-resize;
-            transition: background-color 0.2s ease;
-        }
-        
-        #editor-resizer:hover {
-            background-color: var(--resizer-hover-bg);
         }
 
         .tab-button {
-            padding: 0.75rem 1.5rem;
-            font-weight: 500;
-            cursor: pointer;
             border: none;
             background-color: var(--tab-bg-inactive);
             color: var(--text-secondary);
             border-bottom: 2px solid var(--tab-border-inactive);
             transition: all 0.2s ease-in-out;
-            display: flex;
-            align-items: center;
         }
 
         .tab-button:hover {
@@ -213,14 +137,9 @@
             background-color: var(--tab-bg-active);
             border-bottom: 2px solid var(--tab-border-active);
         }
-        
+
         .tab-content {
             display: none;
-            flex-grow: 1;
-            width: 100%;
-            background-color: var(--bg-primary);
-            padding: 1rem;
-            box-sizing: border-box;
         }
         
         .tab-content.active {
@@ -228,51 +147,17 @@
             flex-direction: column;
             flex-grow: 1;
         }
-        
-        canvas {
-            background-color: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            display: block;
-            width: 100%;
-            height: auto;
-            max-width: 960px;
-            max-height: 480px;
-            object-fit: contain;
-        }
-        
-        .code-editor-container {
-            display: flex;
-            flex-grow: 1;
-            position: relative;
-        }
-        
+
         #line-numbers {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            padding: 1rem 0.5rem;
-            width: 40px;
             background-color: var(--bg-secondary);
             border-right: 1px solid var(--border-color);
-            text-align: right;
             color: var(--text-secondary);
-            overflow-y: hidden;
             font-family: 'Fira Code', monospace;
-            font-size: 1rem;
-            line-height: 1.5;
-            pointer-events: none;
             z-index: 3;
-            box-sizing: border-box;
         }
-        
+
         #code-editor {
-            flex-grow: 1;
-            padding: 1rem;
-            padding-left: 50px; /* Make space for line numbers */
             font-family: 'Fira Code', monospace;
-            font-size: 1rem;
-            line-height: 1.5;
             background-color: transparent;
             color: transparent;
             caret-color: var(--text-primary);
@@ -280,40 +165,19 @@
             border: none;
             outline: none;
             box-shadow: none;
-            box-sizing: border-box;
-            position: relative;
             z-index: 2;
-            overflow-y: auto;
-            overflow-x: auto;
-            white-space: pre;
-            word-wrap: normal;
+            overflow: hidden; /* This removes the scrollbar */
         }
 
         #highlight-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 1rem;
-            padding-left: 50px; /* Make space for line numbers */
             font-family: 'Fira Code', monospace;
-            font-size: 1rem;
-            line-height: 1.5;
             background-color: var(--bg-primary);
             color: var(--text-primary);
-            overflow-y: hidden;
-            overflow-x: auto;
-            white-space: pre;
-            word-wrap: normal;
             z-index: 1;
-            box-sizing: border-box;
             pointer-events: none;
         }
-        
-        /* New styles for full-screen Python code view */
-        .python-display-container.active,
-        .commands-display-container.active {
+
+        .python-display-container.active, .commands-display-container.active {
             display: block !important;
             position: absolute;
             top: 0;
@@ -321,219 +185,147 @@
             width: 100%;
             height: 100%;
             z-index: 10;
-            background-color: var(--bg-tertiary); /* Same as bottom panel */
+            background-color: var(--bg-tertiary);
             overflow: auto;
         }
+        
+        #commands-content-container {
+            overflow-y: auto; /* Add scroll bar for commands */
+        }
 
-        #python-code-display,
-        #commands-display-container {
+        #python-code-display, #commands-display-container {
             background-color: var(--bg-tertiary);
             color: var(--text-primary);
             font-family: 'Fira Code', monospace;
-            font-size: 1rem;
-            line-height: 1.5;
             white-space: pre-wrap;
             word-break: break-all;
             height: 100%;
             width: 100%;
             overflow: auto;
-            padding: 1rem;
-            box-sizing: border-box;
         }
-        
-        /* Syntax Highlighting Styles */
+
+        /* New highlighting classes for commands */
         .comment-highlight { color: var(--comment-color); }
         .string-highlight { color: var(--string-color); }
         .function-highlight { color: var(--function-color); }
-        
-        /* Bottom panel for console */
-        #bottom-panel {
-            grid-row: 3;
-            background-color: var(--bg-tertiary);
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            resize: vertical;
-            overflow: hidden;
-            min-height: 150px;
-            max-height: 50vh;
+        .drive-highlight { color: var(--drive-color); }
+        .arm-highlight { color: var(--arm-color); }
+        .turn-highlight { color: var(--turn-color); }
+        .wait-highlight { color: var(--wait-color); }
+        .print-highlight { color: var(--print-color); }
+
+        #robot-canvas {
+            background-color: transparent; /* Changed to transparent to show background image */
         }
-        
-        #bottom-panel-tabs {
-            display: flex;
-            background-color: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 0 1rem;
+
+        #console-resizer {
+            cursor: ns-resize;
+            height: 5px;
+            background-color: var(--resizer-bg);
+            transition: all 0.2s ease-in-out;
+            position: relative;
+            z-index: 20;
         }
         
-        #bottom-panel-tabs button {
-            padding: 0.5rem 1rem;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            cursor: pointer;
-            transition: color 0.2s ease;
+        #console-resizer:hover {
+            background-color: var(--resizer-hover-bg);
         }
 
-        #bottom-panel-tabs button:hover {
-            color: var(--text-primary);
+        #console-resizer-handle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 5px;
+            background-color: var(--resizer-bg);
+            cursor: ns-resize;
+            transition: all 0.2s ease-in-out;
         }
 
-        #bottom-panel-tabs button.active {
-            color: var(--text-primary);
-            border-bottom: 2px solid var(--tab-border-active);
-        }
-        
-        #console-output {
-            flex-grow: 1;
-            overflow-y: auto;
-            background-color: var(--console-bg);
-            color: var(--console-text);
-            font-family: 'Fira Code', monospace;
-            font-size: 0.95rem;
-            padding: 0.5rem 1rem;
-        }
-        
-        .console-line {
-            padding: 0.2em 0;
-        }
-        
-        .console-timestamp {
-            color: var(--text-secondary);
-            margin-right: 0.5em;
-        }
-
-        #status-bar {
-            grid-column: 1 / 3;
-            background-color: var(--status-bar-bg);
-            color: var(--status-bar-text);
-            padding: 0.3rem 1rem;
-            font-size: 0.8rem;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        /* General UI components */
-        .button {
-            padding: 0.6rem 1.2rem;
-            border-radius: 0.3rem;
-            font-weight: 500;
-            cursor: pointer;
-            background-color: #007ACC;
-            color: #FFFFFF;
-            border: none;
-            font-family: 'Inter', sans-serif;
-            transition: background-color 0.2s ease;
-        }
-
-        .button:hover {
-            background-color: #0060A0;
-        }
-
-        #run-button { background-color: #4CAF50; }
-        #run-button:hover { background-color: #45a049; }
-
-        /* Other styles remain mostly the same, but with new color variables */
-        h1, h2, h3, p, ul, li { color: var(--text-primary); }
-        code {
-            font-family: 'Fira Code', monospace;
-            color: var(--text-primary);
-            background-color: var(--bg-tertiary);
-            padding: 0.25em 0.5em;
-        }
-
-        #settings-dropdown, .message-box {
-            display: none; /* Hide these for the VS Code theme */
+        #console-resizer-handle:hover {
+            background-color: var(--resizer-hover-bg);
         }
     </style>
 </head>
-<body class="dark-mode">
-    <div id="app-container">
+<body class="dark-mode font-inter antialiased min-h-screen flex justify-center items-center">
+    <div id="app-container" class="grid grid-cols-[50px_1fr] grid-rows-[1fr_auto] w-full h-screen bg-bg-primary overflow-hidden">
         <!-- VS Code-like Sidebar -->
-        <div id="left-sidebar">
-            <ion-icon name="code-slash-outline" class="active"></ion-icon>
-            <a href="https://agsid.github.io/doc.html"><ion-icon name="help-circle-outline"></ion-icon></a>
-            <ion-icon name="cog-outline" id="theme-mode-toggle"></ion-icon>
+        <div id="left-sidebar" class="bg-bg-secondary border-r border-border-color row-span-full flex flex-col items-center justify-start pt-4 text-text-secondary gap-6">
+            <img src="logo.png" alt="Allied logo" class="w-10 h-10 mb-4"/>
+            <ion-icon name="code-slash-outline" class="text-3xl cursor-pointer transition-colors duration-200 active"></ion-icon>
+            <a href="https://agsid.github.io/website/doc.html" target="_blank">
+                <ion-icon name="help-circle-outline" class="text-3xl cursor-pointer transition-colors duration-200"></ion-icon>
+            </a>
+            <a href="https://agsid.github.io/index.html" target="_blank">
+                <ion-icon name="home-outline" class="text-3xl cursor-pointer transition-colors duration-200"></ion-icon>
+            </a>
+            <ion-icon name="cog-outline" id="theme-mode-toggle" class="text-3xl cursor-pointer transition-colors duration-200"></ion-icon>
         </div>
         
-        <div id="main-content-area">
+        <div id="main-content-area" class="grid grid-cols-1 grid-rows-[auto_1fr_auto] h-full">
             <!-- Top Tab Bar -->
-            <div id="top-bar">
-                <button class="tab-button active" data-tab-target="tab-content-editor">Code Editor</button>
-                <button class="tab-button" data-tab-target="tab-content-commands">
-                    Available Commands
-                    <span id="close-commands-tab" class="hidden text-red-500 hover:text-red-300 ml-2" style="font-size: 1.2em;">
-                        <ion-icon name="close-circle-outline"></ion-icon>
-                    </span>
-                </button>
-                <button class="tab-button" data-tab-target="tab-content-python">
-                    Generated Python
-                    <span id="close-python-tab" class="hidden text-red-500 hover:text-red-300 ml-2" style="font-size: 1.2em;">
-                        <ion-icon name="close-circle-outline"></ion-icon>
-                    </span>
-                </button>
+            <div id="top-bar" class="flex bg-bg-secondary border-b border-border-color pl-4 items-center">
+                <button class="tab-button active py-3 px-6 font-medium cursor-pointer flex items-center" data-tab-target="tab-content-editor">Code Editor</button>
+                <button class="tab-button py-3 px-6 font-medium cursor-pointer flex items-center" data-tab-target="tab-content-commands">Available Commands</button>
+                <button class="tab-button py-3 px-6 font-medium cursor-pointer flex items-center" data-tab-target="tab-content-python">Generated Python</button>
             </div>
 
             <!-- Main Content: Editor & Simulation -->
-            <div id="editor-and-simulation">
-                <div id="editor-panel" class="tab-content active" data-tab-id="tab-content-editor">
-                    <div class="code-editor-container">
-                        <div id="line-numbers"></div>
-                        <div id="highlight-overlay"></div>
-                        <textarea id="code-editor" spellcheck="false" placeholder="Type your commands here...">
-// Welcome to Allied Algorithms FLL Bot Programmer!
-// Use the commands on the 'Available Commands' tab to control your robot.
-print("Initializing robot on the field...")
-// Robot starts at the center of the bottom edge of the field, facing up.
-// Let's program it to navigate to a specific mission area.
-drive(30) // Drive 30 inches forward (upwards)
-turn(90) // Turn 90 degrees clockwise (robot now faces right)
-arm("up") // Move the arm up
-wait(1) // Wait for 1 second for the arm to complete action
-print("Robot completed mission segment!")
-</textarea>
+            <div id="editor-and-simulation" class="flex row-start-2 w-full h-full relative">
+                <div id="editor-panel" class="tab-content active flex-1 h-full p-4 bg-bg-primary flex flex-col min-w-[250px] border-r border-border-color" data-tab-id="tab-content-editor">
+                    <div class="code-editor-container flex-grow relative">
+                        <div id="line-numbers" class="absolute top-0 left-0 h-full py-4 px-2 w-10 text-right overflow-y-hidden font-mono text-base leading-snug pointer-events-none box-border"></div>
+                        <div id="highlight-overlay" class="absolute top-0 left-0 w-full h-full p-4 pl-[50px] overflow-auto whitespace-pre font-mono text-base leading-snug box-border"></div>
+                        <textarea id="code-editor" class="flex-grow p-4 pl-[50px] font-mono text-base leading-snug bg-transparent text-transparent caret-text-primary resize-none border-none outline-none shadow-none box-border relative z-10 overflow-auto whitespace-pre" spellcheck="false" placeholder="Type your commands here...">drive()
+turn()
+arm()</textarea>
                     </div>
                 </div>
                 
-                <div id="editor-resizer"></div>
+                <div id="editor-resizer" class="w-[5px] bg-resizer-bg cursor-col-resize transition-colors duration-200 hover:bg-resizer-hover-bg"></div>
 
-                <div id="simulation-panel">
-                    <div class="flex flex-row justify-center space-x-4 mb-6">
-                        <button id="run-button" class="button">
+                <div id="simulation-panel" class="flex-1 h-full p-4 bg-bg-secondary flex flex-col items-center gap-4 min-w-[250px]">
+                    <div class="flex flex-row flex-wrap justify-center space-x-2 mb-6">
+                        <button id="minimize-sim-button" class="bg-gray-500 hover:bg-gray-700 text-white py-2.5 px-3 rounded-md font-medium cursor-pointer transition-colors duration-200">
+                            <ion-icon name="caret-back-outline"></ion-icon>
+                        </button>
+                        <button id="run-button" class="bg-[#4CAF50] hover:bg-[#45a049] text-white py-2.5 px-5 rounded-md font-medium cursor-pointer transition-colors duration-200">
                             <svg class="w-5 h-5 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197 2.132A1 1 0 0110 13.132V9.868c0-.836.828-1.309 1.402-.868l3.197 2.132a1 1 0 010 1.736z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             Run Code
                         </button>
-                        <button id="reset-button" class="button">
-                            <ion-icon name="refresh-outline"></ion-icon>
-                            Clear Code
+                        <button id="start-left-button" class="bg-[#2196F3] hover:bg-[#1A7A72] text-white py-2.5 px-5 rounded-md font-medium cursor-pointer transition-colors duration-200">
+                            Start on Left
+                        </button>
+                        <button id="start-right-button" class="bg-[#2196F3] hover:bg-[#1A7A72] text-white py-2.5 px-5 rounded-md font-medium cursor-pointer transition-colors duration-200">
+                            Start on Right
                         </button>
                     </div>
-                    <canvas id="robot-canvas"></canvas>
-                </div>
-
-                <div id="tab-content-commands" class="tab-content commands-display-container">
-                    <div id="commands-display-container"></div>
+                    <canvas id="robot-canvas" class="bg-bg-primary border border-border-color block w-full h-auto max-w-[960px] max-h-[480px] object-contain"></canvas>
                 </div>
                 
-                <div id="tab-content-python" class="tab-content python-display-container">
-                    <pre id="python-code-display"></pre>
+                <div id="tab-content-commands" class="tab-content w-full h-full text-white">
+                    <div id="commands-content-container" class="w-full h-full p-4 box-border"></div>
+                </div>
+
+                <div id="tab-content-python" class="tab-content python-display-container w-full h-full text-white">
+                    <pre id="python-code-display" class="w-full h-full bg-bg-tertiary font-mono text-base leading-snug whitespace-pre-wrap break-all overflow-auto p-4 box-border"></pre>
                 </div>
             </div>
 
             <!-- Bottom Panel: Console Output -->
-            <div id="bottom-panel">
-                <div id="bottom-panel-tabs">
-                    <button id="console-tab-button" class="active">Console</button>
+            <div id="bottom-panel" class="row-start-3 bg-bg-tertiary border-t border-border-color flex flex-col overflow-hidden">
+                <div id="console-resizer" class="w-full h-[5px] relative">
+                     <div id="console-resizer-handle" class="absolute top-0 right-0 w-[20px] h-[5px] bg-resizer-bg transition-colors duration-200 hover:bg-resizer-hover-bg cursor-ns-resize"></div>
                 </div>
-                <div id="console-output"></div>
+                <div id="bottom-panel-tabs" class="flex bg-bg-secondary border-b border-border-color px-4">
+                    <button id="console-tab-button" class="active py-2 px-4 bg-none border-none text-text-secondary font-medium cursor-pointer transition-colors duration-200 hover:text-text-primary">Console</button>
+                </div>
+                <div id="console-output" class="flex-grow overflow-y-auto bg-console-bg text-console-text font-mono text-sm p-2 px-4"></div>
             </div>
         </div>
 
         <!-- Status Bar -->
-        <div id="status-bar">
+        <div id="status-bar" class="col-span-full bg-status-bar-bg text-status-bar-text py-1.5 px-4 text-xs flex justify-end items-center gap-4">
             <span>FLL Bot Programmer</span>
             <span>UTF-8</span>
             <span>LF</span>
@@ -542,39 +334,87 @@ print("Robot completed mission segment!")
     </div>
     
     <script>
+        // HTML content for the Available Commands tab, stored as a JavaScript variable.
+        const commandsHtml = `
+            <div class="p-6 bg-tertiary-dark rounded-lg">
+                <h2 class="text-3xl font-bold mb-4">Allied FLL Bot Programmer</h2>
+                <p class="mb-4">Welcome to the Allied FLL Bot Programmer! This web application allows you to program a virtual LEGO Education SPIKE Prime robot to complete missions on a simulated FIRST LEGO League field. Use the available commands below to write your code in the editor, then press "Run Code" to see your robot in action!</p>
+                
+                <h3 class="text-2xl font-bold mt-8 mb-4">Available Commands</h3>
+                <div class="space-y-6">
+                    <div class="p-4 border border-gray-600 rounded-lg">
+                        <h4 class="text-xl font-semibold">drive(distance)</h4>
+                        <p class="mt-2 text-gray-400">Drives the robot straight for a specified distance in inches.</p>
+                        <p class="text-sm text-gray-500 mt-1">Example: <code class="bg-gray-700 p-1 rounded">drive(24)</code></p>
+                    </div>
+                    <div class="p-4 border border-gray-600 rounded-lg">
+                        <h4 class="text-xl font-semibold">turn(degrees)</h4>
+                        <p class="mt-2 text-gray-400">Turns the robot a specified number of degrees. Positive values turn clockwise, negative values turn counter-clockwise.</p>
+                        <p class="text-sm text-gray-500 mt-1">Example: <code class="bg-gray-700 p-1 rounded">turn(90)</code></p>
+                    </div>
+                    <div class="p-4 border border-gray-600 rounded-lg">
+                        <h4 class="text-xl font-semibold">arm(action)</h4>
+                        <p class="mt-2 text-gray-400">Moves the robot's arm. Action can be "up", "down", or "reset".</p>
+                        <p class="text-sm text-gray-500 mt-1">Example: <code class="bg-gray-700 p-1 rounded">arm("up")</code></p>
+                    </div>
+                    <div class="p-4 border border-gray-600 rounded-lg">
+                        <h4 class="text-xl font-semibold">wait(seconds)</h4>
+                        <p class="mt-2 text-gray-400">Pauses the program for a specified number of seconds.</p>
+                        <p class="text-sm text-gray-500 mt-1">Example: <code class="bg-gray-700 p-1 rounded">wait(2)</code></p>
+                    </div>
+                    <div class="p-4 border border-gray-600 rounded-lg">
+                        <h4 class="text-xl font-semibold">print("message")</h4>
+                        <p class="mt-2 text-gray-400">Displays a message in the console log at the bottom of the screen.</p>
+                        <p class="text-sm text-gray-500 mt-1">Example: <code class="bg-gray-700 p-1 rounded">print("Hello, World!")</code></p>
+                    </div>
+                </div>
+            </div>
+        `;
+        
         const appContainer = document.getElementById('app-container');
         const themeToggle = document.getElementById('theme-mode-toggle');
         const runButton = document.getElementById('run-button');
-        const resetButton = document.getElementById('reset-button');
+        const startLeftButton = document.getElementById('start-left-button');
+        const startRightButton = document.getElementById('start-right-button');
         const codeEditor = document.getElementById('code-editor');
         const highlightOverlay = document.getElementById('highlight-overlay');
         const pythonCodeDisplay = document.getElementById('python-code-display');
-        const commandsDisplayContainer = document.getElementById('commands-display-container');
+        const commandsContentContainer = document.getElementById('commands-content-container');
         const consoleOutput = document.getElementById('console-output');
         const messageBox = document.getElementById('message-box');
         const uploadButton = document.getElementById('upload-button');
         const fileUpload = document.getElementById('file-upload');
-        const startLeftButton = document.getElementById('start-left-button');
-        const startRightButton = document.getElementById('start-right-button');
         const tabButtons = document.querySelectorAll('.tab-button');
         const tabContents = document.querySelectorAll('.tab-content');
-        const closePythonTabButton = document.getElementById('close-python-tab');
-        const closeCommandsTabButton = document.getElementById('close-commands-tab');
         const editorResizer = document.getElementById('editor-resizer');
         const editorPanel = document.getElementById('editor-panel');
         const simulationPanel = document.getElementById('simulation-panel');
+        const minimizeSimButton = document.getElementById('minimize-sim-button');
+        const consoleResizer = document.getElementById('console-resizer-handle');
+        const bottomPanel = document.getElementById('bottom-panel');
         const consoleLog = [];
         const canvas = document.getElementById('robot-canvas');
         const ctx = canvas.getContext('2d');
         const fieldWidth = 960; // FLL field is 96 inches, we scale to 960px
         const fieldHeight = 480; // FLL field is 48 inches, we scale to 480px
-        const robotSize = 24; // Increased from 18 to 24
+        const robotSize = 48;
+        
         let robotX = fieldWidth / 2;
         let robotY = fieldHeight - (robotSize / 2);
         let robotAngle = 0; // 0 degrees is facing up
         let simulationRunning = false;
         let simulationQueue = [];
         let messageDisplay = '';
+        let commandsLoaded = false;
+        
+        // FLL Field background image
+        const fieldImage = new Image();
+        fieldImage.src = 'https://placehold.co/960x480/A6CCEE/000000?text=FLL+Field+Layout'; // Replace with the actual URL of your FLL field image
+        fieldImage.onload = () => {
+            // The image is loaded, we can now draw the initial canvas state
+            drawRobot();
+        };
+
         const commandMapping = {
             'drive': {
                 regex: /drive\(([-+]?\d*\.?\d+)\)/,
@@ -678,15 +518,22 @@ print("Robot completed mission segment!")
         }
         function drawRobot() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            // Draw field
-            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--bg-primary');
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--border-color');
-            ctx.lineWidth = 2;
-            ctx.strokeRect(0, 0, canvas.width, canvas.height);
-            // Draw a simple FLL home base area
-            ctx.fillStyle = 'rgba(128, 128, 128, 0.2)';
-            ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
+            
+            // Draw the FLL field background image first
+            if (fieldImage.complete && fieldImage.naturalHeight !== 0) {
+                ctx.drawImage(fieldImage, 0, 0, canvas.width, canvas.height);
+            } else {
+                // Fallback if the image hasn't loaded
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--bg-primary');
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--border-color');
+                ctx.lineWidth = 2;
+                ctx.strokeRect(0, 0, canvas.width, canvas.height);
+                // Draw a simple FLL home base area
+                ctx.fillStyle = 'rgba(128, 128, 128, 0.2)';
+                ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
+            }
+
             // Save the context state before rotating
             ctx.save();
             // Translate to the robot's position and rotate the context
@@ -755,16 +602,17 @@ print("Robot completed mission segment!")
                 const lines = text.split('\n').length;
                 lineNumbers.innerHTML = Array.from({ length: lines }, (_, i) => `<div>${i + 1}</div>`).join('');
             }
+            
+            // Highlight specific commands with their new colors
+            highlightedText = highlightedText.replace(/\b(drive)\b/g, '<span class="drive-highlight">drive</span>');
+            highlightedText = highlightedText.replace(/\b(arm)\b/g, '<span class="arm-highlight">arm</span>');
+            highlightedText = highlightedText.replace(/\b(turn)\b/g, '<span class="turn-highlight">turn</span>');
+            highlightedText = highlightedText.replace(/\b(wait)\b/g, '<span class="wait-highlight">wait</span>');
+            highlightedText = highlightedText.replace(/\b(print)\b/g, '<span class="print-highlight">print</span>');
+            
             // Highlighting for comments and strings
             highlightedText = highlightedText.replace(/(\/\/.*)/g, '<span class="comment-highlight">$1</span>');
             highlightedText = highlightedText.replace(/(\".*?\")/g, '<span class="string-highlight">$1</span>');
-            
-            // Highlight specific commands that are "functions"
-            const functionCommands = ['arm'];
-            functionCommands.forEach(cmd => {
-                const regex = new RegExp(`\\b(${cmd})\\(`, 'g');
-                highlightedText = highlightedText.replace(regex, `<span class="function-highlight">$1</span>(`);
-            });
 
             highlightOverlay.innerHTML = highlightedText;
         }
@@ -878,7 +726,7 @@ async def main():
             lines.forEach(line => {
                 const trimmedLine = line.trim();
                 if (trimmedLine.startsWith('//') || trimmedLine === '') {
-                    generatedCode += `\n    ${line}`;
+                    generatedCode += `\n    ${trimmedLine}`;
                     return;
                 }
                 let translated = false;
@@ -922,7 +770,9 @@ async def main():
         
         function clearCodeFromLocalStorage() {
             localStorage.removeItem(LOCAL_STORAGE_KEY);
-            codeEditor.value = "";
+            codeEditor.value = `drive()
+turn()
+arm()`;
             updateSyntaxHighlighting();
             logToConsole('Local storage cleared.', 'info');
         }
@@ -940,18 +790,31 @@ async def main():
             generatePythonCode();
             startSimulation();
         });
-        resetButton.addEventListener('click', () => {
+
+        startLeftButton.addEventListener('click', () => {
             simulationRunning = false;
             simulationQueue = [];
-            robotX = fieldWidth / 2;
+            robotX = robotSize * 2;
             robotY = fieldHeight - (robotSize / 2);
             robotAngle = 0;
             consoleLog.length = 0;
             updateConsoleOutput();
             drawRobot();
-            clearCodeFromLocalStorage();
-            logToConsole('Simulation reset.', 'info');
+            logToConsole('Robot moved to the left starting position.', 'info');
         });
+
+        startRightButton.addEventListener('click', () => {
+            simulationRunning = false;
+            simulationQueue = [];
+            robotX = fieldWidth - (robotSize * 2);
+            robotY = fieldHeight - (robotSize / 2);
+            robotAngle = 0;
+            consoleLog.length = 0;
+            updateConsoleOutput();
+            drawRobot();
+            logToConsole('Robot moved to the right starting position.', 'info');
+        });
+
 
         // Auto-save on input with debounce
         codeEditor.addEventListener('input', () => {
@@ -960,11 +823,7 @@ async def main():
         });
         
         themeToggle.addEventListener('click', () => {
-            if (document.body.classList.contains('dark-mode')) {
-                document.body.classList.remove('dark-mode');
-            } else {
-                document.body.classList.add('dark-mode');
-            }
+            document.body.classList.toggle('dark-mode');
         });
 
         // Resizer Logic
@@ -994,9 +853,61 @@ async def main():
             document.addEventListener('mousemove', onMouseMove);
             document.addEventListener('mouseup', onMouseUp);
         });
+
+        // Minimize Simulation Panel Logic
+        let isSimMinimized = false;
+        minimizeSimButton.addEventListener('click', () => {
+            isSimMinimized = !isSimMinimized;
+            if (isSimMinimized) {
+                simulationPanel.style.flexBasis = '0';
+                simulationPanel.style.minWidth = '0';
+                simulationPanel.style.padding = '0';
+                simulationPanel.style.overflow = 'hidden';
+                simulationPanel.style.borderLeft = '0';
+                minimizeSimButton.innerHTML = '<ion-icon name="caret-forward-outline"></ion-icon>';
+            } else {
+                simulationPanel.style.flexBasis = '1';
+                simulationPanel.style.minWidth = '250px';
+                simulationPanel.style.padding = '1rem';
+                simulationPanel.style.overflow = 'auto';
+                simulationPanel.style.borderLeft = '1px solid var(--border-color)';
+                minimizeSimButton.innerHTML = '<ion-icon name="caret-back-outline"></ion-icon>';
+            }
+        });
+
+        // Console Resizer Logic
+        consoleResizer.addEventListener('mousedown', (e) => {
+            const initialY = e.clientY;
+            const initialHeight = bottomPanel.offsetHeight;
+            const maxConsoleHeight = window.innerHeight * 0.5;
+            const minConsoleHeight = 150;
+
+            const onMouseMove = (moveEvent) => {
+                const dy = moveEvent.clientY - initialY;
+                let newHeight = initialHeight - dy;
+                
+                if (newHeight < minConsoleHeight) {
+                    newHeight = minConsoleHeight;
+                }
+                if (newHeight > maxConsoleHeight) {
+                    newHeight = maxConsoleHeight;
+                }
+                
+                bottomPanel.style.height = `${newHeight}px`;
+                bottomPanel.style.minHeight = `${minConsoleHeight}px`;
+                bottomPanel.style.maxHeight = `${maxConsoleHeight}px`;
+            };
+
+            const onMouseUp = () => {
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            };
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
         
         // Tab switching logic
-        let commandsLoaded = false;
         tabButtons.forEach(button => {
             button.addEventListener('click', async () => {
                 const targetId = button.dataset.tabTarget;
@@ -1004,7 +915,6 @@ async def main():
 
                 tabButtons.forEach(btn => {
                     btn.classList.remove('active');
-                    btn.querySelector('span')?.classList.add('hidden');
                 });
                 tabContents.forEach(content => content.classList.remove('active'));
                 
@@ -1013,49 +923,13 @@ async def main():
 
                 if (targetId === 'tab-content-python') {
                     generatePythonCode();
-                    closePythonTabButton.classList.remove('hidden');
-                } else if (targetId === 'tab-content-commands') {
-                    closeCommandsTabButton.classList.remove('hidden');
-                    if (!commandsLoaded) {
-                        try {
-                            const response = await fetch('commands.html');
-                            if (response.ok) {
-                                const html = await response.text();
-                                commandsDisplayContainer.innerHTML = html;
-                                commandsLoaded = true;
-                            } else {
-                                console.error('Failed to load commands.html');
-                                commandsDisplayContainer.innerHTML = '<p>Failed to load commands. Please try again.</p>';
-                            }
-                        } catch (error) {
-                            console.error('Network error loading commands.html:', error);
-                            commandsDisplayContainer.innerHTML = '<p>Network error. Please check your connection.</p>';
-                        }
-                    }
+                }
+
+                if (targetId === 'tab-content-commands' && !commandsLoaded) {
+                    commandsContentContainer.innerHTML = commandsHtml;
+                    commandsLoaded = true;
                 }
             });
-        });
-
-        closePythonTabButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const editorTabButton = document.querySelector('[data-tab-target="tab-content-editor"]');
-            const editorTabContent = document.getElementById('tab-content-editor');
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
-            editorTabButton.classList.add('active');
-            editorTabContent.classList.add('active');
-            closePythonTabButton.classList.add('hidden');
-        });
-
-        closeCommandsTabButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const editorTabButton = document.querySelector('[data-tab-target="tab-content-editor"]');
-            const editorTabContent = document.getElementById('tab-content-editor');
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
-            editorTabButton.classList.add('active');
-            editorTabContent.classList.add('active');
-            closeCommandsTabButton.classList.add('hidden');
         });
 
         // Initial setup
@@ -1064,6 +938,9 @@ async def main():
             loadCodeFromLocalStorage();
             updateSyntaxHighlighting();
             document.getElementById('editor-panel').classList.add('active');
+            // Pre-load the commands HTML on initial load
+            commandsContentContainer.innerHTML = commandsHtml;
+            commandsLoaded = true;
         };
     </script>
 </body>
