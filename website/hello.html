@@ -251,7 +251,7 @@
     <div id="app-container" class="grid grid-cols-[50px_1fr] grid-rows-[1fr_auto] w-full h-screen bg-bg-primary overflow-hidden">
         <!-- VS Code-like Sidebar -->
         <div id="left-sidebar" class="bg-bg-secondary border-r border-border-color row-span-full flex flex-col items-center justify-start pt-4 text-text-secondary gap-6">
-            <img src="logo.png" alt="Allied logo" class="w-10 h-10 mb-4"/>
+            <img src="./images/logo.png" alt="Allied logo" class="w-10 h-10 mb-4"/>
             <ion-icon name="code-slash-outline" class="text-3xl cursor-pointer transition-colors duration-200 active"></ion-icon>
             <a href="https://agsid.github.io/website/doc.html" target="_blank">
                 <ion-icon name="help-circle-outline" class="text-3xl cursor-pointer transition-colors duration-200"></ion-icon>
@@ -409,7 +409,7 @@ arm()</textarea>
         
         // FLL Field background image
         const fieldImage = new Image();
-        fieldImage.src = 'https://placehold.co/960x480/A6CCEE/000000?text=FLL+Field+Layout'; // Replace with the actual URL of your FLL field image
+        fieldImage.src = './images/field.png'; // Replace with the actual URL of your FLL field image
         fieldImage.onload = () => {
             // The image is loaded, we can now draw the initial canvas state
             drawRobot();
