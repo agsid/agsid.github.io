@@ -1,106 +1,104 @@
 <html>
   <head>
     <style>
-    
-      .navbar:hover{
-        opacity:1;
-        background-color: #1D2926;
-        transition: opacity 0.3s ease;
+      /* Corrected CSS for the logo image */
+      .navbar img.logo-img { 
+          width: 50px; /* Use a class to specifically target the image */
+      }
+      /* You can also do it this way, but adding a class is better practice */
+      /* .navbar .logo img { 
+          width: 50px; 
+      } */
+      .navbar:hover {
+          opacity: 1;
+          background-color: #1D2926;
+          transition: opacity 0.3s ease;
       }
       .navbar {
-            position: fixed; /* Changed to fixed to keep it in place during scroll */
-            top: 20px; /* Distance from the top of the viewport */
-            left: 50%; /* Starts at the horizontal center */
-            transform: translateX(-50%); /* Moves it back by half its width to truly center */
-            width: 90%; /* Responsive width for the navbar */
-            max-width: 1200px; /* Maximum width for larger screens to maintain design */
-            z-index: 20; /* Ensures the navbar is always on top of other content */
-            display: flex; /* Uses flexbox for internal layout (logo and links) */
-            justify-content: space-between; /* Puts space between logo and links */
-            align-items: center; /* Vertically aligns items in the navbar */
-            background-color:#070707; /* Semi-transparent dark grey background */
-            padding: 10px 20px; /* Padding inside the navbar */
-            border-radius: 15px;
-            opacity:0.8; /* Rounded corners for the entire navbar */
-            box-shadow: 0 4px 15px rgba(92, 84, 84, 0.2); /* Subtle shadow for depth */
-        }
-
-        .navbar .logo {
-            width:50px;
-            color: white; /* White text for the logo */
-            font-size: 1.75rem; /* Large font size for the logo */
-            font-weight: bold; /* Bold text */
-            display: flex; /* Flexbox for aligning dots and text */
-            align-items: center; /* Vertically aligns dots and text */
-        }
-
-        .navbar-links {
-            display: flex; /* Flexbox for navigation links */
-            gap: 1.5rem; /* Spacing between links (equivalent to Tailwind's space-x-6) */
-        }
-
-        .navbar-links a {
-            color: white; /* White text for links */
-            font-size: 1.125rem; /* Medium font size */
-            font-weight: 500; /* Medium font-weight */
-            padding: 8px 16px; /* Padding around link text */
-            border-radius: 8px; /* Rounded corners for link buttons */
-            transition: background-color 0.3s ease; /* Smooth transition on hover */
-        }
-
-        .navbar-links a:hover {
-            background-color: #00694B; /* Darker background on hover */
-        }
-        
-        /* Style for the current active page link */
-        .navbar-links a.current-page {
-            background-color: rgba(40, 40, 40, 0.8); /* Matches the hover effect */
-        }
-       /* Responsive Adjustments for Tablets and smaller desktops (1024px) */
-        @media (max-width: 1024px) {
-            .navbar {
-                width: 95%; /* Increased width for better fit */
-                padding: 8px 15px;
-            }
-            .navbar .logo {
-                font-size: 1.5rem;
-            }
-            .navbar-links a {
-                font-size: 1rem;
-                padding: 6px 12px;
-            }
+          position: fixed;
+          top: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 90%;
+          max-width: 1200px;
+          z-index: 20;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background-color: #070707;
+          padding: 10px 20px;
+          border-radius: 15px;
+          opacity: 0.8;
+          box-shadow: 0 4px 15px rgba(92, 84, 84, 0.2);
       }
-       @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column; /* Stacks logo and links vertically */
-                align-items: flex-start; /* Aligns items to the left */
-                padding: 10px;
-            }
-            .navbar-links {
-                flex-wrap: wrap; /* Allows links to wrap to the next line */
-                justify-content: center; /* Centers links if they wrap */
-                margin-top: 10px;
-                width: 100%; /* Takes full width */
-            }
-            .navbar-links a {
-                margin: 5px; /* Adds margin around wrapped links */
-            }
+      .navbar .logo {
+          color: white;
+          font-size: 1.75rem;
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+      }
+      .navbar-links {
+          display: flex;
+          gap: 1.5rem;
+      }
+      .navbar-links a {
+          color: white;
+          font-size: 1.125rem;
+          font-weight: 500;
+          padding: 8px 16px;
+          border-radius: 8px;
+          transition: background-color 0.3s ease;
+      }
+      .navbar-links a:hover {
+          background-color: #00694B;
+      }
+      .navbar-links a.current-page {
+          background-color: rgba(40, 40, 40, 0.8);
+      }
+      @media (max-width: 1024px) {
+          .navbar {
+              width: 95%;
+              padding: 8px 15px;
+          }
+          .navbar .logo {
+              font-size: 1.5rem;
+          }
+          .navbar-links a {
+              font-size: 1rem;
+              padding: 6px 12px;
+          }
+      }
+      @media (max-width: 768px) {
+          .navbar {
+              flex-direction: column;
+              align-items: flex-start;
+              padding: 10px;
+          }
+          .navbar-links {
+              flex-wrap: wrap;
+              justify-content: center;
+              margin-top: 10px;
+              width: 100%;
+          }
+          .navbar-links a {
+              margin: 5px;
+          }
       }
     </style>
   </head>
   <body>
-      <nav class="navbar">
-        <div class="logo">
-            <span class="logo-dots"><img src ="./images/Allied-Algorithms_logo.svg"></span> Allied
-        </div>
-        <div class="navbar-links">
-            <a href="./index.html">Home</a>
-            <a href="./abtus.html">Members</a>
-            <a href="./seasons.html">Seasons</a>
-            <a href="./robot.html">Robot Design</a>
-            <a href="./hello.html" style="background-color:#2F9BEE;">AlliedWork</a>
-        </div>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="./images/Allied-Algorithms_logo.svg" alt="Allied Algorithms Logo" class="logo-img"> Allied
+      </div>
+      <div class="navbar-links">
+        <a href="./index.html">Home</a>
+        <a href="./abtus.html">Members</a>
+        <a href="./seasons.html">Seasons</a>
+        <a href="./robot.html">Robot Design</a>
+        <a href="./hello.html" style="background-color:#2F9BEE;">AlliedWork</a>
+      </div>
     </nav>
-
   </body>
 </html>
