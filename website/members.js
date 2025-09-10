@@ -5,27 +5,32 @@ const members = [
         image: "path/to/sid-agrawal-image.jpg" // Replace with a link to your image
     },
     {
-        name: "Name",
+        name: "Tanush",
         description: "Description",
         image: "path/to/default-image.jpg"
     },
     {
-        name: "Name",
+        name: "Aariv",
         description: "Description",
         image: "path/to/default-image.jpg"
     },
     {
-        name: "Name",
+        name: "Sarthek",
         description: "Description",
         image: "path/to/default-image.jpg"
     },
     {
-        name: "Name",
+        name: "Mr.Ganesh",
         description: "Description",
         image: "path/to/default-image.jpg"
     },
     {
-        name: "Name",
+        name: "Mr.Amit",
+        description: "Description",
+        image: "path/to/default-image.jpg"
+    },
+    {
+        name: "Mr.Nareddy",
         description: "Description",
         image: "path/to/default-image.jpg"
     }
