@@ -30,4 +30,18 @@ const seasonsData = [
         image: "./images/seasons/yr_22-23.jpg",
         alt: "Team Allied Algorithms in the 2022-2023 season"
     },
+   {
+  "year": "2021-2022",
+  "title": "CARGO CONNECT℠",
+  "description": "The CARGO CONNECT℠ season was a thrill. We deeped our understanding of the game and lego designs.",
+  "image": "./images/seasons/yr_21-22.jpg",
+  "alt": "Team Allied Algorithms in the 2021-2022 season"
+},
+{
+  "year": "2020-2021",
+  "title": "RePLAY℠",
+  "description": "This was our very first year participating in the FLL Explorer section. We learned about how th game works and how the challenge is set up. We did our meeting over zoom, and it was a fun experiance",
+  "image": "./images/seasons/yr_20-21.jpg",
+  "alt": "Team Allied Algorithms (Golden Eagles) in the 2020-2021 season"
+},
 ];
