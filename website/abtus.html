@@ -15,57 +15,105 @@
             $("#Content").load("footer.html");
         });
     </script>
-    <style>
-        body {
-            /* Updated background image for a starry, less tinted look */
-            background-image: url('./images/bgabtus (1).jpg'); 
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-        }
+<style>
+    body {
+        /* Updated background image for a starry, less tinted look */
+        background-image: url('./images/bgabtus (1).jpg');
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+    }
 
-        .member-card {
-            /* Slightly adjusted opacity for better contrast */
-            background-color: rgba(0, 0, 0, 0.5); 
-            border-radius: 2rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+    /*---*/
 
-        .profile-icon {
-            width: 120px;
-            height: 120px;
-            border-radius: 9999px;
-            border: 3px solid transparent;
-            background-image: linear-gradient(to bottom right, #8A2BE2, #00FFFF);
-            background-clip: padding-box;
-            position: relative;
+    .member-card {
+        /* Adjusted background for better contrast and a modern feel */
+        background-color: rgba(10, 10, 20, 0.7);
+        border-radius: 2rem;
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        /* Refined box-shadow for a deeper, more subtle glow */
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        /* Added a smooth transition for hover effects */
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .member-card:hover {
+        /* Lifts the card and increases the shadow on hover */
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    /*---*/
+
+    .profile-icon {
+        width: 120px;
+        height: 120px;
+        border-radius: 9999px;
+        position: relative;
+        /* Using a pseudo-element for a cleaner border effect */
+        background: black;
+        overflow: hidden;
+    }
+    
+    .profile-icon::before {
+        content: '';
+        position: absolute;
+        top: -5px; bottom: -5px; left: -5px; right: -5px;
+        background: linear-gradient(135deg, #8A2BE2, #00FFFF, #8A2BE2);
+        z-index: -1;
+        border-radius: 9999px;
+        animation: rotateGradient 4s linear infinite;
+    }
+    
+    @keyframes rotateGradient {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    /*---*/
+
+    .card-content {
+        margin-top: 1.5rem;
+        color: #f0f0f0;
+    }
+    
+    .card-content h3 {
+        font-size: 1.75rem;
+        margin: 0.5rem 0;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+        color: #fff;
+    }
+    
+    .card-content p {
+        font-size: 1rem;
+        margin: 0.5rem 0;
+        color: #b0b0b0;
+    }
+
+    /*---*/
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
         }
-        
-        .profile-icon::after {
-            content: '';
-            position: absolute;
-            top: -3px; bottom: -3px; left: -3px; right: -3px;
-            background: linear-gradient(135deg, #8A2BE2, #00FFFF);
-            z-index: -1;
-            border-radius: 9999px;
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease forwards;
-        }
-    </style>
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.8s ease forwards;
+    }
+</style>
 </head>
 <body class="text-white font-sans">
     <div id="includedContent"></div>
