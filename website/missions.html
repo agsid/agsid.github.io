@@ -9,7 +9,10 @@
 
     <link rel="icon" type="image/x-icon" href="./images/logo.png">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@400;700&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
@@ -20,23 +23,27 @@
             background-position: center;
             font-family: 'Inter', sans-serif;
             box-sizing: border-box;
-            color: #fff; /* Ensure text is white against the dark background */
+            color: #fff;
         }
 
-        /* Styles for the mission cards */
+        /* Container for the mission cards */
+        .missions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Style for each mission card */
         .mission-card {
-            background-color: rgba(10, 10, 20, 0.7); /* Darker, semi-transparent background */
+            background-color: rgba(10, 10, 20, 0.7);
             border-radius: 2rem;
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            padding: 2rem;
-            margin-bottom: 2rem; /* Spacing between cards */
             display: flex;
-            flex-direction: column; /* Stack content vertically on small screens */
-            align-items: center; /* Center items horizontally */
-            text-align: center;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         .mission-card:hover {
@@ -44,90 +51,135 @@
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
         }
 
-        .mission-image-container {
-            width: 100%;
-            max-width: 400px; /* Max width for image/video container */
-            border-radius: 1rem;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-            background-color: #0d47a1; /* Blue background for the "Mission 1 Pic" area */
+        /* Flexbox for the inner layout of the card */
+        .mission-content-wrapper {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 250px; /* Ensure some height even if no image is loaded */
-            position: relative; /* For video iframe positioning */
+            flex-direction: column;
+            padding: 2rem;
+            gap: 2rem;
         }
 
-        .mission-image {
+        @media (min-width: 768px) {
+            .mission-content-wrapper {
+                flex-direction: row;
+            }
+        }
+
+        /* Left side of the card (image/video section) */
+        .mission-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .mission-left {
+                width: 40%;
+                min-width: 300px;
+            }
+        }
+
+
+        .mission-media-container {
+            background-color: #0d47a1;
+            border-radius: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 2rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            min-height: 250px;
+        }
+
+        .mission-media-container img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
 
+
         .mission-video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            /* 16:9 Aspect Ratio */
+        }
+
+        .mission-video-wrapper iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            border-radius: 1rem;
         }
 
-        .mission-video-wrapper iframe {
+        /* Right side of the card (text section) */
+        .mission-right {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
             width: 100%;
-            height: 100%;
-            border: none;
         }
 
-        .mission-content {
-            width: 100%;
-            max-width: 600px; /* Max width for text content */
-            text-align: left; /* Align text to the left */
+        @media (min-width: 768px) {
+            .mission-right {
+                width: 60%;
+            }
         }
 
-        .mission-content h1 {
-            font-size: 1.8rem;
+        .mission-right h2 {
+            font-size: 1.5rem;
             font-weight: 700;
             color: #fff;
             margin-bottom: 0.5rem;
         }
 
-        .mission-content a {
-            color: #90cdf4; /* Light blue for links */
-            text-decoration: none;
-            font-weight: 600;
-            display: block; /* Make link take full width */
-            margin-bottom: 0.5rem;
+        .mission-right h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1rem;
         }
 
-        .mission-content a:hover {
+        .mission-right p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        .link-text {
+            color: #90cdf4;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .link-text:hover {
             text-decoration: underline;
         }
 
-        .mission-content p {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #e2e8f0; /* Lighter white for descriptions */
-            margin-bottom: 0.5rem;
+        /* Oswald font for points */
+        .oswald-font {
+            font-family: 'Oswald', sans-serif;
         }
 
-        /* Responsive adjustments */
-        @media (min-width: 768px) {
-            .mission-card {
-                flex-direction: row; /* Horizontal layout on larger screens */
-                text-align: left;
-                align-items: flex-start; /* Align items to the start of the cross axis */
-            }
+        /* Footer and header */
+        .header-bg {
+            background-color: rgba(10, 10, 20, 0.7);
+        }
 
-            .mission-image-container {
-                margin-right: 2rem;
-                margin-bottom: 0;
-                flex-shrink: 0; /* Prevent image from shrinking */
-                max-width: 350px; /* Adjust as needed for larger screens */
-            }
-
-            .mission-content {
-                flex-grow: 1; /* Allow content to take remaining space */
-            }
+        .footer-bg {
+            background-color: rgba(10, 10, 20, 0.7);
         }
     </style>
 
@@ -148,30 +200,24 @@
         document.addEventListener('DOMContentLoaded', function () {
             loadHTML('includedContent', 'navbar.html');
             loadHTML('Content', 'footer.html');
-            // Call renderMissions from missions.js after DOM is loaded
-            if (typeof renderMissions === 'function') {
-                renderMissions();
-            } else {
-                console.error("renderMissions function not found. Ensure missions.js is loaded correctly.");
-            }
         });
     </script>
 </head>
 
 <body>
-    <div id="includedContent"></div>
+    <div id="includedContent" class="header-bg"></div>
 
     <main class="container mx-auto px-4 py-12">
         <section class="text-center mb-10">
-            <h2 class="text-4xl font-extrabold text-white mb-4">FIRST LEGO League Unearthed Missions</h2>
+            <h1 class="text-4xl font-extrabold text-white mb-4">FIRST LEGO League Unearthed Missions</h1>
             <p class="text-lg text-gray-300">Explore the challenges and accomplishments of the Unearthed season!</p>
         </section>
 
-        <div id="missions-container" class="flex flex-col items-center">
-            </div>
-
+        <div id="missions-container" class="missions-container">
+        </div>
     </main>
-    <div id="Content"></div>
+
+    <div id="Content" class="footer-bg"></div>
 </body>
 
 </html>
