@@ -29,6 +29,7 @@ function renderMissions() {
             <img src="${mission.image}" alt="${mission.alt}">
             <div class="mission-content">
                 <h1>${mission.name}</h1>
+                 <h1>${mission.viedolink}</h1>
                 <h4>Points: ${mission.points}</h4>
                 <p>${mission.description}</p>
             </div>
