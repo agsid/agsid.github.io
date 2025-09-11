@@ -5,7 +5,7 @@ const missionsData = [
         points: "20",
         videoLink: "https://youtube.com/shorts/3DnDIzPDk4Q?feature=share",
         description: "The robot preforms a simple movement to complete mission #1.",
-        image: "./images/missions/missions", 
+        image: "./images/missions/Screenshot 2025-09-10 203034.png", 
         alt: "FIRST LEGO League UNEARTHED M01"
     },
 ];
