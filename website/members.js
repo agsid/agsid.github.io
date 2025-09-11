@@ -5,7 +5,7 @@ const missionsData = [
         points: "20",
         videoLink: "https://www.youtube.com/embed/dQw4w9WgXcQ?si=iX9f_2bWd_XjNq2z", // Replace with your YouTube embed link
         description: "The robot performs a simple movement to complete mission #1. This was a challenging mission due to the delicate nature of the models and the precision required for placement. We experimented with several arm designs before finding one that could reliably move both pieces without knocking them over. It was hard to get the alignment just right, but the team put in a lot of effort!",
-        image: "https://placehold.co/400x250/0d47a1/FFFFFF?text=Mission+1+Pic"
+        image: "./images/missions/Screenshot 2025-09-10 203034.png"
     },
     {
         title: "UNEARTHED Mission 02",
