@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="missions.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allied Algorithms - Missions</title>
+
+    <link rel="apple-touch-icon" sizes="500x500" href="./images/logo.png">
+    <link rel="icon" type="image/x-icon" href="./images/logo.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        main {
+            padding-top: 75px;
+            flex-grow: 1;
+        }
+
+        .mission-card {
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            .mission-card {
+                flex-direction: row;
+            }
+
+            .mission-card.reverse-order {
+                flex-direction: row-reverse;
+            }
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .mission-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            background-color: #e5e7eb;
+        }
+
+        @media (min-width: 768px) {
+            .mission-card img {
+                width: 40%;
+                height: auto;
+                max-height: 300px;
+            }
+        }
+
+        .mission-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .mission-content h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #0d47a1;
+            margin-bottom: 5px;
+        }
+
+        .mission-content h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #4a4a4a;
+            margin-bottom: 15px;
+        }
+
+        .mission-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+    </style>
+
+    <script>
+        async function loadHTML(elementId, filePath) {
+            try {
+                const response = await fetch(filePath);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const html = await response.text();
+                document.getElementById(elementId).innerHTML = html;
+            } catch (error) {
+                console.error(`Could not load ${filePath}:`, error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            loadHTML('includedContent', 'navbar.html');
+            loadHTML('Content', 'footer.html');
+        });
+    </script>
+</head>
+
+<body>
+    <div id="includedContent"></div>
+
+    <main class="container mx-auto px-4 py-12 text-white">
+        <section>
+            <h2 class="text-3xl font-bold text-white-1000 mb-8 text-center">FIRST LEGO League Missions</h2>
+            <div id="missions-container">
+            </div>
+        </section>
+
+    </main>
+    <div id="Content"></div>
+</body>
+
+</html>
