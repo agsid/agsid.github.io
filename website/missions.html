@@ -26,14 +26,13 @@
             color: #fff;
         }
 
-        /* Container for the mission cards */
         .missions-container {
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 2rem;
         }
 
-        /* Style for each mission card */
         .mission-card {
             background-color: rgba(10, 10, 20, 0.7);
             border-radius: 2rem;
@@ -44,43 +43,29 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            width: 100%;
+            max-width: 50%;
         }
 
         .mission-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
         }
-
-        /* Flexbox for the inner layout of the card */
-        .mission-content-wrapper {
+        
+        .mission-card-wrapper {
+            height: 350px;
             display: flex;
-            flex-direction: column;
-            padding: 2rem;
-            gap: 2rem;
+            flex-direction: row;
         }
 
-        @media (min-width: 768px) {
-            .mission-content-wrapper {
-                flex-direction: row;
-            }
-        }
-
-        /* Left side of the card (image/video section) */
         .mission-left {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 1rem;
-            width: 100%;
+            width: 50%;
+            padding: 2rem;
         }
-
-        @media (min-width: 768px) {
-            .mission-left {
-                width: 40%;
-                min-width: 300px;
-            }
-        }
-
 
         .mission-media-container {
             background-color: #0d47a1;
@@ -93,22 +78,42 @@
             text-align: center;
             font-size: 1.5rem;
             font-weight: bold;
-            min-height: 250px;
+            flex-grow: 1;
+            position: relative; /* For video link overlay */
         }
 
-        .mission-media-container img {
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+            z-index: 10;
         }
 
+        .video-overlay:hover {
+            opacity: 1;
+        }
+
+        .video-overlay svg {
+            margin-right: 0.5rem;
+        }
 
         .mission-video-wrapper {
             position: relative;
             width: 100%;
             height: 0;
             padding-bottom: 56.25%;
-            /* 16:9 Aspect Ratio */
         }
 
         .mission-video-wrapper iframe {
@@ -119,19 +124,21 @@
             height: 100%;
             border-radius: 1rem;
         }
+        
+        .mission-media-image {
+            width: 100%;
+            height: auto;
+            max-height: 100%;
+            object-fit: contain;
+        }
 
-        /* Right side of the card (text section) */
         .mission-right {
             display: flex;
             flex-direction: column;
             text-align: left;
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .mission-right {
-                width: 60%;
-            }
+            width: 50%;
+            padding: 2rem;
+            justify-content: center;
         }
 
         .mission-right h2 {
@@ -168,12 +175,10 @@
             text-decoration: underline;
         }
 
-        /* Oswald font for points */
         .oswald-font {
             font-family: 'Oswald', sans-serif;
         }
 
-        /* Footer and header */
         .header-bg {
             background-color: rgba(10, 10, 20, 0.7);
         }
