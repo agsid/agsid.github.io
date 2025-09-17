@@ -5,8 +5,8 @@ const seasonsData = [
         description: "This season we will foucus on organization. Organization is very important within a team, as this can lead to a win or lose situation.",
         image: "https://info.firstinspires.org/hs-fs/hubfs/2026%20Season/Season%20Assets/first_age_fll_unearthed_logo_vertical_rgb_fullcolor.png?width=334&height=334&name=first_age_fll_unearthed_logo_vertical_rgb_fullcolor.png",
         alt: "FIRST LEGO League UNEARTHED Season Logo",
-        hoursSpent: 81,
-        peopleImpacted: 33,
+        hoursSpent: 100,
+        peopleImpacted: 50,
         missionsCompleted: 1
     },
     {
