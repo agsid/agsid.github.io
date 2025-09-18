@@ -6,9 +6,10 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center; /* Center content vertically as well */
+    
 
     /* Background with circles */
-    background-image: url("website/images/index_plan.jpg");
+    background-image: url("./images/bgabtus (1).jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
