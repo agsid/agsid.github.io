@@ -1,5 +1,5 @@
 // Data for the missions. 
-const missionsData = [
+const seasons= [
     {
         title: "UNEARTHED Mission 01",
         points: "20",
