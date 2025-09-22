@@ -10,10 +10,6 @@ body {
 
     /* Background with circles */
     background-color:#000;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #070707;
 
     font-family: 'Inter', sans-serif;
     color: white; /* Set default text color to white */
