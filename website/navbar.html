@@ -1,246 +1,305 @@
-<html>
-  <head>
-    <style>
-      /* --- Futuristic Navbar CSS (Base) --- */
-      .navbar img.logo-img {
-        width: 50px;
-      }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Futuristic Responsive Navbar</title>
+  <style>
+    /* * ----------------------------------------
+    * Main Body & Font Styling
+    * ----------------------------------------
+    */
+    body {
+      /* Adds spacing so the content isn't under the fixed navbar */
+      padding-top: 120px;
+      margin: 0;
+      font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+      min-height: 200vh; /* Make body tall enough to demonstrate scroll effect */
+      transition: padding-top 0.5s ease;
+    }
 
-      .navbar {
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 95%;
-        max-width: 1200px;
-        z-index: 20;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 80px;
-        padding: 10px 20px;
-        border-radius: 15px;
-        opacity: 0.9;
-        background: rgba(10, 25, 40, 0.4);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(135, 206, 235, 0.3);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
-        transition: all 0.5s ease;
-      }
+    h1, h2, h3 {
+      font-family: 'Inter', sans-serif;
+      color: #1a202c;
+    }
 
-      .navbar:hover {
-        opacity: 1;
-        background: rgba(10, 25, 40, 0.6);
-      }
-      
-      .navbar .logo {
-        color: #87CEEB;
-        font-size: 1.75rem;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        text-shadow: 0 0 5px #00BFFF;
-        font-family: 'Segoe UI', 'Roboto', sans-serif;
-      }
-      
-      .navbar-links {
-        display: flex;
-        gap: 1.5rem;
-        transition: all 0.5s ease;
-      }
-      
-      .navbar-links a {
-        color: #E0FFFF;
-        font-size: 1.125rem;
-        font-weight: 500;
-        padding: 8px 16px;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        text-decoration: none;
-      }
+    p {
+      color: #4a5568;
+      line-height: 1.6;
+    }
 
-      .navbar-links a:hover {
-        background-color: rgba(0, 191, 255, 0.2);
-        color: #00BFFF;
-        box-shadow: 0 0 10px #00BFFF;
-      }
-      
-      .navbar-links a.current-page {
-        background-color: rgba(0, 191, 255, 0.4);
-        color: #FFFFFF;
-        box-shadow: 0 0 15px #00BFFF;
-      }
-      
-      /* --- New CSS for Minimized State --- */
-      .navbar.scrolled {
-        top: 0;
-        border-radius: 0;
-        width: 100%;
-        height: 40px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        background: rgba(10, 25, 40, 0.8);
-      }
-      
-      .navbar.scrolled .navbar-links {
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(-20px);
-      }
-      
-      .navbar.scrolled:hover {
-        height: 80px;
-      }
-      
-      .navbar.scrolled:hover .navbar-links {
-        opacity: 1;
-        pointer-events: all;
-        transform: translateY(0);
-      }
-      
-      .navbar.scrolled .logo {
-          font-size: 1.5rem;
-      }
-      
-      /* --- */
-      
-      /* Hamburger Menu & Media Queries */
-      .hamburger-menu {
-        display: none;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        z-index: 30;
-      }
+    /* * ----------------------------------------
+    * Navbar Base Styles (Desktop)
+    * ----------------------------------------
+    */
+    .navbar {
+      /* Positioning the navbar fixed at the top */
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 95%;
+      max-width: 1200px;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+      padding: 10px 20px;
+      border-radius: 15px;
+      opacity: 0.9;
+      background: rgba(10, 25, 40, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(135, 206, 235, 0.3);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+      transition: all 0.5s ease;
+    }
 
-      .hamburger-menu span {
-        display: block;
-        width: 25px;
-        height: 3px;
-        background-color: #87CEEB;
-        margin: 5px 0;
-        transition: all 0.3s ease;
-      }
-     
-      @media (max-width: 1024px) {
-        .navbar {
-          width: 95%;
-          padding: 8px 15px;
-        }
-        .navbar .logo {
-          font-size: 1.5rem;
-        }
-        .navbar-links a {
-          font-size: 1rem;
-          padding: 6px 12px;
-        }
-      }
-      
-      @media (max-width: 768px) {
-        .navbar {
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: center;
-          padding: 10px 20px;
-        }
-        .navbar.scrolled {
-            top: 0;
-            border-radius: 0;
-            width: 100%;
-        }
+    .navbar:hover {
+      opacity: 1;
+      background: rgba(10, 25, 40, 0.6);
+    }
+    
+    .navbar .logo {
+      color: #87CEEB;
+      font-size: 1.75rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      text-shadow: 0 0 5px #00BFFF;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+    }
 
-        .hamburger-menu {
-          display: block;
-        }
-        
-        /* CORRECTED CSS for mobile */
-        .navbar-links {
-          display: flex; /* Keep display flex */
-          flex-direction: column;
-          position: absolute;
-          top: 100%;
-          left: 0;
-          width: 100%;
-          background: rgba(10, 25, 40, 0.6);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          border-top: 1px solid rgba(135, 206, 235, 0.3);
-          border-radius: 0 0 15px 15px;
-          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
-          padding: 0; /* Changed padding to 0 */
-          gap: 0;
-          visibility: hidden;
-          max-height: 0;
-          overflow: hidden;
-          transition: max-height 0.5s ease-in-out, visibility 0.5s;
-        }
-        
-        .navbar-links.active {
-          visibility: visible;
-          max-height: 500px;
-          padding: 10px 0; /* Applied padding here */
-        }
+    .navbar img.logo-img {
+      width: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+    
+    .navbar-links {
+      display: flex;
+      gap: 1.5rem;
+      transition: all 0.5s ease;
+    }
+    
+    .navbar-links a {
+      color: #E0FFFF;
+      font-size: 1.125rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
 
-        .navbar-links a {
-          width: 100%;
-          text-align: center;
-          padding: 15px 0;
-          border-radius: 0;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <nav class="navbar">
-      <div class="logo">
-        <img src="./images/Allied-Algorithms_logo.svg" alt="Allied Algorithms Logo" class="logo-img"> Allied
-      </div>
-      <button class="hamburger-menu" aria-label="Toggle navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <div class="navbar-links">
-        <a href="./index.html">Home</a>
-        <a href="./abtus.html">Members</a>
-        <a href="./seasons.html">Seasons</a>
-        <a href="./robot.html">Robot Design</a>
-        <a href="./missions.html">Missions</a>
-        <a href="./hello.html" class="current-page" style="background-color:#00BFFF;">AlliedWork</a>
-      </div>
-    </nav>
+    .navbar-links a:hover {
+      background-color: rgba(0, 191, 255, 0.2);
+      color: #00BFFF;
+      box-shadow: 0 0 10px #00BFFF;
+    }
+    
+    .navbar-links a.current-page {
+      background-color: rgba(0, 191, 255, 0.4);
+      color: #FFFFFF;
+      box-shadow: 0 0 15px #00BFFF;
+    }
+    
+    /* * ----------------------------------------
+    * Minimized/Scrolled State Styles
+    * ----------------------------------------
+    */
+    .navbar.scrolled {
+      top: 0;
+      border-radius: 0;
+      width: 100%;
+      height: 40px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      background: rgba(10, 25, 40, 0.8);
+      padding: 5px 20px;
+    }
 
+    .navbar.scrolled .logo {
+      font-size: 1.25rem;
+    }
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const hamburgerBtn = document.querySelector('.hamburger-menu');
-        const navLinks = document.querySelector('.navbar-links');
-        const navbar = document.querySelector('.navbar');
-        
-        // Function to toggle the 'scrolled' class on the navbar
-        const toggleNavbarClass = () => {
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        };
+    .navbar.scrolled .logo-img {
+      width: 30px;
+    }
+    
+    .navbar.scrolled .navbar-links {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-20px);
+    }
+    
+    .navbar.scrolled:hover {
+      height: 80px;
+    }
+    
+    .navbar.scrolled:hover .navbar-links {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+    
+    /* * ----------------------------------------
+    * Hamburger Menu & Mobile Styles
+    * ----------------------------------------
+    */
+    .hamburger-menu {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 30;
+    }
 
-        // Add event listeners
-        if (hamburgerBtn && navLinks) {
-          hamburgerBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            navLinks.classList.toggle('active');
-          });
-        }
-        
-        // Listen for scroll events
-        window.addEventListener('scroll', toggleNavbarClass);
+    .hamburger-menu span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: #87CEEB;
+      margin: 5px 0;
+      transition: all 0.3s ease;
+    }
+    
+    @media (max-width: 1024px) {
+      .navbar {
+        width: 95%;
+        padding: 8px 15px;
+      }
+      .navbar .logo {
+        font-size: 1.5rem;
+      }
+      .navbar-links a {
+        font-size: 1rem;
+        padding: 6px 12px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+      }
+      .navbar.scrolled {
+        top: 0;
+        border-radius: 0;
+        width: 100%;
+      }
 
-        // Run on page load in case user is already scrolled
-        toggleNavbarClass();
-      });
-    </script>
-  </body>
+      .hamburger-menu {
+        display: block;
+      }
+      
+      /* CORRECTED CSS for mobile */
+      .navbar-links {
+        display: flex; /* Keep display flex */
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(10, 25, 40, 0.6);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(135, 206, 235, 0.3);
+        border-radius: 0 0 15px 15px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        padding: 0;
+        gap: 0;
+        visibility: hidden;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out, visibility 0.5s;
+      }
+      
+      .navbar-links.active {
+        visibility: visible;
+        max-height: 500px;
+        padding: 10px 0;
+      }
+
+      .navbar-links a {
+        width: 100%;
+        text-align: center;
+        padding: 15px 0;
+        border-radius: 0;
+      }
+    }
+
+    /* Example Content Styling */
+    .content-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">
+      <!-- 
+      Using a placeholder image for the logo. You can replace this
+      with your actual logo file path.
+      -->
+      <img src="https://placehold.co/50x50/007bff/ffffff?text=AA" alt="Allied Algorithms Logo" class="logo-img"> Allied
+    </div>
+    <button class="hamburger-menu" aria-label="Toggle navigation menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="navbar-links">
+      <a href="./index.html">Home</a>
+      <a href="./abtus.html">Members</a>
+      <a href="./seasons.html">Seasons</a>
+      <a href="./robot.html">Robot Design</a>
+      <a href="./missions.html">Missions</a>
+      <!-- 
+      Added an `id` to the current page link to make it easier to
+      programmatically set it as the active page.
+      -->
+      <a href="./hello.html" id="currentPage" class="current-page">AlliedWork</a>
+    </div>
+  </nav>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburgerBtn = document.querySelector('.hamburger-menu');
+      const navLinks = document.querySelector('.navbar-links');
+      const navbar = document.querySelector('.navbar');
+
+      // Toggles the 'active' class on mobile to show/hide the menu
+      if (hamburgerBtn && navLinks) {
+        hamburgerBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          navLinks.classList.toggle('active');
+        });
+      }
+      
+      // Function to toggle the 'scrolled' class on the navbar
+      const toggleNavbarClass = () => {
+        if (window.scrollY > 100) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      };
+
+      // Listen for scroll events
+      window.addEventListener('scroll', toggleNavbarClass);
+
+      // Run on page load in case the user is already scrolled
+      toggleNavbarClass();
+    });
+
+  </script>
+</body>
 </html>
