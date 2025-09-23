@@ -1,19 +1,19 @@
 const seasonsData = [
     {
         year: "2025-2026",
-        title: "UNEARTHED",
-        description: "This season we will foucus on organization. Organization is very important within a team, as this can lead to a win or lose situation.",
-        image: "https://info.firstinspires.org/hs-fs/hubfs/2026%20Season/Season%20Assets/first_age_fll_unearthed_logo_vertical_rgb_fullcolor.png?width=334&height=334&name=first_age_fll_unearthed_logo_vertical_rgb_fullcolor.png",
-        alt: "FIRST LEGO League UNEARTHED Season Logo",
-        hoursSpent: 81,
-        peopleImpacted: 33,
-        missionsCompleted: 1
+        title: "Future Season Theme",
+        description: "This is the description for the 2025-2026 season. You can fill in details about the theme, challenges, and your team's goals here.",
+        image: "./images/seasons/yr_25-26.jpg",
+        alt: "Team Allied Algorithms in the 2025-2026 season",
+        hoursSpent: "125",
+        peopleImpacted: "115",
+        missionsCompleted: "1"
     },
     {
         year: "2024-2025",
         title: "Submerged",
         description: "Our team dedicated this year to the development of a new robot design, alongside our innovation project. We had no changes to the team. We were lucky enough to have a chance to present our robot and innovation project to our board of education who were not only amazed, but informed about FIRST in their community.",
-        image: "./images/seasons/yr_24-25.jpg",
+        image: "website/images/seasons/yr_24-25.jpg",
         alt: "Team Allied Algorithms in the 2024-2025 Submerged season"
     },
     {
@@ -26,22 +26,15 @@ const seasonsData = [
     {
         year: "2022-2023",
         title: "SUPERPOWERED",
-        description: "In this high-energy season, our team explored the future of energy, innovating solutions and refining our robot game strategy. We focused on teamwork and problem-solving, leading to significant growth in our programming and collaboration skills. All of this was worth while because we achieved the programming award.",
-        image: "./images/seasons/yr_22-23.jpg",
+        description: "In this high-energy season, our team explored the future of energy, innovating solutions and refining our robot game strategy. We focused on teamwork and problem-solving, leading to significant growth in our programming and collaboration skills. *Add specific accomplishments like awards or project details here.*",
+        image: "./images/past_yrs/yr_22-23.jpg",
         alt: "Team Allied Algorithms in the 2022-2023 season"
     },
-   {
-  "year": "2021-2022",
-  "title": "CARGO CONNECT℠",
-  "description": "The CARGO CONNECT℠ season was a thrill. We deeped our understanding of the game and lego designs.",
-  "image": "./images/seasons/yr_21-22.jpg",
-  "alt": "Team Allied Algorithms in the 2021-2022 season"
-},
-{
-  "year": "2020-2021",
-  "title": "RePLAY℠",
-  "description": "This was our very first year participating in the FLL Explorer section. We learned about how th game works and how the challenge is set up. We did our meeting over zoom, and it was a fun experiance",
-  "image": "./images/seasons/yr_20-21.jpg",
-  "alt": "Team Allied Algorithms (Golden Eagles) in the 2020-2021 season"
-},
+    {
+        year: "2021-2022",
+        title: "CARGO CONNECT",
+        description: "This season was all about reimagining global transportation. Our team designed innovative solutions for efficient cargo delivery and built a robust robot to navigate complex missions. We learned a lot about supply chains and logistics, earning *mention any specific awards or achievements*.",
+        image: "./images/past_yrs/yr_21-22.JPEG",
+        alt: "Team Allied Algorithms in the 2021-2022 season"
+    }
 ];
