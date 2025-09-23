@@ -3,8 +3,8 @@ const missionsData = [
     {
         name: "UNEARTHED Mission 01",
         points: "20",
-        videoLink: "https://www.youtube.com/embed/3DnDIzPDk4Q",
-        description: "The robot performs a simple movement to complete mission #1 called the surface brushing.",
+        videoLink: "https://www.youtube.com/shorts/3DnDIzPDk4Q",
+        description: "The robot performs a simple movement to complete mission #1 called the surface bru    .",
         image: "./images/missions/Screenshot 2025-09-10 203034.png",
         alt: "FIRST LEGO League UNEARTHED M01"
     },
@@ -46,7 +46,7 @@ function renderMissions() {
         if (mission.videoLink) {
             mediaContent = `
                 <div class="card-media">
-                   <iframe width="462" height="821" src= ${mission.video} title="FLL Mission #1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <iframe src="${mission.videoLink}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             `;
         } else if (mission.image) {
