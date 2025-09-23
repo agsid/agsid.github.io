@@ -2,8 +2,7 @@
 <html lang="en">
 
 <head>
-    <!-- Ensure your JavaScript file is correctly linked -->
-    <script src="seasons.js"></script> 
+    <script src="seasons.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Allied Algorithms - FLL Team Accomplishments</title>
@@ -19,21 +18,20 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-              background-image: url('./images/bgabtus (1).jpg');
-        background-size: cover;
-        background-attachment: fixed;
-        background-position: center;
-            display: flex; /* For sticky footer layout */
-            flex-direction: column; /* For sticky footer layout */
-            min-height: 100vh; /* For sticky footer layout */
+            background-image: url('./images/bgabtus (1).jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             margin: 0;
         }
 
         main {
-            padding-top:75px;
-            flex-grow: 1; /* Allows main content to take up available space, pushing footer down */
+            padding-top: 75px;
+            flex-grow: 1;
         }
-
 
         /* Styles for the "Currently" section */
         .current-stats {
@@ -97,14 +95,14 @@
         }
 
         .season-card img {
-            width: 25%;
-            height: 250px;
+            width: 100%;
+            height: auto;
             object-fit: cover;
         }
 
         @media (min-width: 768px) {
             .season-card img {
-                width: 1000%;
+                width: 40%;
                 height: auto;
                 max-height: 300px;
             }
@@ -161,7 +159,7 @@
          */
         function renderCurrentSeason() {
             // Find the most recent season (assuming it's the first in the array)
-            const currentSeason = seasonsData[0]; 
+            const currentSeason = seasonsData[0];
 
             if (!currentSeason) {
                 console.error("No current season data found in seasonsData array.");
@@ -197,7 +195,7 @@
                 fllLogoImg.src = currentSeason.image;
                 fllLogoImg.alt = currentSeason.alt;
             }
-            
+
             // Update the season description
             const seasonDescriptionTitle = document.querySelector('.season-description h4');
             if (seasonDescriptionTitle) seasonDescriptionTitle.textContent = currentSeason.title;
@@ -217,7 +215,7 @@
             // so we'll render all *except* the first entry for "past" seasons.
             // If you want to include all, including current in the "past seasons" list,
             // you can change seasonsData.slice(1) to seasonsData.
-            seasonsData.slice(1).forEach((season, index) => { 
+            seasonsData.slice(1).forEach((season, index) => {
                 const card = document.createElement('div');
                 // Alternate the image and text direction for visual variety
                 // Adjusting index for slice() so the first past season is index 0 for alternating
@@ -253,14 +251,12 @@
     <main class="container mx-auto px-4 py-12 text-white">
 
         <section class="mb-12 text-center">
-            <!-- The H2 text is now dynamically updated by renderCurrentSeason() -->
             <h2 class="text-3xl font-bold text-white-800 mb-6 current-season-title">Current Season: 2025-2026</h2>
 
             <div class="current-stats">
                 <div class="stat-item">
                     <p>Hours Spent</p>
-                    <!-- These H2s are now dynamically updated by renderCurrentSeason() -->
-                    <h2></h2> 
+                    <h2></h2>
                 </div>
                 <div class="stat-item">
                     <p>People Impacted</p>
@@ -273,7 +269,6 @@
             </div>
 
             <div class="season-description text-lg text-white-700 max-w-6xl mx-autocontainer mx-auto px-4 py-18 text-white">
-                <!-- H4 and P are now dynamically updated by renderCurrentSeason() -->
                 <h4></h4>
                 <p></p>
             </div>
