@@ -9,8 +9,8 @@ const members = [
     {
         id: 2,
         name: "Ariv Mulki",
-        role: "Reasearch Lead",
-        bio: "",
+        role: "Research Lead",
+        bio: "I have been doing FLL since the pandemic. Outside of FLL, I like math and social studies. I have played the clarinet and currently play the violin. I enjoy acting in the Wilton Children’s Theater and play tennis.",
         image: "https://st.depositphotos.com/1779253/5140/v/450/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg"
     },
     {

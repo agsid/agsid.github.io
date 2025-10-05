@@ -3,26 +3,18 @@ const missionsData = [
     {
         name: "UNEARTHED Mission 01",
         points: "20",
-        videoLink: "https://www.youtube.com/shorts/3DnDIzPDk4Q",
-        description: "The robot performs a simple movement to complete mission #1 called the surface bru    .",
+        videoLink: "https://i.ytimg.com/vi/9ZrWsVKT30A/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGDogZSg7MA8=&rs=AOn4CLBmE14mX80JvpWC1qXthuehns2Jgw",
+        description: "The robot performs a simple movement to complete mission #1 called the surface brushing.",
         image: "./images/missions/Screenshot 2025-09-10 203034.png",
         alt: "FIRST LEGO League UNEARTHED M01"
     },
     {
         name: "UNEARTHED Mission 02",
         points: "30",
-        videoLink: null, 
+        videoLink: "https://i.ytimg.com/vi/I-sWHLn0qgA/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGDUgZSg4MA8=&rs=AOn4CLBEaUwVMWu56v052hKlu55WJ5mXxA",
         description: "The robot preforms a complex sequence to score points.",
-        image: "./images/missions/Mission_02.png",
+        image: "https://i.ytimg.com/vi/I-sWHLn0qgA/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGDUgZSg4MA8=&rs=AOn4CLBEaUwVMWu56v052hKlu55WJ5mXxA",
         alt: "FIRST LEGO League UNEARTHED M02"
-    },
-    {
-        name: "UNEARTHED Mission 03",
-        points: "40",
-        videoLink: null,
-        description: "The robot solves a difficult challenge for a high score.",
-        image: null, // This image will not be displayed
-        alt: "FIRST LEGO League UNEARTHED M03"
     },
 ];
 
