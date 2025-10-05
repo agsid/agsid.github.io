@@ -2,50 +2,50 @@ const members = [
     {
         id: 1,
         name: "Sid Agrawal",
-        role: "Build and Code",
+        role: "Design and Website Lead",
         bio: "I am an 8th grader with 6 years of experience in FLL. I love to play with things that move. Outside of robotics I also play the trumpet and practice Taekwondo.",
-        image: "images/aboutus/sid.jpg"
+        image: "https://st.depositphotos.com/1779253/5140/v/450/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg"
     },
     {
         id: 2,
         name: "Ariv Mulki",
-        role: "Design Lead",
+        role: "Reasearch Lead",
         bio: "",
-        image: "images/aboutus/aariv.png"
+        image: "https://st.depositphotos.com/1779253/5140/v/450/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg"
     },
     {
         id: 3,
         name: "Tanush Nardeddy",
         role: "Code Lead",
         bio: "",
-        image: "images/aboutus/tanush.jpg"
+        image: "https://st.depositphotos.com/1779253/5140/v/450/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg"
+    },
+        {
+        id: 4,
+        name: "Sarthak Shetty",
+        role: "Build Lead",
+        bio: "I am a 7th grader who loves to read and do math. I am an extremely curious person and love to learn new things.I am new to FLL and have over 5 years of experience of coding in Scratch and Python.",
+        image: "https://i.pinimg.com/originals/d9/92/64/d99264eefc942c2d10ef0521ab0656ff.gif"
     },
     {
-        id: 4,
+        id: 5,
         name: "Ganesh Mulki",
         role: "Coach",
         bio: "Drives brand growth",
         image: "https://cdn.dribbble.com/userupload/24896180/file/original-c250b2ac5ee879252e2b7703f70ed95a.gif"
     },
     {
-        id: 5,
+        id: 6,
         name: "Amit Agrawal",
         role: "Coach",
         bio: "Bridges the gap between technical teams",
         image: "https://i.pinimg.com/originals/d9/92/64/d99264eefc942c2d10ef0521ab0656ff.gif"
     },
     {
-        id: 6,
+        id: 7,
         name: "Shashi Nareddy",
         role: "Mentor",
         bio: "",
-        image: "https://i.pinimg.com/originals/d9/92/64/d99264eefc942c2d10ef0521ab0656ff.gif"
-    },
-    {
-        id: 7,
-        name: "Sarthak Shetty",
-        role: "Coach",
-        bio: "Bridges the gap between technical teams",
         image: "https://i.pinimg.com/originals/d9/92/64/d99264eefc942c2d10ef0521ab0656ff.gif"
     },
     {
