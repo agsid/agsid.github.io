@@ -155,16 +155,6 @@
             width: 100%;
         }
 
-        .navbar-links a.current-page {
-            color: #FFFFFF;
-            font-weight: 600;
-        }
-
-        .navbar-links a.current-page::after {
-            width: 100%;
-            background-color: #00BFFF;
-        }
-
 
         /* * ----------------------------------------
          * Hamburger Menu & Mobile Styles
@@ -278,15 +268,6 @@
             .navbar-links a:hover {
                  background-color: rgba(0, 191, 255, 0.1) !important;
             }
-
-            .navbar-links a.current-page::after {
-                width: 0; 
-            }
-            
-            .navbar-links a.current-page {
-                background-color: rgba(0, 191, 255, 0.2) !important;
-                border-left: 5px solid #00BFFF; /* Modern current-page indicator */
-            }
         }
 
     </style>
@@ -302,11 +283,11 @@
         </button>
         <div class="navbar-links">
            <div class="index"> <a href="./index.html">Home</a></div>
-            <a href="./abtus.html">Members</a>
-            <a href="./seasons.html">Seasons</a>
-            <a href="./robot.html">Robot Design</a>
-            <a href="./missions.html">Missions</a>
-            <a href="./hello.html" id="currentPage" class="current-page">AlliedWork</a>
+           <div class ="member"><a href="./abtus.html">Members</a></div>
+           <div class ="seasons"><a href="./seasons.html">Seasons</a></div>
+           <div class ="robot"><a href="./robot.html">Robot Design</a></div>
+           <div class ="missions"><a href="./missions.html">Missions</a></div>
+           <div class ="allied-work"><a href="./hello.html">AlliedWork</a></div>
         </div>
     </nav>
     <script>

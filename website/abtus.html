@@ -16,6 +16,26 @@
         });
     </script>
 <style>
+
+     .navbar-links .members::after {
+                width: 0; 
+            }
+            
+    .navbar-links .members {
+                background-color: rgba(0, 191, 255, 0.2) !important;
+                border-left: 5px solid #00BFFF; /* Modern current-page indicator */
+    }
+
+     .navbar-links .members {
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .navbar-links .members::after {
+            width: 100%;
+            background-color: #00BFFF;
+        }
+
     body {
         /* Updated background image for a starry, less tinted look */
         background-image: url('./images/bgabtus (1).jpg');
