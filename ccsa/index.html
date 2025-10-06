@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CCSA 8th Grade</title>
+  <link rel="icon" href="./images/logo.png" type="image/png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #064e3b; /* Deep forest green */
+      color: #ecfdf5;
+    }
+
+    .navbar-custom {
+      backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .navbar-link {
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      color: #d1fae5;
+    }
+
+    .navbar-link:hover {
+      background-color: rgba(16, 185, 129, 0.3);
+      color: #064e3b;
+    }
+
+    @media (min-width: 1024px) {
+      body {
+        padding-top: 6rem;
+      }
+    }
+
+    /* Mobile nav */
+    .mobile-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      color: #d1fae5;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 10;
+    }
+
+    .mobile-nav-item .icon-bg {
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      background-color: #10b981;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: transform 0.3s ease;
+      z-index: 0;
+    }
+
+    .mobile-nav-item.active .icon-bg {
+      transform: scale(1);
+    }
+
+    .mobile-nav-item svg {
+      font-size: 1.5rem;
+      position: relative;
+      z-index: 50;
+    }
+
+    .mobile-nav-item span {
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <header class="fixed top-0 left-0 right-0 z-50 p-4 hidden lg:flex justify-center">
+    <div class="navbar-custom flex items-center space-x-4 p-2 shadow-xl">
+      <a href="#" class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-gray-900 shadow-md">
+        <img src="./images/logo.png" alt="Logo" class="w-6 h-6">
+      </a>
+
+      <nav class="flex space-x-2 text-gray-800 font-medium">
+        <a href="#members" class="navbar-link">Members</a>
+        <a href="#projects" class="navbar-link">Projects</a>
+        <a href="#charter" class="navbar-link">School Charter</a>
+        <a href="#meetings" class="navbar-link">Future Meetings</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-[#065f46] to-[#059669] text-white py-20 sm:py-32 text-center">
+    <div class="container mx-auto px-4">
+      <img src="./images/logo.png" alt="CCSA Logo" class="mx-auto w-24 h-24 mb-4 rounded-full shadow-lg">
+      <h1 class="text-4xl sm:text-6xl font-extrabold mb-2">CCSA 8th Grade</h1>
+      <p class="text-xl sm:text-2xl font-light italic">Together We Can Lift Each Other Up</p>
+    </div>
+  </section>
+
+  <!-- Members -->
+  <section id="members" class="py-16 sm:py-24">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-emerald-200 mb-12">Members</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <div class="p-4 bg-emerald-900 bg-opacity-30 rounded-xl">Member 1</div>
+        <div class="p-4 bg-emerald-900 bg-opacity-30 rounded-xl">Member 2</div>
+        <div class="p-4 bg-emerald-900 bg-opacity-30 rounded-xl">Member 3</div>
+        <div class="p-4 bg-emerald-900 bg-opacity-30 rounded-xl">Member 4</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="py-16 sm:py-24 bg-emerald-800 bg-opacity-20">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center text-emerald-200 mb-12">Projects</h2>
+      <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="p-6 bg-emerald-900 bg-opacity-30 rounded-xl text-center">Project Placeholder</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Charter (for the entire school) -->
+  <section id="charter" class="py-16 sm:py-24 bg-emerald-900 bg-opacity-30 text-center">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl sm:text-4xl font-bold text-emerald-100 mb-8">School Charter</h2>
+      <p class="max-w-3xl mx-auto text-emerald-50 text-lg mb-10">
+        The School Charter represents our shared commitment to building a safe, inclusive, and culturally aware community.
+        It defines our values, goals, and responsibilities as students, teachers, and leaders.
+      </p>
+      <div class="max-w-xl mx-auto">
+        <img src="https://via.placeholder.com/600x400?text=School+Charter+Image" alt="School Charter Placeholder" class="rounded-xl shadow-lg mx-auto">
+      </div>
+    </div>
+  </section>
+
+  <!-- Future Meetings -->
+  <section id="meetings" class="py-16 sm:py-24 bg-emerald-800 bg-opacity-20 text-center">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl sm:text-4xl font-bold text-emerald-200 mb-8">Future Meetings</h2>
+      <p class="max-w-2xl mx-auto text-lg text-emerald-50 mb-6">
+        Check here for upcoming CCSA meetings and school-wide events.  
+        A schedule or calendar link will be added soon.
+      </p>
+      <a href="#" class="inline-block bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 px-6 rounded-full transition-colors">
+        View Meeting Schedule
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-emerald-950 bg-opacity-40 text-emerald-200 py-6 text-center">
+    <div class="container mx-auto px-4">
+      <p class="text-sm">© 2025 CCSA 8th Grade. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Mobile Navbar -->
+  <nav class="fixed bottom-0 left-0 right-0 lg:hidden bg-emerald-900 bg-opacity-90 backdrop-blur-md rounded-t-xl py-2 shadow-xl z-50">
+    <div class="flex justify-around items-center h-16 max-w-lg mx-auto">
+      <a href="#members" class="mobile-nav-item flex flex-col items-center justify-center p-2 rounded-lg hover:bg-emerald-800/30 transition-colors">
+        <div class="icon-bg"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span class="text-xs text-white mt-1">Members</span>
+      </a>
+
+      <a href="#projects" class="mobile-nav-item flex flex-col items-center justify-center p-2 rounded-lg hover:bg-emerald-800/30 transition-colors">
+        <div class="icon-bg"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-1-3m-6.938-9h11.876L19.5 17H4.5L2.062 8H1.5" />
+        </svg>
+        <span class="text-xs text-white mt-1">Projects</span>
+      </a>
+
+      <a href="#charter" class="mobile-nav-item flex flex-col items-center justify-center p-2 rounded-lg hover:bg-emerald-800/30 transition-colors">
+        <div class="icon-bg"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+        <span class="text-xs text-white mt-1">Charter</span>
+      </a>
+
+      <a href="#meetings" class="mobile-nav-item flex flex-col items-center justify-center p-2 rounded-lg hover:bg-emerald-800/30 transition-colors">
+        <div class="icon-bg"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2v-7H3v7a2 2 0 002 2z" />
+        </svg>
+        <span class="text-xs text-white mt-1">Meetings</span>
+      </a>
+    </div>
+  </nav>
+
+  <script src="projects.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
