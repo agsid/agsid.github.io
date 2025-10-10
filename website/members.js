@@ -17,7 +17,7 @@ const members = [
         id: 3,
         name: "Tanush Nardeddy",
         role: "Code Lead",
-        bio: "",
+        bio: "I'm in 8th grade. I love to code and uild with legos. Outside of robotics I play the violin and do fencing.",
         image: "https://st.depositphotos.com/1779253/5140/v/450/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg"
     },
         {
