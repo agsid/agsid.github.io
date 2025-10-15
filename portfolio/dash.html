@@ -1,305 +1,763 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="./images/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sid Ag - Developer & Innovator</title>
-    <!-- Using a minimalist code icon for the favicon placeholder -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text x='0' y='14' font-size='16'>💻</text></svg>" type="image/svg+xml">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Tailwind Config for Futuristic colors, spacing, and typography -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        // Using Inter as a stand-in for modern digital fonts
-                        sans: ['Inter', 'sans-serif'], 
-                    },
-                    colors: {
-                        'primary-dark': '#0a0a10', // Deeper space black
-                        'surface-dark': '#1e1e24', // Slightly purple/blue tinted dark for surfaces
-                        'surface-hover': '#2f2f36',
-                        'electric-cyan': '#00eaff', // Bright, neon cyan accent
-                        'text-light': '#e0e0f0', // Slightly blue-tinted white text
-                        'text-secondary': '#a0a0aa', // Muted secondary text
-                    },
-                }
-            }
-        }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <title>Allied Work</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.50.0/min/vs/loader.min.js"></script>
     <style>
-        /* Global Styles for Futuristic Look */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: theme('colors.primary-dark');
-            color: theme('colors.text-light');
-            line-height: 1.6;
-            /* Subtle radial gradient for depth, like deep space energy */
-            background-image: radial-gradient(circle at top right, rgba(0, 234, 255, 0.05) 0%, transparent 40%);
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
         }
 
-        /* Fixed Navigation Bar Styling (Holographic Glass) */
-        .navbar-blur {
-            background-color: rgba(30, 30, 36, 0.9); /* Opaque background with slight tint */
-            backdrop-filter: blur(25px) saturate(180%); /* Stronger blur effect for glassmorphism */
-            border-bottom: 1px solid rgba(0, 234, 255, 0.2); /* Neon border */
-            transition: all 0.3s ease-in-out;
+        body.dark-mode {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
         }
 
-        /* Large, Feature-style typography */
-        .h-feature {
-            font-size: clamp(2rem, 5vw, 4rem);
-            line-height: 1.1;
-            /* Text glow for digital look */
-            text-shadow: 0 0 5px rgba(0, 234, 255, 0.4), 0 0 10px rgba(0, 234, 255, 0.2);
-        }
-        
-        /* Skills/Feature Icon Style - Neon Glow */
-        .skill-icon-feature {
-            font-size: 5rem;
-            color: theme('colors.electric-cyan');
-            text-shadow: 0 0 10px rgba(0, 234, 255, 0.6); /* Icon Glow */
+        #app-container {
+            display: grid;
+            grid-template-columns: 50px 1fr;
+            grid-template-rows: 1fr auto;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        /* Neon Button Glow Utility */
-        .btn-neon {
-            box-shadow: 0 0 10px rgba(0, 234, 255, 0.6), 0 0 20px rgba(0, 234, 255, 0.3);
+        #left-sidebar {
+            background-color: #f3f3f3;
+            border-right: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 1rem;
+            gap: 1.5rem;
+        }
+
+        body.dark-mode #left-sidebar {
+            background-color: #252526;
+            border-right-color: #3c3c3c;
+        }
+
+        #left-sidebar img {
+            width: 40px;
+            height: 40px;
+        }
+
+        #left-sidebar i {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            color: #666;
+        }
+
+        body.dark-mode #left-sidebar i {
+            color: #9b9b9b;
+        }
+
+        #left-sidebar i:hover {
+            color: #007acc;
+        }
+
+        #main-content-area {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #top-bar {
+            display: flex;
+            background-color: #f3f3f3;
+            border-bottom: 1px solid #ccc;
+            padding-left: 1rem;
+            align-items: center;
+        }
+
+        body.dark-mode #top-bar {
+            background-color: #252526;
+            border-bottom-color: #3c3c3c;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: #666;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        body.dark-mode .tab-button {
+            color: #9b9b9b;
+        }
+
+        .tab-button:hover {
+            color: #333;
+            background-color: #e7e7e7;
+        }
+
+        body.dark-mode .tab-button:hover {
+            color: #d4d4d4;
+            background-color: #2d2d2d;
+        }
+
+        .tab-button.active {
+            color: #007acc;
+            border-bottom-color: #007acc;
+        }
+
+        #editor-and-simulation {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #editor-panel {
+            flex: 1;
+            min-width: 250px;
+            border-right: 1px solid #ccc;
+            overflow: hidden;
+        }
+
+        body.dark-mode #editor-panel {
+            border-right-color: #3c3c3c;
+        }
+
+        #editor-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        #editor-resizer {
+            width: 5px;
+            background-color: #e0e0e0;
+            cursor: col-resize;
+            transition: background-color 0.2s;
+        }
+
+        #editor-resizer:hover {
+            background-color: #007acc;
+        }
+
+        body.dark-mode #editor-resizer {
+            background-color: #4c4c4c;
+        }
+
+        #simulation-panel {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            overflow: auto;
+        }
+
+        body.dark-mode #simulation-panel {
+            background-color: #252526;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            padding: 0.625rem 1rem;
+            font-weight: 500;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-success {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #45a049;
+            color: white;
+        }
+
+        .btn-info {
+            background-color: #2196f3;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background-color: #1a7a72;
+            color: white;
+        }
+
+        #robot-canvas {
+            border: 1px solid #ccc;
+            background-color: white;
+            max-width: 100%;
+            max-height: 480px;
+            display: block;
+        }
+
+        body.dark-mode #robot-canvas {
+            border-color: #3c3c3c;
+            background-color: #1e1e1e;
+        }
+
+        .tab-content {
+            display: none;
+            flex-direction: column;
+            flex-grow: 1;
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+        }
+
+        .tab-content.active {
+            display: flex;
+        }
+
+        #commands-content-container,
+        #python-code-display {
+            padding: 1.5rem;
+            background-color: white;
+            color: #333;
+            font-family: 'Fira Code', monospace;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow: auto;
+            flex: 1;
+        }
+
+        body.dark-mode #commands-content-container,
+        body.dark-mode #python-code-display {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+        }
+
+        #commands-content-container h2 {
+            color: #007acc;
+            margin-bottom: 1rem;
+        }
+
+        body.dark-mode #commands-content-container h2 {
+            color: #569cd6;
+        }
+
+        #commands-content-container h3 {
+            color: #007acc;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        body.dark-mode #commands-content-container h3 {
+            color: #569cd6;
+        }
+
+        #commands-content-container h4 {
+            color: #005a9c;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        body.dark-mode #commands-content-container h4 {
+            color: #4ec9b0;
+        }
+
+        .command-box {
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        body.dark-mode .command-box {
+            border-color: #3c3c3c;
+        }
+
+        #bottom-panel {
+            background-color: #e7e7e7;
+            border-top: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            max-height: 250px;
+        }
+
+        body.dark-mode #bottom-panel {
+            background-color: #333;
+            border-top-color: #3c3c3c;
+        }
+
+        #console-resizer {
+            height: 5px;
+            background-color: #e0e0e0;
+            cursor: ns-resize;
+            transition: background-color 0.2s;
+        }
+
+        #console-resizer:hover {
+            background-color: #007acc;
+        }
+
+        body.dark-mode #console-resizer {
+            background-color: #4c4c4c;
+        }
+
+        #bottom-panel-tabs {
+            display: flex;
+            background-color: #f3f3f3;
+            border-bottom: 1px solid #ccc;
+            padding: 0 1rem;
+        }
+
+        body.dark-mode #bottom-panel-tabs {
+            background-color: #252526;
+            border-bottom-color: #3c3c3c;
+        }
+
+        #console-tab-button {
+            background: none;
+            border: none;
+            color: #666;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        body.dark-mode #console-tab-button {
+            color: #9b9b9b;
+        }
+
+        #console-tab-button:hover {
+            color: #333;
+        }
+
+        body.dark-mode #console-tab-button:hover {
+            color: #d4d4d4;
+        }
+
+        #console-tab-button.active {
+            color: #007acc;
+            border-bottom: 2px solid #007acc;
+        }
+
+        #console-output {
+            flex: 1;
+            overflow-y: auto;
+            background-color: #efefef;
+            color: #333;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+        }
+
+        body.dark-mode #console-output {
+            background-color: #000;
+            color: #d4d4d4;
+        }
+
+        .console-line {
+            margin-bottom: 0.25rem;
+        }
+
+        .console-timestamp {
+            color: #666;
+            margin-right: 0.5rem;
+        }
+
+        body.dark-mode .console-timestamp {
+            color: #9b9b9b;
+        }
+
+        #status-bar {
+            background-color: #007acc;
+            color: white;
+            padding: 0.375rem 1rem;
+            font-size: 0.75rem;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 1rem;
+            grid-column: 1 / -1;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
-
-    <!-- Header Section (Fixed, Minimal Navigation) -->
-    <header class="fixed top-0 left-0 right-0 z-50 h-14 lg:h-16 hidden lg:flex items-center justify-center navbar-blur">
-        <div class="max-w-7xl w-full px-4 flex items-center justify-between lg:justify-center">
-            <!-- Logo/Name -->
-            <a href="#" class="text-base font-semibold text-text-light transition-opacity hover:opacity-80">
-                Sid Ag.
+<body class="dark-mode">
+    <div id="app-container">
+        <!-- Left Sidebar -->
+        <div id="left-sidebar">
+            <img src="./images/logo.png" alt="Allied logo">
+            <i class="fas fa-code"></i>
+            <a href="https://agsid.github.io/website/doc.html" target="_blank">
+                <i class="fas fa-question-circle"></i>
             </a>
-
-            <!-- Desktop/Wide Navigation -->
-            <nav class="flex items-center space-x-6 text-sm font-medium text-text-secondary">
-                <a href="#capabilities" class="py-1 px-3 hover:text-electric-cyan transition-colors hidden sm:block">Capabilities</a>
-                <a href="#projects" class="py-1 px-3 hover:text-electric-cyan transition-colors">Projects</a>
-                <a href="#contact" class="py-1 px-3 hover:text-electric-cyan transition-colors">Connect</a>
-                
-                <!-- Call to Action Button in Header -->
-                <a href="mailto:agsid502@gmail.com" class="hidden sm:inline-flex items-center text-sm font-medium text-electric-cyan transition-colors hover:text-text-light">
-                    Email Portal
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-1"><path d="M5 12h14"/></svg>
-                </a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero Section: Large Product Announcement Style -->
-    <section class="min-h-screen flex items-center justify-center text-center pt-20 pb-16">
-        <div class="container mx-auto px-4 max-w-4xl">
-            <!-- Main Title -->
-            <h1 class="h-feature font-extrabold text-white mb-6 tracking-tight">
-                Innovation. Code. Robotics.
-            </h1>
-            <!-- Sub-headline -->
-            <p class="text-xl md:text-2xl text-text-secondary mb-12 max-w-3xl mx-auto font-medium">
-                I'm Sid Ag, a developer focused on delivering high-precision solutions in **robotics, web development, and algorithmic problem-solving.**
-            </p>
-            <!-- CTA Button - Neon Glow added -->
-            <a href="#projects" class="inline-flex items-center justify-center space-x-2 bg-electric-cyan text-primary-dark font-semibold py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-[1.03] btn-neon shadow-lg">
-                <span>Access Projects Data</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M5 12h14"/></svg>
+            <a href="https://agsid.github.io/website/index.html" target="_blank">
+                <i class="fas fa-home"></i>
             </a>
+            <i id="theme-mode-toggle" class="fas fa-cog"></i>
         </div>
-    </section>
 
-    <!-- Capabilities Section (Skills as Feature Blocks) -->
-    <section id="capabilities" class="py-24 bg-surface-dark border-t border-b border-gray-800">
-        <div class="container mx-auto px-4 max-w-7xl">
-            <h2 class="text-center text-4xl font-bold text-text-light mb-16">
-                Core Capabilities // Tech Stack
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Feature Card 1: JavaScript/Web -->
-                <div class="flex flex-col items-center text-center p-8 bg-surface-dark/50 rounded-xl transition-all duration-300 border border-gray-700/50 hover:border-electric-cyan/50 hover:shadow-lg hover:shadow-electric-cyan/20">
-                    <!-- Icon glow applied via .skill-icon-feature -->
-                    <i class="devicon-javascript-plain skill-icon-feature text-yellow-500"></i>
-                    <h3 class="text-xl font-bold mt-4 mb-2 text-text-light">Modern Web Development</h3>
-                    <p class="text-text-secondary text-sm">Crafting fast, responsive, and aesthetically pleasing applications using HTML, CSS, and modern JavaScript.</p>
-                </div>
-                <!-- Feature Card 2: Python/Data/Algorithmic -->
-                <div class="flex flex-col items-center text-center p-8 bg-surface-dark/50 rounded-xl transition-all duration-300 border border-gray-700/50 hover:border-electric-cyan/50 hover:shadow-lg hover:shadow-electric-cyan/20">
-                    <i class="devicon-python-plain skill-icon-feature text-blue-400"></i>
-                    <h3 class="text-xl font-bold mt-4 mb-2 text-text-light">Algorithmic Systems</h3>
-                    <p class="text-text-secondary text-sm">Expertise in Python for backend logic, data processing, and complex algorithmic design.</p>
-                </div>
-                <!-- Feature Card 3: Robotics/Embedded -->
-                <div class="flex flex-col items-center text-center p-8 bg-surface-dark/50 rounded-xl transition-all duration-300 border border-gray-700/50 hover:border-electric-cyan/50 hover:shadow-lg hover:shadow-electric-cyan/20">
-                    <!-- Custom SVG for Robotics - Glow applied via .skill-icon-feature -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="skill-icon-feature text-red-500" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/><rect x="2" y="2" width="20" height="20" rx="5"/></svg>
-                    <h3 class="text-xl font-bold mt-4 mb-2 text-text-light">FLL & Embedded Robotics</h3>
-                    <p class="text-text-secondary text-sm">Developing precise and reliable robot control systems (Spike Prime, Arduino) and custom libraries.</p>
-                </div>
-                <!-- Feature Card 4: Java/C/C++ -->
-                <div class="flex flex-col items-center text-center p-8 bg-surface-dark/50 rounded-xl transition-all duration-300 border border-gray-700/50 hover:border-electric-cyan/50 hover:shadow-lg hover:shadow-electric-cyan/20">
-                    <i class="devicon-java-plain skill-icon-feature text-red-700"></i>
-                    <h3 class="text-xl font-bold mt-4 mb-2 text-text-light">Structured Programming</h3>
-                    <p class="text-text-secondary text-sm">Solid foundation in strongly typed languages like Java and C/C++ for performance-critical tasks.</p>
-                </div>
+        <!-- Main Content Area -->
+        <div id="main-content-area">
+            <!-- Top Tab Bar -->
+            <div id="top-bar">
+                <button class="tab-button active" data-tab-target="tab-content-editor">Code Editor</button>
+                <button class="tab-button" data-tab-target="tab-content-commands">Available Commands</button>
+                <button class="tab-button" data-tab-target="tab-content-python">Generated Python</button>
             </div>
-        </div>
-    </section>
 
-    <!-- Projects Section: Product Showcase -->
-    <section id="projects" class="py-24">
-        <div class="container mx-auto px-4 max-w-7xl">
-            <h2 class="text-center text-4xl font-bold text-text-light mb-16">
-                Featured Projects // Deployment Log
-            </h2>
-            <div id="projects-container" class="space-y-12">
-                <!-- Project cards will be generated by the script -->
-            </div>
-        </div>
-    </section>
+            <!-- Editor and Simulation -->
+            <div id="editor-and-simulation">
+                <div id="editor-panel" class="tab-content active" data-tab-id="tab-content-editor">
+                    <div id="editor-container"></div>
+                </div>
 
-    <!-- Contact Section: Minimalist CTA -->
-    <section id="contact" class="bg-surface-dark py-24 border-t border-gray-800">
-        <div class="container mx-auto px-4 text-center max-w-2xl">
-            <h2 class="text-4xl font-extrabold text-text-light mb-4">
-                Initiate Connection Protocol.
-            </h2>
-            <p class="text-lg text-text-secondary mb-8 font-light">
-                I'm currently open for new opportunities or technical deep dives. Send me an encrypted data package (email)—I'd love to hear about your project or collaboration idea.
-            </p>
-            <a href="mailto:agsid502@gmail.com" class="inline-block bg-electric-cyan text-primary-dark font-semibold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg btn-neon hover:bg-opacity-80">
-                Contact Sid
-            </a>
-            
-            <div class="flex justify-center space-x-8 mt-12">
-                <!-- Social Icons updated with neon color on hover -->
-                <a href="https://github.com/agsid" target="_blank" rel="noopener noreferrer" title="GitHub Profile" class="text-text-secondary hover:text-electric-cyan transition-colors duration-300">
-                    <i class="devicon-github-original text-3xl"></i>
-                </a>
-                <a href="https://www.instagram.com/dino.axolotl/" target="_blank" rel="noopener noreferrer" title="Instagram Profile" class="text-text-secondary hover:text-electric-cyan transition-colors duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram w-8 h-8"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-                </a>
-            </div>
-        </div>
-    </section>
+                <div id="editor-resizer"></div>
 
-    <!-- Footer Section -->
-    <footer class="text-gray-500 py-6 text-center text-xs">
-        <div class="container mx-auto px-4">
-            <p>© 2025 Sid Ag. All rights reserved. // <a href="https://agsid.github.io/website/" target="_blank" class="text-electric-cyan hover:text-text-light transition-colors">Source Code Log</a></p>
-        </div>
-    </footer>
-
-    <!-- Mobile Navigation Bar (Holographic Tabs) -->
-    <!-- backdrop-blur-md replaced with stronger filter -->
-    <nav class="fixed bottom-0 left-0 right-0 lg:hidden bg-surface-dark/90 backdrop-blur-[20px] saturate-[180%] border-t border-electric-cyan/20 py-1 shadow-2xl z-50">
-        <div class="flex justify-around items-center h-14 max-w-md mx-auto">
-            <a href="#capabilities" class="flex flex-col items-center justify-center p-2 rounded-xl text-text-secondary hover:text-electric-cyan transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
-                <span class="text-xs mt-1">Modules</span>
-            </a>
-            <a href="#projects" class="flex flex-col items-center justify-center p-2 rounded-xl text-text-secondary hover:text-electric-cyan transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="3" y="12" rx="1"/><rect width="7" height="5" x="14" y="16" rx="1"/></svg>
-                <span class="text-xs mt-1">Projects</span>
-            </a>
-            <a href="#contact" class="flex flex-col items-center justify-center p-2 rounded-xl text-text-secondary hover:text-electric-cyan transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2z"/><path d="M22 6l-10 7L2 6"/></svg>
-                <span class="text-xs mt-1">Connect</span>
-            </a>
-        </div>
-    </nav>
-    
-    <script>
-        // Project data integrated directly
-        const projectsData = [
-            {
-                title: "Allied Work Visualizer",
-                tagline: "High-precision path planning for competitive robotics.",
-                description: "This comprehensive web-based tool utilizes a custom block-coding language interpreter and a visual simulator to enable FLL robotics teams to plan and debug robot paths with unparalleled accuracy.",
-                technologies: ["JavaScript", "HTML/CSS", "Blockly", "Robotics"],
-                link: "https://agsid.github.io/website/",
-                repo: "https://github.com/agsid/Allied-Work"
-            },
-            {
-                title: "GyroCorrection Engine",
-                tagline: "The foundation for perfectly straight, repeatable movements.",
-                description: "An embedded control library written for LEGO Spike Prime/EV3. It leverages real-time Gyro sensor feedback and PID loops to eliminate drift and ensure robot consistency in high-stakes competition environments.",
-                technologies: ["Python", "C/C++", "Embedded Systems", "Control Theory"],
-                link: "#", // Placeholder for live demo
-                repo: "https://github.com/agsid/AutoCorrection-Lib"
-            },
-            {
-                title: "Real-Time Messaging Stack",
-                tagline: "Full-stack development showcasing instant communication.",
-                description: "A secure, real-time messaging application demonstrating proficiency in modern backend architecture, data handling, and instant client-server communication using Firebase.",
-                technologies: ["JavaScript", "Node.js", "Firebase", "Express", "Tailwind CSS"],
-                link: "#", // Placeholder for live demo
-                repo: "https://github.com/agsid/Chat-App-Demo"
-            }
-        ];
-
-        /**
-         * Renders the project cards using an immersive, full-width block style.
-         */
-        function renderProjects() {
-            const container = document.getElementById('projects-container');
-            if (!container) return;
-
-            container.innerHTML = projectsData.map((project, index) => {
-                // Determine if the card should be visually inverted (Future style)
-                const isEven = index % 2 === 0;
-                // Added hover shadow for neon effect
-                const cardClasses = isEven 
-                    ? 'bg-surface-dark/50 hover:shadow-electric-cyan/10' 
-                    : 'bg-surface-dark hover:shadow-electric-cyan/10'; 
-
-                const tagsHtml = project.technologies.map(tag => 
-                    `<span class="inline-block bg-surface-dark/70 text-text-secondary text-xs font-medium px-3 py-1 rounded-full border border-gray-700 hover:border-electric-cyan transition-colors">${tag}</span>`
-                ).join('');
-
-                return `
-                    <div class="p-8 md:p-12 rounded-3xl shadow-2xl transition-all duration-500 border border-gray-700/50 ${cardClasses} hover:border-electric-cyan/50">
-                        <div class="mb-4">
-                            <p class="text-lg font-semibold text-electric-cyan mb-1">${project.tagline}</p>
-                            <h3 class="text-4xl font-extrabold text-text-light">${project.title}</h3>
-                        </div>
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            <div class="lg:col-span-2">
-                                <p class="text-text-secondary text-md leading-relaxed">${project.description}</p>
-                                
-                                <div class="flex flex-wrap gap-2 mt-6">
-                                    ${tagsHtml}
-                                </div>
-                            </div>
-
-                            <div class="lg:col-span-1 flex flex-col justify-end space-y-4 pt-4 lg:pt-0">
-                                ${project.link !== '#' ? 
-                                    `<a href="${project.link}" target="_blank" rel="noopener noreferrer" class="w-full text-center bg-electric-cyan text-primary-dark font-semibold py-3 rounded-xl transition-all duration-300 hover:bg-opacity-80 text-base btn-neon">
-                                        View Live Project
-                                    </a>` 
-                                    : ''}
-                                <a href="${project.repo}" target="_blank" rel="noopener noreferrer" class="w-full text-center border border-gray-600 text-text-light font-semibold py-3 rounded-xl transition-all duration-300 hover:bg-gray-700/50 hover:border-electric-cyan text-base">
-                                    View Source Code
-                                </a>
-                            </div>
-                        </div>
+                <div id="simulation-panel">
+                    <div class="button-group">
+                        <button id="run-button" class="btn btn-success">
+                            <i class="fas fa-play"></i> Run Code
+                        </button>
+                        <button id="start-left-button" class="btn btn-info">Start on Left</button>
+                        <button id="start-right-button" class="btn btn-info">Start on Right</button>
                     </div>
-                `;
-            }).join('');
+                    <canvas id="robot-canvas" width="960" height="480"></canvas>
+                </div>
+
+                <div id="tab-content-commands" class="tab-content">
+                    <div id="commands-content-container"></div>
+                </div>
+
+                <div id="tab-content-python" class="tab-content">
+                    <pre id="python-code-display"></pre>
+                </div>
+            </div>
+
+            <!-- Bottom Console Panel -->
+            <div id="bottom-panel">
+                <div id="console-resizer"></div>
+                <div id="bottom-panel-tabs">
+                    <button id="console-tab-button" class="active">Console</button>
+                </div>
+                <div id="console-output"></div>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div id="status-bar">
+            <span>FLL Bot Programmer</span>
+            <span>UTF-8</span>
+            <span>LF</span>
+            <span id="cursor-position">Line 1, Col 1</span>
+        </div>
+    </div>
+
+    <script>
+        require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.50.0/min/vs' } });
+
+        let editor;
+        const LOCAL_STORAGE_KEY = 'fll_bot_code';
+        let robotX, robotY, robotAngle = 0;
+        let simulationRunning = false;
+        let simulationQueue = [];
+        let consoleLog = [];
+        const fieldWidth = 960, fieldHeight = 480, robotSize = 48;
+
+        require(['vs/editor/editor.main'], function() {
+            editor = monaco.editor.create(document.getElementById('editor-container'), {
+                value: `drive(24)\nturn(90)\narm("up")`,
+                language: 'python',
+                theme: 'vs-dark',
+                fontSize: 16,
+                fontFamily: '"Fira Code", monospace',
+                minimap: { enabled: false },
+                wordWrap: 'on',
+                automaticLayout: true,
+            });
+
+            editor.onDidChangeModelContent(() => updateCursorPosition());
+            loadCodeFromLocalStorage();
+        });
+
+        const canvas = document.getElementById('robot-canvas');
+        const ctx = canvas.getContext('2d');
+        const fieldImage = new Image();
+        fieldImage.src = './images/field.png';
+        fieldImage.onload = () => drawRobot();
+
+        function setupCanvas() {
+            robotX = fieldWidth / 2;
+            robotY = fieldHeight - (robotSize / 2);
+            robotAngle = 0;
+            drawRobot();
         }
 
-        // Run functions on load
-        document.addEventListener('DOMContentLoaded', () => {
-            renderProjects();
-            // Call Lucide to render any icon components included in the HTML
-            lucide.createIcons();
+        function drawRobot() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if (fieldImage.complete && fieldImage.naturalHeight !== 0) {
+                ctx.drawImage(fieldImage, 0, 0, canvas.width, canvas.height);
+            } else {
+                ctx.fillStyle = '#1e1e1e';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.strokeStyle = '#3c3c3c';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(0, 0, canvas.width, canvas.height);
+            }
+
+            ctx.save();
+            ctx.translate(robotX, robotY);
+            ctx.rotate(robotAngle * Math.PI / 180);
+            ctx.fillStyle = '#1A7A72';
+            ctx.fillRect(-robotSize / 2, -robotSize / 2, robotSize, robotSize);
+            ctx.fillStyle = '#0F2D37';
+            ctx.beginPath();
+            ctx.moveTo(0, -robotSize / 2);
+            ctx.lineTo(-robotSize / 3, 0);
+            ctx.lineTo(robotSize / 3, 0);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function logToConsole(msg, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            consoleLog.push({ timestamp, message: msg, type });
+            updateConsoleOutput();
+        }
+
+        function updateConsoleOutput() {
+            const output = document.getElementById('console-output');
+            output.innerHTML = '';
+            consoleLog.forEach(log => {
+                const line = document.createElement('div');
+                line.className = 'console-line';
+                const ts = document.createElement('span');
+                ts.className = 'console-timestamp';
+                ts.textContent = `[${log.timestamp}]`;
+                line.appendChild(ts);
+                line.appendChild(document.createTextNode(log.message));
+                output.appendChild(line);
+            });
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function updateCursorPosition() {
+            if (editor) {
+                const pos = editor.getPosition();
+                document.getElementById('cursor-position').textContent = `Line ${pos.lineNumber}, Col ${pos.column}`;
+            }
+        }
+
+        function saveCodeToLocalStorage() {
+            if (editor) {
+                localStorage.setItem(LOCAL_STORAGE_KEY, editor.getValue());
+            }
+        }
+
+        function loadCodeFromLocalStorage() {
+            const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+            if (saved && editor) {
+                editor.setValue(saved);
+            }
+        }
+
+        function startSimulation() {
+            if (simulationRunning || !editor) return;
+            const code = editor.getValue().trim().split('\n').filter(l => l.trim() && !l.trim().startsWith('//'));
+            
+            simulationRunning = true;
+            simulationQueue = code;
+            consoleLog = [];
+            logToConsole('Simulation started.', 'info');
+            runNextCommand();
+        }
+
+        async function runNextCommand() {
+            if (simulationQueue.length === 0) {
+                simulationRunning = false;
+                logToConsole('Simulation finished.', 'info');
+                return;
+            }
+
+            const cmd = simulationQueue.shift().trim();
+            logToConsole(`> ${cmd}`, 'info');
+
+            const driveMatch = cmd.match(/drive\(([-+]?\d+\.?\d*)\)/);
+            if (driveMatch) {
+                const dist = parseFloat(driveMatch[1]) * 10;
+                const duration = Math.abs(dist) * 10;
+                const start = performance.now();
+                const animate = (time) => {
+                    const elapsed = time - start;
+                    const prog = Math.min(elapsed / duration, 1);
+                    robotX += dist * Math.sin(robotAngle * Math.PI / 180) / (duration / 16);
+                    robotY -= dist * Math.cos(robotAngle * Math.PI / 180) / (duration / 16);
+                    drawRobot();
+                    if (prog < 1) requestAnimationFrame(animate);
+                    else runNextCommand();
+                };
+                requestAnimationFrame(animate);
+                return;
+            }
+
+            const turnMatch = cmd.match(/turn\(([-+]?\d+\.?\d*)\)/);
+            if (turnMatch) {
+                const deg = parseFloat(turnMatch[1]);
+                const duration = Math.abs(deg) * 10;
+                const start = performance.now();
+                const initialAngle = robotAngle;
+                const animate = (time) => {
+                    const elapsed = time - start;
+                    const prog = Math.min(elapsed / duration, 1);
+                    robotAngle = initialAngle + deg * prog;
+                    drawRobot();
+                    if (prog < 1) requestAnimationFrame(animate);
+                    else runNextCommand();
+                };
+                requestAnimationFrame(animate);
+                return;
+            }
+
+            const printMatch = cmd.match(/print\("(.+?)"\)/);
+            if (printMatch) {
+                logToConsole(printMatch[1], 'info');
+                runNextCommand();
+                return;
+            }
+
+            const waitMatch = cmd.match(/wait\(([-+]?\d+\.?\d*)\)/);
+            if (waitMatch) {
+                const sec = parseFloat(waitMatch[1]);
+                logToConsole(`Waiting ${sec}s...`, 'info');
+                setTimeout(runNextCommand, sec * 1000);
+                return;
+            }
+
+            const armMatch = cmd.match(/arm\("(.+?)"\)/);
+            if (armMatch) {
+                logToConsole(`Arm: ${armMatch[1]}`, 'info');
+                setTimeout(runNextCommand, 500);
+                return;
+            }
+
+            logToConsole(`ERROR: Unknown command: ${cmd}`, 'error');
+            runNextCommand();
+        }
+
+        // Event Listeners
+        document.getElementById('run-button').addEventListener('click', startSimulation);
+
+        document.getElementById('start-left-button').addEventListener('click', () => {
+            simulationRunning = false;
+            robotX = robotSize * 2;
+            robotY = fieldHeight - (robotSize / 2);
+            robotAngle = 0;
+            consoleLog = [];
+            updateConsoleOutput();
+            drawRobot();
+            logToConsole('Robot at left position.', 'info');
         });
+
+        document.getElementById('start-right-button').addEventListener('click', () => {
+            simulationRunning = false;
+            robotX = fieldWidth - (robotSize * 2);
+            robotY = fieldHeight - (robotSize / 2);
+            robotAngle = 0;
+            consoleLog = [];
+            updateConsoleOutput();
+            drawRobot();
+            logToConsole('Robot at right position.', 'info');
+        });
+
+        document.querySelectorAll('.tab-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tabTarget).classList.add('active');
+            });
+        });
+
+        document.getElementById('theme-mode-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        document.getElementById('console-resizer').addEventListener('mousedown', (e) => {
+            const start = e.clientY;
+            const initialHeight = document.getElementById('bottom-panel').offsetHeight;
+            const move = (moveEvent) => {
+                const delta = moveEvent.clientY - start;
+                const newHeight = Math.max(100, Math.min(initialHeight - delta, 400));
+                document.getElementById('bottom-panel').style.maxHeight = newHeight + 'px';
+            };
+            const up = () => {
+                document.removeEventListener('mousemove', move);
+                document.removeEventListener('mouseup', up);
+            };
+            document.addEventListener('mousemove', move);
+            document.addEventListener('mouseup', up);
+        });
+
+        document.getElementById('editor-resizer').addEventListener('mousedown', (e) => {
+            const start = e.clientX;
+            const panel = document.getElementById('editor-panel');
+            const initialWidth = panel.offsetWidth;
+            const move = (moveEvent) => {
+                const delta = moveEvent.clientX - start;
+                const newWidth = Math.max(250, Math.min(initialWidth + delta, 700));
+                panel.style.flex = `0 0 ${newWidth}px`;
+            };
+            const up = () => {
+                document.removeEventListener('mousemove', move);
+                document.removeEventListener('mouseup', up);
+            };
+            document.addEventListener('mousemove', move);
+            document.addEventListener('mouseup', up);
+        });
+
+        // Initialize
+        setupCanvas();
+        document.getElementById('commands-content-container').innerHTML = `
+            <h2>Allied FLL Bot Programmer</h2>
+            <p>Write commands to control your robot!</p>
+            <h3>Available Commands</h3>
+            <div class="command-box"><h4>drive(distance)</h4><p>Drive in inches</p></div>
+            <div class="command-box"><h4>turn(degrees)</h4><p>Turn in degrees</p></div>
+            <div class="command-box"><h4>arm("up"|"down"|"reset")</h4><p>Control arm</p></div>
+            <div class="command-box"><h4>wait(seconds)</h4><p>Wait</p></div>
+            <div class="command-box"><h4>print("message")</h4><p>Print to console</p></div>
+        `;
     </script>
 </body>
-</html>
+</html>     
