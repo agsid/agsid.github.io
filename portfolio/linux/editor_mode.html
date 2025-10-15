@@ -166,7 +166,7 @@
         const runningAppsDisplay = document.getElementById('running-apps-display');
         const batteryStatusDisplay = document.getElementById('battery-status-display');
 
-        const BACKEND_URL = 'http://localhost:5000'; // Ensure this matches your Flask backend URL
+        const BACKEND_URL = 'http://localhost:5000'; // This is kept for the fetchRunningApps function
 
         // Function to update the battery status
         function updateBatteryStatus(battery) {
@@ -227,31 +227,17 @@
             const pin = debuggerPinInput.value;
             pinErrorMessage.textContent = ''; // Clear previous errors
 
-            fetch(`${BACKEND_URL}/verify-pin`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ pin: pin })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    pinEntrySection.style.display = 'none'; // Hide pin entry
-                    statusDisplaySection.style.display = 'block'; // Show status section
-                    fetchRunningApps();
-                    initBatteryMonitoring();
-                    setInterval(fetchRunningApps, 5000); // Refresh running apps every 5 seconds
-                } else {
-                    pinErrorMessage.textContent = data.message || 'Incorrect PIN.';
-                }
-            })
-            .catch(error => {
-                pinErrorMessage.textContent = `Connection error: ${error.message}`;
-                console.error('Error verifying pin:', error);
-            });
+            // Check the pin directly in the frontend
+            if (pin === 'password_1234') {
+                pinEntrySection.style.display = 'none'; // Hide pin entry
+                statusDisplaySection.style.display = 'block'; // Show status section
+                fetchRunningApps();
+                initBatteryMonitoring();
+                setInterval(fetchRunningApps, 5000); // Refresh running apps every 5 seconds
+            } else {
+                pinErrorMessage.textContent = 'Incorrect PIN.';
+            }
         });
     </script>
 </body>
 </html>
-
