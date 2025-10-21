@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VSCode-Like Editor</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+html, body { height: 100%; margin: 0; }
+#editor { flex:1; min-height:200px; }
+#console { height:120px; background:#1a202c; color:#e2e8f0; overflow-y:auto; padding:0.5rem; font-family:monospace; resize:vertical;}
+.iframe-container { flex:1; min-height:300px; }
+button { padding:0.25rem 0.5rem; border-radius:0.25rem; background:#4a5568; color:white; border:none; cursor:pointer;}
+button:hover { background:#718096; }
+.material-icons { font-size:20px; vertical-align:middle; }
+</style>
+</head>
+<body class="bg-gray-900 text-gray-200 flex flex-col h-screen">
+
+<!-- Top bar -->
+<div class="flex items-center justify-between bg-gray-800 h-10 px-4 text-sm">
+  <div class="flex items-center space-x-4">
+    <span class="font-semibold text-blue-400">VSCode Clone</span>
+  </div>
+</div>
+
+<div class="flex flex-1">
+  <!-- Left navbar -->
+  <div class="flex flex-col w-14 bg-gray-800 border-r border-gray-700 py-2 items-center gap-3">
+    <button title="Home" onclick="location.href='index.html'"><span class="material-icons">home</span></button>
+    <button title="Theme" id="leftThemeToggle"><span class="material-icons">brightness_4</span></button>
+    <button title="Portfolio" onclick="window.open('https://agsid.github.io/portfolio/v2index.html','_blank')"><span class="material-icons">public</span></button>
+    <button title="Toggle Explorer" id="toggleExplorer"><span class="material-icons">menu</span></button>
+    <button title="Toggle Map" id="toggleMap"><span class="material-icons">map</span></button>
+  </div>
+
+  <!-- Explorer panel -->
+  <div class="explorer w-60 bg-gray-850 border-r border-gray-700 p-2 text-sm">
+    <h2 class="text-gray-400 uppercase text-xs mb-2">Explorer</h2>
+    <div class="mb-2">
+      <div class="text-gray-300 font-medium">User</div>
+      <div id="file-user-main.py" class="cursor-pointer pl-4 py-1 hover:bg-gray-700 rounded" onclick="openFile('main.py')">main.py</div>
+    </div>
+    <div class="mb-2">
+      <div class="text-gray-300 font-medium">Available Commands</div>
+      <div id="file-avalComm.txt" class="cursor-pointer pl-4 py-1 hover:bg-gray-700 rounded" onclick="openFile('avalComm.txt')">avalComm.txt</div>
+    </div>
+    <div>
+      <div class="text-gray-300 font-medium">Generated</div>
+      <div id="file-generated-generated.py" class="cursor-pointer pl-4 py-1 hover:bg-gray-700 rounded" onclick="openFile('generated.py')">generated.py</div>
+    </div>
+  </div>
+
+  <!-- Editor + Map + Console -->
+  <div class="flex-1 flex flex-col">
+    <div id="editor" class="flex-1"></div>
+    <iframe id="mapIframe" src="robot-map.html" class="flex-1 w-full border-0"></iframe>
+    <div id="console" class="h-40 bg-gray-900 text-gray-200 overflow-auto p-2 font-mono resize-y"></div>
+  </div>
+</div>
+
+<script>
+const defaultMain = `print('Hello from main.py')`;
+const availableCommands = `drive(inches)
+turn(degrees)
+speed(%) of robot
+speed_motor(%) set individual motor speed
+turn_motor(port, degree)
+wait(milliseconds)
+arm()`;
+
+const generatedTemplate = `
+import runloop,math,motor_pair,motor,time
+from hub import port
+r = 22
+total=100
+
+def speed(x):
+    global velocity
+    velocity = x*110
+
+async def drive(desired):
+    circumference=2*r*math.pi
+    rotations=desired/circumference
+    degrees=int(rotations*360)
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, degrees, 0, velocity=velocity)
+
+async def turn(desired):
+    distance=int((desired/total)*360)
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, distance, 100)
+
+def speed_motor(x):
+    global velocity_motor
+    velocity_motor = x*110
+
+async def turn_motor(port,desired):
+    angle = desired/2
+    motor.run_for_degrees(port.port, angle, velocity_motor)
+
+def wait(mili):
+    time.sleep_ms(mili)
+
+async def main():
+    motor_pair.pair(motor_pair.PAIR_1, port.C, port.D)
+    # User's code starts here
+`;
+
+let currentFile = 'main.py';
+let editor;
+let files = {
+  'main.py': localStorage.getItem('main.py') || defaultMain,
+  'avalComm.txt': availableCommands
+};
+
+function logConsole(msg) {
+  const consoleEl = document.getElementById('console');
+  const p = document.createElement('div');
+  p.textContent = msg;
+  consoleEl.appendChild(p);
+  consoleEl.scrollTop = consoleEl.scrollHeight;
+}
+
+function injectAsync(code) {
+  return code.replace(/\b(drive|turn|arm)\(/g, 'async $1(');
+}
+
+function getGeneratedContent() {
+  return generatedTemplate + '\n' + injectAsync(files['main.py']) + '\nrunloop.run(main())';
+}
+
+function validateCommands() {
+  const allowed = ['drive','turn','speed','speed_motor','turn_motor','wait','arm'];
+  const lines = files['main.py'].split('\n');
+  for(let i=0;i<lines.length;i++){
+    let line = lines[i].split('#')[0].trim();
+    if(!line) continue;
+    let cmdMatch = line.match(/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*\(/);
+    if(cmdMatch && !allowed.includes(cmdMatch[1])){
+      logConsole(`Warning: invalid command '${cmdMatch[1]}' at line ${i+1}`);
+    }
+  }
+}
+
+// Monaco editor
+require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' } });
+require(['vs/editor/editor.main'], function() {
+  editor = monaco.editor.create(document.getElementById('editor'), {
+    value: files['main.py'],
+    language: 'python',
+    theme: 'vs-dark',
+    automaticLayout: true
+  });
+  editor.onDidChangeModelContent(() => {
+    if(currentFile==='main.py'){
+      files['main.py'] = editor.getValue();
+      localStorage.setItem('main.py', files['main.py']);
+      validateCommands();
+      document.getElementById('mapIframe').contentWindow.parseMain();
+      document.getElementById('mapIframe').contentWindow.resetMap();
+    }
+  });
+});
+
+function openFile(name){
+  currentFile = name;
+  if(name==='main.py'){
+    const model = monaco.editor.createModel(files[name],'python');
+    editor.setModel(model);
+    editor.updateOptions({readOnly:false});
+  } else if(name==='generated.py'){
+    const model = monaco.editor.createModel(getGeneratedContent(),'python');
+    editor.setModel(model);
+    editor.updateOptions({readOnly:true});
+  } else if(name==='avalComm.txt'){
+    const model = monaco.editor.createModel(files[name],'plaintext');
+    editor.setModel(model);
+    editor.updateOptions({readOnly:true});
+  }
+}
+
+// Left navbar toggles
+const explorer = document.querySelector('.explorer');
+const mapIframe = document.getElementById('mapIframe');
+
+document.getElementById('toggleExplorer').addEventListener('click', ()=>{
+  if(explorer.style.display==='none') explorer.style.display='block';
+  else explorer.style.display='none';
+});
+document.getElementById('toggleMap').addEventListener('click', ()=>{
+  if(mapIframe.style.display==='none') mapIframe.style.display='block';
+  else mapIframe.style.display='none';
+});
+
+document.getElementById('leftThemeToggle').addEventListener('click', ()=>{
+  const newTheme = editor._themeService._theme.themeName==='vs-dark'?'vs':'vs-dark';
+  monaco.editor.setTheme(newTheme);
+});
+</script>
+</body>
+</html>

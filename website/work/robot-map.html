@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robot Map Replay</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+body { margin:0; display:flex; flex-direction:column; height:100vh; background:#1a202c; color:#e2e8f0;}
+#controls { padding:0.5rem; background:#2d3748; display:flex; gap:0.5rem;}
+#mapCanvas { flex:1; display:block; background:#111827;}
+#console { height:120px; background:#1a202c; color:#e2e8f0; overflow-y:auto; padding:0.5rem; font-family:monospace; resize:vertical;}
+button { padding:0.25rem 0.5rem; border-radius:0.25rem; background:#4a5568; color:white; border:none; cursor:pointer;}
+button:hover { background:#718096; }
+.material-icons { font-size:20px; vertical-align:middle; }
+</style>
+</head>
+<body>
+<div id="controls">
+  <button id="playBtn" title="Play"><span class="material-icons">play_arrow</span></button>
+  <button id="resetBtn" title="Reset"><span class="material-icons">restart_alt</span></button>
+  <button id="hideBtn" title="Hide Map"><span class="material-icons">visibility_off</span></button>
+</div>
+<canvas id="mapCanvas"></canvas>
+<div id="console"></div>
+
+<script>
+const canvas = document.getElementById('mapCanvas');
+const ctx = canvas.getContext('2d');
+let width,height;
+function resizeCanvas() {
+  width = window.innerWidth;
+  height = window.innerHeight - document.getElementById('controls').offsetHeight - document.getElementById('console').offsetHeight;
+  canvas.width = width;
+  canvas.height = height;
+  drawScene();
+}
+window.addEventListener('resize', resizeCanvas);
+
+const mapWidthInches=96,mapHeightInches=48;
+let robot={x:mapWidthInches/2,y:mapHeightInches/2,angle:0};
+let trail=[];
+let commands=[], animating=false, stepIndex=0;
+const stepDelay=800;
+const consoleEl=document.getElementById('console');
+
+function logConsole(msg){
+  const p=document.createElement('div');
+  p.textContent=msg;
+  consoleEl.appendChild(p);
+  consoleEl.scrollTop=consoleEl.scrollHeight;
+}
+
+function parseMain(){
+  const code=localStorage.getItem('main.py')||'';
+  commands=[];
+  const lines=code.split('\n');
+  for(let line of lines){
+    line=line.split('#')[0].trim();
+    if(!line) continue;
+    if(/drive\(\s*\d+\s*\)/.test(line)){
+      const val=parseInt(line.match(/drive\((\d+)\)/)[1]);
+      commands.push({cmd:'drive',value:val});
+    } else if(/turn\(\s*\d+\s*\)/.test(line)){
+      const val=parseInt(line.match(/turn\((\d+)\)/)[1]);
+      commands.push({cmd:'turn',value:val});
+    } else if(/arm\(\)/.test(line)){
+      commands.push({cmd:'arm'});
+    }
+  }
+}
+
+function toCanvasCoords(xInches,yInches){return {x:(xInches/mapWidthInches)*width, y:height-(yInches/mapHeightInches)*height};}
+
+function drawScene(){
+  ctx.clearRect(0,0,width,height);
+  ctx.strokeStyle='lime'; ctx.lineWidth=2; ctx.beginPath();
+  for(let i=0;i<trail.length;i++){
+    const p=toCanvasCoords(trail[i].x,trail[i].y);
+    if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y);
+  }
+  ctx.stroke();
+  const rC=toCanvasCoords(robot.x,robot.y);
+  ctx.save();
+  ctx.translate(rC.x,rC.y);
+  ctx.rotate(robot.angle*Math.PI/180);
+  ctx.fillStyle='red';
+  ctx.beginPath(); ctx.moveTo(0,-5); ctx.lineTo(10,5); ctx.lineTo(-10,5); ctx.closePath(); ctx.fill();
+  ctx.restore();
+}
+
+function resetMap(){
+  robot={x:mapWidthInches/2,y:mapHeightInches/2,angle:0};
+  trail=[{...robot}];
+  stepIndex=0; animating=false; drawScene();
+  logConsole("Map reset.");
+}
+
+function animateStep(){
+  if(stepIndex>=commands.length){ animating=false; return; }
+  const cmdObj=commands[stepIndex];
+  if(cmdObj.cmd==='drive'){
+    const rad=robot.angle*Math.PI/180;
+    robot.x+=cmdObj.value*Math.cos(rad);
+    robot.y+=cmdObj.value*Math.sin(rad);
+  } else if(cmdObj.cmd==='turn'){
+    robot.angle=(robot.angle+cmdObj.value)%360;
+  } else if(cmdObj.cmd==='arm'){
+    const rC=toCanvasCoords(robot.x,robot.y);
+    ctx.fillStyle='yellow';
+    ctx.beginPath(); ctx.arc(rC.x,rC.y,6,0,Math.PI*2); ctx.fill();
+  }
+  trail.push({...robot});
+  drawScene();
+  logConsole(`Executing: ${cmdObj.cmd}${cmdObj.value!==undefined?'('+cmdObj.value+')':'()'}`);
+  stepIndex++;
+  if(animating) setTimeout(animateStep,stepDelay);
+}
+
+document.getElementById('playBtn').addEventListener('click',()=>{ if(!animating){ animating=true; animateStep(); }});
+document.getElementById('resetBtn').addEventListener('click',resetMap);
+document.getElementById('hideBtn').addEventListener('click',()=>{
+  const iframe = window.frameElement;
+  if(iframe) iframe.style.display='none';
+});
+
+window.playAnimation = () => { if(!animating){ animating=true; animateStep(); }};
+window.resetMap = resetMap;
+
+parseMain(); resetMap(); resizeCanvas();
+</script>
+</body>
+</html>
