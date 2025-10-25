@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Allied Algorithms</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- jQuery for loading navbar and footer -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <link rel="icon" type="image/x-icon" href="../images/logo.png">
+  <link rel="stylesheet" href="./index.css">
+
+  <script>
+    $(function () {
+      $("#navbar").load("../layout/navbar.html");
+      $("#footer").load("../layout/footer.html");
+    });
+  </script>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <div id="navbar"></div>
+
+  <!-- Hero Image -->
+  <img src="../images/index_plan (1920 x 1150 px).svg" alt="Allied Algorithms" class="w-full h-auto">
+
+  <!-- Main Section -->
+  <section class="max-w-7xl mx-auto my-12 p-8 bg-white rounded-lg shadow-xl fade-in-box">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-6">Team in Action</h2>
+
+    <!-- First Row -->
+    <div class="flex flex-wrap items-center -mx-4 mb-8">
+      <div class="w-full md:w-1/2 p-4 md:order-last">
+        <img src="../images/seasons/yr_24-25.jpg" alt="FLL Team working on robot" class="w-full h-auto rounded-lg shadow-md">
+      </div>
+      <div class="w-full md:w-1/2 p-4 md:order-first text-left">
+        <h3 class="text-black font-bold text-2xl mb-4">Innovation and Teamwork</h3>
+        <p class="text-black mb-4">
+          Our FIRST LEGO League team is driven by a passion for innovation and a commitment to teamwork.
+          Each season, we dive deep into the challenge, brainstorming creative solutions, designing unique
+          robots, and refining our programming skills.
+        </p>
+        <p class="text-black mb-4">
+          Beyond the robot game, our team focuses on the Core Values of FLL — Gracious Professionalism,
+          Discovery, and Inclusion. We support each other, celebrate successes, and learn from our mistakes,
+          building not just robots, but also strong friendships and valuable life skills.
+        </p>
+        <p class="text-black">
+          We are constantly exploring new ideas and pushing the boundaries of what's possible with LEGO
+          robotics. Join us on our journey of discovery and innovation!
+        </p>
+      </div>
+    </div>
+
+    <!-- Second Row -->
+    <div class="flex flex-wrap items-center -mx-4">
+      <div class="w-full md:w-1/2 p-4 md:order-last">
+        <img src="https://www.firstinspires.org/hs-fs/hubfs/web/brand/brand-logos-cards/first_age_wallpaper_light_3-2content-block.webp?width=1440&height=956&name=first_age_wallpaper_light_3-2content-block.webp"
+             alt="FIRST LEGO League logo and robot"
+             class="w-full h-auto rounded-lg shadow-md">
+      </div>
+      <div class="w-full md:w-1/2 p-4 md:order-first text-left">
+        <h3 class="text-2xl font-bold mb-4 text-black">What is FIRST LEGO League (FLL)?</h3>
+        <p class="mb-4 text-black">
+          FIRST LEGO League (FLL) is a global robotics competition that introduces young people to the exciting
+          world of STEM through hands-on learning. Teams of 5th to 8th graders work together to design, build,
+          and program LEGO robots to complete a series of missions on a themed playing field set by the FLL committee.
+        </p>
+        <p class="mb-4 text-black">
+          But FLL is much more than just robots! It challenges teams to identify a real-world problem related to
+          the annual theme and develop an innovative solution, which they present to a panel of judges. Through
+          this process, participants develop critical thinking, problem-solving, and presentation skills — all while
+          embodying FLL's core values like teamwork and Gracious Professionalism.
+        </p>
+        <p class="text-black">
+          It's an incredible opportunity for students to explore science and technology in a fun, competitive, and
+          supportive environment — preparing them for future success in a rapidly evolving world.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer" class="w-full"></div>
+
+</body>
+</html>

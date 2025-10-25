@@ -53,7 +53,8 @@ function renderMissions() {
                 <h1 class="mission-name">${mission.name}</h1>
                 <h4 class="mission-points">Points: ${mission.points}</h4>
                 <p class="mission-description">${mission.description}</p>
-                ${mission.videoLink ? `<a href="${mission.videoLink}" target="_blank" class="video-link">Watch on YouTube</a>` : ''}
+                ${mission.videolink ? `<a href="${mission.image}" target="_blank" class="video-link">Watch on YouTube</a>` : ''}
+                <a href="${mission.videoLink}">
             </div>
         `;
         missionsContainer.appendChild(card);

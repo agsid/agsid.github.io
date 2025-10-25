@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="./images/logo.png">
+    <link rel="icon" type="image/x-icon" href="../images/logo.png">
     <script src="members.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +11,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         $(function () {
-            $("#includedContent").load("navbar.html");
-            $("#Content").load("footer.html");
+            $("#includedContent").load("../layout/navbar.html");
+            $("#Content").load("../layout/footer.html");
         });
     </script>
 <style>
@@ -137,8 +137,8 @@
 </head>
 <body class="text-white font-sans">
     <div id="includedContent"></div>
-    <main class="container mx-auto px-4 py-16 min-h-screen flex items-center justify-center">
-        <div id="members-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
+    <main class="container mx-auto min-h-screen flex items-center justify-center">
+        <div id="members-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
         </div>
     </main>
     <div id="Content"></div>
