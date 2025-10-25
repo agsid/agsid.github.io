@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    
+  <nav class="flex items-center justify-between p-4 bg-gray-800 text-white">
+    <div class="text-xl font-semibold">MyWebsite</div>
+
+    <button id="menu-btn" class="md:hidden text-2xl">&#9776;</button>
+
+    <ul id="menu" class="hidden md:flex gap-4">
+
+      <li><a href="#" class="hover:text-gray-300">Home</a></li>
+      <li><a href="#" class="hover:text-gray-300">About</a></li>
+      <li><a href="#" class="hover:text-gray-300">Services</a></li>
+      <li><a href="#" class="hover:text-gray-300">Projects</a></li>
+      <li><a href="#" class="hover:text-gray-300">Contact</a></li>
+
+    </ul>
+  </nav>
+
+  <script>
+    const btn = document.getElementById("menu-btn");
+    const menu = document.getElementById("menu");
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+      btn.innerHTML = menu.classList.contains("hidden") ? "&#9776;" : "&#10005;";
+    });
+  </script>
+</body>
+</html>

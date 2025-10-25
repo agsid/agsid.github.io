@@ -1,343 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Navbar</title>
-    <style>
-        /* Modern Fonts for a clean look */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Navbar</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
-        body {
-            padding-top: 100px; /* Reduced padding for a less empty feel */
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: #0d1117; /* Dark background for high contrast with the 'glass' effect */
-            min-height: 200vh; /* Added height for scrolling effect */
-        }
+    body {
+      padding-top: 100px;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0d1117;
+      min-height: 200vh;
+    }
 
-        h1, h2, h3 {
-            font-family: 'Inter', sans-serif;
-            color: #ffffff;
-            text-align: center;
-        }
+    h1, h2, h3 {
+      font-family: 'Inter', sans-serif;
+      color: #ffffff;
+      text-align: center;
+    }
 
-        p {
-            color: #a8b3cf;
-            line-height: 1.7;
-            padding: 0 20px;
-        }
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 2.5%;
+      right: 2.5%;
+      width: 95%;
+      max-width: 1200px;
+      margin: 0 auto;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 65px;
+      padding: 0 30px;
+      border-radius: 12px;
+      background: rgba(18, 26, 42, 0.7);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(135, 206, 235, 0.1);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+      transition: all 0.4s ease-out;
+    }
 
-        /* * ----------------------------------------
-         * Navbar Base Styles (Modernized)
-         * ----------------------------------------
-         */
-        .navbar {
-            /* Positioning the navbar fixed at the top with auto margins for centering */
-            position: fixed;
-            top: 20px; /* Floating look */
-            left: 2.5%;
-            right: 2.5%;
-            width: 95%;
-            max-width: 1200px;
-            margin: 0 auto;
-            
-            z-index: 1000; /* Increased z-index */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 65px; /* Slightly reduced height for a sleeker profile */
-            padding: 0 30px; /* Horizontal padding only */
-            border-radius: 12px; /* Slightly softer corners */
-            
-            /* Enhanced Glassmorphism Effect */
-            background: rgba(18, 26, 42, 0.7); /* Darker, less opaque background */
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(135, 206, 235, 0.1); /* Lighter, more subtle border */
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7); /* Stronger, deeper shadow */
-            transition: all 0.4s ease-out;
-        }
+    .navbar:hover {
+      background: rgba(18, 26, 42, 0.9);
+    }
 
-        .navbar:hover {
-            background: rgba(18, 26, 42, 0.9);
-        }
-        
-        /* SCROLLED STATE - Simplified for a cleaner transition */
-        .navbar.scrolled {
-            top: 0;
-            left: 0;
-            right: 0;
-            width: 100%;
-            border-radius: 0;
-            height: 55px; /* Shorter height */
-            padding: 0 40px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            background: rgba(18, 26, 42, 0.95);
-        }
-        /* No hover effect on the scrolled state for simplicity */
-        .navbar.scrolled:hover {
-            background: rgba(18, 26, 42, 0.95);
-        }
+    .navbar.scrolled {
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      border-radius: 0;
+      height: 55px;
+      padding: 0 40px;
+      background: rgba(18, 26, 42, 0.95);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
 
-        .navbar .logo {
-            color: #F0F8FF; /* Clean white/light blue for high contrast */
-            font-size: 1.5rem; /* Slightly smaller base font */
-            font-weight: 800; /* Bolder for impact */
-            display: flex;
-            align-items: center;
-            /* Subtler text shadow */
-            text-shadow: 0 0 3px #00BFFF; 
-            font-family: 'Inter', sans-serif;
-            transition: font-size 0.4s ease;
-        }
+    .logo {
+      color: #F0F8FF;
+      font-size: 1.5rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      text-shadow: 0 0 3px #00BFFF;
+      font-family: 'Inter', sans-serif;
+    }
 
-        .navbar img.logo-img {
-            width: 35px; /* Smaller, modern size */
-            height: 35px;
-            margin-right: 10px;
-            border-radius: 4px; /* Slight rounding for softness */
-            /* New: Ensures the image scales correctly without distortion */
-            object-fit: contain; 
-            transition: width 0.4s ease, height 0.4s ease;
-        }
+    .logo img {
+      width: 35px;
+      height: 35px;
+      margin-right: 10px;
+      border-radius: 4px;
+      object-fit: contain;
+      transition: width 0.4s ease, height 0.4s ease;
+    }
 
-        .navbar.scrolled .logo {
-            font-size: 1.3rem;
-        }
+    .navbar-links {
+      display: flex;
+      gap: 2rem;
+      transition: all 0.4s ease;
+    }
 
-        .navbar.scrolled .logo-img {
-            width: 5%;
-            height: 5%;
-        }
+    .navbar-links a {
+      color: #C0D8E0;
+      font-size: 1rem;
+      font-weight: 500;
+      position: relative;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
 
-        .navbar-links {
-            display: flex;
-            gap: 2rem; /* Increased gap for better link separation */
-            transition: all 0.4s ease;
-        }
+    .navbar-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #00BFFF;
+      transition: width 0.3s ease-out;
+    }
 
-        /* SCROLLED STATE - Keep links visible on desktop */
-        .navbar.scrolled .navbar-links {
-            opacity: 1; 
-            pointer-events: all;
-        }
+    .navbar-links a:hover {
+      color: #00BFFF;
+    }
 
+    .navbar-links a:hover::after {
+      width: 100%;
+    }
 
-        .navbar-links a {
-            color: #C0D8E0; /* Subdued initial color */
-            font-size: 1rem;
-            font-weight: 500;
-            padding: 5px 0; /* Vertical padding removed for a cleaner line, horizontal removed */
-            position: relative;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 18px;
+      width: 25px;
+    }
 
-        /* Modern Hover Effect: Underline/Border-Bottom */
-        .navbar-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #00BFFF;
-            transition: width 0.3s ease-out;
-        }
+    .hamburger span {
+      height: 2px;
+      width: 100%;
+      background: #87CEEB;
+      transition: 0.3s;
+    }
 
-        .navbar-links a:hover {
-            color: #00BFFF;
-        }
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
 
-        .navbar-links a:hover::after {
-            width: 100%;
-        }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
 
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
 
-        /* * ----------------------------------------
-         * Hamburger Menu & Mobile Styles
-         * ----------------------------------------
-         */
-        .hamburger-menu {
-            display: none;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            width: 25px; /* Smaller hamburger for modern aesthetic */
-            height: 20px;
-            z-index: 1010; 
-            position: relative;
-        }
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+        z-index: 1010;
+      }
 
-        .hamburger-menu span {
-            display: block;
-            width: 100%;
-            height: 2px; /* Thinner lines */
-            background-color: #87CEEB;
-            margin: 4px 0;
-            transition: all 0.3s ease;
-        }
+      .navbar-links {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 60px);
+        flex-direction: column;
+        background: rgba(18, 26, 42, 0.95);
+        backdrop-filter: blur(10px);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
 
-        /* Hamburger to X transformation remains the same */
-        .hamburger-menu.active span:nth-child(1) {
-            transform: translateY(6px) rotate(45deg);
-        }
+      .navbar-links.active {
+        transform: translateX(0);
+      }
 
-        .hamburger-menu.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger-menu.active span:nth-child(3) {
-            transform: translateY(-6px) rotate(-45deg);
-        }
-
-        /* Tablet/Medium Screens */
-        @media (max-width: 1024px) {
-            .navbar {
-                padding: 0 20px;
-            }
-            .navbar-links {
-                gap: 1.5rem;
-            }
-        }
-
-        /* Mobile Styles - Adjustments for Hamburger Menu */
-        @media (max-width: 768px) {
-            .navbar {
-                width: 100%;
-                left: 0;
-                right: 0;
-                top: 0;
-                border-radius: 0;
-                padding: 0 20px;
-                height: 60px; /* Fixed mobile height */
-            }
-            
-            .navbar.scrolled {
-                height: 60px; /* Keep height consistent on scroll for mobile */
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
-            }
-
-            .hamburger-menu {
-                display: block;
-            }
-            
-            .navbar-links {
-                display: flex;
-                flex-direction: column;
-                position: fixed; /* Use fixed for full viewport height coverage */
-                top: 60px; /* Start right below the navbar */
-                left: 0;
-                width: 100vw;
-                height: calc(100vh - 60px); /* Fill remaining viewport */
-                padding: 20px 0; /* Padding inside the menu */
-                
-                background: rgba(18, 26, 42, 0.95);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
-                border-top: 1px solid rgba(135, 206, 235, 0.1);
-                
-                visibility: hidden;
-                transform: translateX(-100%); /* Start off-screen to the left */
-                transition: transform 0.4s ease-in-out, visibility 0.4s;
-            }
-
-            .navbar-links.active {
-                visibility: visible;
-                transform: translateX(0);
-                
-            }
-            
-            .navbar-links a {
-                /* Full width, centered links for better tapping */
-                width: 90%; 
-                margin: 10px auto; 
-                text-align: center;
-                padding: 15px 10px;
-                border-radius: 8px;
-                background: none !important; /* Remove background on mobile links */
-            }
-
-            .navbar-links a:hover::after {
-                width: 0; /* Disable the underline effect for the full-block mobile links */
-            }
-
-            .navbar-links a:hover {
-                 background-color: rgba(0, 191, 255, 0.1) !important;
-            }
-        }
-
-    </style>
+      .navbar-links a {
+        text-align: center;
+        padding: 15px;
+        font-size: 1.2rem;
+      }
+    }
+  </style>
 </head>
-    <nav class="navbar">    
-        <div class="logo">
-            <img src="..\images\Allied-Algorithms_logo.svg" class="logo-img" alt="Allied Logo">Allied
-        </div>
-        <button class="hamburger-menu" aria-label="Toggle navigation menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <div class="navbar-links">
-           <div class="index"> <a href="../home/index.html">Home</a></div>
-           <div class ="member"><a href="../about-us/abtus.html">Members</a></div>
-           <div class ="seasons"><a href="../seasons/seasons.html">Seasons</a></div>
-           <div class ="robot"><a href="../robot/robot.html">Robot Design</a></div>
-           <div class ="missions"><a href="../missions/missions.html">Missions</a></div>
-           <div class ="allied-work"><a href="../work/hello.html">AlliedWork</a></div>
-        </div>
-    </nav>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const hamburgerBtn = document.querySelector('.hamburger-menu');
-            const navLinks = document.querySelector('.navbar-links');
-            const navbar = document.querySelector('.navbar');
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="../images/Allied-Algorithms_logo.svg" alt="Allied Logo" />
+      Allied
+    </div>
+    <button class="hamburger" id="menu-btn" class="bg-transparent border-none">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="navbar-links" id="menu">
+      <a href="../home/index.html">Home</a>
+      <a href="../about-us/abtus.html">Members</a>
+      <a href="../seasons/seasons.html">Seasons</a>
+      <a href="../robot/robot.html">Robot Design</a>
+      <a href="../missions/missions.html">Missions</a>
+      <a href="../work/hello.html">AlliedWork</a>
+    </div>
+  </nav>
 
-            // Toggles the 'active' class on mobile to show/hide the menu
-            if (hamburgerBtn && navLinks) {
-                hamburgerBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    // Toggle classes on both elements
-                    navLinks.classList.toggle('active');
-                    hamburgerBtn.classList.toggle('active'); 
-                });
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const menu = document.getElementById('menu');
+    const navbar = document.querySelector('.navbar');
 
-                // Close menu when a link is clicked
-                navLinks.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        navLinks.classList.remove('active');
-                        hamburgerBtn.classList.remove('active');
-                    });
-                });
-            }
+    menuBtn.addEventListener('click', () => {
+      menu.classList.toggle('active');
+      menuBtn.classList.toggle('active');
+    });
 
-            // Function to toggle the 'scrolled' class on the navbar
-            const toggleNavbarClass = () => {
-                // If scrolled more than 50px, add the scrolled class
-                if (window.scrollY > 50) { 
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-                
-                // On mobile, if the menu is open, the hamburger must be 'active' (X)
-                if (window.innerWidth <= 768) {
-                    if (navLinks.classList.contains('active')) {
-                        // Ensure X is shown when menu is open, even after a scroll or resize
-                        hamburgerBtn.classList.add('active'); 
-                    }
-                    // No need for an else here, as toggling handles closing
-                }
-            };
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    });
 
-            // Listen for scroll and resize events
-            window.addEventListener('scroll', toggleNavbarClass);
-            window.addEventListener('resize', toggleNavbarClass); // Handle resize logic
-            toggleNavbarClass(); // Initial check
-        });
-    </script>
+    // Close menu on link click
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('active');
+        menuBtn.classList.remove('active');
+      });
+    });
+  </script>
 </body>
 </html>
