@@ -1,134 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Robot Map Replay</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<style>
-body { margin:0; display:flex; flex-direction:column; height:100vh; background:#1a202c; color:#e2e8f0;}
-#controls { padding:0.5rem; background:#2d3748; display:flex; gap:0.5rem;}
-#mapCanvas { flex:1; display:block; background:#111827;}
-#console { height:120px; background:#1a202c; color:#e2e8f0; overflow-y:auto; padding:0.5rem; font-family:monospace; resize:vertical;}
-button { padding:0.25rem 0.5rem; border-radius:0.25rem; background:#4a5568; color:white; border:none; cursor:pointer;}
-button:hover { background:#718096; }
-.material-icons { font-size:20px; vertical-align:middle; }
-</style>
 </head>
-<body>
-<div id="controls">
-  <button id="playBtn" title="Play"><span class="material-icons">play_arrow</span></button>
-  <button id="resetBtn" title="Reset"><span class="material-icons">restart_alt</span></button>
-  <button id="hideBtn" title="Hide Map"><span class="material-icons">visibility_off</span></button>
-</div>
-<canvas id="mapCanvas"></canvas>
-<div id="console"></div>
+<body class="min-h-screen flex flex-col bg-slate-900 text-slate-100">
+
+  <!-- Top bar -->
+  <div id="topBar" class="flex items-center gap-3 bg-slate-800 p-3">
+    <button id="playBtn" class="flex items-center gap-1 px-3 py-1 rounded bg-slate-700 hover:bg-slate-600">
+      <span class="material-icons">play_arrow</span> Play
+    </button>
+
+    <button id="resetBtn" class="flex items-center gap-1 px-3 py-1 rounded bg-slate-700 hover:bg-slate-600">
+      <span class="material-icons">restart_alt</span> Reset Map
+    </button>
+
+    <button id="resetConsoleBtn" class="flex items-center gap-1 px-3 py-1 rounded bg-slate-700 hover:bg-slate-600">
+      <span class="material-icons">delete</span> Clear Console
+    </button>
+
+    <button id="leftBtn" class="flex items-center gap-1 px-3 py-1 rounded bg-slate-700 hover:bg-slate-600">
+      <span class="material-icons">arrow_back</span> Left
+    </button>
+
+    <button id="rightBtn" class="flex items-center gap-1 px-3 py-1 rounded bg-slate-700 hover:bg-slate-600">
+      <span class="material-icons">arrow_forward</span> Right
+    </button>
+
+    <div class="ml-auto text-sm text-slate-300">Field: 93" × 45"</div>
+  </div>
+
+  <!-- Main area: canvas + console -->
+  <div id="main" class="flex flex-1">
+    <!-- Canvas container -->
+    <div class="flex-1 bg-slate-900">
+      <canvas id="mapCanvas" class="w-full h-full block"></canvas>
+    </div>
+
+    <!-- Console -->
+    <div id="consoleContainer" class="w-80 flex flex-col border-l border-slate-700 bg-slate-900">
+      <div id="consoleHeader" class="px-4 py-2 border-b border-slate-700 font-semibold text-slate-200">Console</div>
+      <div id="console" class="flex-1 p-3 overflow-y-auto font-mono text-sm text-slate-100"></div>
+    </div>
+  </div>
 
 <script>
+/* -------------------------
+   Configuration & state
+   ------------------------- */
 const canvas = document.getElementById('mapCanvas');
 const ctx = canvas.getContext('2d');
-let width,height;
+
+const mapWidthInches = 93;
+const mapHeightInches = 45;
+const fieldImg = new Image();
+fieldImg.src = '../images/field.png';
+
+let width = 0;
+let height = 0;
+
+let robot = { x: mapWidthInches / 2, y: mapHeightInches / 2, angle: 0 }; // in inches
+let trail = [{ ...robot }];
+let commands = [];
+let animating = false;
+let stepIndex = 0;
+const stepDelay = 800;
+const consoleEl = document.getElementById('console');
+
+/* -------------------------
+   Resize & coordinate helpers
+   ------------------------- */
 function resizeCanvas() {
-  width = window.innerWidth;
-  height = window.innerHeight - document.getElementById('controls').offsetHeight - document.getElementById('console').offsetHeight;
+  const consoleWidth = 320;
+  width = Math.max(window.innerWidth - consoleWidth, 200);
+  height = Math.max(window.innerHeight - document.getElementById('topBar').offsetHeight, 200);
   canvas.width = width;
   canvas.height = height;
   drawScene();
 }
 window.addEventListener('resize', resizeCanvas);
 
-const mapWidthInches=96,mapHeightInches=48;
-let robot={x:mapWidthInches/2,y:mapHeightInches/2,angle:0};
-let trail=[];
-let commands=[], animating=false, stepIndex=0;
-const stepDelay=800;
-const consoleEl=document.getElementById('console');
-
-function logConsole(msg){
-  const p=document.createElement('div');
-  p.textContent=msg;
-  consoleEl.appendChild(p);
-  consoleEl.scrollTop=consoleEl.scrollHeight;
+function toCanvasCoords(xInches, yInches) {
+  return {
+    x: (xInches / mapWidthInches) * width,
+    y: height - (yInches / mapHeightInches) * height
+  };
 }
 
-function parseMain(){
-  const code=localStorage.getItem('main.py')||'';
-  commands=[];
-  const lines=code.split('\n');
-  for(let line of lines){
-    line=line.split('#')[0].trim();
-    if(!line) continue;
-    if(/drive\(\s*\d+\s*\)/.test(line)){
-      const val=parseInt(line.match(/drive\((\d+)\)/)[1]);
-      commands.push({cmd:'drive',value:val});
-    } else if(/turn\(\s*\d+\s*\)/.test(line)){
-      const val=parseInt(line.match(/turn\((\d+)\)/)[1]);
-      commands.push({cmd:'turn',value:val});
-    } else if(/arm\(\)/.test(line)){
-      commands.push({cmd:'arm'});
+/* -------------------------
+   Console helpers
+   ------------------------- */
+function logConsole(msg) {
+  const d = document.createElement('div');
+  const ts = new Date().toLocaleTimeString();
+  d.textContent = `[${ts}] ${msg}`;
+  consoleEl.appendChild(d);
+  consoleEl.scrollTop = consoleEl.scrollHeight;
+}
+function clearConsole() {
+  consoleEl.innerHTML = '';
+}
+
+/* -------------------------
+   Drawing
+   ------------------------- */
+function drawScene() {
+  if (fieldImg.complete) {
+    ctx.drawImage(fieldImg, 0, 0, width, height);
+  } else {
+    ctx.fillStyle = '#0f172a';
+    ctx.fillRect(0, 0, width, height);
+  }
+
+  // Draw trail
+  ctx.beginPath();
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = 'lime';
+  for (let i = 0; i < trail.length; i++) {
+    const p = toCanvasCoords(trail[i].x, trail[i].y);
+    if (i === 0) ctx.moveTo(p.x, p.y);
+    else ctx.lineTo(p.x, p.y);
+  }
+  ctx.stroke();
+
+  // Draw robot (half-size)
+  const r = toCanvasCoords(robot.x, robot.y);
+  ctx.save();
+  ctx.translate(r.x, r.y);
+  ctx.rotate(robot.angle * Math.PI / 180);
+  ctx.fillStyle = 'red';
+  ctx.beginPath();
+  ctx.moveTo(0, -8);
+  ctx.lineTo(12, 8);
+  ctx.lineTo(-12, 8);
+  ctx.closePath();
+  ctx.fill();
+  ctx.strokeStyle = 'black';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  ctx.restore();
+}
+
+/* -------------------------
+   Parse Commands
+   ------------------------- */
+function parseMain() {
+  const code = localStorage.getItem('main.py') || '';
+  commands = [];
+  const lines = code.split('\n');
+  for (let raw of lines) {
+    let line = raw.split('#')[0].trim();
+    if (!line) continue;
+    let m;
+    if ((m = line.match(/drive\(\s*(-?\d+)\s*\)/i))) {
+      commands.push({ cmd: 'drive', value: parseInt(m[1], 10) });
+    } else if ((m = line.match(/turn\(\s*(-?\d+)\s*\)/i))) {
+      commands.push({ cmd: 'turn', value: parseInt(m[1], 10) });
+    } else if (/arm\(\s*\)/i.test(line)) {
+      commands.push({ cmd: 'arm' });
     }
   }
 }
 
-function toCanvasCoords(xInches,yInches){return {x:(xInches/mapWidthInches)*width, y:height-(yInches/mapHeightInches)*height};}
+/* -------------------------
+   Animation
+   ------------------------- */
+// 9.3 inches = 1/10 of map width (≈ 9.3 inches = 1/10 field)
+const inchScale = 93 / 93; // 1 inch = (1/93) map width fraction, we scale manually below
 
-function drawScene(){
-  ctx.clearRect(0,0,width,height);
-  ctx.strokeStyle='lime'; ctx.lineWidth=2; ctx.beginPath();
-  for(let i=0;i<trail.length;i++){
-    const p=toCanvasCoords(trail[i].x,trail[i].y);
-    if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y);
+function animateStep() {
+  if (stepIndex >= commands.length) {
+    animating = false;
+    return;
   }
-  ctx.stroke();
-  const rC=toCanvasCoords(robot.x,robot.y);
-  ctx.save();
-  ctx.translate(rC.x,rC.y);
-  ctx.rotate(robot.angle*Math.PI/180);
-  ctx.fillStyle='red';
-  ctx.beginPath(); ctx.moveTo(0,-5); ctx.lineTo(10,5); ctx.lineTo(-10,5); ctx.closePath(); ctx.fill();
-  ctx.restore();
-}
+  const cmdObj = commands[stepIndex];
 
-function resetMap(){
-  robot={x:mapWidthInches/2,y:mapHeightInches/2,angle:0};
-  trail=[{...robot}];
-  stepIndex=0; animating=false; drawScene();
-  logConsole("Map reset.");
-}
-
-function animateStep(){
-  if(stepIndex>=commands.length){ animating=false; return; }
-  const cmdObj=commands[stepIndex];
-  if(cmdObj.cmd==='drive'){
-    const rad=robot.angle*Math.PI/180;
-    robot.x+=cmdObj.value*Math.cos(rad);
-    robot.y+=cmdObj.value*Math.sin(rad);
-  } else if(cmdObj.cmd==='turn'){
-    robot.angle=(robot.angle+cmdObj.value)%360;
-  } else if(cmdObj.cmd==='arm'){
-    const rC=toCanvasCoords(robot.x,robot.y);
-    ctx.fillStyle='yellow';
-    ctx.beginPath(); ctx.arc(rC.x,rC.y,6,0,Math.PI*2); ctx.fill();
+  if (cmdObj.cmd === 'drive') {
+    const val = cmdObj.value; // inches
+    const rad = robot.angle * Math.PI / 180;
+    // Move proportionally: 9.3 inches = 1/10 of map width
+    const scaledVal = val * (mapWidthInches / 93); // full inch scaling
+    robot.x += scaledVal * Math.sin(rad);
+    robot.y += scaledVal * Math.cos(rad);
+  } else if (cmdObj.cmd === 'turn') {
+    robot.angle = (robot.angle + cmdObj.value) % 360;
+    if (robot.angle < 0) robot.angle += 360;
+  } else if (cmdObj.cmd === 'arm') {
+    const r = toCanvasCoords(robot.x, robot.y);
+    ctx.fillStyle = 'yellow';
+    ctx.beginPath();
+    ctx.arc(r.x, r.y, 8, 0, Math.PI * 2);
+    ctx.fill();
   }
-  trail.push({...robot});
+
+  trail.push({ ...robot });
   drawScene();
-  logConsole(`Executing: ${cmdObj.cmd}${cmdObj.value!==undefined?'('+cmdObj.value+')':'()'}`);
+  logConsole(`Executing: ${cmdObj.cmd}${cmdObj.value !== undefined ? '(' + cmdObj.value + ')' : '()'}`);
   stepIndex++;
-  if(animating) setTimeout(animateStep,stepDelay);
+  if (animating) setTimeout(animateStep, stepDelay);
 }
 
-document.getElementById('playBtn').addEventListener('click',()=>{ if(!animating){ animating=true; animateStep(); }});
-document.getElementById('resetBtn').addEventListener('click',resetMap);
-document.getElementById('hideBtn').addEventListener('click',()=>{
-  const iframe = window.frameElement;
-  if(iframe) iframe.style.display='none';
+/* -------------------------
+   Controls
+   ------------------------- */
+function resetMap(printLog = false) {
+  robot = { x: mapWidthInches / 2, y: mapHeightInches / 2, angle: 0 };
+  trail = [{ ...robot }];
+  stepIndex = 0;
+  animating = false;
+  drawScene();
+  if (printLog) logConsole('Map reset.');
+}
+
+function setStartBottomLeft() {
+  robot = { x: 5, y: 5, angle: 0 };
+  trail = [{ ...robot }];
+  drawScene();
+  logConsole('Robot start: bottom-left');
+}
+
+function setStartBottomRight() {
+  robot = { x: mapWidthInches - 5, y: 5, angle: 0 };
+  trail = [{ ...robot }];
+  drawScene();
+  logConsole('Robot start: bottom-right');
+}
+
+/* -------------------------
+   UI Events
+   ------------------------- */
+document.getElementById('playBtn').addEventListener('click', () => {
+  if (!animating) {
+    animating = true;
+    if (commands.length === 0) parseMain();
+    animateStep();
+  }
 });
+document.getElementById('resetBtn').addEventListener('click', () => resetMap(true));
+document.getElementById('resetConsoleBtn').addEventListener('click', clearConsole);
+document.getElementById('leftBtn').addEventListener('click', setStartBottomLeft);
+document.getElementById('rightBtn').addEventListener('click', setStartBottomRight);
 
-window.playAnimation = () => { if(!animating){ animating=true; animateStep(); }};
-window.resetMap = resetMap;
-
-parseMain(); resetMap(); resizeCanvas();
+/* -------------------------
+   Init
+   ------------------------- */
+parseMain();
+resetMap(false); // no log
+resizeCanvas();
+fieldImg.addEventListener('load', drawScene);
 </script>
 </body>
 </html>

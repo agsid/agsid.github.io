@@ -142,7 +142,7 @@ function logConsole(msg){
 }
 
 function injectAsync(code){
-  return code.replace(/\b(drive|turn|arm)\(/g, 'async $1(');
+  return code.replace(/\b(drive|turn|arm)\(/g, 'await $1(');
 }
 
 function getGeneratedContent(){
