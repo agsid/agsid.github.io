@@ -1,0 +1,14 @@
+{
+  "home": {
+    "title": "Welcome to My Node Site",
+    "message": "fdsa"
+  },
+  "about": {
+    "title": "About Us",
+    "message": "We built this website using pure Node.js!"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "message": "Reach us anytime at example@email.com"
+  }
+}
