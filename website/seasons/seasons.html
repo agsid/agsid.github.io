@@ -84,22 +84,13 @@
             const seasonDescriptionParagraph = document.querySelector('.season-description p');
             if (seasonDescriptionParagraph) seasonDescriptionParagraph.textContent = currentSeason.description;
         }
-
-        // Function to render past season cards
         function renderPastSeasons() {
             const pastSeasonsContainer = document.getElementById('past-seasons-container');
-            if (!pastSeasonsContainer) return; // Exit if container not found
+            if (!pastSeasonsContainer) return; 
 
-            pastSeasonsContainer.innerHTML = ''; // Clear existing content
-
-            // We now use seasonsData, and assume current season is the first entry,
-            // so we'll render all *except* the first entry for "past" seasons.
-            // If you want to include all, including current in the "past seasons" list,
-            // you can change seasonsData.slice(1) to seasonsData.
+            pastSeasonsContainer.innerHTML = ''; 
             seasonsData.slice(1).forEach((season, index) => {
                 const card = document.createElement('div');
-                // Alternate the image and text direction for visual variety
-                // Adjusting index for slice() so the first past season is index 0 for alternating
                 const orderClass = (index % 2 === 0) ? '' : 'reverse-order';
                 card.className = `season-card ${orderClass}`;
 

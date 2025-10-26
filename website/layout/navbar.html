@@ -4,8 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Modern Navbar</title>
-   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
+    /* Google Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
@@ -23,6 +25,7 @@
       text-align: center;
     }
 
+    /* Navbar */
     .navbar {
       position: fixed;
       top: 20px;
@@ -61,6 +64,7 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     }
 
+    /* Logo */
     .logo {
       color: #F0F8FF;
       font-size: 1.5rem;
@@ -69,17 +73,18 @@
       align-items: center;
       text-shadow: 0 0 3px #00BFFF;
       font-family: 'Inter', sans-serif;
+      gap: 10px;
     }
 
     .logo img {
       width: 35px;
       height: 35px;
-      margin-right: 10px;
       border-radius: 4px;
       object-fit: contain;
       transition: width 0.4s ease, height 0.4s ease;
     }
 
+    /* Links */
     .navbar-links {
       display: flex;
       gap: 2rem;
@@ -114,7 +119,7 @@
       width: 100%;
     }
 
-    /* Hamburger */
+    /* Hamburger Button */
     .hamburger {
       display: none;
       border: none;
@@ -123,6 +128,8 @@
       justify-content: space-between;
       height: 18px;
       width: 25px;
+      background: transparent;
+      padding: 0;
     }
 
     .hamburger span {
@@ -144,6 +151,7 @@
       transform: translateY(-8px) rotate(-45deg);
     }
 
+    /* Mobile Menu */
     @media (max-width: 768px) {
       .hamburger {
         display: flex;
@@ -152,11 +160,13 @@
 
       .navbar-links {
         position: fixed;
-        top: 60px;
+        top: 65px;
         left: 0;
         width: 100%;
-        height: calc(100vh - 60px);
+        height: calc(100vh - 65px);
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
         background: rgba(18, 26, 42, 0.95);
         backdrop-filter: blur(10px);
         transform: translateX(-100%);
@@ -175,18 +185,21 @@
     }
   </style>
 </head>
+
 <body>
   <nav class="navbar">
     <div class="logo">
       <img src="../images/Allied-Algorithms_logo.svg" alt="Allied Logo" />
-      Allied
+      <span>Allied</span>
     </div>
-    <button class="hamburger" id="menu-btn" class="bg-transparent border-none">
+
+    <button id="menu-btn" class="hamburger">
       <span></span>
       <span></span>
       <span></span>
     </button>
-    <div class="navbar-links" id="menu">
+
+    <div id="menu" class="navbar-links">
       <a href="../home/index.html">Home</a>
       <a href="../about-us/abtus.html">Members</a>
       <a href="../seasons/seasons.html">Seasons</a>
@@ -201,17 +214,19 @@
     const menu = document.getElementById('menu');
     const navbar = document.querySelector('.navbar');
 
+    // Toggle menu
     menuBtn.addEventListener('click', () => {
       menu.classList.toggle('active');
       menuBtn.classList.toggle('active');
     });
 
+    // Navbar shrink on scroll
     window.addEventListener('scroll', () => {
       if (window.scrollY > 50) navbar.classList.add('scrolled');
       else navbar.classList.remove('scrolled');
     });
 
-    // Close menu on link click
+    // Close menu when link clicked
     menu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         menu.classList.remove('active');

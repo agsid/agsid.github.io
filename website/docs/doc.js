@@ -46,9 +46,7 @@ export const pageContent = {
     ],
   },
   'community': {
-    title: 'Community and Support',
-    paragraphs: [
-      `Building a strong community around Allied Work is essential. Providing forums, tutorials, and examples would empower users to get the most out of the platform. Sharing best practices for implementing Allied AutoCorrection in different scenarios could further enhance its utility. A dedicated support channel would ensure that teams receive timely assistance with any challenges they encounter, fostering a collaborative environment for innovation in robotics education.`,
-    ],
+    title: 'Website',
+    paragraphs: ['This year we have focused on sharing Allied Work with the FLL community. We have created a website that hosts the Allied Work editor along with documentation. You can visit the website at <a href="https://agsid.github.io/website/work/index.html"/>.'],
   },
 };

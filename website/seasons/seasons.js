@@ -41,7 +41,7 @@ const seasonsData = [
         year: "2020-2021",
         title: "RePlay",
         description: "This season was all about reimagining global transportation. Our team designed innovative solutions for efficient cargo delivery and built a robust robot to navigate complex missions. We learned a lot about supply chains and logistics, earning *mention any specific awards or achievements*.",
-        image: "../images/past_yrs/yr_20-21.JPEG",
+        image: "../images/past_yrs/yr_20-21.jpg",
         alt: "Team Golden Eagles in the 2020-2021 season. This was our 1st season as a team."
     }
 ];
