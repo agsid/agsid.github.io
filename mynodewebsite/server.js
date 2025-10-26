@@ -6,7 +6,6 @@ const url = require('url');
 
 const PORT = 3000;
 
-// Helper function to load and save data
 const loadData = () => JSON.parse(fs.readFileSync('data.json', 'utf8'));
 const saveData = (data) => fs.writeFileSync('data.json', JSON.stringify(data, null, 2));
 
@@ -14,7 +13,7 @@ const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const route = parsedUrl.pathname === '/' ? 'home' : parsedUrl.pathname.slice(1);
 
-  // Handle saving updates from browser (POST)
+
   if (req.method === 'POST' && route === 'save') {
     let body = '';
     req.on('data', chunk => body += chunk.toString());
@@ -32,11 +31,9 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Load data for requested route
   const data = loadData();
   const pageData = data[route] || { title: "404 Not Found", message: "This page doesn't exist." };
 
-  // Serve HTML page with inline edit option
   const html = `
     <!DOCTYPE html>
     <html lang="en">
@@ -86,6 +83,6 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`✅ Server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
     
