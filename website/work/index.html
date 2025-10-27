@@ -13,66 +13,77 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <style>
-  html, body { height: 100%; margin: 0; }
-  #editor { flex: 1; min-height: 200px; }
-  #console { height: 140px; background:#1a202c; color:#e2e8f0; overflow-y:auto; padding:0.5rem; font-family:monospace; resize:vertical; }
+  html, body { height: 100%; margin: 0; font-family: 'Inter', sans-serif; }
+  #editor { flex: 1; min-height: 200px; border-radius: 0.5rem; overflow: hidden; }
+  #console { height: 140px; background: rgba(17, 24, 39, 0.75); backdrop-filter: blur(8px);
+             color: #e2e8f0; overflow-y:auto; padding:0.75rem; font-family:monospace; resize:vertical;
+             border-top: 1px solid rgba(255,255,255,0.05); border-radius: 0 0 0.75rem 0.75rem; }
   .iframe-container { flex:1; min-height:300px; }
-  button { transition: background 0.2s ease; }
+  button { transition: all 0.3s ease; }
+  .glass {
+    background: rgba(30, 41, 59, 0.65);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
 </style>
 </head>
 
-<body class="bg-gray-900 text-gray-200 flex flex-col h-screen">
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-200 flex flex-col h-screen">
 
 <!-- Top bar -->
-<div class="flex items-center justify-between bg-gray-800 h-12 px-4 text-sm shadow-md">
+<div class="glass flex items-center justify-between h-14 px-6 text-sm shadow-lg border-b border-gray-700">
   <div class="flex items-center space-x-3">
-    <span class="font-semibold text-blue-400">AlliedWork</span>
+    <img src="../images/logo.png" alt="logo" class="w-7 h-7 rounded-full shadow-md">
+    <span class="font-semibold text-blue-400 text-lg tracking-wide">AlliedWork</span>
   </div>
+  <div class="text-gray-400 text-xs italic">AI-Powered FLL Code Editor</div>
 </div>
 
 <div class="flex flex-1 overflow-hidden">
   <!-- Sidebar -->
-  <div class="flex flex-col w-16 bg-gray-800 border-r border-gray-700 py-2 items-center gap-3">
-    <img src="../images/logo.png" class="w-6/8">
-    <button title="Home" class="hover:bg-gray-700 p-2 rounded" onclick="location.href='index.html'">
-      <span class="material-icons">home</span>
+  <div class="glass flex flex-col w-20 border-r border-gray-700 py-3 items-center gap-4 shadow-lg">
+    <button title="Home" class="hover:bg-gray-700/60 p-2 rounded-lg" onclick="location.href='index.html'">
+      <span class="material-icons text-gray-300">home</span>
     </button>
-    <button title="Theme Toggle" class="hover:bg-gray-700 p-2 rounded" id="leftThemeToggle">
-      <span class="material-icons">brightness_4</span>
+    <button title="Toggle Theme" class="hover:bg-gray-700/60 p-2 rounded-lg" id="leftThemeToggle">
+      <span class="material-icons text-gray-300">brightness_4</span>
     </button>
-    <button title="Portfolio" class="hover:bg-gray-700 p-2 rounded" onclick="window.open('https://agsid.github.io/portfolio/v2index.html','_blank')">
-      <span class="material-icons">public</span>
+    <button title="Portfolio" class="hover:bg-gray-700/60 p-2 rounded-lg" onclick="window.open('https://agsid.github.io/portfolio/v2index.html','_blank')">
+      <span class="material-icons text-gray-300">public</span>
     </button>
-    <button title="Toggle Explorer" class="hover:bg-gray-700 p-2 rounded" id="toggleExplorer">
-      <span class="material-icons">menu</span>
+    <button title="Explorer" class="hover:bg-gray-700/60 p-2 rounded-lg" id="toggleExplorer">
+      <span class="material-icons text-gray-300">menu</span>
     </button>
-    <button title="Toggle Map" class="hover:bg-gray-700 p-2 rounded" id="toggleMap">
-      <span class="material-icons">map</span>
+    <button title="Map" class="hover:bg-gray-700/60 p-2 rounded-lg" id="toggleMap">
+      <span class="material-icons text-gray-300">map</span>
     </button>
   </div>
 
   <!-- Explorer Panel -->
-  <div class="explorer w-64 bg-gray-850 border-r border-gray-700 p-3 text-sm overflow-y-auto">
-    <h2 class="text-gray-400 uppercase text-xs mb-3 font-semibold">Explorer</h2>
-    <div class="mb-3">
-      <div class="text-gray-300 font-medium mb-1">User</div>
-      <div id="file-user-main.py" class="cursor-pointer pl-4 py-1 hover:bg-gray-700 rounded" onclick="openFile('main.py')">main.py</div>
+  <div class="explorer glass w-64 border-r border-gray-700 p-4 text-sm overflow-y-auto transition-all duration-300">
+    <h2 class="text-gray-400 uppercase text-xs mb-3 font-semibold tracking-widest">Explorer</h2>
+
+    <div class="mb-4">
+      <div class="text-gray-300 font-medium mb-1">User Files</div>
+      <div id="file-user-main.py" class="cursor-pointer pl-4 py-1 hover:bg-gray-700/60 rounded transition" onclick="openFile('main.py')">main.py</div>
     </div>
-    <div class="mb-3">
+
+    <div class="mb-4">
       <div class="text-gray-300 font-medium mb-1">Available Commands</div>
-      <div id="file-avalComm.txt" class="cursor-pointer pl-4 py-1 hover:bg-gray-700 rounded" onclick="openFile('avalComm.txt')">avalComm.txt</div>
+      <div id="file-avalComm.txt" class="cursor-pointer pl-4 py-1 hover:bg-gray-700/60 rounded transition" onclick="openFile('avalComm.txt')">avalComm.txt</div>
     </div>
+
     <div>
       <div class="text-gray-300 font-medium mb-1">Generated</div>
-      <div id="file-generated-generated.py" class="cursor-pointer pl-4 py-1 hover:bg-gray-700 rounded" onclick="openFile('generated.py')">generated.py</div>
+      <div id="file-generated-generated.py" class="cursor-pointer pl-4 py-1 hover:bg-gray-700/60 rounded transition" onclick="openFile('generated.py')">generated.py</div>
     </div>
   </div>
 
   <!-- Editor + Map + Console -->
-  <div class="flex-1 flex flex-col overflow-hidden">
-    <div id="editor" class="flex-1"></div>
-    <iframe id="mapIframe" src="robot-map.html" class="flex-1 w-full border-0"></iframe>
-    <div id="console" class="h-36 bg-gray-900 text-gray-200 overflow-auto p-2 font-mono resize-y"></div>
+  <div class="flex-1 flex flex-col overflow-hidden px-3 py-3 space-y-3">
+    <div id="editor" class="rounded-lg shadow-inner border border-gray-800"></div>
+    <iframe id="mapIframe" src="robot-map.html" class="rounded-lg shadow-lg flex-1 w-full border border-gray-800"></iframe>
+    <div id="console" class="shadow-inner"></div>
   </div>
 </div>
 
@@ -90,10 +101,7 @@ arm()                      → Activate the robot's arm mechanism
 const generatedTemplate = `
 import runloop,math,motor_pair,motor,time
 from hub import port
-# r is the radius of the wheel. This is used to find the circumference of the wheel
-r = 22 # Assuming a standard LEGO wheel with a radius of 22mm
-# This is the angle changed when the wheels run for 1 rotation in opposite directions.
-# This is used in the turning function to convert a desired turn angle into motor degrees.
+r = 22
 total=100
 
 def speed(x):
@@ -126,7 +134,6 @@ async def main():
     
     # User's code starts here
     speed(50)
-
 `;
 
 let currentFile = 'main.py';
@@ -157,10 +164,11 @@ function validateCommands(){
     if(!line) return;
     let cmdMatch = line.match(/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*\(/);
     if(cmdMatch && !allowed.includes(cmdMatch[1])){
-      logConsole(`Warning: invalid command '${cmdMatch[1]}' at line ${i+1}`);
+      logConsole(`⚠️ Invalid command '${cmdMatch[1]}' at line ${i+1}`);
     }
   });
 }
+
 require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' } });
 require(['vs/editor/editor.main'], function() {
   editor = monaco.editor.create(document.getElementById('editor'), {
@@ -174,8 +182,8 @@ require(['vs/editor/editor.main'], function() {
       files['main.py'] = editor.getValue();
       localStorage.setItem('main.py', files['main.py']);
       validateCommands();
-      document.getElementById('mapIframe').contentWindow.parseMain();
-      document.getElementById('mapIframe').contentWindow.resetMap();
+      if(document.getElementById('mapIframe').contentWindow.parseMain)
+        document.getElementById('mapIframe').contentWindow.parseMain();
     }
   });
 });
@@ -193,12 +201,8 @@ function openFile(name){
 const explorer = document.querySelector('.explorer');
 const mapIframe = document.getElementById('mapIframe');
 
-document.getElementById('toggleExplorer').addEventListener('click', ()=>{
-  explorer.classList.toggle('hidden');
-});
-document.getElementById('toggleMap').addEventListener('click', ()=>{
-  mapIframe.classList.toggle('hidden');
-});
+document.getElementById('toggleExplorer').addEventListener('click', ()=> explorer.classList.toggle('hidden'));
+document.getElementById('toggleMap').addEventListener('click', ()=> mapIframe.classList.toggle('hidden'));
 
 document.getElementById('leftThemeToggle').addEventListener('click', ()=>{
   const newTheme = editor._themeService._theme.themeName==='vs-dark'?'vs':'vs-dark';
