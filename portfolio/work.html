@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>&lt;AlliedWork/&gt; - Advanced LEGO SPIKE Editor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+    body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); overflow-x:hidden; }
+    .glass { @apply bg-white/5 backdrop-blur-md rounded-2xl border border-white/10; }
+    .glow-button { @apply text-white px-6 py-3 rounded-xl font-semibold; background: linear-gradient(45deg,#6d00ff,#00ffe7); box-shadow: 0 0 15px rgba(109,0,255,0.5),0 0 30px rgba(0,255,231,0.3); transition:0.3s;}
+    .glow-button:hover { box-shadow:0 0 25px rgba(109,0,255,0.7),0 0 50px rgba(0,255,231,0.5); transform: translateY(-2px); }
+    .editor { @apply min-h-[300px] rounded-xl p-4 font-mono overflow-auto bg-black/50 text-white; }
+
+    /* Typing animation */
+    .typing-text {
+      border-right: 2px solid #00ffe7;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 3s steps(50, end) forwards, blink 0.7s step-end infinite alternate;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: #00ffe7; }
+    }
+
+    /* Navbar neon hover effect */
+    .nav-link {
+      position: relative;
+      transition: 0.3s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      left: 0;
+      bottom: -2px;
+      background: #00ffe7;
+      transition: width 0.3s;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Mobile menu */
+    #menu-toggle:checked + #menu { display: block; }
+  </style>
+</head>
+<body class="text-white">
+
+  <!-- Futuristic Navbar -->
+  <header class="glass fixed w-full z-50 top-0 left-0 px-8 py-4 flex justify-between items-center backdrop-blur-md shadow-lg">
+    <h1 class="text-3xl font-extrabold tracking-wide">&lt;AlliedWork/&gt;</h1>
+    
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex space-x-8">
+      <a href="#features" class="nav-link text-white hover:text-cyan-400 transition">Features</a>
+      <a href="#demo" class="nav-link text-white hover:text-cyan-400 transition">Live Demo</a>
+      <a href="#contact" class="nav-link text-white hover:text-cyan-400 transition">Contact</a>
+    </nav>
+
+    <!-- Mobile menu button -->
+    <div class="md:hidden">
+      <input type="checkbox" id="menu-toggle" class="hidden">
+      <label for="menu-toggle" class="cursor-pointer block">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/>
+        </svg>
+      </label>
+      <!-- Mobile menu -->
+      <div id="menu" class="hidden absolute right-8 top-16 w-48 glass p-4 flex flex-col space-y-4">
+        <a href="#features" class="nav-link text-white hover:text-cyan-400">Features</a>
+        <a href="#demo" class="nav-link text-white hover:text-cyan-400">Live Demo</a>
+        <a href="#contact" class="nav-link text-white hover:text-cyan-400">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="flex flex-col justify-center items-center text-center py-36 px-4 relative z-10 mt-20">
+    <h2 class="text-5xl md:text-6xl font-extrabold mb-6 typing-text">&lt;AlliedWork/&gt; – Advanced LEGO SPIKE Editor</h2>
+    <p class="text-xl mb-8 text-gray-300">The futuristic editor to code LEGO SPIKE Hub robots. Write, test, and visualize your programs with style.</p>
+    <a href="#demo" class="glow-button">Try AlliedWork Now</a>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="max-w-7xl mx-auto px-4 py-20 grid md:grid-cols-3 gap-8">
+    <div class="glass p-6 hover:scale-105 transform transition duration-300 shadow-lg">
+      <h4 class="text-2xl font-semibold mb-2 text-cyan-400">Real-Time Visualization</h4>
+      <p>See your LEGO SPIKE Hub robot’s movements on a virtual mat in real-time as you code.</p>
+    </div>
+    <div class="glass p-6 hover:scale-105 transform transition duration-300 shadow-lg">
+      <h4 class="text-2xl font-semibold mb-2 text-pink-400">Multi-File Projects</h4>
+      <p>Create, organize, and edit multiple program files seamlessly within AlliedWork.</p>
+    </div>
+    <div class="glass p-6 hover:scale-105 transform transition duration-300 shadow-lg">
+      <h4 class="text-2xl font-semibold mb-2 text-purple-400">Robot Control Commands</h4>
+      <p>Use advanced LEGO SPIKE Hub commands like drive, turn, wait, arm control, and more directly in the editor.</p>
+    </div>
+  </section>
+
+  <!-- Live Demo Section -->
+  <section id="demo" class="max-w-5xl mx-auto px-4 py-20">
+    <h3 class="text-4xl font-bold text-center mb-6 text-cyan-300">Live Demo</h3>
+    <div class="editor glass" contenteditable="true">
+// Example: Move SPIKE Hub forward
+drive(10);
+turn(90);
+arm_speed(50);
+wait(2);
+    </div>
+    <p class="text-center mt-4 text-gray-400">Editable area with futuristic glassmorphic style. Try coding your robot commands!</p>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 text-center relative z-10">
+    <div class="max-w-3xl mx-auto glass p-10 shadow-lg">
+      <h3 class="text-4xl font-bold mb-4 text-cyan-400">Get in Touch</h3>
+      <p class="mb-6">Questions, feedback, or collaborations? Reach out to Sid AG directly.</p>
+      <a href="mailto:sid@example.com" class="glow-button">Email Sid AG</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-gray-300 py-6 text-center">
+    &copy; 2025 &lt;AlliedWork/&gt;. All rights reserved.
+  </footer>
+
+</body>
+</html>
