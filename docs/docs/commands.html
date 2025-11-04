@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Allied Work Docs — Commands</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+      background: radial-gradient(circle at top left, #09090b, #030303);
+      color: #e5e5e5;
+    }
+
+    h1, h2, h3 {
+      color: #f2f2f2;
+      font-weight: 600;
+    }
+
+    section {
+      scroll-margin-top: 60px;
+      margin-bottom: 6rem;
+    }
+
+    .accent {
+      color: #d946ef;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      padding: 2rem;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      border-color: rgba(217, 70, 239, 0.4);
+      transform: translateY(-2px);
+    }
+
+    code {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.3rem;
+      font-family: monospace;
+      color: #f472b6;
+    }
+  </style>
+</head>
+<body class="font-sans leading-relaxed tracking-wide px-6 md:px-12 lg:px-24 py-16">
+
+  <header class="mb-16">
+    <h1 class="text-4xl font-bold mb-3 accent">Commands</h1>
+    <p class="text-gray-400 text-lg">Allied Work Docs commands you can use to control your robot.</p>
+  </header>
+
+  <main class="space-y-24">
+
+    <!-- DRIVE -->
+    <section id="drive">
+      <h2 class="text-2xl mb-3">Drive</h2>
+      <div class="card">
+        <p>
+          The <span class="accent">drive</span> command moves the robot forward or backward by a specified distance.
+        </p>
+        <pre class="bg-black/40 p-4 rounded-lg mt-4 text-sm overflow-x-auto">
+<code>drive forward 10
+drive backward 5
+</code>
+        </pre>
+      </div>
+    </section>
+
+    <!-- TURN -->
+    <section id="turn">
+      <h2 class="text-2xl mb-3">Turn</h2>
+      <div class="card">
+        <p>
+          The <span class="accent">turn</span> command rotates the robot in place by the given degrees.
+        </p>
+        <pre class="bg-black/40 p-4 rounded-lg mt-4 text-sm overflow-x-auto">
+<code>turn right 90
+turn left 45
+</code>
+        </pre>
+      </div>
+    </section>
+
+    <!-- ARM -->
+    <section id="arm">
+      <h2 class="text-2xl mb-3">Arm</h2>
+      <div class="card">
+        <p>
+          The <span class="accent">arm</span> commands control the robotic arm.
+        </p>
+        <pre class="bg-black/40 p-4 rounded-lg mt-4 text-sm overflow-x-auto">
+<code>arm lift 3
+arm lower 2
+arm grab
+arm release
+</code>
+        </pre>
+      </div>
+    </section>
+
+    <!-- EXTRA -->
+    <section id="extra">
+      <h2 class="text-2xl mb-3">Extra Commands</h2>
+      <div class="card">
+        <p>
+          Additional utility commands to enhance robot interaction.
+        </p>
+        <ul class="list-disc list-inside mt-4 space-y-1 text-gray-300">
+          <li>wait &lt;seconds&gt; — pauses execution</li>
+          <li>beep — activates sound buzzer</li>
+          <li>lights on/off — toggle robot LEDs</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="mt-24 text-center text-gray-500 text-sm border-t border-white/10 pt-6">
+    © 2025 Allied Algos. All rights reserved.
+  </footer>
+
+</body>
+</html>

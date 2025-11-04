@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Allied Work Docs - Home</title>
-  <link rel="icon" type="image/x-icon" href="../images/logo.png">
+  <title>AlliedWork – Advanced LEGO SPIKE Editor</title>
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
@@ -19,7 +18,7 @@
       min-height: 100vh;
     }
 
-    /* Background glow */
+    /* Animated background glow */
     body::before {
       content: '';
       position: absolute;
@@ -46,7 +45,7 @@
     }
 
     h1 {
-      font-size: 4rem;
+      font-size: 3.5rem;
       font-weight: 700;
       background: linear-gradient(90deg, #8b5cf6, #06b6d4, #3b82f6);
       -webkit-background-clip: text;
@@ -63,9 +62,18 @@
       line-height: 1.6;
     }
 
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+      background: linear-gradient(90deg, #8b5cf6, #06b6d4, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
     .feature-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 2rem;
       max-width: 1000px;
       margin: 4rem auto;
@@ -86,42 +94,100 @@
       box-shadow: 0 0 40px rgba(139,92,246,0.1);
     }
 
-    footer {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: #94a3b8;
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      margin-top: 6rem;
+    pre {
+      background: rgba(0,0,0,0.4);
+      padding: 0.75rem;
+      border-radius: 0.75rem;
+      text-align: left;
+      font-size: 0.95rem;
+      overflow-x: auto;
+      margin-top: 0.5rem;
     }
   </style>
 </head>
 
 <body>
+  <!-- Hero -->
   <section>
-    <h1>Welcome to Allied Work Docs</h1>
+    <h1>AlliedWork – Advanced LEGO SPIKE Editor</h1>
     <p class="tagline">
-      A unified platform for intelligent documentation — built by <b>Allied Algos</b> to make every idea flow seamlessly from concept to creation.
+      The futuristic editor designed to code LEGO SPIKE Hub robots. Write, test, and visualize your programs with precision and speed.
     </p>
+  </section>
 
+  <!-- Features -->
+  <section id="features">
+    <h2 class="section-title">Key Features</h2>
     <div class="feature-grid">
       <div class="feature">
-        <h2 class="text-xl font-semibold mb-2 text-cyan-300">AI-Powered Insights</h2>
-        <p>Leverage smart tools that help you organize, summarize, and visualize your knowledge with precision.</p>
+        <h3 class="text-xl font-semibold mb-2 text-cyan-300">Real-Time Visualization</h3>
+        <p>Watch your LEGO SPIKE Hub robot’s movements live as you code. Instantly see how your commands affect the robot’s path.</p>
       </div>
       <div class="feature">
-        <h2 class="text-xl font-semibold mb-2 text-purple-300">Seamless Collaboration</h2>
-        <p>Work together in real time — edit, review, and innovate with your team from anywhere in the world.</p>
+        <h3 class="text-xl font-semibold mb-2 text-purple-300">Allied AutoCorrection</h3>
+        <p>The AutoCorrection engine (AACWork) intelligently fine-tunes your robot's movements, adjusting turns and distances to ensure consistent precision. This reduces setup time and eliminates repetitive calibration.</p>
       </div>
       <div class="feature">
-        <h2 class="text-xl font-semibold mb-2 text-blue-300">Modern Design</h2>
-        <p>Experience a futuristic, distraction-free interface that helps you focus on what truly matters — your ideas.</p>
+        <h3 class="text-xl font-semibold mb-2 text-blue-300">Robot Control Commands</h3>
+        <p>Access advanced SPIKE Hub commands for precise robot control and automation.</p>
       </div>
     </div>
   </section>
 
-  <footer>
-    © 2025 Allied Algos — Innovating the Future of Work.
-  </footer>
+  <!-- Benefits -->
+  <section id="benefits">
+    <h2 class="section-title">Benefits</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <h3 class="text-xl font-semibold mb-2 text-cyan-300">Faster Coding</h3>
+        <p>Develop and test programs quickly with instant feedback loops and real-time visuals.</p>
+      </div>
+      <div class="feature">
+        <h3 class="text-xl font-semibold mb-2 text-pink-300">Better Organization</h3>
+        <p>Multi-file structure and modular coding help simplify even the most complex logic trees.</p>
+      </div>
+      <div class="feature">
+        <h3 class="text-xl font-semibold mb-2 text-yellow-300">Enhanced Learning</h3>
+        <p>See your robot move as you code — improving logic, debugging, and learning outcomes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Commands -->
+  <section id="commands">
+    <h2 class="section-title">Robot Commands</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <h3 class="text-xl font-semibold mb-2 text-cyan-300">drive</h3>
+        <p>Moves the robot forward or backward by a set distance.</p>
+        <pre>drive(24)</pre>
+      </div>
+      <div class="feature">
+        <h3 class="text-xl font-semibold mb-2 text-purple-300">turn</h3>
+        <p>Rotates the robot by a given angle in degrees.</p>
+        <pre>turn(90)</pre>
+      </div>
+      <div class="feature">
+        <h3 class="text-xl font-semibold mb-2 text-blue-300">speed</h3>
+        <p>Sets the robot’s movement speed (0–100).</p>
+        <pre>speed(80)</pre>
+      </div>
+      <div class="feature">
+        <h3 class="text-xl font-semibold mb-2 text-yellow-300">wait</h3>
+        <p>Pauses movement for a specific duration.</p>
+        <pre>wait(2)</pre>
+      </div>
+      <div class="feature">
+        <h3 class="text-xl font-semibold mb-2 text-green-300">arm_speed</h3>
+        <p>Controls the speed of the robot’s arm motor.</p>
+        <pre>arm_speed(60)</pre>
+      </div>
+      <div class="feature">
+        <h3 class="text-xl font-semibold mb-2 text-pink-300">arm</h3>
+        <p>Moves the arm up or down by a degree value.</p>
+        <pre>arm(-45)</pre>
+      </div>
+    </div>
+  </section>
 </body>
 </html>
