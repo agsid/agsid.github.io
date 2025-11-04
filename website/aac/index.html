@@ -5,10 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Download AutoCorrection.llsp3</title>
 
-  <!-- Tailwind -->
+  <!-- Google Tag Manager / Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MG0KYH98NN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-MG0KYH98NN');
+  </script>
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- jQuery (required for .load() to work) -->
+  <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <!-- Favicon -->
@@ -22,7 +31,22 @@
     });
   </script>
 
-  <!-- Page Style -->
+  <!-- Discord Notification System -->
+  <script>
+    function sendDiscordNotification() {
+      fetch('https://discord.com/api/webhooks/YOUR_WEBHOOK_URL', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          content: '🚀 AutoCorrection.llsp3 has been downloaded!'
+        })
+      })
+      .then(response => console.log('Notification sent'))
+      .catch(error => console.error('Error sending notification:', error));
+    }
+  </script>
+
+  <!-- Page Styles -->
   <style>
     body {
       font-family: "Inter", system-ui, sans-serif;
@@ -52,7 +76,8 @@
     </p>
 
     <!-- Download Button -->
-    <a href="./AutoCorrection.llsp3" download="AutoCorrection.llsp3"
+    <a href="AutoCorrection.llsp3" download="AutoCorrection.llsp3"
+       onclick="sendDiscordNotification()"
        class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold text-lg px-6 py-3 rounded-lg shadow-md transition-all duration-200">
       ⬇️ Download AutoCorrection.llsp3
     </a>
