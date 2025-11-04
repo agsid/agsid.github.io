@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Getting Started",
+    "pages": [
+      {"title": "Introduction", "href": "getting‑started/introduction.html"},
+      {"title": "Syntax and Structure", "href": "getting‑started/syntax.html"}
+    ]
+  },
+  {
+    "title": "Advanced",
+    "pages": [
+      {"title": "Asynchronous JavaScript", "href": "advanced/async.html"},
+      {"title": "Modules and Imports", "href": "advanced/modules.html"}
+    ]
+  }
+]

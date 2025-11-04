@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SquareDocs — Documentation</title>
+  <meta name="description" content="Comprehensive docs template inspired by SquareDocs."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            accent: '#3b82f6',
+            glass: 'rgba(255,255,255,0.08)',
+          },
+          backgroundImage: {
+            gradient: 'linear-gradient(135deg, #0b1220 0%, #1b2a45 100%)',
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-gradient text-slate-100 min-h-screen font-sans">
+  <!-- Header -->
+  <header class="flex justify-between items-center border-b border-glass px-6 py-4 backdrop-blur-md bg-black/30 sticky top-0 z-40">
+    <div class="flex items-center gap-6">
+      <a href="#" class="text-lg font-bold text-white">SquareDocs</a>
+      <nav class="flex gap-4 text-slate-300 text-sm font-semibold">
+        <a href="#docs" class="hover:text-white">Documentation</a>
+        <a href="#changelog" class="hover:text-white">Changelog</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Layout -->
+  <div class="grid grid-cols-[260px_1fr_320px] gap-6 w-full p-6 max-lg:grid-cols-[220px_1fr] max-md:grid-cols-1">
+    <!-- Sidebar -->
+    <aside class="pr-2">
+      <div class="relative mb-4">
+        <input id="search" placeholder="Search..." aria-label="Search docs"
+          class="w-full bg-glass border border-glass text-white placeholder-slate-400 rounded-lg px-3 py-2 focus:outline-none" />
+        <span class="absolute right-3 top-2.5 text-xs text-slate-400">⌘K</span>
+      </div>
+
+      <nav id="toc" class="space-y-4 text-sm">
+        <div>
+          <h4 class="text-slate-400 uppercase tracking-wide text-xs mb-1">Getting Started</h4>
+          <ul class="space-y-1">
+            <li><a href="#introduction" class="block px-2 py-1 rounded hover:bg-white/10">Introduction</a></li>
+            <li><a href="#syntax" class="block px-2 py-1 rounded hover:bg-white/10">Syntax and Structure</a></li>
+            <li><a href="#control" class="block px-2 py-1 rounded hover:bg-white/10">Control Flow</a></li>
+            <li><a href="#functions" class="block px-2 py-1 rounded hover:bg-white/10">Functions</a></li>
+            <li><a href="#objects" class="block px-2 py-1 rounded hover:bg-white/10">Objects and Arrays</a></li>
+            <li><a href="#es6" class="block px-2 py-1 rounded hover:bg-white/10">ES6+ Features</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-slate-400 uppercase tracking-wide text-xs mb-1">Advanced</h4>
+          <ul class="space-y-1">
+            <li><a href="#async" class="block px-2 py-1 rounded hover:bg-white/10">Asynchronous JavaScript</a></li>
+            <li><a href="#modules" class="block px-2 py-1 rounded hover:bg-white/10">Modules and Imports</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-slate-400 uppercase tracking-wide text-xs mb-1">Browser</h4>
+          <ul class="space-y-1">
+            <li><a href="#dom" class="block px-2 py-1 rounded hover:bg-white/10">DOM Manipulation</a></li>
+            <li><a href="#events" class="block px-2 py-1 rounded hover:bg-white/10">Event Handling</a></li>
+            <li><a href="#forms" class="block px-2 py-1 rounded hover:bg-white/10">Forms and Input Handling</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <footer class="mt-6 text-xs text-slate-500">
+        © 2025 SquareDocs · All rights reserved
+      </footer>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="px-2">
+      <section class="py-6">
+        <h1 class="text-3xl font-bold">JavaScript Documentation</h1>
+        <p class="text-slate-400 mt-2 max-w-2xl">
+          Comprehensive JavaScript documentation covering fundamentals, advanced concepts, browser interactions,
+          backend development, and modern frameworks.
+        </p>
+        <div class="flex gap-3 mt-4">
+          <a href="#start" class="bg-accent text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-blue-600">Start a new project</a>
+          <a href="#learn" class="border border-glass px-4 py-2 rounded-md text-sm text-white hover:bg-white/10">Learn more</a>
+        </div>
+      </section>
+
+      <section class="grid grid-cols-4 gap-4 mt-6 max-lg:grid-cols-2 max-md:grid-cols-1">
+        <div class="bg-glass p-4 rounded-xl shadow-lg">
+          <h3 class="font-semibold mb-1">Easily editable</h3>
+          <p class="text-slate-400 text-sm">Premade assets allow easy color and text customization.</p>
+        </div>
+        <div class="bg-glass p-4 rounded-xl shadow-lg">
+          <h3 class="font-semibold mb-1">CMS</h3>
+          <p class="text-slate-400 text-sm">Edit and manage pages exclusively within CMS mode.</p>
+        </div>
+        <div class="bg-glass p-4 rounded-xl shadow-lg">
+          <h3 class="font-semibold mb-1">Components</h3>
+          <p class="text-slate-400 text-sm">Finely crafted components with multiple states and variables.</p>
+        </div>
+        <div class="bg-glass p-4 rounded-xl shadow-lg">
+          <h3 class="font-semibold mb-1">Dark Mode Design</h3>
+          <p class="text-slate-400 text-sm">A stunning gradient background and high-contrast layout for readability.</p>
+        </div>
+      </section>
+
+      <article id="introduction" class="mt-8 bg-transparent">
+        <h2 class="text-2xl font-semibold mb-2">Introduction</h2>
+        <p class="text-slate-300 mb-4">
+          This is an example of a docs page. Use headings, code snippets, and lists to create readable developer documentation.
+        </p>
+
+        <h3 id="syntax" class="text-xl font-semibold mt-4 mb-2">Syntax and Structure</h3>
+        <p class="text-slate-300">Explain core syntax here.</p>
+
+        <h3 id="control" class="text-xl font-semibold mt-4 mb-2">Control Flow</h3>
+        <pre class="bg-white/10 p-3 rounded-md overflow-auto text-sm"><code>// Example JS
+function greet(name) {
+  return `Hello, ${name}`;
+}</code></pre>
+      </article>
+    </main>
+
+    <!-- Right Rail -->
+    <aside class="pl-4 max-lg:hidden">
+      <div class="bg-glass rounded-xl p-4 mb-4">
+        <h4 class="font-semibold text-sm mb-2">Popular articles</h4>
+        <ul class="text-sm space-y-1">
+          <li><a href="#introduction" class="hover:text-white">Introduction</a></li>
+          <li><a href="#async" class="hover:text-white">Asynchronous JavaScript</a></li>
+          <li><a href="#webapi" class="hover:text-white">Web API</a></li>
+        </ul>
+      </div>
+
+      <div class="bg-glass rounded-xl p-4">
+        <h4 class="font-semibold text-sm mb-2">Docs pages CMS</h4>
+        <p class="text-slate-400 text-sm">
+          Edit and manage all pages exclusively within CMS mode. Templates are prepared for both Primary and Secondary Hierarchies and are adaptable.
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    // Example search keyboard shortcut
+    document.addEventListener('keydown', e => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        document.querySelector('#search').focus();
+      }
+    });
+  </script>
+</body>
+</html>

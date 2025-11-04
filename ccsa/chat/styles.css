@@ -1,0 +1,213 @@
+/* SquareDocs — Dark Mode Only with Gradient Background */
+:root {
+  --bg: linear-gradient(135deg, #0b1220 0%, #1b2a45 100%);
+  --muted: #9aa8bf;
+  --text: #e6eef8;
+  --card: rgba(255, 255, 255, 0.05);
+  --accent: #3b82f6;
+  --glass: rgba(255,255,255,0.1);
+  --radius: 12px;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Topbar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--glass);
+  position: sticky;
+  top: 0;
+  background: rgba(11, 18, 32, 0.7);
+  backdrop-filter: blur(6px);
+  z-index: 30;
+}
+.brand {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.logo {
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 18px;
+}
+.topnav a {
+  margin-right: 12px;
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Layout */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr 320px;
+  gap: 28px;
+  padding: 28px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.sidebar {
+  padding-right: 8px;
+}
+.searchbox {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 18px;
+}
+.searchbox input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--glass);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  outline: none;
+}
+.searchbox .kbd {
+  position: absolute;
+  right: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* TOC */
+.toc h4 {
+  margin: 8px 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.toc ul {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 14px 0;
+}
+.toc a {
+  display: block;
+  padding: 6px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+}
+.toc a:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Content */
+.content {
+  padding: 0 8px;
+}
+.hero {
+  padding: 18px 0;
+}
+.hero h1 {
+  margin: 0;
+  font-size: 30px;
+}
+.lede {
+  color: var(--muted);
+  margin-top: 8px;
+}
+.hero-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+.btn.primary {
+  background: var(--accent);
+  color: white;
+}
+.btn.ghost {
+  background: transparent;
+  border: 1px solid var(--glass);
+  color: var(--text);
+}
+
+/* Features */
+.features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+.card {
+  background: var(--card);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Doc content */
+.doc {
+  margin-top: 26px;
+  padding: 18px;
+  background: transparent;
+  border-radius: 10px;
+}
+.doc pre {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e6eef8;
+  padding: 12px;
+  border-radius: 8px;
+  overflow: auto;
+}
+.rightrail {
+  padding-left: 18px;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .layout {
+    grid-template-columns: 220px 1fr;
+    grid-template-areas: "sidebar content";
+    padding: 18px;
+  }
+  .rightrail {
+    display: none;
+  }
+  .features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .layout {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+  .sidebar {
+    order: 2;
+  }
+  .content {
+    order: 1;
+  }
+  .features {
+    grid-template-columns: 1fr;
+  }
+}

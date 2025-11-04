@@ -1,0 +1,17 @@
+[
+  {
+    "version": "1.0.1",
+    "date": "2025‑10‑01",
+    "changes": [
+      "Fixed minor bugs",
+      "Improved performance"
+    ]
+  },
+  {
+    "version": "1.0.0",
+    "date": "2025‑09‑20",
+    "changes": [
+      "Initial release"
+    ]
+  }
+]
