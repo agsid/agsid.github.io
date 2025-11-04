@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Download AutoCorrection.llsp3</title>
 
-  <!-- Google Tag Manager / Analytics -->
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- jQuery (required for .load() to work) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MG0KYH98NN"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -13,12 +19,6 @@
     gtag('js', new Date());
     gtag('config', 'G-MG0KYH98NN');
   </script>
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="../images/logo.png" />
@@ -31,22 +31,7 @@
     });
   </script>
 
-  <!-- Discord Notification System -->
-  <script>
-    function sendDiscordNotification() {
-      fetch('https://discord.com/api/webhooks/YOUR_WEBHOOK_URL', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          content: '🚀 AutoCorrection.llsp3 has been downloaded!'
-        })
-      })
-      .then(response => console.log('Notification sent'))
-      .catch(error => console.error('Error sending notification:', error));
-    }
-  </script>
-
-  <!-- Page Styles -->
+  <!-- Page Style -->
   <style>
     body {
       font-family: "Inter", system-ui, sans-serif;
@@ -75,9 +60,9 @@
       constantly tracks orientation and movement to detect and correct any errors.
     </p>
 
-    <!-- Download Button -->
+    <!-- Download Button with GA event -->
     <a href="AutoCorrection.llsp3" download="AutoCorrection.llsp3"
-       onclick="sendDiscordNotification()"
+       onclick="gtag('event', 'download_click', { event_category: 'Downloads', event_label: 'AutoCorrection.llsp3', value: 1 });"
        class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold text-lg px-6 py-3 rounded-lg shadow-md transition-all duration-200">
       ⬇️ Download AutoCorrection.llsp3
     </a>
