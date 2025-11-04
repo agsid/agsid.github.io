@@ -1,15 +1,17 @@
-// Load partials
-Promise.all([
-  fetch('docs/partials/Navbar.html').then(r => r.text()),
-  fetch('docs/partials/sidebar.html').then(r => r.text())
-]).then(([nav, side]) => {
-  document.getElementById('navbar').innerHTML = nav;
-  document.getElementById('sidebar').innerHTML = side;
-});
 
-// Theme toggle (optional)
-const toggleTheme = () => {
-  const current = document.documentElement.getAttribute('data‑theme');
-  document.documentElement.setAttribute('data‑theme', current === 'dark' ? 'light' : 'dark');
-};
-// Maybe attach toggle to a button in navbar
+$(document).ready(function() {
+
+  // Load partials into their containers
+  $('#navbar').load('./partials/Navbar.html');
+  $('#sidebar').load('./partials/Sidebar.html');
+
+  // Theme toggle (optional)
+  const toggleTheme = () => {
+    const current = $('html').attr('data-theme');
+    $('html').attr('data-theme', current === 'dark' ? 'light' : 'dark');
+  };
+
+  // Example: attach toggle to a button with id="themeToggle"
+  $('#themeToggle').on('click', toggleTheme);
+
+});

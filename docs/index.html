@@ -3,43 +3,125 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Allied Work — Innovating the Future</title>
+  <title>Allied Work Docs - Home</title>
+  <link rel="icon" type="image/x-icon" href="../images/logo.png">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="./assets/css/main.css">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap');
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: radial-gradient(circle at top left, #0d0d2b, #000000 70%);
+      color: white;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* Background glow */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(circle, rgba(124,58,237,0.3), transparent 70%);
+      top: -250px;
+      right: -250px;
+      filter: blur(180px);
+      z-index: 0;
+      animation: floatGlow 9s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatGlow {
+      from { transform: translateY(0px) scale(1); opacity: 0.8; }
+      to { transform: translateY(50px) scale(1.1); opacity: 1; }
+    }
+
+    section {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 6rem 1.5rem;
+    }
+
+    h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #8b5cf6, #06b6d4, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 40px rgba(91, 33, 182, 0.5);
+      margin-bottom: 1rem;
+    }
+
+    .tagline {
+      font-size: 1.25rem;
+      color: #cbd5e1;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 4rem auto;
+    }
+
+    .feature {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-8px);
+      border-color: rgba(139,92,246,0.4);
+      box-shadow: 0 0 40px rgba(139,92,246,0.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 6rem;
+    }
+  </style>
 </head>
 
-<body class="relative min-h-screen font-sans overflow-hidden text-white">
-
-  <!-- Background Effects -->
-  <div class="starfield"></div>
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-  <div class="orb orb3"></div>
-
-  <!-- Navbar -->
-  <div id="navbar"></div>
-
-  <!-- Hero Section -->
-  <section class="relative flex flex-col justify-center items-center text-center h-[90vh] z-10">
-    <h1 class="hero-text text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-accent via-cyan-400 to-teal-400 bg-clip-text text-transparent animate-[fadeInUp_2s_ease_0.5s_forwards]">
-      Innovating the Future, One Robot at a Time
-    </h1>
-    <p class="hero-text text-blue-300 text-lg md:text-xl delay-100 mt-3">
-      Welcome to Allied Work — where engineering meets creativity.
+<body>
+  <section>
+    <h1>Welcome to Allied Work Docs</h1>
+    <p class="tagline">
+      A unified platform for intelligent documentation — built by <b>Allied Algos</b> to make every idea flow seamlessly from concept to creation.
     </p>
-    <div class="flex space-x-4 mt-10 opacity-0 animate-[fadeInUp_2s_ease_1s_forwards]">
-      <a href="./docs.html"
-        class="px-8 py-3 rounded-xl bg-accent/90 hover:bg-accent text-white text-lg font-medium shadow-[0_0_25px_rgba(124,92,255,0.5)] hover:shadow-[0_0_35px_rgba(124,92,255,0.7)] transition-all duration-300">
-        Get Started
-      </a>
-      <a href="./changelog.html"
-        class="px-8 py-3 rounded-xl border border-white/20 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300">
-        View Updates
-      </a>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <h2 class="text-xl font-semibold mb-2 text-cyan-300">AI-Powered Insights</h2>
+        <p>Leverage smart tools that help you organize, summarize, and visualize your knowledge with precision.</p>
+      </div>
+      <div class="feature">
+        <h2 class="text-xl font-semibold mb-2 text-purple-300">Seamless Collaboration</h2>
+        <p>Work together in real time — edit, review, and innovate with your team from anywhere in the world.</p>
+      </div>
+      <div class="feature">
+        <h2 class="text-xl font-semibold mb-2 text-blue-300">Modern Design</h2>
+        <p>Experience a futuristic, distraction-free interface that helps you focus on what truly matters — your ideas.</p>
+      </div>
     </div>
   </section>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="./assets/js/main.js"></script>
+  <footer>
+    © 2025 Allied Algos — Innovating the Future of Work.
+  </footer>
 </body>
 </html>

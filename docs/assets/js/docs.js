@@ -1,20 +1,4 @@
-// Docs hierarchy
-const docsStructure = [
-  { title: "Introduction" },
-  { title: "Why?" },
-  { title: "What is it?" },
-  { title: "How to get started" },
-  {
-    title: "Commands",
-    children: [
-      { title: "Drive" },
-      { title: "Turn" },
-      { title: "Arm" },
-      { title: "Extra" }
-    ]
-  },
-  { title: "AutoCorrection" }
-];
+
 
 // Generate Sidebar
 const sidebarNav = document.getElementById("sidebar-nav");
