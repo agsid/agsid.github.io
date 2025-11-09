@@ -1,13 +1,30 @@
-const seasonsData = [
+async function getTotalPeople() {
+  const csvUrl = "https://docs.google.com/spreadsheets/d/11Ewk7kva0PqYLphyYKyIXz63uBwmDFp1Nks6qKfx_LQ/edit?usp=sharing";
+
+  const res = await fetch(csvUrl);
+  const text = await res.text();
+  const rows = text.trim().split("\n").map(r => r.split(","));
+  
+  // Find "Total" row
+  const totalRow = rows.find(row => row[0].toLowerCase().includes("total"));
+  const totalPeople = totalRow ? parseInt(totalRow[1]) : 0;
+
+  return totalPeople;
+}
+
+async function buildSeasonsData() {
+  const totalPeople = await getTotalPeople();
+
+  const seasonsData = [
     {
-        year: "2025-2026",
-        title: "Future Season Theme",
-        description: "This year we have uploaded videos on YouTube and made 3D models online for our robots. We have also made this website.",
-        image: "../images/seasons/yr_25-26.jpg",
-        alt: "Team Allied Algorithms in the 2025-2026 season",
-        hoursSpent: "125",
-        peopleImpacted: "115",
-        missionsCompleted: "1"
+      year: "2025-2026",
+      title: "Future Season Theme",
+      description: `This year we reached ${totalPeople} people through YouTube, 3D models, and our website.`,
+      image: "../images/seasons/yr_25-26.jpg",
+      alt: "Team Allied Algorithms in the 2025-2026 season",
+      hoursSpent: "125",
+      peopleImpacted: totalPeople.toString(),
+      missionsCompleted: "1"
     },
     {
         year: "2024-2025",
@@ -44,4 +61,9 @@ const seasonsData = [
         image: "../images/seasons/yr_20-21.jpg",
         alt: "Team Golden Eagles in the 2020-2021 season. This was our 1st season as a team."
     }
-];
+  ];
+
+  console.log(seasonsData);
+}
+
+buildSeasonsData();
