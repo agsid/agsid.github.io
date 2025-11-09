@@ -1,29 +1,14 @@
 async function getTotalPeople() {
-  const csvUrl = "https://docs.google.com/spreadsheets/d/11Ewk7kva0PqYLphyYKyIXz63uBwmDFp1Nks6qKfx_LQ/edit?usp=sharing";
-
-  const res = await fetch(csvUrl);
-  const text = await res.text();
-  const rows = text.trim().split("\n").map(r => r.split(","));
-  
-  // Find "Total" row
-  const totalRow = rows.find(row => row[0].toLowerCase().includes("total"));
-  const totalPeople = totalRow ? parseInt(totalRow[1]) : 0;
-
-  return totalPeople;
-}
-
-async function buildSeasonsData() {
-  const totalPeople = await getTotalPeople();
 
   const seasonsData = [
     {
       year: "2025-2026",
       title: "Future Season Theme",
-      description: `This year we reached ${totalPeople} people through YouTube, 3D models, and our website.`,
+      description: `This year we reached 400 people through YouTube, 3D models, and our website.`,
       image: "../images/seasons/yr_25-26.jpg",
       alt: "Team Allied Algorithms in the 2025-2026 season",
       hoursSpent: "125",
-      peopleImpacted: totalPeople.toString(),
+      peopleImpacted: '500',
       missionsCompleted: "1"
     },
     {
