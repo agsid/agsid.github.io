@@ -32,5 +32,18 @@ const robotDesigns = [
         statusMessageId: 'statusMessage3',
         downloadFilePath: './robot/instructions/Basebot3.pdf',
         cadLink: 'https://www.bricklink.com/v3/studio/design.page?idModel=726673'
+    },
+    {
+        heading: 'Robot Design #4',
+        images: [
+            { src: './pictures/Basebot4.png', alt: 'Robot Design #4 - View 1' },
+            { src: './pictures/Basebot4_2.png', alt: 'Robot Design #4 - View 2' },
+            { src: './pictures/Basebot4_3.png', alt: 'Robot Design #4 - View 3' },
+            { src: './pictures/Basebot4_4.png', alt: 'Robot Design #4 - View 4' }
+        ],
+        teamNumberInputId: 'teamNumberInput4',
+        statusMessageId: 'statusMessage4',
+        downloadFilePath: './robot/instructions/basebot4.pdf',
+        cadLink: 'https://www.bricklink.com/v3/studio/design.page?idModel=726674'
     }
 ];

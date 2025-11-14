@@ -2,158 +2,35 @@
 <html lang="en">
 
 <head>
-    <script src="seasons.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Team Accomplishments</title>
 
-    <link rel="apple-touch-icon" sizes="500x500" href="./images/logo.png">
-    <link rel="icon" type="image/x-icon" href="../images/logo.png">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <link rel="apple-touch-icon" sizes="500x500" href="./images/logo.png" />
+    <link rel="icon" type="image/x-icon" href="../images/logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <link rel="stylesheet" href="../home/style.css">
-    <link rel="stylesheet" href= "seasons.css">
-
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MG0KYH98NN"></script>
-    <script>
-        // Function to load HTML content into a div
-        async function loadHTML(elementId, filePath) {
-            try {
-                const response = await fetch(filePath);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const html = await response.text();
-                document.getElementById(elementId).innerHTML = html;
-            } catch (error) {
-                console.error(`Could not load ${filePath}:`, error);
-            }
-        }
-
-        /**
-         * Renders the current season's data dynamically from the seasonsData array.
-         * Assumes seasonsData is globally available (or imported if using modules).
-         */
-        function renderCurrentSeason() {
-            // Find the most recent season (assuming it's the first in the array)
-            const currentSeason = seasonsData[0];
-
-            if (!currentSeason) {
-                console.error("No current season data found in seasonsData array.");
-                return;
-            }
-
-            // Update the main current season title
-            const currentSeasonTitle = document.querySelector('.current-season-title');
-            if (currentSeasonTitle) {
-                currentSeasonTitle.textContent = `Current Season: ${currentSeason.year}`;
-            }
-
-            // Update the stat items
-            const hoursSpentElement = document.querySelector('.current-stats .stat-item:nth-child(1) h2');
-            if (hoursSpentElement) hoursSpentElement.textContent = currentSeason.hoursSpent;
-
-            const peopleImpactedElement = document.querySelector('.current-stats .stat-item:nth-child(2) h2');
-            if (peopleImpactedElement) peopleImpactedElement.textContent = currentSeason.peopleImpacted;
-
-            const missionsCompletedElement = document.querySelector('.current-stats .stat-item:nth-child(3) h2');
-            if (missionsCompletedElement) missionsCompletedElement.textContent = currentSeason.missionsCompleted;
-
-            // Update the FLL logo link and image
-            const fllLogoLink = document.querySelector('.fll-logo-link');
-            const fllLogoImg = fllLogoLink ? fllLogoLink.querySelector('img') : null;
-
-            if (fllLogoLink) {
-                // The prompt HTML didn't specify a link for the FLL logo, so I'm leaving it as is.
-                // If you want to link it to the current season's specific page, update the href here:
-                // fllLogoLink.href = "YOUR_CURRENT_SEASON_LINK_HERE";
-            }
-            if (fllLogoImg) {
-                fllLogoImg.src = currentSeason.image;
-                fllLogoImg.alt = currentSeason.alt;
-            }
-
-            // Update the season description
-            const seasonDescriptionTitle = document.querySelector('.season-description h4');
-            if (seasonDescriptionTitle) seasonDescriptionTitle.textContent = currentSeason.title;
-
-            const seasonDescriptionParagraph = document.querySelector('.season-description p');
-            if (seasonDescriptionParagraph) seasonDescriptionParagraph.textContent = currentSeason.description;
-        }
-        function renderPastSeasons() {
-            const pastSeasonsContainer = document.getElementById('past-seasons-container');
-            if (!pastSeasonsContainer) return; 
-
-            pastSeasonsContainer.innerHTML = ''; 
-            seasonsData.slice(1).forEach((season, index) => {
-                const card = document.createElement('div');
-                const orderClass = (index % 2 === 0) ? '' : 'reverse-order';
-                card.className = `season-card ${orderClass}`;
-
-                card.innerHTML = `
-                    <img src="${season.image}" alt="${season.alt}">
-                    <div class="season-content">
-                        <h1>${season.year}</h1>
-                        <h4>${season.title}</h4>
-                        <p>${season.description}</p>
-                    </div>
-                `;
-                pastSeasonsContainer.appendChild(card);
-            });
-        }
-
-
-        // Run functions when the DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            loadHTML('includedContent', '../layout/navbar.html');
-            loadHTML('Content', '../layout/footer.html');
-            renderCurrentSeason(); // Call this to populate the current season details
-            renderPastSeasons(); // Call this to populate the past seasons
-        });
-    </script>
+    <!-- IMPORTANT: Load seasons.js BEFORE main.js -->
+    <script src="seasons.js" defer></script>
+    <script src="main.js" defer></script>
 </head>
 
-<body>
+<body class="font-inter m-0 flex flex-col min-h-screen pt-10"
+        style="background: linear-gradient(135deg, #040f23 0%, #2a5298 100%);">
+
     <div id="includedContent"></div>
 
-    <main class="container mx-auto px-4 py-12 text-white">
+    <main class="container mx-auto px-4 py-16 text-white flex-grow">
 
-        <section class="mb-12 text-center">
-            <h2 class="text-3xl font-bold text-white-800 mb-6 current-season-title">Current Season: 2025-2026</h2>
+        <section id="current-season"></section>
 
-            <div class="current-stats">
-                <div class="stat-item">
-                    <p>Hours Spent</p>
-                    <h2></h2>
-                </div>
-                <div class="stat-item">
-                    <p>People Impacted</p>
-                    <h2></h2>
-                </div>
-                <div class="stat-item">
-                    <p>Missions Completed</p>
-                    <h2></h2>
-                </div>
-            </div>
-
-            <div class="season-description text-lg text-white-700 max-w-6xl mx-autocontainer mx-auto px-4 py-18 text-white">
-                <h4></h4>
-                <p></p>
-            </div>
-        </section>
-
-        <section>
-            <h2 class="text-3xl font-bold text-white-1000 mb-8 text-center">Our Past Seasons</h2>
-            <div id="past-seasons-container">
-            </div>
-        </section>
+        <h2 class="text-3xl font-bold mb-8 text-center">Our Past Seasons</h2>
+        <div id="past-seasons-container"></div>
 
     </main>
-    <div id="Content"></div>
-</body>
 
+    <div id="Content"></div>
+
+</body>
 </html>
