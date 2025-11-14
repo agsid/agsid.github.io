@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="../images/logo.png">
-    <script src="members.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Members</title>
+    <link rel="icon" type="image/x-icon" href="../images/logo.png">
     <base target="_self">
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Custom JS -->
+    <script src="members.js" defer></script>
+
     <script>
         $(function () {
             $("#includedContent").load("../layout/navbar.html");
             $("#Content").load("../layout/footer.html");
         });
     </script>
-<style>
 
-     .navbar-links .members::after {
-                width: 0; 
-            }
-            
-    .navbar-links .members {
-                background-color: rgba(0, 191, 255, 0.2) !important;
-                border-left: 5px solid #00BFFF; /* Modern current-page indicator */
-    }
-
-     .navbar-links .members {
+    <style>
+        /* Navbar active link */
+        .navbar-links .members {
+            background-color: rgba(0, 191, 255, 0.2) !important;
+            border-left: 5px solid #00BFFF;
             color: #FFFFFF;
             font-weight: 600;
         }
@@ -36,105 +35,111 @@
             background-color: #00BFFF;
         }
 
-    .member-card {
-        /* Adjusted background for better contrast and a modern feel */
-        background-color: rgba(10, 10, 20, 0.7);
-        border-radius: 2rem;
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        /* Refined box-shadow for a deeper, more subtle glow */
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-        /* Added a smooth transition for hover effects */
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        padding: 2rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .member-card:hover {
-        /* Lifts the card and increases the shadow on hover */
-        transform: translateY(-10px) scale(1.02);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
-    }
-
-    /*---*/
-
-    .profile-icon {
-        width: 120px;
-        height: 120px;
-        border-radius: 9999px;
-        position: relative;
-        /* Using a pseudo-element for a cleaner border effect */
-        background: black;
-        overflow: hidden;
-    }
-    
-    .profile-icon::before {
-        content: '';
-        position: absolute;
-        top: -5px; bottom: -5px; left: -5px; right: -5px;
-        background: linear-gradient(135deg, #8A2BE2, #00FFFF, #8A2BE2);
-        z-index: -1;
-        border-radius: 9999px;
-        animation: rotateGradient 4s linear infinite;
-    }
-    
-    @keyframes rotateGradient {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-
-    /*---*/
-
-    .card-content {
-        margin-top: 1.5rem;
-        color: #f0f0f0;
-    }
-    
-    .card-content h3 {
-        font-size: 1.75rem;
-        margin: 0.5rem 0;
-        letter-spacing: 0.5px;
-        font-weight: 600;
-        color: #fff;
-    }
-    
-    .card-content p {
-        font-size: 1rem;
-        margin: 0.5rem 0;
-        color: #b0b0b0;
-    }
-
-    /*---*/
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
+        /* Member card */
+        .member-card {
+            background-color: rgba(10, 10, 20, 0.7);
+            border-radius: 2rem;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
 
-    .animate-fade-in {
-        animation: fadeIn 0.8s ease forwards;
-    }
-</style>
+        .member-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Profile icon with animated border */
+        .profile-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 9999px;
+            position: relative;
+            overflow: hidden;
+            background: black;
+        }
+
+        .profile-icon::before {
+            content: '';
+            position: absolute;
+            top: -5px; bottom: -5px; left: -5px; right: -5px;
+            background: linear-gradient(135deg, #8A2BE2, #00FFFF, #8A2BE2);
+            z-index: -1;
+            border-radius: 9999px;
+            animation: rotateGradient 4s linear infinite;
+        }
+
+        @keyframes rotateGradient {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Card content */
+        .card-content {
+            margin-top: 1.5rem;
+            color: #f0f0f0;
+        }
+
+        .card-content h3 {
+            font-size: 1.75rem;
+            margin: 0.5rem 0;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .card-content p {
+            font-size: 1rem;
+            margin: 0.5rem 0;
+            color: #b0b0b0;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+    </style>
 </head>
-<body class="text-white font-sans bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen flex flex-col ">
+<body class="text-white font-sans bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen flex flex-col">
+
+    <!-- Navbar -->
     <div id="includedContent"></div>
-    <main class="container mx-auto min-h-screen flex items-center justify-center">
-        <div id="members-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
+
+    <!-- Members Section -->
+    <main class="container mx-auto flex-1 flex items-center justify-center py-12">
+        <div id="members-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+            <!-- Member cards will be rendered here via members.js -->
         </div>
     </main>
+
+    <!-- Footer -->
     <div id="Content"></div>
+
     <script>
+        // Ensure members render after DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
-            renderMembers();
+            if (typeof renderMembers === 'function') {
+                renderMembers();
+            } else {
+                console.warn('renderMembers() function not found.');
+            }
         });
     </script>
 </body>

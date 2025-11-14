@@ -10,7 +10,16 @@
     <link rel="icon" type="image/x-icon" href="../images/logo.png" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+  <link rel="icon" type="image/x-icon" href="../images/logo.png">
+
+  <script>
+    $(function () {
+      $("#navbar").load("../layout/navbar.html");
+      $("#footer").load("../layout/footer.html");
+    });
+  </script>
     <!-- IMPORTANT: Load seasons.js BEFORE main.js -->
     <script src="seasons.js" defer></script>
     <script src="main.js" defer></script>
@@ -19,7 +28,7 @@
 <body class="font-inter m-0 flex flex-col min-h-screen pt-10"
         style="background: linear-gradient(135deg, #040f23 0%, #2a5298 100%);">
 
-    <div id="includedContent"></div>
+    <div id="navbar"></div>
 
     <main class="container mx-auto px-4 py-16 text-white flex-grow">
 
@@ -30,7 +39,7 @@
 
     </main>
 
-    <div id="Content"></div>
+    <div id="footer"></div>
 
 </body>
 </html>

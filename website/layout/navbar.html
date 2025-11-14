@@ -166,27 +166,28 @@
 
       .navbar-links {
         position: fixed;
-        top: 60px;
+        top: 0;
         left: 0;
         width: 100%;
-        height: calc(100vh - 60px);
+        height: 100vh;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start; /* Links aligned at top */
+        padding-top: 100px; /* Distance from top */
         align-items: center;
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.85);
         backdrop-filter: blur(25px);
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
+        transform: translateY(-100%); /* Off-screen top */
+        transition: transform 0.4s ease;
       }
 
       .navbar-links.active {
-        transform: translateX(0);
+        transform: translateY(0); /* Slide in from top */
       }
 
       .navbar-links a {
         text-align: center;
-        padding: 15px;
-        font-size: 1.2rem;
+        padding: 15px 0;
+        font-size: 1.3rem;
         text-shadow: 0 0 5px #00ffff;
       }
     }
@@ -221,7 +222,7 @@
     const menu = document.getElementById('menu');
     const navbar = document.querySelector('.navbar');
 
-    // Toggle menu
+    // Toggle mobile menu
     menuBtn.addEventListener('click', () => {
       menu.classList.toggle('active');
       menuBtn.classList.toggle('active');

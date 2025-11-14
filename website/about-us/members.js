@@ -63,7 +63,7 @@ function renderMembers() {
 
     container.innerHTML = members.map(member => `
         <div class="member-card animate-fade-in">
-            <div class="profile-icon">website/about-us/members.js
+            <div class="profile-icon">
                 <img src="${member.image}" alt="${member.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 9999px;">
             </div>
             <div class="card-content">
