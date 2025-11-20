@@ -2,28 +2,28 @@ const members = [
     {
         id: 1,
         name: "Sid Agrawal",
-        role: "Design and Website Lead",
+        role: "Build and Website Lead",
         bio: "I am an 8th grader with 6 years of experience in FLL. I love to play with things that move. Outside of robotics I also play the trumpet and practice Taekwondo.",
         image: "https://st.depositphotos.com/1779253/5140/v/450/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg"
     },
     {
         id: 2,
-        name: "Ariv Mulki",
-        role: "Research Lead",
+        name: "Aariv Mulki",
+        role: "Programming Lead",
         bio: "I have been doing FLL since the pandemic. Outside of FLL, I like math and social studies. I have played the clarinet and currently play the violin. I enjoy acting in the Wilton Children’s Theater and play tennis.",
         image: "https://st.depositphotos.com/1779253/5140/v/450/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg"
     },
     {
         id: 3,
         name: "Tanush Nardeddy",
-        role: "Code Lead",
+        role: "Strategy Lead",
         bio: "I'm in 8th grade. I love to code and uild with legos. Outside of robotics I play the violin and do fencing.",
         image: "https://st.depositphotos.com/1779253/5140/v/450/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg"
     },
         {
         id: 4,
         name: "Sarthak Shetty",
-        role: "Build Lead",
+        role: "Outreach and Research",
         bio: "I am a 7th grader who loves to read and do math. I am an extremely curious person and love to learn new things.I am new to FLL and have over 5 years of experience of coding in Scratch and Python.",
         image: "https://i.pinimg.com/originals/d9/92/64/d99264eefc942c2d10ef0521ab0656ff.gif"
     },
@@ -74,6 +74,3 @@ function renderMembers() {
         </div>
     `).join('');
 }
-
-// (Optional, if you want to support direct script loading)
-// document.addEventListener('DOMContentLoaded', renderMembers);
