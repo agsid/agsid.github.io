@@ -19,13 +19,13 @@ async function buildSeasonsData() {
     return [
         {
             year: "2025-2026",
-            title: "Future Season Theme",
-            description: `This year we reached ${total} people through YouTube, 3D models, and our website.`,
+            title: "Unearthed",
+            description: `This year we reached 2,000 people through YouTube, 3D models, and our website.`,
             image: "../images/seasons/yr_25-26.jpg",
             alt: "Team Allied Algorithms in 2025-2026",
-            hoursSpent: "505",
-            peopleImpacted: "550",
-            missionsCompleted: "11"
+            hoursSpent: "1500",
+            peopleImpacted: "2000",
+            missionsCompleted: "13"
         },
         {
             year: "2024-2025",

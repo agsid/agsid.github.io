@@ -1,21 +1,15 @@
 // Data for the missions.
 const missionsData = [
     {
-        name: "UNEARTHED Mission 01",
-        points: "20",
-        videoLink: "https://i.ytimg.com/vi/9ZrWsVKT30A/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGDogZSg7MA8=&rs=AOn4CLBmE14mX80JvpWC1qXthuehns2Jgw",
-        description: "The robot performs a simple movement to complete mission #1 called the surface brushing.",
-        image: "./images/missions/Screenshot 2025-09-10 203034.png",
-        alt: "FIRST LEGO League UNEARTHED M01"
+        name: "Mission 1: Ancient Artifacts",
+        description: "In this mission, we explored ancient civilizations and their artifacts. We designed a robot to navigate through a maze representing an archaeological site, collecting artifacts along the way.",
+        missionvideo: "https://www.youtube.com/shorts/JMRZ-gbSolc",
     },
     {
-        name: "UNEARTHED Mission 02",
-        points: "30",
-        videoLink: "https://i.ytimg.com/vi/I-sWHLn0qgA/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGDUgZSg4MA8=&rs=AOn4CLBEaUwVMWu56v052hKlu55WJ5mXxA",
-        description: "The robot preforms a complex sequence to score points.",
-        image: "https://i.ytimg.com/vi/I-sWHLn0qgA/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGDUgZSg4MA8=&rs=AOn4CLBEaUwVMWu56v052hKlu55WJ5mXxA",
-        alt: "FIRST LEGO League UNEARTHED M02"
-    },
+        name: "Mission 2: Fossil Excavation",
+        description: "This mission focused on the excavation of fossils. Our robot was programmed to carefully extract fossil pieces from a designated area without damaging them, simulating a real-life paleontological dig.",
+        missionvideo: "https://www.youtube.com/shorts/JMRZ-gbSolc",
+    }
 ];
 
 // This function renders the missions dynamically on the page.
@@ -35,26 +29,23 @@ function renderMissions() {
 
         // Conditionally render a video or image
         let mediaContent = '';
-        if (mission.videoLink) {
+        if (mission.missionvideo) {
             mediaContent = `
                 <div class="card-media">
-                    <iframe src="${mission.videoLink}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe src="${mission.missionvideo}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             `;
-        } else if (mission.image) {
-            mediaContent = `<img src="${mission.image}" alt="${mission.alt}" class="card-media">`;
         } else {
             mediaContent = `<div class="card-media media-placeholder">No media available.</div>`;
         }
 
+        // Render the mission content
         card.innerHTML = `
             ${mediaContent}
             <div class="mission-content">
                 <h1 class="mission-name">${mission.name}</h1>
-                <h4 class="mission-points">Points: ${mission.points}</h4>
                 <p class="mission-description">${mission.description}</p>
-                ${mission.videolink ? `<a href="${mission.image}" target="_blank" class="video-link">Watch on YouTube</a>` : ''}
-                <a href="${mission.videoLink}">
+                <a href="${mission.missionvideo}" target="_blank">Visit YouTube Video</a>
             </div>
         `;
         missionsContainer.appendChild(card);
@@ -62,4 +53,4 @@ function renderMissions() {
 }
 
 // Run this function when the DOM is fully loaded.
-document.addEventListener('DOMContentLoaded', renderMissions);  
+document.addEventListener('DOMContentLoaded', renderMissions);
