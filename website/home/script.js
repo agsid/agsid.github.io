@@ -142,7 +142,7 @@ function initializeImageCarousels() {
                 img.style.display = (i === index) ? 'block' : 'none';
             });
         }
-
+            
         prevButton.addEventListener('click', () => {
             currentImageIndex = (currentImageIndex > 0) ? currentImageIndex - 1 : images.length - 1;
             showImage(currentImageIndex);

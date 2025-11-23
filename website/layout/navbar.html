@@ -1,247 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Futuristic Navbar</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<nav class="navbar fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-6xl 
+     h-16 px-6 rounded-2xl flex items-center justify-between z-[1000]
+     bg-white/10 backdrop-blur-xl border border-cyan-400/20
+     shadow-[0_0_25px_rgba(0,255,255,0.25)]
+     transition-all duration-500">
 
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+  <!-- Logo (Left) -->
+  <div class="flex items-center gap-3 text-cyan-300 font-extrabold text-xl tracking-wide drop-shadow-[0_0_6px_#00ffff]">
+    <img src="../images/Allied-Algorithms_logo.svg"
+         class="w-10 h-10 rounded-md hover:scale-110 transition duration-300 drop-shadow-[0_0_10px_#00ffff]">
+    Allied
+  </div>
 
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0d1117 0%, #0f1c2e 100%);
-      min-height: 200vh;
-      overflow-x: hidden;
-    }
+  <!-- Center Links -->
+  <div class="hidden md:flex flex-1 justify-center gap-10 text-cyan-200 text-[15px] font-medium">
+    <a class="hover:text-cyan-400 hover:drop-shadow-[0_0_6px_#00ffff] transition" href="../home/">Home</a>
+    <a class="hover:text-cyan-400 hover:drop-shadow-[0_0_6px_#00ffff] transition" href="../about-us/">Members</a>
+    <a class="hover:text-cyan-400 hover:drop-shadow-[0_0_6px_#00ffff] transition" href="../seasons/">Seasons</a>
 
-    h1, h2, h3 {
-      font-family: 'Inter', sans-serif;
-      color: #fff;
-      text-align: center;
-    }
+    <!-- Dropdown -->
+    <div class="relative group">
+      <button class="hover:text-cyan-400 transition font-semibold">Projects ▾</button>
+      <div class="absolute left-1/2 -translate-x-1/2 mt-3 w-44 p-2 bg-[#0d1117]/90 backdrop-blur-xl 
+                  border border-cyan-400/20 rounded-xl opacity-0 invisible 
+                  group-hover:opacity-100 group-hover:visible transition-all duration-300 shadow-xl">
+        <a href="../robot/" class="block px-3 py-2 rounded-md hover:bg-cyan-400/20 transition">Robot Design</a>
+        <a href="../aac/" class="block px-3 py-2 rounded-md hover:bg-cyan-400/20 transition">AAC</a>
+        <a href="../work/" class="block px-3 py-2 rounded-md hover:bg-cyan-400/20 transition">AlliedWork</a>
+        <a href="../../portfolio/v2index.html" class="block px-3 py-2 rounded-md hover:bg-cyan-400/20 transition">Docs</a>
+      </div>
+    </div>
+  </div>
 
-    /* Glassmorphic Navbar */
-    .navbar {
-      position: fixed;
-      top: 20px;
-      left: 5%;
-      right: 5%;
-      width: 90%;
-      max-width: 1200px;
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 60px;
-      padding: 0 25px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-      transition: all 0.4s ease;
-    }
+  <!-- Contact Us (Right) -->
+  <div class="hidden md:flex">
+    <a href="../contact/" class="text-cyan-200 hover:text-white font-semibold 
+       px-5 py-2 border border-cyan-400/30 rounded-lg shadow-[0_0_10px_rgba(0,255,255,0.3)] 
+       hover:shadow-[0_0_20px_rgba(0,255,255,0.6)] transition">
+       Contact Us
+    </a>
+  </div>
 
-    .navbar:hover {
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 12px 50px rgba(0, 255, 255, 0.3);
-    }
+  <!-- Hamburger (Mobile) -->
+  <button id="menu-btn" class="md:hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-300 hover:text-cyan-400 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/>
+    </svg>
+  </button>
 
-    /* Scroll effect: Glow and expand */
-    .navbar.scrolled {
-      top: 10px;
-      left: 5%;
-      right: 5%;
-      width: 90%;
-      height: 70px;
-      border-radius: 18px;
-      padding: 0 35px;
-      background: rgba(0, 255, 255, 0.1);
-      box-shadow: 0 0 20px #00ffff, 0 8px 40px rgba(0, 255, 255, 0.3);
-      backdrop-filter: blur(25px);
-    }
+  <!-- Mobile Menu -->
+  <div id="mobileMenu"
+       class="fixed top-0 left-0 w-full h-full bg-black/80 backdrop-blur-xl flex flex-col 
+              items-center pt-32 gap-8 text-xl text-cyan-300 font-semibold 
+              transform -translate-y-full transition-all duration-500 md:hidden">
 
-    /* Logo */
-    .logo {
-      color: #00ffff;
-      font-size: 1.6rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      text-shadow: 0 0 6px #00ffff, 0 0 12px #00ffff;
-      gap: 12px;
-    }
+    <a href="../home/" class="hover:text-cyan-400 transition">Home</a>
+    <a href="../about-us/" class="hover:text-cyan-400 transition">Members</a>
+    <a href="../seasons/" class="hover:text-cyan-400 transition">Seasons</a>
 
-    .logo img {
-      width: 40px;
-      height: 40px;
-      border-radius: 6px;
-      object-fit: contain;
-      transition: all 0.4s ease;
-    }
-
-    .logo:hover img {
-      transform: scale(1.15);
-      filter: drop-shadow(0 0 15px #00ffff);
-    }
-
-    /* Links */
-    .navbar-links {
-      display: flex;
-      gap: 2rem;
-      transition: all 0.4s ease;
-    }
-
-    .navbar-links a {
-      color: #c0d8e0;
-      font-size: 1rem;
-      font-weight: 500;
-      position: relative;
-      text-decoration: none;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
-    }
-
-    .navbar-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #00ffff;
-      transition: width 0.3s ease;
-    }
-
-    .navbar-links a:hover {
-      color: #00ffff;
-      text-shadow: 0 0 8px #00ffff;
-    }
-
-    .navbar-links a:hover::after {
-      width: 100%;
-    }
-
-    /* Hamburger Button */
-    .hamburger {
-      display: none;
-      border: none;
-      cursor: pointer;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 18px;
-      width: 25px;
-      background: transparent;
-      padding: 0;
-    }
-
-    .hamburger span {
-      height: 2px;
-      width: 100%;
-      background: #00ffff;
-      transition: 0.3s;
-    }
-
-    .hamburger.active span:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
-    }
-
-    /* Mobile Menu */
-    @media (max-width: 768px) {
-      .hamburger {
-        display: flex;
-        z-index: 1010;
-      }
-
-      .navbar-links {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        flex-direction: column;
-        justify-content: flex-start; /* Links aligned at top */
-        padding-top: 100px; /* Distance from top */
-        align-items: center;
-        background: rgba(0, 0, 0, 0.85);
-        backdrop-filter: blur(25px);
-        transform: translateY(-100%); /* Off-screen top */
-        transition: transform 0.4s ease;
-      }
-
-      .navbar-links.active {
-        transform: translateY(0); /* Slide in from top */
-      }
-
-      .navbar-links a {
-        text-align: center;
-        padding: 15px 0;
-        font-size: 1.3rem;
-        text-shadow: 0 0 5px #00ffff;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <nav class="navbar">
-    <div class="logo">
-      <img src="../images/Allied-Algorithms_logo.svg" alt="Allied Logo" />
-      <span>Allied</span>
+    <!-- Mobile Dropdown -->
+    <div class="w-full text-center">
+      <button id="mobileProjectsBtn" class="text-cyan-300 text-2xl font-semibold">Projects ▾</button>
+      <div id="mobileProjectsMenu" class="hidden mt-4 flex flex-col gap-4">
+        <a href="../robot/" class="hover:text-cyan-400 transition">Robot Design</a>
+        <a href="../aac/" class="hover:text-cyan-400 transition">AAC</a>
+        <a href="../work/" class="hover:text-cyan-400 transition">AlliedWork</a>
+        <a href="../../portfolio/v2index.html" class="hover:text-cyan-400 transition">Docs</a>
+      </div>
     </div>
 
-    <button id="menu-btn" class="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <a href="../contact/" class="hover:text-cyan-400 transition mt-4">Contact Us</a>
+  </div>
 
-    <div id="menu" class="navbar-links">
-      <a href="../home/">Home</a>
-      <a href="../about-us/">Members</a>
-      <a href="../seasons/">Seasons</a>
-      <a href="../robot/">Robot Design</a>
-      <a href="../aac/">AAC</a>
-      <a href="../work/">AlliedWork</a>
-      <a href="../../portfolio/v2index.html">Docs</a>
-    </div>
-  </nav>
+</nav>
 
-  <script>
-    const menuBtn = document.getElementById('menu-btn');
-    const menu = document.getElementById('menu');
-    const navbar = document.querySelector('.navbar');
+<script>
+  const menuBtn = document.getElementById("menu-btn");
+  const mobileMenu = document.getElementById("mobileMenu");
 
-    // Toggle mobile menu
-    menuBtn.addEventListener('click', () => {
-      menu.classList.toggle('active');
-      menuBtn.classList.toggle('active');
-    });
+  menuBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("-translate-y-full");
+  });
 
-    // Navbar expand/glow on scroll
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) navbar.classList.add('scrolled');
-      else navbar.classList.remove('scrolled');
-    });
-
-    // Close menu when link clicked
-    menu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        menu.classList.remove('active');
-        menuBtn.classList.remove('active');
-      });
-    });
-  </script>
-</body>
-</html>
+  document.getElementById("mobileProjectsBtn").onclick = () => {
+    document.getElementById("mobileProjectsMenu").classList.toggle("hidden");
+  };
+</script>

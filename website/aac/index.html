@@ -44,35 +44,72 @@
   <!-- Navbar -->
   <div id="navbar" class="w-full"></div>
 
-  <!-- Main Content -->
-  <main class="max-w-2xl mt-10">
-    <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6 mt-40">
-      Download Allied AutoCorrection
-    </h1>
+<!-- Team & Email Form -->
 
-    <p class="text-slate-300 text-lg leading-relaxed mb-8">
-      Allied AutoCorrection is a powerful and precise function for all FLL teams.  
-      It ensures your robot maintains accurate navigation and recovers from deviations using advanced
-      sensor feedback.  
-      <br><br>
-      Imagine walking straight and tripping — then quickly realigning yourself to keep walking the same line.
-      That’s exactly what Allied AutoCorrection helps your robot do using its built-in gyro sensor, which
-      constantly tracks orientation and movement to detect and correct any errors.
-    </p>
+<main class="max-w-2xl mt-10">
+  <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6 mt-40">
+    Download Allied AutoCorrection
+  </h1>
 
-    <!-- Download Button with GA event -->
-    <a href="AutoCorrection.llsp3" download="AutoCorrection.llsp3"
-       onclick="gtag('event', 'download_click', { event_category: 'Downloads', event_label: 'AutoCorrection.llsp3', value: 1 });"
+  <p class="text-slate-300 text-lg leading-relaxed mb-8">
+    Allied AutoCorrection is a powerful and precise function for all FLL teams...
+  </p>
+
+  <!-- Form Fields -->
+
+  <div class="flex flex-col gap-4 mb-6">
+    <input type="text" id="teamNumber" placeholder="Team #" 
+           class="p-3 rounded-lg border border-slate-500 bg-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <input type="email" id="email" placeholder="Email" 
+           class="p-3 rounded-lg border border-slate-500 bg-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+  </div>
+
+  <!-- Download Button -->
+
+<button id="downloadBtn"
        class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold text-lg px-6 py-3 rounded-lg shadow-md transition-all duration-200">
-      ⬇️ Download AutoCorrection.llsp3
-    </a>
+⬇️ Download AutoCorrection.llsp3 </button>
 
-    <p class="text-slate-400 mt-4 text-sm mb-40">
-      If the download doesn’t start, right-click the button and choose “Save link as…”
-    </p>
-  </main>
+  <p id="status" class="text-slate-400 mt-2 text-sm"></p>
+</main>
 
-  <!-- Footer -->
-  <div id="footer" class="w-full mt-12"></div>
+<script>
+  const downloadBtn = document.getElementById("downloadBtn");
+  const status = document.getElementById("status");
+
+  downloadBtn.addEventListener("click", () => {
+    const teamNumber = document.getElementById("teamNumber").value.trim();
+    const email = document.getElementById("email").value.trim();
+
+    if (!teamNumber || !email) {
+      status.textContent = "Please fill in both Team # and Email to download.";
+      status.className = "text-red-400 mt-2 text-sm";
+      return;
+    }
+
+    // Send Google Analytics event
+    if (typeof gtag === "function") {
+      gtag('event', 'download_click', { 
+        event_category: 'Downloads', 
+        event_label: 'AutoCorrection.llsp3', 
+        value: 1 
+      });
+    }
+
+    // Trigger download
+    const link = document.createElement("a");
+    link.href = "AutoCorrection.llsp3";
+    link.download = "AutoCorrection.llsp3";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    status.textContent = "Download started!";
+    status.className = "text-green-400 mt-2 text-sm";
+  });
+</script>
+
+
 </body>
 </html>
+
