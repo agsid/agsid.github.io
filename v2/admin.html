@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - Touch Football League</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+<header class="bg-gradient-to-r from-purple-700 via-pink-600 to-indigo-500 p-4 text-center text-2xl font-bold shadow-lg">
+  Admin Dashboard
+</header>
+
+<main class="p-6">
+
+  <!-- Login Section -->
+  <section id="login-section" class="max-w-md mx-auto bg-gray-800 p-6 rounded shadow">
+    <h2 class="text-xl font-bold mb-4 text-center">Admin Login</h2>
+    <input id="email" type="email" placeholder="Email" class="w-full mb-3 p-2 rounded text-black"/>
+    <input id="password" type="password" placeholder="Password" class="w-full mb-3 p-2 rounded text-black"/>
+    <button id="login-btn" class="w-full bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded">Login</button>
+    <p id="login-error" class="text-red-400 mt-2"></p>
+  </section>
+
+  <!-- Admin Content -->
+  <section id="admin-section" class="hidden">
+    <section class="mb-10">
+      <h2 class="text-xl font-bold mb-4">Teams</h2>
+      <div id="teams-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+      <button id="add-team" class="mt-4 bg-green-600 hover:bg-green-500 px-4 py-2 rounded">Add New Team</button>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold mb-4">Games</h2>
+      <div id="games-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+      <button id="add-game" class="mt-4 bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded">Add New Game</button>
+    </section>
+
+    <button id="logout-btn" class="mt-6 bg-red-600 hover:bg-red-500 px-4 py-2 rounded">Logout</button>
+  </section>
+
+</main>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getDatabase, ref, onValue, update, set } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
+
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyDLhVsvxJlOvqKqEjXQUActO0Sf0S0hgLw",
+  authDomain: "football-9b7e3.firebaseapp.com",
+  databaseURL: "https://football-9b7e3-default-rtdb.firebaseio.com",
+  projectId: "football-9b7e3",
+  storageBucket: "football-9b7e3.firebasestorage.app",
+  messagingSenderId: "821823406502",
+  appId: "1:821823406502:web:5d9a5aacadc0be4da8cf67",
+  measurementId: "G-HH3C611R83"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getDatabase(app);
+const auth = getAuth(app);
+
+// Elements
+const loginSection = document.getElementById('login-section');
+const adminSection = document.getElementById('admin-section');
+const loginError = document.getElementById('login-error');
+
+const teamsContainer = document.getElementById('teams-container');
+const gamesContainer = document.getElementById('games-container');
+
+// Auth state
+onAuthStateChanged(auth, user => {
+  if(user) {
+    loginSection.classList.add('hidden');
+    adminSection.classList.remove('hidden');
+    loadTeams();
+    loadGames();
+  } else {
+    loginSection.classList.remove('hidden');
+    adminSection.classList.add('hidden');
+  }
+});
+
+// Login
+document.getElementById('login-btn').addEventListener('click', () => {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  signInWithEmailAndPassword(auth, email, password)
+    .catch(err => loginError.textContent = err.message);
+});
+
+// Logout
+document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
+
+// Load Teams
+function loadTeams() {
+  const teamsRef = ref(db, 'teams');
+  onValue(teamsRef, snapshot => {
+    const teams = snapshot.val() || {};
+    teamsContainer.innerHTML = '';
+    Object.keys(teams).forEach(key => {
+      const t = teams[key];
+      const card = document.createElement('div');
+      card.className = 'bg-gray-800 p-4 rounded shadow';
+      card.innerHTML = `
+        <input type="text" value="${t.name}" class="w-full mb-1 p-1 rounded text-black" placeholder="Team Name" />
+        <input type="text" value="${t.captain}" class="w-full mb-1 p-1 rounded text-black" placeholder="Captain" />
+        <textarea class="w-full mb-1 p-1 rounded text-black">${t.players.join(',')}</textarea>
+        <div class="flex justify-between mt-2">
+          <input type="number" value="${t.wins}" class="w-1/2 p-1 rounded text-black" placeholder="Wins" />
+          <input type="number" value="${t.losses}" class="w-1/2 p-1 rounded text-black" placeholder="Losses" />
+        </div>
+        <button class="mt-2 bg-purple-600 hover:bg-purple-500 px-2 py-1 rounded w-full">Save</button>
+      `;
+      card.querySelector('button').addEventListener('click', () => {
+        const inputs = card.querySelectorAll('input, textarea');
+        update(ref(db, 'teams/' + key), {
+          name: inputs[0].value,
+          captain: inputs[1].value,
+          players: inputs[2].value.split(',').map(p=>p.trim()),
+          wins: parseInt(inputs[3].value)||0,
+          losses: parseInt(inputs[4].value)||0
+        });
+      });
+      teamsContainer.appendChild(card);
+    });
+  });
+}
+
+// Load Games
+function loadGames() {
+  const gamesRef = ref(db, 'games');
+  onValue(gamesRef, snapshot => {
+    const games = snapshot.val() || {};
+    gamesContainer.innerHTML = '';
+    Object.keys(games).forEach(key => {
+      const g = games[key];
+      const card = document.createElement('div');
+      card.className = 'bg-gray-800 p-4 rounded shadow';
+      card.innerHTML = `
+        <input type="text" value="${g.team1||''}" class="w-full mb-1 p-1 rounded text-black" placeholder="Team 1" />
+        <input type="text" value="${g.team2||''}" class="w-full mb-1 p-1 rounded text-black" placeholder="Team 2" />
+        <div class="flex justify-between mt-2">
+          <input type="number" value="${g.score1||0}" class="w-1/2 p-1 rounded text-black" placeholder="Score 1" />
+          <input type="number" value="${g.score2||0}" class="w-1/2 p-1 rounded text-black" placeholder="Score 2" />
+        </div>
+        <input type="text" value="${g.date||''}" class="w-full mt-2 p-1 rounded text-black" placeholder="Date" />
+        <button class="mt-2 bg-purple-600 hover:bg-purple-500 px-2 py-1 rounded w-full">Save</button>
+      `;
+      card.querySelector('button').addEventListener('click', () => {
+        const inputs = card.querySelectorAll('input');
+        update(ref(db, 'games/' + key), {
+          team1: inputs[0].value,
+          team2: inputs[1].value,
+          score1: parseInt(inputs[2].value)||0,
+          score2: parseInt(inputs[3].value)||0,
+          date: inputs[4].value
+        });
+      });
+      gamesContainer.appendChild(card);
+    });
+  });
+}
+
+// Add new team/game
+document.getElementById('add-team').addEventListener('click', () => {
+  set(ref(db, 'teams/team' + Date.now()), { name:'New Team', captain:'', players:[], wins:0, losses:0 });
+});
+document.getElementById('add-game').addEventListener('click', () => {
+  set(ref(db, 'games/game' + Date.now()), { team1:'', team2:'', score1:0, score2:0, date:'TBD' });
+});
+</script>
+
+</body>
+</html>
