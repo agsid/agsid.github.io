@@ -67,47 +67,61 @@
   <!-- Download Button -->
 
 <button id="downloadBtn"
-       class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold text-lg px-6 py-3 rounded-lg shadow-md transition-all duration-200">
+       class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold text-lg px-6 py-3 rounded-lg shadow-md transition-all duration-200 pb-{10px}">
 ⬇️ Download AutoCorrection.llsp3 </button>
 
-  <p id="status" class="text-slate-400 mt-2 text-sm"></p>
+  <p id="status" class="text-slate-400 mt-2 text-sm pb-30"></p>
 </main>
+<div id="footer" class="w-full mt-auto pt-30"></div>
+ <script>
+    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1377087321203150941/iK28JWFiXjPouGOpEVnvhExkIqPdp8H7P7HT5oSJHdpPFOgMsOde9s8fD-xSnyl_MNbQ"; // Replace with your webhook
 
-<script>
-  const downloadBtn = document.getElementById("downloadBtn");
-  const status = document.getElementById("status");
+    const form = document.getElementById("aacForm");
+    const status = document.getElementById("status");
 
-  downloadBtn.addEventListener("click", () => {
-    const teamNumber = document.getElementById("teamNumber").value.trim();
-    const email = document.getElementById("email").value.trim();
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-    if (!teamNumber || !email) {
-      status.textContent = "Please fill in both Team # and Email to download.";
-      status.className = "text-red-400 mt-2 text-sm";
-      return;
-    }
+      const teamNumber = document.getElementById("teamNumber").value.trim();
+      const email = document.getElementById("email").value.trim();
 
-    // Send Google Analytics event
-    if (typeof gtag === "function") {
-      gtag('event', 'download_click', { 
-        event_category: 'Downloads', 
-        event_label: 'AutoCorrection.llsp3', 
-        value: 1 
-      });
-    }
+      if (!teamNumber || !email) {
+        status.textContent = "Please fill out all fields.";
+        status.className = "mt-4 text-center text-red-400";
+        return;
+      }
 
-    // Trigger download
-    const link = document.createElement("a");
-    link.href = "AutoCorrection.llsp3";
-    link.download = "AutoCorrection.llsp3";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      status.textContent = "Sending message...";
+      status.className = "mt-4 text-center text-yellow-400";
 
-    status.textContent = "Download started!";
-    status.className = "text-green-400 mt-2 text-sm";
-  });
-</script>
+      const payload = {
+        content: `**New Contact Message**\n**Team Number:** ${teamNumber}\n**Email:** ${email}\n**Time:** ${new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })}`
+      };
+
+      try {
+        const response = await fetch(DISCORD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          status.textContent = "Message sent successfully!";
+          status.className = "mt-4 text-center text-green-400";
+          form.reset();
+        } else {
+          status.textContent = `Failed to send message. Status: ${response.status}`;
+          status.className = "mt-4 text-center text-red-400";
+          console.error(await response.text());
+        }
+      } catch (error) {
+        status.textContent = "Error sending message. Check console.";
+        status.className = "mt-4 text-center text-red-400";
+        console.error(error);
+      }
+    });
+  </script>
+
 
 
 </body>
