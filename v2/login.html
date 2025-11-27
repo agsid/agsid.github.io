@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Login - Cars Admin</title>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  body {
+    background: url('https://static.vecteezy.com/system/resources/thumbnails/011/457/898/small_2x/flower-and-mountain-landscape-background-free-vector.jpg') 
+      no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+  }
+
+  .glass-card {
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+</style>
+
+</head>
+
+<body class="flex items-center justify-center h-screen text-white">
+  <div class="glass-card w-full max-w-md">
+    <h2 class="text-2xl font-semibold mb-6 text-center">Admin Login</h2>
+
+```
+<input
+  id="email"
+  type="email"
+  placeholder="Email"
+  class="w-full mb-4 p-2 rounded text-black"
+/>
+
+<input
+  id="password"
+  type="password"
+  placeholder="Password"
+  class="w-full mb-4 p-2 rounded text-black"
+/>
+
+<button
+  id="login-btn"
+  class="w-full bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded"
+>
+  Login
+</button>
+
+<p id="error-msg" class="text-red-400 mt-2 text-center"></p>
+```
+
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDLhVsvxJlOvqKqEjXQUActO0Sf0S0hgLw",
+      authDomain: "football-9b7e3.firebaseapp.com",
+      databaseURL: "https://football-9b7e3-default-rtdb.firebaseio.com",
+      projectId: "football-9b7e3",
+      storageBucket: "football-9b7e3.firebasestorage.app",
+      messagingSenderId: "821823406502",
+      appId: "1:821823406502:web:5d9a5aacadc0be4da8cf67",
+      measurementId: "G-HH3C611R83",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const loginBtn = document.getElementById("login-btn");
+    const errorMsg = document.getElementById("error-msg");
+
+    loginBtn.addEventListener("click", async () => {
+      errorMsg.textContent = "";
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = "admin.html";
+      } catch (error) {
+        errorMsg.textContent = error.message;
+      }
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) window.location.href = "admin.html";
+    });
+  </script>
+
+</body>
+</html>
