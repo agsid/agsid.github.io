@@ -6,53 +6,75 @@
 <title>Admin - Cars</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  body {
-    background: url('https://img.freepik.com/free-photo/view-starry-night-sky-with-nature-mountains-landscape_23-2151614765.jpg?semt=ais_hybrid&w=740&q=80      ') no-repeat center center fixed;
-    background-size: cover;
-    font-family: 'Arial', sans-serif;
-  }
-  .glass-card {
-    backdrop-filter: blur(15px);
-    background: rgba(255,255,255,0.1);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  }
+body {
+  background: url('https://static.vecteezy.com/system/resources/thumbnails/011/457/898/small_2x/flower-and-mountain-landscape-background-free-vector.jpg') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Arial', sans-serif;
+}
+.glass-card {
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.1);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: rgba(30,30,30,0.95);
+  min-width: 160px;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  z-index: 1;
+}
+.dropdown-content button {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+.dropdown-content button:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 </style>
 </head>
-<body class="text-white">
+<body class="text-white min-h-screen flex flex-col">
 
-<!-- Top Navbar -->
-<header class="flex justify-between items-center p-4 bg-gray-800/70 backdrop-blur-md shadow-md">
-  <h1 class="text-xl font-semibold">Admin Page - Cars</h1>
-  <div class="relative">
-    <button id="profile-btn" class="flex items-center gap-2 rounded-full hover:bg-gray-700 p-1">
-      <img id="profile-pic" class="w-10 h-10 rounded-full" src="" alt="Profile">
-      <span id="profile-name" class="hidden md:inline"></span>
-    </button>
-    <div id="profile-menu" class="hidden absolute right-0 mt-2 w-40 bg-gray-900/90 rounded shadow-lg">
-      <button id="logout-btn" class="w-full text-left px-4 py-2 hover:bg-gray-700 rounded">Logout</button>
+<header class="bg-gray-800/70 backdrop-blur-md shadow-md p-4 flex justify-between items-center">
+  <div class="text-xl font-semibold">Admin Page - Cars</div>
+  <div class="dropdown">
+    <span id="user-email" class="cursor-pointer px-4 py-2 rounded bg-gray-700 hover:bg-gray-600"></span>
+    <div class="dropdown-content">
+      <button id="logout-btn">Logout</button>
     </div>
   </div>
 </header>
 
-<main class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-
-  <!-- Cars Section -->
-  <div class="glass-card">
+<main class="p-6 flex-1">
+  <section>
     <h2 class="text-xl font-semibold mb-4">Cars</h2>
-    <div id="cars-container" class="space-y-4"></div>
-    <button id="add-car" class="mt-4 bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded w-full">Add New Car</button>
-  </div>
-
+    <div id="cars-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+    <button id="add-car" class="mt-4 bg-green-600 hover:bg-green-500 px-4 py-2 rounded">Add New Car</button>
+  </section>
 </main>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import { getDatabase, ref, onValue, update, set } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
-// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyDLhVsvxJlOvqKqEjXQUActO0Sf0S0hgLw",
   authDomain: "football-9b7e3.firebaseapp.com",
@@ -69,49 +91,42 @@ const db = getDatabase(app);
 const auth = getAuth(app);
 
 const carsContainer = document.getElementById('cars-container');
-const addCarBtn = document.getElementById('add-car');
-const profileBtn = document.getElementById('profile-btn');
-const profileMenu = document.getElementById('profile-menu');
-const profilePic = document.getElementById('profile-pic');
-const profileName = document.getElementById('profile-name');
 const logoutBtn = document.getElementById('logout-btn');
+const userEmailDisplay = document.getElementById('user-email');
 
-let currentUser = null;
-
-// Toggle profile menu
-profileBtn.addEventListener('click', () => profileMenu.classList.toggle('hidden'));
-
-// Logout
-logoutBtn.addEventListener('click', () => signOut(auth));
-
-// Auth check
+// Redirect if not signed in
 onAuthStateChanged(auth, user => {
   if (!user) {
     window.location.href = 'login.html';
   } else {
-    currentUser = user;
-    profilePic.src = user.photoURL || 'https://via.placeholder.com/150';
-    profileName.textContent = user.displayName || user.email;
-    profileName.classList.remove('hidden');
+    userEmailDisplay.textContent = user.email;
     loadCars();
   }
 });
 
-// Load cars from Firebase
+// Logout
+logoutBtn.addEventListener('click', async () => {
+  await signOut(auth);
+  window.location.href = 'login.html';
+});
+
+// Load cars
 function loadCars() {
   const carsRef = ref(db, 'cars');
   onValue(carsRef, snapshot => {
     const cars = snapshot.val() || {};
     carsContainer.innerHTML = '';
     Object.keys(cars).forEach(key => {
-      const c = cars[key];
+      const car = cars[key];
       const card = document.createElement('div');
-      card.className = 'bg-gray-800 p-4 rounded shadow space-y-2';
+      card.className = 'glass-card flex flex-col items-center text-center';
       card.innerHTML = `
-        <input type="text" value="${c.name}" placeholder="Car Name" class="w-full p-2 rounded text-black"/>
-        <input type="text" value="${c.image}" placeholder="Image URL" class="w-full p-2 rounded text-black"/>
-        <button class="bg-green-600 hover:bg-green-500 px-3 py-1 rounded w-full">Save</button>
+        <img src="${car.image || 'https://via.placeholder.com/150'}" alt="${car.name}" class="w-full h-48 object-cover rounded mb-2"/>
+        <input type="text" value="${car.name}" placeholder="Car Name" class="w-full mb-2 p-1 rounded text-black"/>
+        <input type="text" value="${car.image}" placeholder="Image URL" class="w-full mb-2 p-1 rounded text-black"/>
+        <button class="mt-2 bg-purple-600 hover:bg-purple-500 px-2 py-1 rounded w-full">Save</button>
       `;
+      // Save button
       card.querySelector('button').addEventListener('click', () => {
         const inputs = card.querySelectorAll('input');
         update(ref(db, 'cars/' + key), {
@@ -125,7 +140,7 @@ function loadCars() {
 }
 
 // Add new car
-addCarBtn.addEventListener('click', () => {
+document.getElementById('add-car').addEventListener('click', () => {
   set(ref(db, 'cars/car' + Date.now()), { name:'New Car', image:'' });
 });
 </script>
