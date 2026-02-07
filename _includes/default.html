@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site.title }} - Portfolio</title>
+    <link rel="icon" href="{{ '/2.svg' | relative_url }}" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
+    <style>
+        .skill-icon { font-size: 3rem; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    {% include header.html %}
+
+    <main class="flex-grow">
+        {{ content }}
+    </main>
+
+    {% include footer.html %}
+
+    <script src="{{ '/projects.js' | relative_url }}"></script>
+    <script src="{{ '/script.js' | relative_url }}"></script>
+</body>
+</html>
