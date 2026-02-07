@@ -2,9 +2,4 @@
 layout: page
 title: Home
 ---
-- [x] Write the press release
-- [ ] Update the website
-- [ ] Contact the media 
-``` python
-print("Hello World!")
-```
+# Welcome to My Portfolio
