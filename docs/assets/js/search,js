@@ -1,8 +1,0 @@
-// Simple search filtering
-document.getElementById('search‑input').addEventListener('input', e => {
-  const query = e.target.value.toLowerCase();
-  document.querySelectorAll('.sidebar__nav a').forEach(a => {
-    const text = a.textContent.toLowerCase();
-    a.style.display = text.includes(query) ? '' : 'none';
-  });
-});
