@@ -3,26 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ site.title }} - Portfolio</title>
+    
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    
     <link rel="icon" href="{{ '/2.svg' | relative_url }}" type="image/svg+xml">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-    <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
     <style>
+        body { font-family: 'Inter', sans-serif; }
         .skill-icon { font-size: 3rem; }
+        /* Custom Navbar Blur */
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 9999px;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="bg-[#1A194D] min-h-screen flex flex-col text-white">
 
-    {% include header.html %}
+    <header class="fixed top-0 left-0 right-0 z-50 p-6 hidden lg:flex justify-center">
+        <div class="navbar-custom flex items-center space-x-6 px-6 py-2 shadow-2xl">
+            <a href="{{ '/' | relative_url }}" class="hover:scale-110 transition">
+                <img src="{{ '/2.svg' | relative_url }}" alt="Logo" class="w-8 h-8">
+            </a>
+            <nav class="flex space-x-6 text-gray-900 font-semibold">
+                <a href="#skills" class="hover:text-blue-600 transition">Skills</a>
+                <a href="#projects" class="hover:text-blue-600 transition">Projects</a>
+                <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
+            </nav>
+            <div class="h-6 w-[1px] bg-gray-300"></div>
+            <a href="mailto:{{ site.email }}" class="text-blue-700 font-bold text-sm">{{ site.email }}</a>
+        </div>
+    </header>
 
     <main class="flex-grow">
         {{ content }}
     </main>
 
-    {% include footer.html %}
+    <footer class="bg-black/20 py-10 text-center border-t border-white/10">
+        <p class="text-gray-400 text-sm">© {{ "now" | date: "%Y" }} {{ site.title }}. Built with Jekyll & Tailwind.</p>
+    </footer>
+
+    <nav class="fixed bottom-4 left-4 right-4 lg:hidden bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl py-3 z-50 shadow-2xl">
+        <div class="flex justify-around items-center">
+            <a href="#skills" class="flex flex-col items-center gap-1">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <span class="text-[10px] uppercase font-bold">Skills</span>
+            </a>
+            <a href="#projects" class="flex flex-col items-center gap-1">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <span class="text-[10px] uppercase font-bold">Projects</span>
+            </a>
+            <a href="#contact" class="flex flex-col items-center gap-1">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <span class="text-[10px] uppercase font-bold">Contact</span>
+            </a>
+        </div>
+    </nav>
 
     <script src="{{ '/projects.js' | relative_url }}"></script>
     <script src="{{ '/script.js' | relative_url }}"></script>
