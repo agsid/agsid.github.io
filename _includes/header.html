@@ -1,21 +1,30 @@
-<header class="fixed top-0 left-0 right-0 z-50 p-4 hidden lg:flex justify-center">
-    <div class="navbar-custom flex items-center space-x-4 p-2 shadow-xl bg-white rounded-full">
-        <a href="{{ '/' | relative_url }}" class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-gray-900 shadow-md">
-            <img src="{{ '/2.svg' | relative_url }}" alt="Logo" class="w-6 h-6">
-        </a>
-        <nav class="flex space-x-2 text-gray-800 font-medium">
-            <a href="#skills" class="navbar-link px-3 py-1 hover:bg-gray-100 rounded-full transition">Skills</a>
-            <a href="#projects" class="navbar-link px-3 py-1 hover:bg-gray-100 rounded-full transition">Projects</a>
-            <a href="#contact" class="navbar-link px-3 py-1 hover:bg-gray-100 rounded-full transition">Contact</a>
-        </nav>
-        <a href="mailto:{{ site.email }}" class="navbar-email text-sm whitespace-nowrap bg-blue-600 text-white px-4 py-2 rounded-full">{{ site.email }}</a>
-    </div>
-</header>
+<header class="site-header" role="banner">
 
-<nav class="fixed bottom-0 left-0 right-0 lg:hidden bg-gray-900 bg-opacity-90 backdrop-blur-md rounded-t-xl py-2 shadow-xl z-50">
-    <div class="flex justify-around items-center h-16 max-w-lg mx-auto">
-        <a href="#skills" class="flex flex-col items-center text-white text-xs"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Skills</a>
-        <a href="#projects" class="flex flex-col items-center text-white text-xs"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M9.75 17L9 20l-1 1h8l-1-1-1-3m-6.938-9h11.876L19.5 17H4.5L2.062 8H1.5" /></svg>Projects</a>
-        <a href="#contact" class="flex flex-col items-center text-white text-xs"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 2v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6" /></svg>Contact</a>
-    </div>
-</nav>
+  <div class="wrapper">
+    {%- assign default_paths = site.pages | map: "path" -%}
+    {%- assign page_paths = site.header_pages | default: default_paths -%}
+    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+
+    {%- if page_paths -%}
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          {%- for path in page_paths -%}
+            {%- assign my_page = site.pages | where: "path", path | first -%}
+            {%- if my_page.title -%}
+            <a class="page-link" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </nav>
+    {%- endif -%}
+  </div>
+</header>
