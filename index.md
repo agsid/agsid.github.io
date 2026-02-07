@@ -1,8 +1,8 @@
 ---
 layout: home
-title: Sid Ag | Algorithm Developer
+title: Home
 description: "Software developer specializing in innovative algorithmic solutions at Allied Algos."
 image: /assets/img/Sid-Agrawal.png
-permlink: /projects/
 ---
-# View My Projects
+Hello! I'm Sid Agrawal, an algorithm specialist. Check out my work below.
+# Welcome to My website
