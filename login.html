@@ -41,7 +41,7 @@
     import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
     
     // Initializing Supabase
-    const supabase = createClient("https://wgy2n08b0i34.supabase.co", "sb_publishable_WGy2N08B0i34_K84gtVDxw_5v4jm5NB");
+    const supabase = createClient("https://juqwqfppqfuspcesueoz.supabase.co", "sb_publishable_WGy2N08B0i34_K84gtVDxw_5v4jm5NB");
 
     let mode = "login";
     const loginTab = document.getElementById("loginTab"), 
@@ -94,13 +94,13 @@
         msg.className = "text-center text-xs mt-6 text-red-500"; 
         msg.textContent = error.message; 
       } else { 
-        window.location.href = "index.html"; 
+        window.location.href = "team.html"; 
       }
     };
 
     // Check if user is already logged in
     const { data: { session } } = await supabase.auth.getSession();
-    if (session) window.location.href = "index.html";
+    if (session) window.location.href = "team.html";
   </script>
 </body>
 </html>             

@@ -1,216 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Robot Studio - Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-        :root { 
-            --bg: #1e1e1e; 
-            --sidebar: #252526; 
-            --text: #cccccc; 
-            --active: #37373d; 
-            --blue: #007acc; 
-            --border: #333333;
-            --input: #3c3c3c;
-        }
-        body { 
-            font-family: 'Segoe UI', sans-serif; 
-            background: var(--bg); 
-            color: var(--text); 
-            margin: 0; 
-            display: flex; 
-            justify-content: center; 
-            padding-top: 40px; 
-        }
-        .container { width: 500px; }
-        
-        /* VS Code Style Card */
-        .card { 
-            background: var(--sidebar); 
-            padding: 30px; 
-            border: 1px solid var(--border); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        
-        h1, h2, h3 { color: #ffffff; font-weight: 300; margin-top: 0; }
-        p { font-size: 0.9rem; color: #858585; }
-
-        /* Inputs & Buttons */
-        input { 
-            width: 100%; padding: 10px; margin: 10px 0; 
-            background: var(--input); border: 1px solid var(--border); 
-            color: #fff; border-radius: 2px; box-sizing: border-box; 
-        }
-        input:focus { outline: 1px solid var(--blue); }
-        
-        button { 
-            width: 100%; padding: 10px; margin: 5px 0; 
-            border: none; cursor: pointer; font-size: 0.9rem; transition: 0.2s; 
-        }
-        .btn-primary { background: var(--blue); color: white; }
-        .btn-primary:hover { background: #0062a3; }
-        .btn-secondary { background: #3a3d41; color: white; }
-        .btn-secondary:hover { background: #45494e; }
-
-        /* File List Styles */
-        .file-list { margin: 20px 0; border-top: 1px solid var(--border); }
-        .file-item { 
-            padding: 12px; border-bottom: 1px solid var(--border); 
-            cursor: pointer; display: flex; align-items: center; gap: 10px;
-        }
-        .file-item:hover { background: var(--active); }
-        .file-icon { color: #4ec9b0; } /* VS Code Greenish color for files */
-        
-        /* Team ID Badge */
-        .badge { 
-            background: #000; color: #85e89d; padding: 4px 8px; 
-            font-family: 'Consolas', monospace; font-size: 0.75rem; 
-            border-radius: 2px; display: inline-block; margin-top: 5px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlliedWork – Team</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="min-h-screen bg-[#050505] text-white font-sans p-6 md:p-12">
 
-    <div class="container">
-        <div style="margin-bottom: 30px; text-align: center;">
-            <h1 style="font-size: 2.5rem; letter-spacing: -1px;">Robot Studio</h1>
-            <p>Select a mission or manage your team</p>
-        </div>
-
-        <div id="no-team-view" class="card" style="display:none;">
-            <h2>Getting Started</h2>
-            <p>You need to be part of a team to start coding.</p>
-            
-            <div style="margin-top:20px;">
-                <h3 style="font-size: 1rem;">Create New Team</h3>
-                <input type="text" id="new-team-name" placeholder="e.g., Master Builders">
-                <button class="btn-primary" onclick="createTeam()">Create Team</button>
-            </div>
-
-            <div style="margin-top:20px; border-top: 1px solid var(--border); padding-top: 20px;">
-                <h3 style="font-size: 1rem;">Join Existing Team</h3>
-                <input type="text" id="join-team-id" placeholder="Paste Team ID (UUID)">
-                <button class="btn-secondary" onclick="joinTeam()">Join Team</button>
-            </div>
-        </div>
-
-        <div id="team-view" class="card" style="display:none;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div>
-                    <h2 id="display-team-name" style="margin-bottom:5px;">Team Name</h2>
-                    <p style="margin:0;">Team ID (Share this):</p>
-                    <span class="badge" id="display-team-id">--</span>
-                </div>
-                <button class="btn-secondary" onclick="logout()" style="width: auto; font-size: 0.7rem;">Logout</button>
-            </div>
-
-            <div class="file-list" id="file-list">
-                </div>
-
-            <div style="margin-top: 20px;">
-                <h3 style="font-size: 1rem;">Create New Mission</h3>
-                <div style="display: flex; gap: 5px;">
-                    <input type="text" id="new-file-name" placeholder="mission_1.py" style="margin:0;">
-                    <button class="btn-primary" onclick="createFile()" style="width: auto; padding: 0 20px;">Create</button>
-                </div>
-            </div>
-        </div>
+  <div id="app" class="max-w-4xl mx-auto">
+    <div class="flex justify-between items-center mb-12">
+        <h1 class="text-xl font-bold italic tracking-tighter">ALLIED WORK</h1>
+        <button onclick="logout()" class="text-xs text-zinc-500 hover:text-white transition uppercase tracking-widest font-bold">Sign Out</button>
     </div>
 
-    <script>
-        const SB_URL = 'https://wgy2n08b0i34.supabase.co';
-        const SB_KEY = 'sb_publishable_WGy2N08B0i34_K84gtVDxw_5v4jm5NB';
-        const supabase = window.supabase.createClient(SB_URL, SB_KEY);
-        let currentUser = null;
+    <div id="loading" class="text-center py-20">
+        <div class="inline-block w-8 h-8 border-2 border-white/20 border-t-white rounded-full animate-spin mb-4"></div>
+        <p class="text-zinc-500 text-sm animate-pulse">Syncing workspace...</p>
+    </div>
 
-        async function init() {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (!user) { window.location.href = 'login.html'; return; }
-            currentUser = user;
+    <div id="noTeamView" class="hidden text-center py-10">
+      <h2 class="text-4xl font-bold mb-3 tracking-tight">Your Workspace</h2>
+      <p class="text-zinc-400 mb-8">You aren't associated with a team yet.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-lg mx-auto">
+        <button onclick="createTeam()" class="p-8 bg-white text-black rounded-3xl font-bold hover:bg-zinc-200 transition-all active:scale-95 shadow-xl">
+            Create Team
+        </button>
+        <button onclick="alert('Invite system coming soon!')" class="p-8 bg-zinc-900 border border-white/10 rounded-3xl font-bold hover:bg-zinc-800 transition-all active:scale-95">
+            Join Team
+        </button>
+      </div>
+    </div>
 
-            // Check if user has a team
-            const { data: membership, error } = await supabase
-                .from('team_members')
-                .select('team_id, teams(name)')
-                .eq('user_id', currentUser.id)
-                .maybeSingle();
+    <div id="teamView" class="hidden">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
+        <div>
+          <h2 id="teamName" class="text-4xl font-bold italic uppercase tracking-tighter">TEAM NAME</h2>
+          <p id="userStatus" class="text-zinc-500 text-xs font-medium uppercase tracking-widest mt-1"></p>
+        </div>
+        <button onclick="createFile()" class="px-6 py-3 bg-indigo-600 rounded-2xl text-sm font-bold hover:bg-indigo-500 transition shadow-lg shadow-indigo-500/20 active:scale-95">+ Create File</button>
+      </div>
+      <div id="fileList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </div>
+  </div>
 
-            if (membership) {
-                showTeamView(membership.team_id, membership.teams.name);
-            } else {
-                document.getElementById('no-team-view').style.display = 'block';
-            }
+  <div id="debugLog" class="fixed bottom-4 right-4 text-[10px] font-mono text-zinc-600 max-w-xs pointer-events-none"></div>
+
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+    const supabase = createClient("https://juqwqfppqfuspcesueoz.supabase.co", "sb_publishable_WGy2N08B0i34_K84gtVDxw_5v4jm5NB");
+
+    let currentUserId = null;
+    let currentTeamId = null;
+
+    // Helper to log errors to screen
+    const log = (msg) => {
+        console.log(msg);
+        document.getElementById('debugLog').innerText += `\n> ${msg}`;
+    };
+
+    async function init() {
+      log("Initializing...");
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      
+      if (!session || sessionError) {
+        log("No session found. Redirecting...");
+        return window.location.replace("login.html");
+      }
+
+      currentUserId = session.user.id;
+      document.getElementById('userStatus').textContent = session.user.email;
+      log("User: " + session.user.email);
+
+      try {
+        const { data: membership, error: memError } = await supabase
+          .from('team_members')
+          .select('team_id, teams(name)')
+          .eq('user_id', currentUserId)
+          .maybeSingle();
+
+        if (memError) throw memError;
+
+        document.getElementById('loading').classList.add('hidden');
+
+        if (!membership) {
+          log("No membership found.");
+          document.getElementById('noTeamView').classList.remove('hidden');
+        } else {
+          log("Team found: " + membership.teams.name);
+          currentTeamId = membership.team_id;
+          renderTeam(membership.teams.name);
         }
+      } catch (err) {
+        log("Error: " + err.message);
+        document.getElementById('loading').innerHTML = `<p class="text-red-500">Database Error: ${err.message}</p>`;
+      }
+    }
 
-        function showTeamView(teamId, teamName) {
-            document.getElementById('no-team-view').style.display = 'none';
-            document.getElementById('team-view').style.display = 'block';
-            document.getElementById('display-team-name').innerText = teamName;
-            document.getElementById('display-team-id').innerText = teamId;
-            loadFiles(teamId);
-        }
+    async function renderTeam(name) {
+      document.getElementById('teamName').textContent = name;
+      document.getElementById('teamView').classList.remove('hidden');
 
-        async function loadFiles(teamId) {
-            const { data: files } = await supabase
-                .from('code_files')
-                .select('*')
-                .eq('team_id', teamId)
-                .order('updated_at', { ascending: false });
+      const { data: files, error } = await supabase
+        .from('code_files')
+        .select('*')
+        .eq('team_id', currentTeamId);
 
-            const list = document.getElementById('file-list');
-            if (files.length === 0) {
-                list.innerHTML = '<p style="text-align:center; padding: 20px;">No files yet. Create one below!</p>';
-                return;
-            }
+      const list = document.getElementById('fileList');
+      if (files && files.length > 0) {
+        list.innerHTML = files.map(f => `
+          <div class="p-6 bg-zinc-900/40 border border-white/5 rounded-3xl hover:border-indigo-500/50 transition cursor-pointer group">
+            <h3 class="font-bold text-white mb-1 truncate">${f.filename}</h3>
+            <p class="text-[10px] text-zinc-600 uppercase font-bold tracking-widest">Modified ${new Date(f.updated_at).toLocaleDateString()}</p>
+          </div>
+        `).join('');
+      } else {
+        list.innerHTML = `<div class="col-span-full py-12 text-center text-zinc-500 text-sm border border-dashed border-white/5 rounded-3xl">No files found.</div>`;
+      }
+    }
 
-            list.innerHTML = files.map(f => `
-                <div class="file-item" onclick="window.location.href='index.html?fileId=${f.id}'">
-                    <span class="file-icon">PY</span>
-                    <div style="flex-grow:1;">
-                        <div style="color:#fff; font-size: 0.9rem;">${f.filename}</div>
-                        <div style="font-size: 0.7rem; color: #666;">Edited ${new Date(f.updated_at).toLocaleDateString()}</div>
-                    </div>
-                    <span style="color: #444;">&gt;</span>
-                </div>
-            `).join('');
-        }
+    // --- Global Window Actions ---
+    
+    window.createTeam = async () => {
+      log("createTeam triggered");
+      const name = prompt("Enter Team Name:");
+      if (!name) return;
 
-        async function createTeam() {
-            const name = document.getElementById('new-team-name').value;
-            if (!name) return;
-            const { data: team } = await supabase.from('teams').insert([{ name }]).select().single();
-            await supabase.from('team_members').insert([{ team_id: team.id, user_id: currentUser.id }]);
-            location.reload();
-        }
+      try {
+        // 1. Insert Team
+        const { data: team, error: tErr } = await supabase
+          .from('teams')
+          .insert([{ name }])
+          .select()
+          .single();
 
-        async function joinTeam() {
-            const teamId = document.getElementById('join-team-id').value;
-            if (!teamId) return;
-            const { error } = await supabase.from('team_members').insert([{ team_id: teamId, user_id: currentUser.id }]);
-            if (error) alert("Could not join team. Check the ID.");
-            else location.reload();
-        }
+        if (tErr) throw tErr;
 
-        async function createFile() {
-            const name = document.getElementById('new-file-name').value;
-            const teamId = document.getElementById('display-team-id').innerText;
-            if (!name) return;
+        // 2. Insert Membership
+        const { error: mErr } = await supabase
+          .from('team_members')
+          .insert([{ 
+            team_id: team.id, 
+            user_id: currentUserId, 
+            role: 'owner' 
+          }]);
 
-            const { data, error } = await supabase
-                .from('code_files')
-                .insert([{ team_id: teamId, filename: name, content: '# New Mission\n\ndrive(10)\nturn(90)' }])
-                .select().single();
-            
-            if (data) window.location.href = `index.html?fileId=${data.id}`;
-        }
+        if (mErr) throw mErr;
 
-        async function logout() {
-            await supabase.auth.signOut();
-            window.location.href = 'login.html';
-        }
+        log("Team created successfully!");
+        location.reload();
+      } catch (err) {
+        log("Create Team Failed: " + err.message);
+        alert(err.message);
+      }
+    };
 
-        init();
-    </script>
+    window.createFile = async () => {
+      const filename = prompt("File Name (e.g., script.js):");
+      if (!filename) return;
+
+      try {
+        const { error } = await supabase
+          .from('code_files')
+          .insert([{ 
+            filename, 
+            team_id: currentTeamId,
+            last_edited_by: currentUserId 
+          }]);
+
+        if (error) throw error;
+        location.reload();
+      } catch (err) {
+        log("File Creation Failed: " + err.message);
+        alert(err.message);
+      }
+    };
+
+    window.logout = async () => {
+      await supabase.auth.signOut();
+      window.location.replace("login.html");
+    };
+
+    // Initialize the app
+    init();
+  </script>
 </body>
 </html>
