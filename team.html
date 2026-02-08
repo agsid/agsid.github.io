@@ -11,7 +11,7 @@
   <div id="app" class="max-w-4xl mx-auto">
     <div class="flex justify-between items-center mb-12">
         <h1 class="text-xl font-bold italic tracking-tighter">ALLIED WORK</h1>
-        <button onclick="logout()" class="text-xs text-zinc-500 hover:text-white transition uppercase tracking-widest font-bold">Sign Out</button>
+        <button onclick="logout()" class="text-xs text-zinc-500 hover:text-white transition uppercase tracking-widest font-bold px-4 py-2 bg-white/5 rounded-full border border-white/5">Sign Out</button>
     </div>
 
     <div id="loading" class="text-center py-20">
@@ -21,57 +21,50 @@
 
     <div id="noTeamView" class="hidden text-center py-10">
       <h2 class="text-4xl font-bold mb-3 tracking-tight">Your Workspace</h2>
-      <p class="text-zinc-400 mb-8">You aren't associated with a team yet.</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-lg mx-auto">
-        <button onclick="createTeam()" class="p-8 bg-white text-black rounded-3xl font-bold hover:bg-zinc-200 transition-all active:scale-95 shadow-xl">
+      <p class="text-zinc-400 mb-10">You aren't associated with a team yet.</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-xl mx-auto">
+        <button onclick="createTeam()" class="p-10 bg-white text-black rounded-[2rem] font-bold transition-all hover:scale-[1.02] active:scale-95 shadow-xl text-lg">
             Create Team
         </button>
-        <button onclick="alert('Invite system coming soon!')" class="p-8 bg-zinc-900 border border-white/10 rounded-3xl font-bold hover:bg-zinc-800 transition-all active:scale-95">
+        <button onclick="joinTeam()" class="p-10 bg-zinc-900 border border-white/10 rounded-[2rem] font-bold hover:bg-zinc-800 transition-all hover:scale-[1.02] active:scale-95 text-lg">
             Join Team
         </button>
       </div>
     </div>
 
     <div id="teamView" class="hidden">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
         <div>
-          <h2 id="teamName" class="text-4xl font-bold italic uppercase tracking-tighter">TEAM NAME</h2>
-          <p id="userStatus" class="text-zinc-500 text-xs font-medium uppercase tracking-widest mt-1"></p>
+          <div class="flex items-center gap-4">
+            <h2 id="teamName" class="text-5xl font-black italic uppercase tracking-tighter leading-none">TEAM NAME</h2>
+            <button onclick="copyInviteID()" class="text-[10px] bg-white/10 px-2 py-1 rounded hover:bg-white/20 transition text-zinc-400 uppercase font-bold">Copy Invite ID</button>
+          </div>
+          <div class="flex items-center gap-2 mt-2">
+            <span class="w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></span>
+            <p id="userStatus" class="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.2em]"></p>
+          </div>
         </div>
-        <button onclick="createFile()" class="px-6 py-3 bg-indigo-600 rounded-2xl text-sm font-bold hover:bg-indigo-500 transition shadow-lg shadow-indigo-500/20 active:scale-95">+ Create File</button>
+        <button onclick="createFile()" class="w-full md:w-auto px-8 py-4 bg-indigo-600 rounded-2xl text-sm font-bold hover:bg-indigo-500 transition shadow-xl active:scale-95">+ Create File</button>
       </div>
+
       <div id="fileList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </div>
   </div>
 
-  <div id="debugLog" class="fixed bottom-4 right-4 text-[10px] font-mono text-zinc-600 max-w-xs pointer-events-none"></div>
-
   <script type="module">
     import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-
     const supabase = createClient("https://juqwqfppqfuspcesueoz.supabase.co", "sb_publishable_WGy2N08B0i34_K84gtVDxw_5v4jm5NB");
 
     let currentUserId = null;
     let currentTeamId = null;
 
-    // Helper to log errors to screen
-    const log = (msg) => {
-        console.log(msg);
-        document.getElementById('debugLog').innerText += `\n> ${msg}`;
-    };
-
     async function init() {
-      log("Initializing...");
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-      
-      if (!session || sessionError) {
-        log("No session found. Redirecting...");
-        return window.location.replace("login.html");
-      }
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return window.location.replace("login.html");
 
       currentUserId = session.user.id;
       document.getElementById('userStatus').textContent = session.user.email;
-      log("User: " + session.user.email);
 
       try {
         const { data: membership, error: memError } = await supabase
@@ -80,21 +73,16 @@
           .eq('user_id', currentUserId)
           .maybeSingle();
 
-        if (memError) throw memError;
-
         document.getElementById('loading').classList.add('hidden');
 
         if (!membership) {
-          log("No membership found.");
           document.getElementById('noTeamView').classList.remove('hidden');
         } else {
-          log("Team found: " + membership.teams.name);
           currentTeamId = membership.team_id;
           renderTeam(membership.teams.name);
         }
       } catch (err) {
-        log("Error: " + err.message);
-        document.getElementById('loading').innerHTML = `<p class="text-red-500">Database Error: ${err.message}</p>`;
+        console.error(err);
       }
     }
 
@@ -102,79 +90,73 @@
       document.getElementById('teamName').textContent = name;
       document.getElementById('teamView').classList.remove('hidden');
 
-      const { data: files, error } = await supabase
+      const { data: files } = await supabase
         .from('code_files')
         .select('*')
-        .eq('team_id', currentTeamId);
+        .eq('team_id', currentTeamId)
+        .order('updated_at', { ascending: false });
 
       const list = document.getElementById('fileList');
-      if (files && files.length > 0) {
+      if (files?.length > 0) {
         list.innerHTML = files.map(f => `
-          <div class="p-6 bg-zinc-900/40 border border-white/5 rounded-3xl hover:border-indigo-500/50 transition cursor-pointer group">
-            <h3 class="font-bold text-white mb-1 truncate">${f.filename}</h3>
-            <p class="text-[10px] text-zinc-600 uppercase font-bold tracking-widest">Modified ${new Date(f.updated_at).toLocaleDateString()}</p>
+          <div class="p-6 bg-zinc-900/40 border border-white/5 rounded-[2rem] hover:border-indigo-500/50 transition cursor-pointer">
+            <h3 class="font-bold text-white mb-1 truncate text-lg">${f.filename}</h3>
+            <p class="text-[9px] text-zinc-600 uppercase font-black tracking-widest">Last Sync: ${new Date(f.updated_at).toLocaleDateString()}</p>
           </div>
         `).join('');
       } else {
-        list.innerHTML = `<div class="col-span-full py-12 text-center text-zinc-500 text-sm border border-dashed border-white/5 rounded-3xl">No files found.</div>`;
+        list.innerHTML = `<div class="col-span-full py-20 text-center border-2 border-dashed border-white/5 rounded-[2rem] text-zinc-600 italic">Workspace is empty.</div>`;
       }
     }
 
-    // --- Global Window Actions ---
-    
+    // --- Actions ---
+
     window.createTeam = async () => {
-      log("createTeam triggered");
-      const name = prompt("Enter Team Name:");
+      const name = prompt("Enter a name for your Team:");
       if (!name) return;
 
       try {
-        // 1. Insert Team
-        const { data: team, error: tErr } = await supabase
-          .from('teams')
-          .insert([{ name }])
-          .select()
-          .single();
-
+        const { data: team, error: tErr } = await supabase.from('teams').insert([{ name }]).select().single();
         if (tErr) throw tErr;
 
-        // 2. Insert Membership
-        const { error: mErr } = await supabase
-          .from('team_members')
-          .insert([{ 
-            team_id: team.id, 
-            user_id: currentUserId, 
-            role: 'owner' 
-          }]);
+        await supabase.from('team_members').insert([{ team_id: team.id, user_id: currentUserId }]);
+        location.reload();
+      } catch (err) { alert(err.message); }
+    };
 
-        if (mErr) throw mErr;
+    window.joinTeam = async () => {
+      const inviteId = prompt("Paste the Team Invite ID here:");
+      if (!inviteId) return;
 
-        log("Team created successfully!");
+      try {
+        // Just try to insert the membership. If the ID is wrong, foreign key fails.
+        const { error } = await supabase.from('team_members').insert([{ 
+            team_id: inviteId, 
+            user_id: currentUserId 
+        }]);
+
+        if (error) throw new Error("Invalid ID or you are already in this team.");
+        
         location.reload();
       } catch (err) {
-        log("Create Team Failed: " + err.message);
         alert(err.message);
       }
     };
 
     window.createFile = async () => {
-      const filename = prompt("File Name (e.g., script.js):");
+      const filename = prompt("File name (e.g. main.py):");
       if (!filename) return;
 
       try {
-        const { error } = await supabase
-          .from('code_files')
-          .insert([{ 
-            filename, 
-            team_id: currentTeamId,
-            last_edited_by: currentUserId 
-          }]);
-
+        const { error } = await supabase.from('code_files').insert([{ filename, team_id: currentTeamId }]);
         if (error) throw error;
         location.reload();
-      } catch (err) {
-        log("File Creation Failed: " + err.message);
-        alert(err.message);
-      }
+      } catch (err) { alert(err.message); }
+    };
+
+    window.copyInviteID = () => {
+        navigator.clipboard.writeText(currentTeamId);
+        alert("Invite ID copied! Send this to your teammates.");
     };
 
     window.logout = async () => {
@@ -182,7 +164,6 @@
       window.location.replace("login.html");
     };
 
-    // Initialize the app
     init();
   </script>
 </body>

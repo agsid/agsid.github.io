@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlliedWork – Editor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    textarea {
+      tab-size: 4;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+    textarea:focus { outline: none; }
+  </style>
+</head>
+<body class="bg-[#050505] text-white h-screen flex flex-col overflow-hidden">
+
+  <header class="flex items-center justify-between px-6 py-4 border-b border-white/5">
+    <div class="flex items-center gap-4">
+      <a href="team.html" class="text-zinc-500 hover:text-white transition text-sm font-bold uppercase tracking-widest">← Back</a>
+      <h1 id="fileName" class="text-xl font-black italic uppercase tracking-tighter">loading...</h1>
+      <span id="saveStatus" class="text-[10px] uppercase font-bold tracking-widest text-zinc-600">Synced</span>
+    </div>
+    <div class="flex items-center gap-3">
+        <button onclick="saveFile()" class="px-4 py-2 bg-white text-black text-xs font-bold rounded-full hover:bg-zinc-200 transition">Save Now</button>
+    </div>
+  </header>
+
+  <main class="flex-1 relative">
+    <textarea id="editor" class="w-full h-full bg-transparent p-8 text-zinc-300 resize-none leading-relaxed" spellcheck="false" placeholder="Write your code here..."></textarea>
+  </main>
+
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+    const supabase = createClient("https://juqwqfppqfuspcesueoz.supabase.co", "sb_publishable_WGy2N08B0i34_K84gtVDxw_5v4jm5NB");
+
+    // Get file ID from URL: editor.html?id=...
+    const urlParams = new URLSearchParams(window.location.search);
+    const fileId = urlParams.get('id');
+    const editor = document.getElementById('editor');
+    const status = document.getElementById('saveStatus');
+
+    if (!fileId) window.location.replace("team.html");
+
+    async function loadFile() {
+      const { data, error } = await supabase
+        .from('code_files')
+        .select('*')
+        .eq('id', fileId)
+        .single();
+
+      if (error) {
+        alert("Could not load file");
+        window.location.replace("team.html");
+        return;
+      }
+
+      document.getElementById('fileName').innerText = data.filename;
+      editor.value = data.content || "";
+    }
+
+    // Auto-save logic
+    let timeout = null;
+    editor.addEventListener('input', () => {
+      status.innerText = "Typing...";
+      status.classList.replace('text-zinc-600', 'text-indigo-400');
+      
+      clearTimeout(timeout);
+      timeout = setTimeout(saveFile, 2000); // Save after 2 seconds of inactivity
+    });
+
+    window.saveFile = async () => {
+      status.innerText = "Saving...";
+      
+      const { error } = await supabase
+        .from('code_files')
+        .update({ 
+            content: editor.value,
+            updated_at: new Date() 
+        })
+        .eq('id', fileId);
+
+      if (error) {
+        status.innerText = "Error Saving";
+        status.classList.replace('text-indigo-400', 'text-red-500');
+      } else {
+        status.innerText = "Synced";
+        status.classList.replace('text-indigo-400', 'text-zinc-600');
+      }
+    };
+
+    // Handle Tab key
+    editor.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        const start = editor.selectionStart;
+        const end = editor.selectionEnd;
+        editor.value = editor.value.substring(0, start) + "    " + editor.value.substring(end);
+        editor.selectionStart = editor.selectionEnd = start + 4;
+      }
+    });
+
+    loadFile();
+  </script>
+</body>
+</html>
