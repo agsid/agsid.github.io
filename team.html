@@ -86,29 +86,43 @@
       }
     }
 
-    async function renderTeam(name) {
-      document.getElementById('teamName').textContent = name;
-      document.getElementById('teamView').classList.remove('hidden');
+async function renderTeam(name) {
+  document.getElementById('teamName').textContent = name;
+  document.getElementById('teamView').classList.remove('hidden');
 
-      const { data: files } = await supabase
-        .from('code_files')
-        .select('*')
-        .eq('team_id', currentTeamId)
-        .order('updated_at', { ascending: false });
+  const { data: files, error } = await supabase
+    .from('code_files')
+    .select('*')
+    .eq('team_id', currentTeamId)
+    .order('updated_at', { ascending: false });
 
-      const list = document.getElementById('fileList');
-      if (files?.length > 0) {
-        list.innerHTML = files.map(f => `
-          <div class="p-6 bg-zinc-900/40 border border-white/5 rounded-[2rem] hover:border-indigo-500/50 transition cursor-pointer">
-            <h3 class="font-bold text-white mb-1 truncate text-lg">${f.filename}</h3>
-            <p class="text-[9px] text-zinc-600 uppercase font-black tracking-widest">Last Sync: ${new Date(f.updated_at).toLocaleDateString()}</p>
-          </div>
-        `).join('');
-      } else {
-        list.innerHTML = `<div class="col-span-full py-20 text-center border-2 border-dashed border-white/5 rounded-[2rem] text-zinc-600 italic">Workspace is empty.</div>`;
-      }
-    }
+  const list = document.getElementById('fileList');
+  
+  if (files && files.length > 0) {
+    // Ensure the onclick uses single quotes around the fileId string
+    list.innerHTML = files.map(f => `
+      <div onclick="openFile('${f.id}')" class="group p-6 bg-zinc-900/40 border border-white/5 rounded-[2rem] hover:border-indigo-500/50 hover:bg-zinc-900/60 transition-all cursor-pointer shadow-lg shadow-black/20">
+        <div class="mb-4 text-zinc-600 group-hover:text-indigo-400 transition-colors">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+        </div>
+        <h3 class="font-bold text-white mb-1 truncate text-lg">${f.filename}</h3>
+        <p class="text-[9px] text-zinc-600 uppercase font-black tracking-widest">Last Sync: ${new Date(f.updated_at).toLocaleDateString()}</p>
+      </div>
+    `).join('');
+  } else {
+    list.innerHTML = `
+      <div class="col-span-full py-20 text-center border-2 border-dashed border-white/5 rounded-[2rem]">
+        <p class="text-zinc-600 text-sm italic">Workspace is empty. Create your first code file to begin.</p>
+      </div>`;
+  }
+}
 
+// Make sure this helper function is also in your <script>
+window.openFile = (fileId) => {
+    window.location.href = `editor.html?id=${fileId}`;
+};
     // --- Actions ---
 
     window.createTeam = async () => {
@@ -153,6 +167,9 @@
         location.reload();
       } catch (err) { alert(err.message); }
     };
+   window.openFile = (fileId) => {
+    window.location.href = `editor.html?id=${fileId}`;
+};
 
     window.copyInviteID = () => {
         navigator.clipboard.writeText(currentTeamId);

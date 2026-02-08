@@ -1,106 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AlliedWork – Editor</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    textarea {
-      tab-size: 4;
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    }
-    textarea:focus { outline: none; }
-  </style>
+    <meta charset="UTF-8">
+    <title>AlliedWork – Monaco Editor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        body { background-color: #050505; font-family: 'JetBrains Mono', monospace; }
+        /* Monaco needs an explicit height or a flex-grow container */
+        #monaco-editor-container { height: 100%; width: 100%; }
+        .monaco-editor, .overflow-guard { border-radius: 0px !important; }
+    </style>
 </head>
-<body class="bg-[#050505] text-white h-screen flex flex-col overflow-hidden">
+<body class="text-white h-screen flex flex-col overflow-hidden">
 
-  <header class="flex items-center justify-between px-6 py-4 border-b border-white/5">
-    <div class="flex items-center gap-4">
-      <a href="team.html" class="text-zinc-500 hover:text-white transition text-sm font-bold uppercase tracking-widest">← Back</a>
-      <h1 id="fileName" class="text-xl font-black italic uppercase tracking-tighter">loading...</h1>
-      <span id="saveStatus" class="text-[10px] uppercase font-bold tracking-widest text-zinc-600">Synced</span>
+    <header class="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#050505] z-10">
+        <div class="flex items-center gap-6">
+            <a href="team.html" class="text-zinc-600 hover:text-white transition text-[10px] font-black uppercase tracking-widest">← Back</a>
+            <div>
+                <h1 id="fileName" class="text-sm font-bold text-zinc-200">loading...</h1>
+                <div class="flex items-center gap-2">
+                    <div id="statusDot" class="w-1.5 h-1.5 rounded-full bg-zinc-800"></div>
+                    <span id="saveStatus" class="text-[9px] uppercase font-bold text-zinc-600 tracking-tighter">Initializing</span>
+                </div>
+            </div>
+        </div>
+        <button onclick="runCode()" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full transition shadow-lg shadow-indigo-600/20 active:scale-95">
+            Run Code
+        </button>
+    </header>
+
+    <main class="flex-1 flex flex-col min-h-0 bg-[#050505]">
+        <div class="px-14 pt-6 pb-2 opacity-30 pointer-events-none text-[12px] text-indigo-400 select-none">
+            import hub from spike<br>
+            def runloop():<br>
+            <span class="ml-4">while True:</span>
+        </div>
+
+        <div class="flex-1 relative">
+            <div id="monaco-editor-container" class="absolute inset-0"></div>
+        </div>
+
+        <div class="px-14 pt-2 pb-6 opacity-30 pointer-events-none text-[12px] text-indigo-400 select-none">
+            <span class="ml-4"># end loop</span><br>
+            runloop()
+        </div>
+    </main>
+
+    <div id="console" class="h-56 bg-black border-t border-white/10 flex flex-col">
+        <div class="px-4 py-2 border-b border-white/5 bg-[#0a0a0a] flex justify-between items-center">
+            <span class="text-[9px] font-black text-zinc-500 uppercase tracking-widest">SPIKE Prime Terminal</span>
+            <button onclick="document.getElementById('consoleLog').innerHTML = ''" class="text-[9px] text-zinc-700 hover:text-zinc-300 transition uppercase font-bold">Clear</button>
+        </div>
+        <div id="consoleLog" class="flex-1 p-4 overflow-y-auto text-[11px] font-mono text-zinc-400 space-y-1">
+            <div class="opacity-30 italic">Terminal link established. Waiting for sequence...</div>
+        </div>
     </div>
-    <div class="flex items-center gap-3">
-        <button onclick="saveFile()" class="px-4 py-2 bg-white text-black text-xs font-bold rounded-full hover:bg-zinc-200 transition">Save Now</button>
-    </div>
-  </header>
 
-  <main class="flex-1 relative">
-    <textarea id="editor" class="w-full h-full bg-transparent p-8 text-zinc-300 resize-none leading-relaxed" spellcheck="false" placeholder="Write your code here..."></textarea>
-  </main>
+    <script type="module">
+        import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+        import { VALID_COMMANDS, isValid, getFullCode } from './commands.js';
 
-  <script type="module">
-    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-    const supabase = createClient("https://juqwqfppqfuspcesueoz.supabase.co", "sb_publishable_WGy2N08B0i34_K84gtVDxw_5v4jm5NB");
+        const supabase = createClient("https://juqwqfppqfuspcesueoz.supabase.co", "sb_publishable_WGy2N08B0i34_K84gtVDxw_5v4jm5NB");
+        const urlParams = new URLSearchParams(window.location.search);
+        const fileId = urlParams.get('id');
+        
+        const consoleLog = document.getElementById('consoleLog');
+        const saveStatus = document.getElementById('saveStatus');
+        const statusDot = document.getElementById('statusDot');
+        
+        let editor;
 
-    // Get file ID from URL: editor.html?id=...
-    const urlParams = new URLSearchParams(window.location.search);
-    const fileId = urlParams.get('id');
-    const editor = document.getElementById('editor');
-    const status = document.getElementById('saveStatus');
+        require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' } });
+        require(['vs/editor/editor.main'], function () {
+            
+            // 1. Define custom language highlighting
+            monaco.languages.register({ id: 'spike' });
+            monaco.languages.setMonarchTokensProvider('spike', {
+                tokenizer: {
+                    root: [
+                        [new RegExp(`\\b(${VALID_COMMANDS.join('|')})\\b`), 'custom-keyword'],
+                        [/\d+/, 'custom-number'],
+                        [/#.*$/, 'custom-comment'],
+                    ]
+                }
+            });
 
-    if (!fileId) window.location.replace("team.html");
+            // 2. Custom Theme
+            monaco.editor.defineTheme('spikeDark', {
+                base: 'vs-dark',
+                inherit: true,
+                rules: [
+                    { token: 'custom-keyword', foreground: '818cf8', fontStyle: 'bold' },
+                    { token: 'custom-number', foreground: 'c084fc' },
+                    { token: 'custom-comment', foreground: '3f3f46', fontStyle: 'italic' },
+                ],
+                colors: {
+                    'editor.background': '#050505',
+                    'editor.lineHighlightBackground': '#111111',
+                    'editorCursor.foreground': '#818cf8',
+                    'editor.selectionBackground': '#222222',
+                    'editorLineNumber.foreground': '#333333',
+                    'editorLineNumber.activeForeground': '#666666',
+                }
+            });
 
-    async function loadFile() {
-      const { data, error } = await supabase
-        .from('code_files')
-        .select('*')
-        .eq('id', fileId)
-        .single();
+            // 3. Create Editor
+            editor = monaco.editor.create(document.getElementById('monaco-editor-container'), {
+                value: '',
+                language: 'spike',
+                theme: 'spikeDark',
+                automaticLayout: true,
+                fontFamily: 'JetBrains Mono',
+                fontSize: 13,
+                minimap: { enabled: false },
+                lineNumbers: 'on',
+                scrollBeyondLastLine: false,
+                padding: { top: 10 },
+                renderLineHighlight: 'none',
+                scrollbar: { verticalScrollbarSize: 8, horizontalScrollbarSize: 8 }
+            });
 
-      if (error) {
-        alert("Could not load file");
-        window.location.replace("team.html");
-        return;
-      }
+            // 4. Validation Squigglies
+            editor.onDidChangeModelContent(() => {
+                const model = editor.getModel();
+                const code = model.getValue();
+                const markers = [];
+                
+                const lines = code.split('\n');
+                lines.forEach((line, i) => {
+                    const words = line.match(/\b(\w+)\b/g) || [];
+                    words.forEach(word => {
+                        if (!isValid(word)) {
+                            const startCol = line.indexOf(word) + 1;
+                            markers.push({
+                                message: `Unknown command: ${word}`,
+                                severity: monaco.MarkerSeverity.Error,
+                                startLineNumber: i + 1,
+                                startColumn: startCol,
+                                endLineNumber: i + 1,
+                                endColumn: startCol + word.length
+                            });
+                        }
+                    });
+                });
+                monaco.editor.setModelMarkers(model, 'spike', markers);
 
-      document.getElementById('fileName').innerText = data.filename;
-      editor.value = data.content || "";
-    }
+                // Auto-save logic
+                statusDot.className = "w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse";
+                saveStatus.innerText = "Syncing...";
+                clearTimeout(window.saveTimer);
+                window.saveTimer = setTimeout(() => saveToSupabase(code), 1500);
+            });
 
-    // Auto-save logic
-    let timeout = null;
-    editor.addEventListener('input', () => {
-      status.innerText = "Typing...";
-      status.classList.replace('text-zinc-600', 'text-indigo-400');
-      
-      clearTimeout(timeout);
-      timeout = setTimeout(saveFile, 2000); // Save after 2 seconds of inactivity
-    });
+            loadFileData();
+        });
 
-    window.saveFile = async () => {
-      status.innerText = "Saving...";
-      
-      const { error } = await supabase
-        .from('code_files')
-        .update({ 
-            content: editor.value,
-            updated_at: new Date() 
-        })
-        .eq('id', fileId);
+        async function saveToSupabase(code) {
+            const { error } = await supabase.from('code_files').update({ content: code }).eq('id', fileId);
+            if (!error) {
+                saveStatus.innerText = "Synced";
+                statusDot.className = "w-1.5 h-1.5 rounded-full bg-emerald-500";
+            }
+        }
 
-      if (error) {
-        status.innerText = "Error Saving";
-        status.classList.replace('text-indigo-400', 'text-red-500');
-      } else {
-        status.innerText = "Synced";
-        status.classList.replace('text-indigo-400', 'text-zinc-600');
-      }
-    };
+        async function loadFileData() {
+            const { data } = await supabase.from('code_files').select('*').eq('id', fileId).single();
+            if (data) {
+                document.getElementById('fileName').innerText = data.filename;
+                editor.setValue(data.content || "");
+                saveStatus.innerText = "Ready";
+            }
+        }
 
-    // Handle Tab key
-    editor.addEventListener('keydown', (e) => {
-      if (e.key === 'Tab') {
-        e.preventDefault();
-        const start = editor.selectionStart;
-        const end = editor.selectionEnd;
-        editor.value = editor.value.substring(0, start) + "    " + editor.value.substring(end);
-        editor.selectionStart = editor.selectionEnd = start + 4;
-      }
-    });
-
-    loadFile();
-  </script>
+        window.runCode = () => {
+            const userCode = editor.getValue();
+            const finalSource = getFullCode(userCode);
+            
+            const div = document.createElement('div');
+            div.className = "py-2 border-l-2 border-indigo-500 pl-4 bg-indigo-500/5 mb-2";
+            div.innerHTML = `
+                <div class="text-indigo-400 font-bold uppercase text-[9px] mb-1">Payload Built Successfully</div>
+                <pre class="text-zinc-500 text-[10px] overflow-x-auto">${finalSource}</pre>
+            `;
+            consoleLog.prepend(div);
+            consoleLog.prepend(Object.assign(document.createElement('div'), { 
+                className: "text-emerald-500 font-bold", 
+                innerText: "> Sequence Uploaded to SPIKE Hub" 
+            }));
+        };
+    </script>
 </body>
 </html>
