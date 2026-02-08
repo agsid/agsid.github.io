@@ -6,97 +6,115 @@ title: Home
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FLL Robot Editor</title>
+    <title>Robot Studio - Editor</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        body { font-family: sans-serif; display: flex; height: 100vh; margin: 0; background: #212529; color: white; overflow: hidden; }
-        .sidebar { width: 35%; background: white; color: #333; padding: 20px; display: flex; flex-direction: column; border-right: 2px solid #444; }
-        .preview { width: 65%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        textarea { flex-grow: 1; font-family: monospace; padding: 15px; border-radius: 8px; border: 1px solid #ccc; margin: 10px 0; resize: none; }
-        canvas { background: white; border: 5px solid #555; border-radius: 4px; }
-        .btn-group { display: flex; gap: 5px; }
-        button { flex: 1; padding: 10px; cursor: pointer; border-radius: 4px; border: none; font-weight: bold; }
-        .btn-blue { background: #007bff; color: white; }
-        .btn-gray { background: #6c757d; color: white; }
+        :root { --bg: #1e1e1e; --sidebar: #252526; --activity-bar: #333333; --text: #cccccc; --blue: #007acc; --tab-active: #1e1e1e; --tab-inactive: #2d2d2d; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        
+        /* Activity Bar (Leftmost thin strip) */
+        .activity-bar { width: 50px; background: var(--activity-bar); display: flex; flex-direction: column; align-items: center; padding-top: 15px; border-right: 1px solid #111; }
+        .activity-bar div { margin-bottom: 20px; color: #858585; cursor: pointer; font-size: 20px; }
+
+        /* Sidebar (Explorer) */
+        .sidebar { width: 260px; background: var(--sidebar); display: flex; flex-direction: column; border-right: 1px solid #111; }
+        .sidebar-header { padding: 10px 15px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #858585; }
+        
+        /* Editor Area */
+        .main-editor { flex-grow: 1; display: flex; flex-direction: column; background: var(--bg); }
+        .tabs { display: flex; background: #252526; height: 35px; border-bottom: 1px solid #111; }
+        .tab { padding: 0 30px; display: flex; align-items: center; background: var(--tab-active); font-size: 0.8rem; border-right: 1px solid #111; border-top: 1px solid var(--blue); }
+        
+        textarea { flex-grow: 1; background: var(--bg); color: #d4d4d4; border: none; padding: 20px; font-family: 'Consolas', 'Courier New', monospace; font-size: 14px; outline: none; resize: none; line-height: 1.5; }
+        
+        /* Preview Panel */
+        .preview-panel { width: 450px; background: #252526; border-left: 1px solid #111; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        canvas { background: white; border: 1px solid #555; box-shadow: 0 0 20px rgba(0,0,0,0.5); transform: scale(0.45); transform-origin: top center; }
+        
+        /* VS Code Buttons */
+        .toolbar { padding: 10px; display: flex; gap: 8px; background: var(--sidebar); border-top: 1px solid #333; }
+        .vs-btn { background: var(--blue); color: white; border: none; padding: 6px 12px; font-size: 0.75rem; cursor: pointer; border-radius: 2px; }
+        .vs-btn:hover { background: #0062a3; }
+        .vs-btn.secondary { background: #3a3d41; }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <h2 style="margin-top:0">🤖 Editor</h2>
-        <div class="btn-group">
-            <button class="btn-gray" onclick="setStart('left')">Left Start</button>
-            <button class="btn-gray" onclick="setStart('right')">Right Start</button>
-        </div>
-        
-        <textarea id="code-editor" oninput="updatePreview()" placeholder="drive(20)"></textarea>
-        
-        <div class="btn-group">
-            <button class="btn-blue" onclick="saveCode()">Save & Sync</button>
-            <button class="btn-gray" onclick="exportPython()">Download .py</button>
-        </div>
-        <button onclick="logout()" style="margin-top:10px; background:none; color:red; text-decoration:underline;">Logout</button>
-        <div id="status" style="color: green; margin-top:5px; font-size:0.8rem;"></div>
+    <div class="activity-bar">
+        <div onclick="window.location.href='team.html'">📁</div>
+        <div>⚙️</div>
     </div>
 
-    <div class="preview">
+    <div class="sidebar">
+        <div class="sidebar-header">Explorer</div>
+        <div style="padding: 10px 15px; font-size: 0.85rem; color: #4ec9b0;">
+            <span style="margin-right: 5px;">▼</span> TEAM PROJECTS
+        </div>
+        <div id="file-title" style="padding: 5px 30px; font-size: 0.85rem; color: #ce9178;">main.py</div>
+    </div>
+
+    <div class="main-editor">
+        <div class="tabs">
+            <div class="tab" id="tab-filename">script.py</div>
+        </div>
+        
+        <textarea id="code-editor" oninput="updatePreview()" spellcheck="false" placeholder="# Write your commands here..."></textarea>
+        
+        <div class="toolbar">
+            <button class="vs-btn" onclick="saveCode()">Save</button>
+            <button class="vs-btn secondary" onclick="exportPython()">Run (Export)</button>
+            <span id="status" style="font-size: 0.7rem; color: #85e89d; align-self: center; margin-left: 10px;"></span>
+        </div>
+    </div>
+
+    <div class="preview-panel">
+        <div class="sidebar-header" style="margin-bottom: 10px;">Simulation Mat</div>
+        <div style="display:flex; gap: 5px; margin-bottom: 10px;">
+            <button class="vs-btn secondary" onclick="setStart('left')">Start Left</button>
+            <button class="vs-btn secondary" onclick="setStart('right')">Start Right</button>
+        </div>
         <canvas id="fllMat" width="930" height="450"></canvas>
-        <p style="color:#888; margin-top:10px;">FLL Mat: 93in x 45in</p>
+        <div id="collision-msg" style="color: #f48771; font-weight: bold; margin-top: -200px; z-index: 10;"></div>
     </div>
 
     <script>
         const SB_URL = 'https://wgy2n08b0i34.supabase.co';
         const SB_KEY = 'sb_publishable_WGy2N08B0i34_K84gtVDxw_5v4jm5NB';
         const supabase = window.supabase.createClient(SB_URL, SB_KEY);
-
-        let currentUser = null;
-        let currentTeamId = null;
-        let currentFileId = null;
-        let startSide = 'left';
-
-        // Security Check: Redirect to login if not authenticated
-        async function checkUser() {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (!user) {
-                window.location.href = 'login.html';
-            } else {
-                currentUser = user;
-                initApp();
-            }
-        }
+        let currentUser, currentFileId, currentTeamId, startSide = 'left';
 
         async function initApp() {
-            // Find team membership
-            const { data: members } = await supabase.from('team_members').select('team_id').eq('user_id', currentUser.id).single();
-            if (members) {
-                currentTeamId = members.team_id;
-                loadCode();
-                setupRealtime();
-            }
-        }
+            const urlParams = new URLSearchParams(window.location.search);
+            currentFileId = urlParams.get('fileId');
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user || !currentFileId) { window.location.href = 'team.html'; return; }
+            currentUser = user;
 
-        async function loadCode() {
-            let { data: files } = await supabase.from('code_files').select('*').eq('team_id', currentTeamId).limit(1);
-            if (files?.length) {
-                currentFileId = files[0].id;
-                document.getElementById('code-editor').value = files[0].content;
+            let { data: file } = await supabase.from('code_files').select('*').eq('id', currentFileId).single();
+            if (file) {
+                currentTeamId = file.team_id;
+                document.getElementById('code-editor').value = file.content;
+                document.getElementById('tab-filename').innerText = file.filename;
+                document.getElementById('file-title').innerText = file.filename;
                 updatePreview();
+                setupRealtime();
             }
         }
 
         async function saveCode() {
             const content = document.getElementById('code-editor').value;
             await supabase.from('code_files').update({ content, last_edited_by: currentUser.id }).eq('id', currentFileId);
-            document.getElementById('status').innerText = "✓ Synced";
+            document.getElementById('status').innerText = "Changes synced to cloud";
             setTimeout(() => document.getElementById('status').innerText = "", 2000);
         }
 
         function setupRealtime() {
             supabase.channel('sync').on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'code_files', filter: `team_id=eq.${currentTeamId}` }, 
             (payload) => {
-                if (payload.new.last_edited_by !== currentUser.id) {
+                if (payload.new.id === currentFileId && payload.new.last_edited_by !== currentUser.id) {
                     document.getElementById('code-editor').value = payload.new.content;
                     updatePreview();
+                    document.getElementById('status').innerText = "Teammate is editing...";
                 }
             }).subscribe();
         }
@@ -115,31 +133,29 @@ title: Home
             let angle = startSide === 'left' ? 0 : 180;
 
             ctx.beginPath();
+            ctx.strokeStyle = '#007acc';
+            ctx.lineWidth = 4;
             ctx.moveTo(x * SCALE, y * SCALE);
 
             code.split('\n').forEach(line => {
-                const drive = line.match(/drive\(\s*(-?\d+)\s*\)/);
-                const turn = line.match(/turn\(\s*(-?\d+)\s*\)/);
-                if (drive) {
-                    const d = parseInt(drive[1]);
-                    x += d * Math.cos(angle * Math.PI / 180);
-                    y += d * Math.sin(angle * Math.PI / 180);
+                const d = line.match(/drive\(\s*(-?\d+)\s*\)/);
+                const t = line.match(/turn\(\s*(-?\d+)\s*\)/);
+                if (d) {
+                    const dist = parseInt(d[1]);
+                    x += dist * Math.cos(angle * Math.PI / 180);
+                    y += dist * Math.sin(angle * Math.PI / 180);
                     ctx.lineTo(x * SCALE, y * SCALE);
                 }
-                if (turn) angle += parseInt(turn[1]);
+                if (t) angle += parseInt(t[1]);
             });
 
-            ctx.strokeStyle = (x<0 || x>93 || y<0 || y>45) ? 'red' : '#007bff';
-            ctx.lineWidth = 3;
+            const crash = (x<0 || x>93 || y<0 || y>45);
+            ctx.strokeStyle = crash ? '#f48771' : '#007acc';
             ctx.stroke();
             
-            ctx.fillStyle = ctx.strokeStyle === 'red' ? 'red' : 'green';
-            ctx.beginPath(); ctx.arc(x * SCALE, y * SCALE, 8, 0, 7); ctx.fill();
-        }
-
-        async function logout() {
-            await supabase.auth.signOut();
-            window.location.href = 'login.html';
+            ctx.fillStyle = crash ? '#f48771' : '#85e89d';
+            ctx.beginPath(); ctx.arc(x * SCALE, y * SCALE, 12, 0, 7); ctx.fill();
+            document.getElementById('collision-msg').innerText = crash ? "COLLISION DETECTED" : "";
         }
 
         function exportPython() {
@@ -151,11 +167,10 @@ title: Home
             const blob = new Blob([`import hub\n\nasync def runloop():\n${processed}\n\nrunloop()`], { type: 'text/plain' });
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
-            a.download = "robot_code.py";
+            a.download = document.getElementById('tab-filename').innerText;
             a.click();
         }
-
-        checkUser();
+        initApp();
     </script>
 </body>
 </html>
