@@ -1,219 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robot Studio | Login</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-        :root {
-            --bg-color: #0a0a0a;
-            --card-bg: #111111;
-            --accent-blue: #007acc;
-            --text-main: #ffffff;
-            --text-dim: #a0a0a0;
-            --border-color: #222222;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* Top Left Navigation */
-        .nav-back {
-            position: absolute;
-            top: 2rem;
-            left: 2rem;
-            text-decoration: none;
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-        .nav-back:hover { color: var(--text-main); }
-
-        .login-container {
-            width: 100%;
-            max-width: 400px;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .login-card {
-            background-color: var(--card-bg);
-            padding: 2.5rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        h1 {
-            font-size: 1.75rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.5px;
-        }
-
-        p.subtitle {
-            color: var(--text-dim);
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-        }
-
-        .input-group {
-            text-align: left;
-            margin-bottom: 1.25rem;
-        }
-
-        label {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        input {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background-color: #000;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: white;
-            font-size: 1rem;
-            box-sizing: border-box;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.2);
-        }
-
-        .auth-btn {
-            width: 100%;
-            padding: 0.8rem;
-            background-color: var(--text-main);
-            color: black;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 1rem;
-            transition: opacity 0.2s;
-        }
-
-        .auth-btn:hover {
-            opacity: 0.9;
-        }
-
-        .toggle-area {
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--text-dim);
-        }
-
-        .toggle-link {
-            color: var(--text-main);
-            cursor: pointer;
-            text-decoration: underline;
-            text-underline-offset: 4px;
-        }
-
-        #msg {
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            color: #ff4d4d;
-            min-height: 1.2rem;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>AlliedWork – Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-
-    <a href="/" class="nav-back">← Back</a>
-
-    <div class="login-container">
-        <div class="login-card">
-            <h1 id="auth-title">Login</h1>
-            <p class="subtitle" id="auth-subtitle">Welcome back to Robot Studio</p>
-
-            <div class="input-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="name@company.com">
-            </div>
-
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="••••••••">
-            </div>
-
-            <button class="auth-btn" id="auth-button" onclick="handleAuth()">Sign In</button>
-            
-            <div id="msg"></div>
-
-            <div class="toggle-area">
-                <span id="toggle-text">Don't have an account?</span> 
-                <span class="toggle-link" id="toggle-link" onclick="toggleMode()">Create one</span>
-            </div>
-        </div>
+<body class="min-h-screen bg-[#050505] flex items-center justify-center text-white font-sans">
+  <div class="w-full max-w-md bg-zinc-900/40 backdrop-blur-2xl border border-white/5 rounded-3xl p-10 shadow-2xl">
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold tracking-tighter mb-2 italic">ALLIED WORK</h1>
+      <p class="text-zinc-500 text-sm">Sign in to access your code</p>
     </div>
 
-    <script>
-        const SB_URL = 'https://wgy2n08b0i34.supabase.co';
-        const SB_KEY = 'sb_publishable_WGy2N08B0i34_K84gtVDxw_5v4jm5NB';
-        const supabase = window.supabase.createClient(SB_URL, SB_KEY);
-        let isLogin = true;
+    <div class="flex bg-white/5 rounded-2xl p-1.5 mb-8 border border-white/5">
+      <button id="loginTab" class="flex-1 py-2.5 rounded-xl bg-zinc-800 text-sm font-medium transition-all">Login</button>
+      <button id="signupTab" class="flex-1 py-2.5 rounded-xl text-sm font-medium text-zinc-500 hover:text-white transition-all">Sign Up</button>
+    </div>
 
-        function toggleMode() {
-            isLogin = !isLogin;
-            const title = document.getElementById('auth-title');
-            const subtitle = document.getElementById('auth-subtitle');
-            const btn = document.getElementById('auth-button');
-            const toggleText = document.getElementById('toggle-text');
-            const toggleLink = document.getElementById('toggle-link');
+    <div class="space-y-4">
+      <div class="space-y-2">
+        <label class="text-xs font-semibold uppercase tracking-wider text-zinc-500 ml-1">Email</label>
+        <input id="email" type="email" placeholder="Email" class="w-full px-5 py-4 rounded-2xl bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition" />
+      </div>
+      <div class="space-y-2">
+        <label class="text-xs font-semibold uppercase tracking-wider text-zinc-500 ml-1">Password</label>
+        <input id="password" type="password" placeholder="••••••••" class="w-full px-5 py-4 rounded-2xl bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition" />
+      </div>
+      <div id="confirmWrapper" class="hidden space-y-2">
+        <label class="text-xs font-semibold uppercase tracking-wider text-zinc-500 ml-1">Confirm Password</label>
+        <input id="confirmPassword" type="password" placeholder="••••••••" class="w-full px-5 py-4 rounded-2xl bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition" />
+      </div>
+    </div>
 
-            if (isLogin) {
-                title.innerText = 'Login';
-                subtitle.innerText = 'Welcome back to Robot Studio';
-                btn.innerText = 'Sign In';
-                toggleText.innerText = "Don't have an account?";
-                toggleLink.innerText = 'Create one';
-            } else {
-                title.innerText = 'Sign Up';
-                subtitle.innerText = 'Start your team journey today';
-                btn.innerText = 'Create Account';
-                toggleText.innerText = 'Already have an account?';
-                toggleLink.innerText = 'Sign in';
-            }
-        }
+    <button id="actionBtn" class="w-full mt-8 py-4 rounded-2xl font-bold bg-white text-black hover:bg-zinc-200 transition-all active:scale-[0.98]">Login</button>
 
-        async function handleAuth() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const msg = document.getElementById('msg');
-            msg.innerText = "";
+    <p id="msg" class="text-center text-xs mt-6 min-h-[1em] font-medium"></p>
+  </div>
 
-            const { data, error } = isLogin 
-                ? await supabase.auth.signInWithPassword({ email, password })
-                : await supabase.auth.signUp({ email, password });
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+    
+    // Initializing Supabase
+    const supabase = createClient("https://wgy2n08b0i34.supabase.co", "sb_publishable_WGy2N08B0i34_K84gtVDxw_5v4jm5NB");
 
-            if (error) {
-                msg.innerText = error.message;
-            } else {
-                window.location.href = 'team.html';
-            }
-        }
-    </script>
+    let mode = "login";
+    const loginTab = document.getElementById("loginTab"), 
+          signupTab = document.getElementById("signupTab"), 
+          actionBtn = document.getElementById("actionBtn"), 
+          confirmWrapper = document.getElementById("confirmWrapper"), 
+          msg = document.getElementById("msg");
+
+    function setMode(m) {
+      mode = m; 
+      msg.textContent = "";
+      if (m === "login") {
+        confirmWrapper.classList.add("hidden"); 
+        actionBtn.textContent = "Login";
+        loginTab.classList.add("bg-zinc-800", "text-white"); 
+        signupTab.classList.remove("bg-zinc-800", "text-white");
+      } else {
+        confirmWrapper.classList.remove("hidden"); 
+        actionBtn.textContent = "Create Account";
+        signupTab.classList.add("bg-zinc-800", "text-white"); 
+        loginTab.classList.remove("bg-zinc-800", "text-white");
+      }
+    }
+
+    loginTab.onclick = () => setMode("login");
+    signupTab.onclick = () => setMode("signup");
+
+    actionBtn.onclick = async () => {
+      const email = document.getElementById("email").value, 
+            password = document.getElementById("password").value, 
+            confirm = document.getElementById("confirmPassword").value;
+      
+      if (!email || !password) { 
+        msg.className = "text-center text-xs mt-6 text-amber-500"; 
+        msg.textContent = "Fill out all fields"; 
+        return; 
+      }
+      
+      if (mode === "signup" && password !== confirm) { 
+        msg.className = "text-center text-xs mt-6 text-red-500"; 
+        msg.textContent = "Passwords do not match"; 
+        return; 
+      }
+      
+      const { error } = mode === "login" 
+        ? await supabase.auth.signInWithPassword({ email, password }) 
+        : await supabase.auth.signUp({ email, password });
+
+      if (error) { 
+        msg.className = "text-center text-xs mt-6 text-red-500"; 
+        msg.textContent = error.message; 
+      } else { 
+        window.location.href = "index.html"; 
+      }
+    };
+
+    // Check if user is already logged in
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) window.location.href = "index.html";
+  </script>
 </body>
-</html>
+</html>             
