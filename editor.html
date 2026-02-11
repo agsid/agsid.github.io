@@ -1,221 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>AlliedDash | Ultimate Mission Control</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Inter:wght@300;400;700;900&display=swap');
-        :root { --bg: #050506; --accent: #6366f1; --panel: rgba(20, 20, 25, 0.8); }
-        body { background: var(--bg); color: #f4f4f5; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; }
-        
-        /* Layout Grid */
-        .dashboard {
-            display: grid;
-            grid-template-areas: "sidebar header" "sidebar main";
-            grid-template-columns: 80px 1fr;
-            grid-template-rows: 70px 1fr;
-            height: 100vh;
-        }
-
-        .main-view {
-            display: grid;
-            grid-template-columns: 1fr 420px;
-            grid-template-rows: 1fr 300px;
-            gap: 12px;
-            padding: 12px;
-            grid-area: main;
-        }
-
-        .glass { background: var(--panel); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; }
-        #field-canvas { background: #000; border-radius: 12px; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
-        
-        /* Modern Scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 10px; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Pybricks BLE Control</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-900 text-white p-6 flex flex-col items-center gap-6">
 
-<div class="dashboard">
-    <nav class="flex flex-col items-center py-8 gap-10 border-r border-white/5" style="grid-area: sidebar;">
-        <div class="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-xl shadow-indigo-500/20">
-            <i data-lucide="zap" class="text-white w-6 h-6"></i>
-        </div>
-        <div class="flex flex-col gap-8 text-zinc-500">
-            <button onclick="requestRobotLink()" title="Link Robot"><i data-lucide="bluetooth" id="ble-icon"></i></button>
-            <button onclick="toggleSim()" id="sim-btn" title="Simulator Mode"><i data-lucide="cpu"></i></button>
-            <button onclick="pushToGitHub()" title="GitHub Sync"><i data-lucide="github"></i></button>
-        </div>
-    </nav>
+<button id="connectBtn" class="bg-indigo-600 px-4 py-2 rounded-lg">Connect to Pybricks Hub</button>
 
-    <header class="flex items-center justify-between px-8 border-b border-white/5" style="grid-area: header;">
-        <div class="flex items-center gap-6">
-            <h1 class="text-[10px] font-black tracking-[0.4em] uppercase text-indigo-500">AlliedDash v2.0</h1>
-            <div id="browser-warning" class="hidden text-[9px] bg-red-500/10 text-red-400 px-3 py-1 rounded-full border border-red-500/20 font-bold uppercase">
-                Incompatible Browser
-            </div>
-            <div id="status-tag" class="text-[9px] bg-zinc-500/10 text-zinc-400 px-3 py-1 rounded-full border border-white/5 font-bold uppercase tracking-widest">
-                Standby
-            </div>
-        </div>
-        <div class="flex items-center gap-4 text-[10px] font-mono">
-            <span class="text-zinc-500">BATTERY:</span>
-            <span id="bat-val" class="text-white font-bold">--%</span>
-            <button onclick="runMission()" class="ml-4 bg-indigo-600 hover:bg-indigo-500 px-6 py-2 rounded-xl text-white font-black uppercase tracking-widest transition-all shadow-lg shadow-indigo-500/20">Run Mission</button>
-        </div>
-    </header>
+<textarea id="log" class="w-full max-w-md h-40 bg-black text-green-400 p-2 rounded"></textarea>
 
-    <div class="main-view">
-        <div class="glass flex flex-col" style="grid-row: 1/3;">
-            <div class="px-6 py-4 border-b border-white/5 flex justify-between items-center">
-                <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Logic Editor</span>
-                <div class="flex gap-2 text-[10px] font-bold">
-                    <span class="text-indigo-400">Main.py</span>
-                </div>
-            </div>
-            <div id="editor-container" class="flex-1"></div>
-        </div>
+<input id="cmdInput" class="w-full max-w-md p-2 rounded bg-gray-800 text-white" placeholder="Type command to send">
+<button id="sendBtn" class="bg-green-600 px-4 py-2 rounded-lg">Send Command</button>
 
-        <div class="glass p-5 flex flex-col gap-6">
-            <div>
-                <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest block mb-3">Field Position</span>
-                <canvas id="field-canvas" class="w-full aspect-video border border-white/5"></canvas>
-            </div>
-            <div class="grid grid-cols-2 gap-3">
-                <div class="bg-black/40 border border-white/5 p-4 rounded-2xl">
-                    <span class="text-[8px] font-bold text-zinc-600 uppercase block mb-1">Heading</span>
-                    <span id="hud-h" class="text-2xl font-black font-mono text-indigo-400">000°</span>
-                </div>
-                <div class="bg-black/40 border border-white/5 p-4 rounded-2xl">
-                    <span class="text-[8px] font-bold text-zinc-600 uppercase block mb-1">X, Y Coord</span>
-                    <span id="hud-xy" class="text-2xl font-black font-mono text-white">0, 0</span>
-                </div>
-            </div>
-        </div>
+<script>
+const PYBRICKS_SERVICE     = '0000fd02-0000-1000-8000-00805f9b34fb';
+const PYBRICKS_RX_UUID     = '0000fd02-0001-1000-8000-00805f9b34fb';
+const PYBRICKS_TX_UUID     = '0000fd02-0002-1000-8000-00805f9b34fb';
 
-        <div class="glass p-5 flex flex-col">
-            <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest block mb-4">Real-time Telemetry</span>
-            <div class="flex-1 min-h-0">
-                <canvas id="telemetryChart"></canvas>
-            </div>
-        </div>
-    </div>
-</div>
+let bleDevice, bleServer;
+let rxChar, txChar;
 
-<script type="module">
-    let editor, chart, robot = { x: 45, y: 70, h: 0 }, isSimulating = false;
-    const UART_SERVICE = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
-    const UART_RX = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
+function log(msg) {
+  const area = document.getElementById('log');
+  area.value += msg + "\n";
+  area.scrollTop = area.scrollHeight;
+}
 
-    // 1. Browser Check
-    if (!navigator.bluetooth) {
-        document.getElementById('browser-warning').classList.remove('hidden');
-    }
-
-    // 2. Initializing Monaco
-    require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' } });
-    require(['vs/editor/editor.main'], () => {
-        editor = monaco.editor.create(document.getElementById('editor-container'), {
-            value: "speed(40)\ndrive(50)\nturn(90)\n# AlliedDash Ready",
-            language: 'python', theme: 'vs-dark', automaticLayout: true,
-            fontFamily: 'JetBrains Mono', fontSize: 13, minimap: { enabled: false }
-        });
-        lucide.createIcons();
-        initChart();
-        draw();
+async function connectToHub() {
+  try {
+    log("Requesting Pybricks device...");
+    bleDevice = await navigator.bluetooth.requestDevice({
+      filters: [{ services: [PYBRICKS_SERVICE] }]
     });
 
-    // 3. BLE Connection
-    window.requestRobotLink = async () => {
-        try {
-            const device = await navigator.bluetooth.requestDevice({
-                filters: [{ namePrefix: 'LEGO Hub' }],
-                optionalServices: [UART_SERVICE]
-            });
-            const server = await device.gatt.connect();
-            const service = await server.getPrimaryService(UART_SERVICE);
-            const rx = await service.getCharacteristic(UART_RX);
-            
-            await rx.startNotifications();
-            document.getElementById('status-tag').innerText = "Linked";
-            document.getElementById('status-tag').classList.add('text-cyan-400');
-            
-            rx.addEventListener('characteristicvaluechanged', (e) => {
-                const data = new TextDecoder().decode(e.target.value);
-                parseTelemetry(data);
-            });
-        } catch (e) { console.warn("BLE Canceled or Failed"); }
-    };
+    log("Connecting...");
+    bleServer = await bleDevice.gatt.connect();
 
-    function parseTelemetry(str) {
-        // Data format: "X:10,Y:20,H:90,B:85,S:40"
-        const pairs = Object.fromEntries(str.split(',').map(s => s.split(':')));
-        if (pairs.X) {
-            robot.x = parseFloat(pairs.X);
-            robot.y = parseFloat(pairs.Y);
-            robot.h = parseFloat(pairs.H);
-            document.getElementById('bat-val').innerText = pairs.B + '%';
-            updateChart(parseFloat(pairs.S));
-        }
-    }
+    log("Getting Pybricks service...");
+    const service = await bleServer.getPrimaryService(PYBRICKS_SERVICE);
 
-    // 4. Simulator Mode
-    window.toggleSim = () => {
-        isSimulating = !isSimulating;
-        const btn = document.getElementById('sim-btn');
-        btn.classList.toggle('text-indigo-400', isSimulating);
-        if (isSimulating) simulateData();
-    };
+    log("Getting RX/TX characteristics...");
+    rxChar = await service.getCharacteristic(PYBRICKS_RX_UUID);
+    txChar = await service.getCharacteristic(PYBRICKS_TX_UUID);
 
-    function simulateData() {
-        if (!isSimulating) return;
-        robot.h = (robot.h + 2) % 360;
-        robot.x += Math.sin(robot.h * Math.PI / 180) * 0.5;
-        robot.y -= Math.cos(robot.h * Math.PI / 180) * 0.5;
-        updateChart(Math.random() * 100);
-        setTimeout(simulateData, 50);
-    }
+    log("Subscribing to hub notifications...");
+    await txChar.startNotifications();
+    txChar.addEventListener('characteristicvaluechanged', evt => {
+      const text = new TextDecoder().decode(evt.target.value);
+      log("RX < Hub: " + text);
+    });
 
-    // 5. Drawing & Charting
-    function draw() {
-        const canvas = document.getElementById('field-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = canvas.clientWidth; canvas.height = canvas.clientHeight;
-        const ppx = canvas.width / 93;
+    log("Connected and ready!");
+  } catch (err) {
+    log("Connection failed: " + err);
+    console.error(err);
+  }
+}
 
-        ctx.clearRect(0,0, canvas.width, canvas.height);
-        ctx.save();
-        ctx.translate(robot.x * ppx, robot.y * ppx);
-        ctx.rotate(robot.h * Math.PI / 180);
-        ctx.fillStyle = "#6366f1";
-        ctx.shadowBlur = 15; ctx.shadowColor = "#6366f1";
-        ctx.fillRect(-12, -12, 24, 24);
-        ctx.restore();
+async function sendCommand() {
+  const input = document.getElementById('cmdInput').value;
+  if (!rxChar) {
+    log("Not connected or RX characteristic missing");
+    return;
+  }
+  const data = new TextEncoder().encode(input);
+  await rxChar.writeValueWithoutResponse(data);
+  log("TX > You: " + input);
+}
 
-        document.getElementById('hud-h').innerText = Math.round(robot.h).toString().padStart(3, '0') + '°';
-        document.getElementById('hud-xy').innerText = `${Math.round(robot.x)}, ${Math.round(robot.y)}`;
-        requestAnimationFrame(draw);
-    }
-
-    function initChart() {
-        chart = new Chart(document.getElementById('telemetryChart'), {
-            type: 'line',
-            data: { labels: Array(30).fill(''), datasets: [{ 
-                data: [], borderColor: '#6366f1', tension: 0.4, pointRadius: 0, fill: true, backgroundColor: 'rgba(99,102,241,0.1)' 
-            }]},
-            options: { maintainAspectRatio: false, scales: { y: { display: false }, x: { display: false } }, plugins: { legend: { display: false } } }
-        });
-    }
-
-    function updateChart(v) {
-        chart.data.datasets[0].data.push(v);
-        if (chart.data.datasets[0].data.length > 30) chart.data.datasets[0].data.shift();
-        chart.update('none');
-    }
+document.getElementById('connectBtn').onclick = connectToHub;
+document.getElementById('sendBtn').onclick = sendCommand;
 </script>
+
 </body>
-</html>     
+</html>
