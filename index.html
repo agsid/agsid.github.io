@@ -59,7 +59,7 @@
   </head>
   <body class="bg-[#fdbf00] flex justify-center items-center h-screen w-screen overflow-hidden m-0 p-0">
 
-    <div id="birthdayCard" onclick="toggleCard()" class="card wiggle-hint perspective-1200 relative w-[75%] h-full transition-transform duration-1000 ease-in-out">
+    <div id="birthdayCard" onclick="toggleCard()" class="card wiggle-hint perspective-1200 relative w-[75%] h-[90%] transition-transform duration-1000 ease-in-out">
       
       <div class="outside-panel preserve-3d absolute left-1/2 w-1/2 h-full origin-left transition-transform duration-[1500ms] cubic-bezier(0.4, 0, 0.2, 1) cursor-pointer z-20">
         
@@ -68,7 +68,7 @@
             Pull Me
           </div>
           
-          <p class="text-[23px] uppercase mt-10 text-center tracking-[6px] color-[#000046] font-semibold text-[#000046]">
+          <p class="text-[23px] uppercase mt-10 text-center tracking-[6px] color-[#000046] font-semibold text-[#000046]">  
             Happy Birthday
           </p>
           
@@ -79,6 +79,10 @@
             <div class="cake-layer scale-[0.85] relative top-1.5"></div>
             <div class="cake-layer"></div>
           </div>
+
+          <div class="text-right text-[10px] text-gray-500 italic mt-2 align-botto">
+          - Sid Agrawal 2026
+        </div>
         </div>
         
         <div class="back backface-hidden absolute w-full h-full bg-gradient-to-l from-[#e7e7e7] to-white to-30% rotate-y-180"></div>
@@ -111,9 +115,6 @@
       </div>
       
     </div>
-  <div class="text-right text-[10px] text-gray-500 italic mt-2">
-          - Sid Agrawal 2026
-        </div>
     <script>
       function toggleCard() {
         const card = document.getElementById('birthdayCard');
