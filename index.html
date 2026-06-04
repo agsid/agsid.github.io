@@ -5,122 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Birthday Card for Mumma</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
     <style>
       * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
         font-family: "Poppins", sans-serif;
       }
-      body {
-        background-color: #fdbf00;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        overflow: hidden;
-      }
-      .card {
-        width: 640px;
-        height: 450px;
-        position: relative;
+      .perspective-1200 {
         perspective: 1200px;
-        transition: transform 1s ease;
+      }
+      .preserve-3d {
+        transform-style: preserve-3d;
+      }
+      .backface-hidden {
+        backface-visibility: hidden;
       }
       
-      /* Subtle wiggle animation to hint that it can be opened */
-      @keyframes hintWiggle {
-        0% { transform: rotate(0deg); }
-        50% { transform: rotate(-2deg); }
-        100% { transform: rotate(0deg); }
-      }
-      .card:not(.open) {
-        animation: hintWiggle 2s ease-in-out infinite alternate;
-      }
-
-      /* When the card has the 'open' class applied via click */
+      /* Card opening states */
       .card.open {
         transform: rotate(-5deg);
       }
-      .card.open .outside {
+      .card.open .outside-panel {
         transform: rotateY(-130deg);
       }
 
-      .outside,
-      .inside {
-        height: 100%;
-        width: 50%;
-        position: absolute;
-        left: 50%;
-      }
-      .inside {
-        background: linear-gradient(to right, #e7e7e7, #ffffff 30%);
-        padding: 25px;
-        text-align: left;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        border-radius: 0 10px 10px 0;
-        overflow-y: auto;
-      }
-      .outside {
-        transform-style: preserve-3d;
-        z-index: 2;
-        transform-origin: left;
-        transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-        cursor: pointer;
-      }
-      .front,
-      .back {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        backface-visibility: hidden;
-        border-radius: 10px 0 0 10px;
-      }
-      .front {
-        background-color: #ffffff;
-        box-shadow: -10px 10px 20px rgba(0,0,0,0.2);
-      }
-      .back {
-        transform: rotateY(180deg);
-        background: linear-gradient(to left, #e7e7e7, #ffffff 30%);
-      }
-      
-      /* Pull indicator tab */
-      .pull-tab {
-        position: absolute;
-        right: -15px;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: #fd3018;
-        color: white;
-        padding: 8px 4px;
-        font-size: 10px;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        border-radius: 0 5px 5px 0;
-        writing-mode: vertical-rl;
-        text-orientation: mixed;
-        box-shadow: 3px 3px 5px rgba(0,0,0,0.2);
-        transition: opacity 0.3s ease;
-      }
-      .card.open .pull-tab {
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      .cake {
-        width: 100%;
-        position: absolute;
-        bottom: 30px;
-      }
-      .top-layer,
-      .middle-layer,
-      .bottom-layer {
+      /* Custom cake css properties matching the original design */
+      .cake-layer {
         height: 80px;
         width: 240px;
         background-repeat: repeat;
@@ -134,120 +44,86 @@
           ),
           radial-gradient(circle at 30px 5px, #994c10 30px, #fcbf29 31px);
         border-radius: 10px 10px 0 0;
-        position: relative;
-        margin: auto;
       }
-      .middle-layer {
-        transform: scale(0.85);
-        top: 6px;
+
+      /* Subtle wiggle animation for unopened card */
+      @keyframes hintWiggle {
+        0% { transform: rotate(0deg); }
+        50% { transform: rotate(-2deg); }
+        100% { transform: rotate(0deg); }
       }
-      .top-layer {
-        transform: scale(0.7);
-        top: 26px;
-      }
-      .candle {
-        height: 45px;
-        width: 15px;
-        background: repeating-linear-gradient(
-          45deg,
-          #fd3018 0,
-          #fd3018 5px,
-          #ffa89e 5px,
-          #ffa89e 10px
-        );
-        position: absolute;
-        margin: auto;
-        left: 0;
-        right: 0;
-        bottom: 202px;
-      }
-      .candle:before {
-        content: "";
-        position: absolute;
-        height: 16px;
-        width: 16px;
-        background-color: #ffa500;
-        border-radius: 0 50% 50% 50%;
-        bottom: 48px;
-        transform: rotate(45deg);
-        left: -1px;
-      }
-      .outside p {
-        font-size: 23px;
-        text-transform: uppercase;
-        margin-top: 40px;
-        text-align: center;
-        letter-spacing: 6px;
-        color: #000046;
-        font-weight: 600;
-      }
-      
-      /* Message Styling */
-      .inside h2 {
-        font-size: 24px;
-        color: #000046;
-        margin-bottom: 5px;
-      }
-      .inside p {
-        font-size: 18px;
-        line-height: 1.45;
-        color: #333333;
-        margin-bottom: 8px;
-      }
-      .inside .closing {
-        font-weight: 600;
-        margin-top: 5px;
-        margin-bottom: 0;
-        color: #fd3018;
-      }
-      
-      /* Signature Styling */
-      .signature {
-        text-align: right;
-        font-size: 10px;
-        color: #777777;
-        font-style: italic;
-        margin-top: 10px;
+      .wiggle-hint:not(.open) {
+        animation: hintWiggle 2s ease-in-out infinite alternate;
       }
     </style>
   </head>
-  <body>
-    <div class="card" id="birthdayCard" onclick="toggleCard()">
-      <div class="outside">
-        <div class="front">
-          <div class="pull-tab">Pull Me</div>
-          <p>Happy Birthday</p>
-          <div class="cake">
-            <div class="top-layer"></div>
-            <div class="middle-layer"></div>
-            <div class="bottom-layer"></div>
-            <div class="candle"></div>
+  <body class="bg-[#fdbf00] flex justify-center items-center h-screen w-screen overflow-hidden m-0 p-0">
+
+    <div id="birthdayCard" onclick="toggleCard()" class="card wiggle-hint perspective-1200 relative w-[640px] h-[450px] transition-transform duration-1000 ease-in-out">
+      
+      <div class="outside-panel preserve-3d absolute left-1/2 w-1/2 h-full origin-left transition-transform duration-[1500ms] cubic-bezier(0.4, 0, 0.2, 1) cursor-pointer z-20">
+        
+        <div class="front backface-hidden absolute w-full h-full bg-white rounded-l-xl shadow-[-10px_10px_20px_rgba(0,0,0,0.2)]">
+          <div class="pull-tab absolute -right-[15px] top-1/2 -translate-y-1/2 bg-[#fd3018] text-white py-2 px-1 text-[10px] font-bold uppercase tracking-wider rounded-r-md shadow-[3px_3px_5px_rgba(0,0,0,0.2)] transition-opacity duration-300 [writing-mode:vertical-rl] [text-orientation:mixed]">
+            Pull Me
+          </div>
+          
+          <p class="text-[23px] uppercase mt-10 text-center tracking-[6px] color-[#000046] font-semibold text-[#000046]">
+            Happy Birthday
+          </p>
+          
+          <div class="absolute bottom-[30px] w-full flex flex-col items-center">
+            <div class="relative w-[15px] h-[45px] bg-[repeating-linear-gradient(45deg,#fd3018,#fd3018_5px,#ffa89e_5px,#ffa89e_10px)] mb-[-26px] z-10
+                        before:content-[''] before:absolute before:w-4 before:h-4 before:bg-orange-500 before:rounded-[0_50%_50%_50%] before:-top-4 before:left-[-1px] before:rotate-45"></div>
+            <div class="cake-layer scale-[0.7] relative top-6"></div>
+            <div class="cake-layer scale-[0.85] relative top-1.5"></div>
+            <div class="cake-layer"></div>
           </div>
         </div>
-        <div class="back"></div>
+        
+        <div class="back backface-hidden absolute w-full h-full bg-gradient-to-l from-[#e7e7e7] to-white to-30% rotate-y-180"></div>
       </div>
       
-      <div class="inside">
-        <div>
-          <h2>Dear Mumma,</h2>
+      <div class="inside-panel absolute left-1/2 w-1/2 h-full bg-gradient-to-r from-[#e7e7e7] via-white via-30% to-white p-6 text-left flex flex-col justify-between shadow-[0_10px_20px_rgba(0,0,0,0.2)] rounded-r-xl overflow-y-auto z-10">
+        <div class="space-y-2">
+          <h2 class="text-2xl font-bold text-[#000046]">Dear Mumma,</h2>
           
-          <p>Happy birthday! Thank you so much for always supporting me. I have been seeing all my friends and have appreciated you so much more. You are always ready to put effort in, always ready to support me, and always there when I need you.</p>
+          <p class="text-[11px] leading-relaxed text-gray-700">
+            Happy birthday! Thank you so much for always supporting me. I have been seeing all my friends and have appreciated you so much more. You are always ready to put effort in, always ready to support me, and always there when I need you.
+          </p>
           
-          <p>I have noticed whenever any big task needs to be done you are always ready to put the effort in. You are very hardworking, and have never limited your scope because of the work that was needed to pull any task off. Not only do you have brilliant planning, but you are able to pull off your plans by yourself. For example, recently you have completely transformed the house without adding a whole new bedroom. Even though it was such a big task you were ready to put the work in; the only days you were free, you finished the task.</p>
+          <p class="text-[11px] leading-relaxed text-gray-700">
+            I have noticed whenever any big task needs to be done you are always ready to put the effort in. You are very hardworking, and have never limited your scope because of the work that was needed to pull any task off. Not only do you have brilliant planning, but you are able to pull off your plans by yourself. For example, recently you have completely transformed the house without adding a whole new bedroom. Even though it was such a big task you were ready to put the work in; the only days you were free, you finished the task.
+          </p>
           
-          <p>Not only this, but whenever I need support from you, you are always in the stands with me cheering me on. I will remember this throughout my life. You make time in your schedule and come just to support me with what I do.</p>
+          <p class="text-[11px] leading-relaxed text-gray-700">
+            Not only this, but whenever I need support from you, you are always in the stands with me cheering me on. I will remember this throughout my life. You make time in your schedule and come just to support me with what I do.
+          </p>
           
-          <p class="closing">Thank you so much, and Happy Birthday! 🎉</p>
+          <p class="text-[11px] font-semibold text-[#fd3018] mt-2">
+            Thank you so much, and Happy Birthday! 🎉
+          </p>
         </div>
         
-        <div class="signature">- Sid Agrawal 2026</div>
+        <div class="text-right text-[10px] text-gray-500 italic mt-2">
+          - Sid Agrawal 2026
+        </div>
       </div>
+      
     </div>
 
     <script>
       function toggleCard() {
         const card = document.getElementById('birthdayCard');
         card.classList.toggle('open');
+        
+        // Toggles utility class for hidden pull tab
+        const pullTab = card.querySelector('.pull-tab');
+        if(card.classList.contains('open')) {
+          pullTab.classList.add('opacity-0', 'pointer-events-none');
+        } else {
+          pullTab.classList.remove('opacity-0', 'pointer-events-none');
+        }
       }
     </script>
   </body>
