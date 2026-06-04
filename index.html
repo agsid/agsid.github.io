@@ -56,6 +56,170 @@
       .wiggle-hint:not(.open) {
         animation: hintWiggle 2s ease-in-out infinite alternate;
       }
+
+      /* Front cover confetti animations */
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(-20px) translateX(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(430px) translateX(var(--dynamic-x, 30px)) rotate(var(--dynamic-rotate, 360deg));
+          opacity: 0.3;
+        }
+      }
+      .confetti-piece {
+        position: absolute;
+        top: 0;
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        animation: confetti-fall 4s linear infinite;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body class="bg-[#fdbf00] flex justify-center items-center h-screen w-screen overflow-hidden m-0 p-0">
+
+    <div id="birthdayCard" onclick="toggleCard()" class="card wiggle-hint perspective-1200 relative w-[75%] h-[90%] transition-transform duration-1000 ease-in-out">
+      
+      <div class="outside-panel preserve-3d absolute left-1/2 w-1/2 h-full origin-left transition-transform duration-[1500ms] cubic-bezier(0.4, 0, 0.2, 1) cursor-pointer z-20">
+        
+        <div class="front backface-hidden absolute w-full h-full bg-white rounded-l-xl shadow-[-10px_10px_20px_rgba(0,0,0,0.2)] overflow-hidden">
+          
+          <div class="confetti-piece bg-pink-500 left-[10%]" style="animation-delay: 0s; --dynamic-x: 20px; --dynamic-rotate: 180deg;"></div>
+          <div class="confetti-piece bg-blue-400 left-[25%]" style="animation-delay: 1.5s; --dynamic-x: -30px; --dynamic-rotate: 320deg;"></div>
+          <div class="confetti-piece bg-yellow-400 left-[40%]" style="animation-delay: 0.7s; --dynamic-x: 40px; --dynamic-rotate: 240deg;"></div>
+          <div class="confetti-piece bg-green-400 left-[55%]" style="animation-delay: 2.2s; --dynamic-x: -15px; --dynamic-rotate: 420deg;"></div>
+          <div class="confetti-piece bg-purple-400 left-[70%]" style="animation-delay: 1.1s; --dynamic-x: 35px; --dynamic-rotate: 190deg;"></div>
+          <div class="confetti-piece bg-orange-400 left-[85%]" style="animation-delay: 2.8s; --dynamic-x: -45px; --dynamic-rotate: 290deg;"></div>
+          <div class="confetti-piece bg-red-400 left-[95%]" style="animation-delay: 0.3s; --dynamic-x: 10px; --dynamic-rotate: 150deg;"></div>
+
+          <div class="pull-tab absolute -right-[15px] top-1/2 -translate-y-1/2 bg-[#fd3018] text-white py-2 px-1 text-[10px] font-bold uppercase tracking-wider rounded-r-md shadow-[3px_3px_5px_rgba(0,0,0,0.2)] transition-opacity duration-300 [writing-mode:vertical-rl] [text-orientation:mixed]">
+            Pull Me
+          </div>
+          
+          <p class="text-[23px] uppercase mt-10 text-center tracking-[6px] font-semibold text-[#000046] relative z-10">  
+            Happy Birthday
+          </p>
+          
+          <div class="absolute bottom-[30px] w-full flex flex-col items-center z-10">
+            <div class="relative w-[15px] h-[45px] bg-[repeating-linear-gradient(45deg,#fd3018,#fd3018_5px,#ffa89e_5px,#ffa89e_10px)] mb-[-26px] z-10
+                        before:content-[''] before:absolute before:w-4 before:h-4 before:bg-orange-500 before:rounded-[0_50%_50%_50%] before:-top-4 before:left-[-1px] before:rotate-45"></div>
+            <div class="cake-layer scale-[0.7] relative top-6"></div>
+            <div class="cake-layer scale-[0.85] relative top-1.5"></div>
+            <div class="cake-layer"></div>
+          </div>
+
+          <div class="text-right text-[10px] text-gray-500 italic mt-2 absolute bottom-2 right-4 z-10">
+            - Sid Agrawal 2026
+          </div>
+        </div>
+        
+        <div class="back backface-hidden absolute w-full h-full bg-gradient-to-l from-[#e7e7e7] to-white to-30% rotate-y-180"></div>
+      </div>
+      
+      <div class="inside-panel absolute left-1/2 w-1/2 h-full bg-gradient-to-r from-[#e7e7e7] via-white via-30% to-white p-6 text-left flex flex-col justify-between shadow-[0_10px_20px_rgba(0,0,0,0.2)] rounded-r-xl overflow-y-auto z-10">
+        <div class="space-y-2">
+          <h2 class="text-2xl font-bold text-[#000046] pt-10">Dear Mumma,</h2>
+          
+          <p class="text-[24px] leading-relaxed text-gray-700">
+            Happy birthday! Thank you so much for always supporting me. I have been seeing all my friends and have appreciated you so much more. You are always ready to put effort in, always ready to support me, and always there when I need you.
+          </p>
+          
+          <p class="text-[24px] leading-relaxed text-gray-700">
+            I have noticed whenever any big task needs to be done you are always ready to put the effort in. You are very hardworking, and have never limited your scope because of the work that was needed to pull any task off. Not only do you have brilliant planning, but you are able to pull off your plans by yourself. For example, recently you have completely transformed the house without adding a whole new bedroom. Even though it was such a big task you were ready to put the work in; the only days you were free, you finished the task.
+          </p>
+          
+          <p class="text-[24px] leading-relaxed text-gray-700">
+            Not only this, but whenever I need support from you, you are always in the stands with me cheering me on. I will remember this throughout my life. You make time in your schedule and come just to support me with what I do.
+          </p>
+          
+          <p class="text-[28px] font-semibold text-[#fd3018] mt-2">
+            Thank you so much, and Happy Birthday! 🎉
+          </p>
+        </div>
+        
+        <div class="text-right text-[25px] text-gray-500 italic mt-2">
+          - Sid Agrawal 2026
+        </div>
+      </div>
+      
+    </div>
+    
+    <script>
+      function toggleCard() {
+        const card = document.getElementById('birthdayCard');
+        card.classList.toggle('open');
+        
+        // Toggles utility class for hidden pull tab
+        const pullTab = card.querySelector('.pull-tab');
+        if(card.classList.contains('open')) {
+          pullTab.classList.add('opacity-0', 'pointer-events-none');
+        } else {
+          pullTab.classList.remove('opacity-0', 'pointer-events-none');
+        }
+      }
+    </script>
+  </body>
+</html><!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birthday Card for Mumma</title>
+    <link rel="icon" type="image/x-icon" href="https://img.pikbest.com/illustration/20250523/happy-birthday-purple-heart_11727688.jpg!sw800">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <style>
+      * {
+        font-family: "Poppins", sans-serif;
+      }
+      .perspective-1200 {
+        perspective: 1200px;
+      }
+      .preserve-3d {
+        transform-style: preserve-3d;
+      }
+      .backface-hidden {
+        backface-visibility: hidden;
+      }
+      
+      /* Card opening states */
+      .card.open {
+        transform: rotate(-5deg);
+      }
+      .card.open .outside-panel {
+        transform: rotateY(-130deg);
+      }
+
+      /* Custom cake css properties matching the original design */
+      .cake-layer {
+        height: 80px;
+        width: 240px;
+        background-repeat: repeat;
+        background-size: 60px 100px;
+        background-position: 28px 0;
+        background-image: linear-gradient(
+            transparent 50px,
+            #fedbab 50px,
+            #fedbab 60px,
+            transparent 60px
+          ),
+          radial-gradient(circle at 30px 5px, #994c10 30px, #fcbf29 31px);
+        border-radius: 10px 10px 0 0;
+      }
+
+      /* Subtle wiggle animation for unopened card */
+      @keyframes hintWiggle {
+        0% { transform: rotate(0deg); }
+        50% { transform: rotate(-2deg); }
+        100% { transform: rotate(0deg); }
+      }
+      .wiggle-hint:not(.open) {
+        animation: hintWiggle 2s ease-in-out infinite alternate;
+      }
     </style>
   </head>
   <body class="bg-[#fdbf00] flex justify-center items-center h-screen w-screen overflow-hidden m-0 p-0">
