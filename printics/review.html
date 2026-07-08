@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTC Bento Site Builder - Verification Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200 h-screen w-screen overflow-hidden flex flex-col justify-between">
+
+    <div class="h-16 border-b border-zinc-800 bg-zinc-900 px-6 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+            <i data-lucide="shield-check" class="w-5 h-5 text-blue-500"></i>
+            <span class="font-bold tracking-tight text-white">Secure Gateway</span>
+        </div>
+        <button onclick="window.location.href='index.html'" class="text-xs text-zinc-400 hover:text-white flex items-center gap-1 bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded-xl transition">
+            <i data-lucide="arrow-left" class="w-3 h-3"></i> Back to Workspace
+        </button>
+    </div>
+
+    <main class="flex-1 flex items-center justify-center p-4">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl relative">
+            
+            <div class="flex items-center gap-2 mb-6 text-[10px] font-bold uppercase text-zinc-500 tracking-wider">
+                <i data-lucide="lock" class="w-3.5 h-3.5 text-blue-500"></i> Robotics Catalyst Foundation Security Node
+            </div>
+
+            <div id="checkoutStep1" class="space-y-5">
+                <div>
+                    <h3 class="text-xl font-black text-white tracking-tight">Identity Authentication</h3>
+                    <p class="text-xs text-zinc-400 mt-1">Provide your administration contact details to query the design bundle cache.</p>
+                </div>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-[11px] font-semibold tracking-wide uppercase text-zinc-400 mb-1.5">Authorized Credentials</label>
+                        <input type="text" id="otpContactInput" placeholder="lead-engineer@catalyst.org" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-blue-500 font-medium">
+                    </div>
+                    
+                    <button onclick="sendOtpPayload()" id="sendOtpBtn" class="w-full bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold py-3 rounded-xl transition flex items-center justify-center gap-1.5">
+                        Request Authorization Passcode <i data-lucide="key-round" class="w-3.5 h-3.5"></i>
+                    </button>
+
+                    <div id="otpValidationWrapper" class="hidden pt-4 border-t border-zinc-800/60 space-y-4">
+                        <div class="bg-blue-950/20 border border-blue-900/40 p-3 rounded-xl flex gap-2.5 items-start text-xs text-blue-400">
+                            <i data-lucide="info" class="w-4 h-4 shrink-0 mt-0.5"></i>
+                            <span>A temporary system credential pass-token was generated. Input authorization sequence.</span>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold tracking-wide uppercase text-zinc-400 mb-1.5">Verification Token</label>
+                            <input type="text" id="otpCodeInput" placeholder="••••" max-length="4" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-sm text-center font-mono tracking-widest text-white focus:outline-none focus:border-blue-500">
+                        </div>
+                        <button onclick="verifyOtpCode()" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-3 rounded-xl transition flex items-center justify-center gap-1.5 shadow-lg shadow-blue-600/10">
+                            Verify & Load Manifest <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="checkoutStep2" class="hidden space-y-6">
+                <div>
+                    <h3 class="text-xl font-black text-white tracking-tight">Design Review Checkout</h3>
+                    <p class="text-xs text-zinc-400 mt-1">Review the cached asset layout distribution matrix payload properties below.</p>
+                </div>
+
+                <div class="bg-zinc-950/60 border border-zinc-800 rounded-2xl p-5 space-y-3.5">
+                    <div class="flex justify-between items-center text-xs border-b border-zinc-850 pb-2">
+                        <span class="text-zinc-400">Target Project Identity</span>
+                        <span class="font-bold font-mono text-white" id="checkoutTeamLabel">#----</span>
+                    </div>
+                    <div class="flex justify-between items-center text-xs border-b border-zinc-850 pb-2">
+                        <span class="text-zinc-400">Team Classification</span>
+                        <span class="font-bold text-white" id="checkoutNameLabel">----</span>
+                    </div>
+                    <div class="flex justify-between items-center text-xs border-b border-zinc-850 pb-2">
+                        <span class="text-zinc-400">Data Crypt Integrity</span>
+                        <span class="text-emerald-400 font-mono text-[10px] flex items-center gap-1"><i data-lucide="check" class="w-3 h-3"></i> Validated Payload</span>
+                    </div>
+
+                    <div class="space-y-2 pt-1">
+                        <span class="text-[10px] font-mono tracking-widest uppercase text-zinc-500 block">System Manifest Structural Layers</span>
+                        <div id="checkoutManifestSummary" class="text-[11px] space-y-1.5 text-zinc-300 font-mono max-h-40 overflow-y-auto pr-1 no-scrollbar"></div>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <button onclick="submitFinalPayload()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-3.5 rounded-xl transition shadow-lg shadow-emerald-600/10 flex items-center justify-center gap-1.5">
+                        Submit Design Architecture Request <i data-lucide="send-to-back" class="w-3.5 h-3.5"></i>
+                    </button>
+                    <p class="text-[10px] text-zinc-500 text-center leading-normal">Submitting transfers layout templates directly to the Foundation verification deployment environments.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="h-10 border-t border-zinc-800 bg-zinc-900 px-6 flex items-center justify-between text-[11px] text-zinc-500 shrink-0">
+        <span>Design System Configuration Hub</span>
+        <span>FTC Layout Matrix © 2026</span>
+    </footer>
+
+    <script>
+        let cachedDataPackage = null;
+
+        // Initialize and verify internal browser payload caches on startup
+        window.onload = function() {
+            const rawCache = localStorage.getItem('ftc_bento_cached_design');
+            if (!rawCache) {
+                alert("No active architectural configuration matrix found. Redirecting back to workspace engine.");
+                window.location.href = 'index.html';
+                return;
+            }
+            cachedDataPackage = JSON.parse(rawCache);
+            lucide.createIcons();
+        };
+
+        function sendOtpPayload() {
+            const identifier = document.getElementById('otpContactInput').value.trim();
+            if (!identifier) {
+                alert("Please enter a valid credential target string.");
+                return;
+            }
+            document.getElementById('otpValidationWrapper').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function verifyOtpCode() {
+            const validationToken = document.getElementById('otpCodeInput').value.trim();
+            if (!validationToken) {
+                alert("Authentication parameter key missing.");
+                return;
+            }
+
+            // Bind structured data vectors securely into checkout review interface
+            document.getElementById('checkoutTeamLabel').innerText = `#${cachedDataPackage.teamNumber}`;
+            document.getElementById('checkoutNameLabel').innerText = cachedDataPackage.teamName;
+
+            let summaryHTML = '';
+            for (const [layerKey, styleOpt] of Object.entries(cachedDataPackage.layouts)) {
+                const layerTitle = cachedDataPackage.titles[layerKey] || layerKey;
+                summaryHTML += `
+                    <div class="flex justify-between border-b border-zinc-900 pb-1 opacity-80">
+                        <span class="text-zinc-400">${layerTitle}</span>
+                        <span class="text-white font-bold">Index ${styleOpt}</span>
+                    </div>`;
+            }
+            
+            document.getElementById('checkoutManifestSummary').innerHTML = summaryHTML;
+
+            // Step translation execution
+            document.getElementById('checkoutStep1').classList.add('hidden');
+            document.getElementById('checkoutStep2').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function submitFinalPayload() {
+            alert("Payload transmitted successfully. Layout structures logged into deployment streams.");
+            localStorage.removeItem('ftc_bento_cached_design'); // Clear buffer allocation after transfer completion
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
