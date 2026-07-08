@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTC Bento Site Builder - Workspace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style id="dynamicGoogleFontStyles"></style>
+    <style>
+        :root {
+            --bg-color: #09090b;
+            --accent-color: #3b82f6;
+            --surface-color: #18181b;
+            --border-color: #27272a;
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .preview-canvas {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family) !important;
+        }
+        .bento-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            overflow: hidden;
+        }
+        .theme-accent-text { color: var(--accent-color); }
+        .theme-accent-bg { background-color: var(--accent-color); color: #fff; }
+        .theme-text-muted { color: var(--text-muted); }
+        .theme-border { border-color: var(--border-color); }
+
+        .review-badge {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200 h-screen w-screen overflow-hidden flex flex-col font-sans">
+
+    <div class="h-16 border-b border-zinc-800 bg-zinc-900 px-6 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+            <i data-lucide="layout-grid" class="w-5 h-5 text-blue-500"></i>
+            <span class="font-bold tracking-tight text-white">The Robotics Catalyst Foundation</span>
+        </div>
+        <div class="text-xs text-zinc-500 font-mono">Bento Builder Core Suite</div>
+    </div>
+
+    <div class="flex flex-1 overflow-hidden p-4 gap-4 relative">
+        
+        <aside id="configSidebar" class="w-[310px] flex flex-col gap-4 h-[calc(100%-8px)] shrink-0 z-50 bg-zinc-900/90 backdrop-blur-md border border-zinc-800 rounded-[2rem] p-5 shadow-2xl overflow-y-auto no-scrollbar">
+            <div class="space-y-5">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-zinc-400">Branding & Style</h2>
+                    <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded-full font-mono">Workspace</span>
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-medium text-zinc-400 mb-1">Team Number</label>
+                    <input type="text" id="teamNum" value="7034" oninput="updatePreview()" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-2 text-sm text-white focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-zinc-400 mb-1">Team Name</label>
+                    <input type="text" id="teamName" value="Bionic Bruins" oninput="updatePreview()" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-2 text-sm text-white focus:outline-none focus:border-blue-500">
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs font-medium text-zinc-400 mb-1">Background</label>
+                        <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-1 flex items-center h-9">
+                            <input type="color" id="bgColor" value="#09090b" oninput="updateTheme()" class="w-full h-full rounded-lg cursor-pointer bg-transparent border-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-zinc-400 mb-1">Accent</label>
+                        <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-1 flex items-center h-9">
+                            <input type="color" id="accentColor" value="#3b82f6" oninput="updateTheme()" class="w-full h-full rounded-lg cursor-pointer bg-transparent border-none">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="block text-xs font-medium text-zinc-400">Google Font</label>
+                        <a href="https://fonts.google.com" target="_blank" class="text-[10px] text-blue-400 hover:underline inline-flex items-center gap-0.5">Open <i data-lucide="external-link" class="w-2.5 h-2.5"></i></a>
+                    </div>
+                    <input type="text" id="fontSearchInput" value="Plus Jakarta Sans" onchange="injectGoogleFont()" placeholder="Type name & press enter..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-2 text-sm text-white focus:outline-none focus:border-blue-500">
+                </div>
+
+                <div class="pt-4 border-t border-zinc-800 space-y-3">
+                    <button id="mainActionButton" onclick="toggleReviewStage()" class="bg-white text-zinc-950 hover:bg-zinc-200 w-full rounded-xl py-2.5 text-xs font-bold flex items-center justify-center gap-1.5 transition">
+                        <span id="btnText">Review Configurations</span> <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                    </button>
+
+                    <div id="reviewSpecsPanel" class="hidden space-y-2">
+                        <span class="text-[11px] font-bold tracking-wider uppercase text-zinc-500 block">Layout Manifest</span>
+                        <div id="manifestList" class="text-[10px] font-mono text-zinc-400 space-y-1 bg-black/40 p-2 rounded-xl border border-zinc-800"></div>
+                        <button onclick="lockAndCacheDesign()" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2.5 rounded-xl transition shadow-md flex items-center justify-center gap-1">
+                            Lock In Codebase <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="flex-1 bg-zinc-900 border border-zinc-800 rounded-[2rem] overflow-hidden relative shadow-2xl flex">
+            <div id="leftSideNavAnchor" class="h-full bg-transparent p-4 pr-0 flex hidden shrink-0 relative"></div>
+
+            <div id="previewCanvas" class="preview-canvas flex-1 h-full overflow-y-auto no-scrollbar scroll-smooth">
+                <div class="max-w-4xl mx-auto p-4 md:p-8 flex flex-col gap-6" id="siteContent"></div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="h-10 border-t border-zinc-800 bg-zinc-900 px-6 flex items-center justify-between text-[11px] text-zinc-500 shrink-0">
+        <span>Design System Configuration Hub</span>
+        <span>FTC Layout Matrix © 2026</span>
+    </footer>
+
+    <script>
+        const generateGlobalLinks = () => `
+            <span class="hover:text-white cursor-pointer transition">Robot</span>
+            <span class="hover:text-white cursor-pointer transition">Team</span>
+            <span class="hover:text-white cursor-pointer transition">Codebase</span>
+            <span class="hover:text-white cursor-pointer transition">Partners</span>
+            <span class="hover:text-white cursor-pointer transition">Impact</span>
+            <span class="hover:text-white cursor-pointer transition">Awards</span>
+            <span class="hover:text-white cursor-pointer transition">Contact</span>
+        `;
+
+        const components = {
+            nav: {
+                title: "Navigation Layer",
+                options: {
+                    1: (team, name) => `<nav class="bento-card py-4 px-6 flex justify-between items-center bg-zinc-900/40 backdrop-blur-md"><div class="flex flex-col"><span class="font-bold text-sm tracking-tight text-white">${name.toUpperCase()}</span><span class="text-[10px] theme-accent-text font-bold">TEAM #${team}</span></div><div class="flex gap-4 text-[11px] font-semibold uppercase tracking-wider theme-text-muted">${generateGlobalLinks()}</div></nav>`,
+                    2: (team, name) => `<div class="bento-card py-6 flex flex-col gap-6 w-52 h-[calc(100%-32px)] my-4 justify-between border-r theme-border rounded-none rounded-l-3xl shadow-xl bg-zinc-900/80 backdrop-blur-md ml-4"><div class="space-y-4"><div class="flex flex-col border-b theme-border pb-3"><span class="font-bold text-sm leading-tight text-white">${name}</span><span class="text-[10px] theme-accent-text font-mono mt-0.5">#${team}</span></div><div class="flex flex-col gap-3.5 text-xs font-medium theme-text-muted">${generateGlobalLinks().replace(/span/g, 'span class="hover:text-white text-left cursor-pointer transition block"')}</div></div><div class="text-[10px] theme-text-muted font-mono tracking-widest uppercase opacity-60">System Ready</div></div>`,
+                    3: (team, name) => `<nav class="flex justify-center"><div class="bento-card py-3 px-8 flex gap-6 text-[11px] font-bold uppercase tracking-wider rounded-full items-center"><span class="theme-accent-text cursor-pointer mr-2">${name} #${team}</span>${generateGlobalLinks()}</div></nav>`,
+                    4: (team, name) => `<nav class="bento-card p-3 flex items-center justify-between bg-black/40 border border-zinc-800"><div class="bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-1.5 flex items-center gap-2"><div class="w-2 h-2 rounded-full theme-accent-bg animate-pulse"></div><span class="font-mono text-xs font-bold text-white">${name} // FTC-${team}</span></div><div class="flex gap-5 text-xs text-zinc-400 font-medium">${generateGlobalLinks()}</div></nav>`
+                }
+            },
+            robot: {
+                title: "Hero Presentation Block",
+                options: {
+                    1: (team, name) => `<div class="py-12 px-2 flex flex-col items-start text-left bg-transparent"><span class="theme-accent-text font-bold text-xs uppercase tracking-widest mb-2 block">Engineering Design</span><h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4 max-w-xl leading-none">Automated Power & Precision of ${name} #${team}</h1><p class="theme-text-muted text-sm max-w-md">Our robot design merges custom physical subsystems with autonomous route software frameworks.</p></div>`,
+                    2: (team, name) => `<div class="py-12 px-2 flex flex-col items-end text-right bg-transparent"><span class="theme-accent-text font-bold text-xs uppercase tracking-widest mb-2 block">Operational Software</span><h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4 max-w-xl leading-none">Innovation Engineered by ${name} #${team}</h1><p class="theme-text-muted text-sm max-w-md ml-auto">Clean physical control layouts mapped together to construct competitive field runtime software arrays.</p></div>`,
+                    3: (team, name) => `<div class="bento-card p-8 bg-gradient-to-br from-zinc-900 to-black flex flex-col md:flex-row items-center gap-6 justify-between"><div class="space-y-3 max-w-xl"><div class="inline-flex items-center gap-2 bg-zinc-800 text-zinc-300 font-mono text-[10px] uppercase px-2.5 py-1 rounded-md">System State: Active</div><h1 class="text-3xl font-black tracking-tight text-white leading-tight">Next-Generation Field Integration Vector Layouts</h1><p class="text-xs theme-text-muted leading-relaxed">Built by ${name} #${team} to address structural mechanics updates, path tracing logic arrays, and modular custom attachments.</p></div><div class="w-32 h-32 shrink-0 rounded-2xl border-2 border-dashed theme-border flex flex-col items-center justify-center text-zinc-600"><i data-lucide="cpu" class="w-8 h-8 mb-1 theme-accent-text"></i><span class="text-[9px] font-mono tracking-widest uppercase">Hardware Core</span></div></div>`
+                }
+            },
+            members: {
+                title: "Team Members Grid",
+                options: {
+                    1: () => `<div class="bento-card"><h2 class="text-xs font-bold uppercase tracking-wider mb-4 theme-text-muted">The Crew Matrix // Circle Profiles</h2><div class="grid grid-cols-2 sm:grid-cols-4 gap-4">${['Driver', 'Captain', 'Vision Tech', 'Mechanic'].map(role => `<div class="bg-black/20 p-4 rounded-2xl border theme-border text-center"><div class="w-14 h-14 rounded-full bg-zinc-800 border-2 theme-border mx-auto mb-3 flex items-center justify-center font-bold text-base text-zinc-400">${role[0]}</div><h3 class="font-bold text-xs">Lead Engineer</h3><p class="text-[9px] theme-accent-text uppercase font-semibold mt-0.5">${role}</p></div>`).join('')}</div></div>`,
+                    2: () => `<div class="bento-card"><h2 class="text-xs font-bold uppercase tracking-wider mb-4 theme-text-muted">The Crew Matrix // Square Profiles</h2><div class="grid grid-cols-2 sm:grid-cols-4 gap-4">${['Hardware', 'Software', 'Outreach', 'Design'].map(role => `<div class="bg-black/20 p-4 rounded-xl border theme-border text-left group transition"><div class="w-10 h-10 rounded-xl theme-accent-bg mb-3 flex items-center justify-center font-bold text-white shadow">${role[0]}</div><h3 class="font-bold text-xs">Team Associate</h3><p class="text-[9px] theme-text-muted uppercase mt-0.5">${role}</p></div>`).join('')}</div></div>`,
+                    3: () => `<div class="bento-card"><h2 class="text-xs font-bold uppercase tracking-wider mb-3 theme-text-muted">Divisional Command Nodes</h2><div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div class="bg-zinc-900/60 p-5 rounded-2xl border theme-border flex flex-col justify-between"><div><h3 class="font-bold text-sm text-white mb-1">Software Infrastructure Array</h3><p class="text-xs theme-text-muted leading-relaxed">Developing real-time pure mathematical localized vector calculations, custom machine vision telemetry, and predictive path routines.</p></div><div class="mt-4 flex gap-1.5 flex-wrap"><span class="bg-black/40 text-[10px] font-mono px-2 py-0.5 rounded border theme-border">Kotlin</span><span class="bg-black/40 text-[10px] font-mono px-2 py-0.5 rounded border theme-border">FTC-SDK</span></div></div><div class="bg-zinc-900/60 p-5 rounded-2xl border theme-border flex flex-col justify-between"><div><h3 class="font-bold text-sm text-white mb-1">Physical Systems Rigging</h3><p class="text-xs theme-text-muted leading-relaxed">Machining custom intake solutions, high-torque extension lifters, and modular structural frameworks for field execution optimizations.</p></div><div class="mt-4 flex gap-1.5 flex-wrap"><span class="bg-black/40 text-[10px] font-mono px-2 py-0.5 rounded border theme-border">Onshape CAD</span><span class="bg-black/40 text-[10px] font-mono px-2 py-0.5 rounded border theme-border">CNC Fabrication</span></div></div></div></div>`,
+                    4: () => `<div class="bento-card"><h2 class="text-xs font-bold uppercase tracking-wider mb-4 theme-text-muted">Roster Index // Flat Rows</h2><div class="space-y-2">${['Alex R. (Captain)', 'Jamie D. (Drive Subsystem)', 'Morgan K. (Computer Vision)', 'Chris P. (Community Lead)'].map(name => `<div class="w-full bg-zinc-900/40 border border-zinc-800 rounded-xl p-3 flex justify-between items-center text-xs"><span class="font-bold text-white">${name}</span><span class="text-[10px] font-mono theme-accent-text uppercase tracking-widest">Active Member</span></div>`).join('')}</div></div>`
+                }
+            },
+            opensource: {
+                title: "Repository Modules",
+                options: {
+                    1: () => `<div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div class="bento-card flex flex-col justify-between p-6 hover:border-zinc-700 transition"><div><div class="flex justify-between items-start mb-2"><i data-lucide="github" class="w-5 h-5 theme-accent-text"></i><span class="text-[10px] font-mono bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">Active v2.4</span></div><h3 class="font-bold text-sm">Autonomous Tracking Repo</h3><p class="text-xs theme-text-muted mt-1 leading-normal">Our localized vector tracking library shared publicly to improve structural math processing across teams.</p></div></div><div class="bento-card flex flex-col justify-between p-6 hover:border-zinc-700 transition"><div><div class="flex justify-between items-start mb-2"><i data-lucide="box" class="w-5 h-5 theme-accent-text"></i><span class="text-[10px] font-mono bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">Production CAD</span></div><h3 class="font-bold text-sm">Custom Intake Systems</h3><p class="text-xs theme-text-muted mt-1 leading-normal">Open-source print maps and physical assembly diagrams detailing high-speed item intake assemblies.</p></div></div></div>`,
+                    2: () => `<div class="bento-card flex flex-col md:flex-row items-center justify-between gap-4"><div class="flex items-center gap-4"><div class="w-10 h-10 rounded-xl bg-zinc-800 flex items-center justify-center"><i data-lucide="folder-git" class="w-5 h-5 theme-accent-text"></i></div><div><h3 class="font-bold text-sm">Public Software Core Libraries</h3><p class="text-xs theme-text-muted">Check out our production engineering records repository live.</p></div></div><button class="bg-white text-zinc-950 font-bold text-xs px-5 py-2.5 rounded-xl whitespace-nowrap transition hover:bg-zinc-200">Check Repository</button></div>`,
+                    3: () => `<div class="bento-card p-6 border border-zinc-800"><div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4"><div><span class="text-[10px] font-mono uppercase tracking-widest theme-accent-text">Open Source Framework</span><h3 class="text-base font-bold text-white">Central Math Vector Architecture</h3><p class="text-xs text-zinc-400 mt-0.5">Telemetry tracking matrix compiled natively for extreme processing stability.</p></div><div class="flex gap-2"><div class="bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-xl text-center"><div class="text-sm font-bold text-white">142</div><div class="text-[8px] text-zinc-500 uppercase font-mono">Stars</div></div><div class="bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-xl text-center"><div class="text-sm font-bold text-white">38</div><div class="text-[8px] text-zinc-500 uppercase font-mono">Forks</div></div></div></div><div class="bg-black/40 border border-zinc-850 rounded-xl p-3 font-mono text-[11px] text-emerald-400 flex items-center justify-between"><span>git clone https://github.com/catalyst/ftc-core.git</span><i data-lucide="copy" class="w-3.5 h-3.5 text-zinc-500 cursor-pointer hover:text-white"></i></div></div>`
+                }
+            },
+            sponsors: {
+                title: "Sponsors Reel Layout",
+                options: {
+                    1: () => `<div class="bento-card bg-gradient-to-r from-zinc-900 via-zinc-850 to-zinc-900 border border-zinc-800"><div class="flex items-center justify-between mb-3 border-b border-zinc-800 pb-2"><span class="text-[10px] font-mono tracking-widest uppercase text-zinc-500">// Anchored Alliance Partners</span><span class="w-2 h-2 rounded-full bg-emerald-500"></span></div><div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">${['Titanium Tech Core', 'Precision Laser Works', 'Vector Logistics', 'Solid Build Corp'].map(name => `<div class="bg-black/40 rounded-xl py-5 border theme-border text-xs font-bold theme-text-muted uppercase tracking-wider p-2 flex items-center justify-center h-16">${name}</div>`).join('')}</div></div>`,
+                    2: () => `<div class="bento-card py-4 bg-zinc-900/50"><div class="flex items-center justify-around gap-8 text-xs font-mono font-bold tracking-widest theme-text-muted opacity-80 uppercase"><span>// TITANIUM_LABS</span><span>// COG_FABRICATION</span><span>// VECTOR_FOUNDATION</span><span>// SOLID_ARC</span></div></div>`,
+                    3: () => `<div class="bento-card p-6"><span class="text-[10px] font-mono tracking-widest uppercase text-zinc-500 mb-4 block">Tiered Infrastructure Supporters</span><div class="space-y-3"><div class="bg-gradient-to-r from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-4 flex justify-between items-center"><div><div class="text-xs font-bold text-white uppercase tracking-wider">Apex Laser Engineering</div><div class="text-[10px] text-amber-500/80 font-mono font-bold uppercase mt-0.5">Diamond Matrix Tier</div></div><i data-lucide="award" class="w-5 h-5 text-amber-400"></i></div><div class="grid grid-cols-1 sm:grid-cols-2 gap-2"><div class="bg-zinc-900 border border-zinc-800 p-3 rounded-xl text-xs font-bold text-zinc-300 uppercase tracking-wide">Dynamic Components Inc.</div><div class="bg-zinc-900 border border-zinc-800 p-3 rounded-xl text-xs font-bold text-zinc-300 uppercase tracking-wide">Stellar Print Works</div></div></div></div>`
+                }
+            },
+            donations: {
+                title: "Donation Channels",
+                options: {
+                    1: () => `<div class="bento-card border-2 border-blue-500/30 bg-gradient-to-br from-blue-950/20 to-zinc-900 p-8 text-center relative overflow-hidden"><div class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-24 bg-blue-500/10 rounded-full blur-2xl"></div><span class="bg-blue-500/10 text-blue-400 font-mono text-[10px] px-3 py-1 rounded-full border border-blue-500/20 inline-block mb-3 uppercase tracking-wider">Invest In Real STEM Outreach</span><h2 class="text-2xl font-black mb-2 text-white">Empower Sustainable Technology Education</h2><p class="text-xs theme-text-muted max-w-md mx-auto mb-5 leading-relaxed">Your financial backing supplies physical robot tooling component assemblies, open workspace development machinery kits, and tournament entrance provisions to local community youth teams.</p><a href="https://rcf.page" target="_blank" class="theme-accent-bg px-6 py-2.5 rounded-xl text-xs font-bold inline-block hover:opacity-90 transition shadow-lg shadow-blue-500/20">Securely Fuel Our Mission &rarr;</a></div>`,
+                    2: () => `<div class="bento-card flex flex-col sm:flex-row items-center justify-between gap-6 p-6 border-l-4 border-blue-500"><div class="space-y-1 max-w-xl"><h3 class="font-bold text-base text-white">Direct-Impact Resource Allocation</h3><p class="text-xs theme-text-muted leading-normal">Every single donation directly structures physical machinery arrays, open educational code blocks, and localized team grants helping low-resource districts maintain competitiveness.</p></div><a href="https://rcf.page" target="_blank" class="bg-zinc-800 text-white text-xs font-bold px-5 py-3 rounded-xl border theme-border hover:border-blue-500 whitespace-nowrap transition">Contribute Via RCF Portal</a></div>`,
+                    3: () => `<div class="bento-card p-6 bg-zinc-900/60 border border-zinc-800"><div class="flex justify-between items-center mb-4"><div><span class="text-[10px] font-mono theme-accent-text uppercase">Community Campaign</span><h3 class="text-sm font-bold text-white">Youth Workspace Gear Drive</h3></div><span class="text-xs font-mono font-bold text-white">72% Funded</span></div><div class="w-full bg-zinc-950 h-3 rounded-full border border-zinc-850 p-0.5 overflow-hidden mb-4"><div class="bg-blue-500 h-full rounded-full" style="width: 72%;"></div></div><div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3"><div class="text-[11px] text-zinc-400">Raised <span class="text-white font-bold">$3,600</span> of $5,000 target goal</div><a href="https://rcf.page" target="_blank" class="bg-white text-zinc-950 font-bold text-[11px] px-4 py-1.5 rounded-lg transition hover:bg-zinc-200">Back Component Drive</a></div></div>`
+                }
+            },
+            awards: {
+                title: "Performance Integration",
+                options: {
+                    1: (team) => `<div class="bento-card p-0 bg-white overflow-hidden flex flex-col h-[500px]"><iframe src="https://robolyst.org/embed/ftc/team/${team}/recent-events?record=false" width="100%" height="100%" style="border:0; background:white;" loading="lazy" title="Robolyst FTC Team ${team}"></iframe></div>`,
+                    2: (team) => `<div class="grid grid-cols-1 md:grid-cols-3 gap-4"><div class="bento-card flex flex-col justify-center"><h3 class="font-bold text-base mb-1">Live Performance Hub</h3><p class="text-xs theme-text-muted">Realtime data sync powered by Robolyst logs.</p></div><div class="bento-card md:col-span-2 p-0 bg-white h-[350px] overflow-hidden"><iframe src="https://robolyst.org/embed/ftc/team/${team}/recent-events?record=false" width="100%" height="100%" style="border:0;" loading="lazy"></iframe></div></div>`,
+                    3: () => `<div class="bento-card p-6"><span class="text-[10px] font-mono uppercase tracking-widest text-zinc-500 block mb-4">Accolades & History Milestones</span><div class="grid grid-cols-1 sm:grid-cols-3 gap-3"><div class="bg-zinc-950 border border-zinc-850 p-4 rounded-xl flex flex-col justify-between h-28"><i data-lucide="trophy" class="w-5 h-5 text-amber-500"></i><div><div class="text-xs font-bold text-white">Inspire Award 1st</div><div class="text-[9px] text-zinc-500 font-mono mt-0.5">Regional Qualifier</div></div></div><div class="bg-zinc-950 border border-zinc-850 p-4 rounded-xl flex flex-col justify-between h-28"><i data-lucide="activity" class="w-5 h-5 text-blue-500"></i><div><div class="text-xs font-bold text-white">Think Award Winner</div><div class="text-[9px] text-zinc-500 font-mono mt-0.5">State Championship</div></div></div><div class="bg-zinc-950 border border-zinc-850 p-4 rounded-xl flex flex-col justify-between h-28"><i data-lucide="zap" class="w-5 h-5 text-purple-500"></i><div><div class="text-xs font-bold text-white">Highest Match Score</div><div class="text-[9px] text-zinc-500 font-mono mt-0.5">Qualifying Matches</div></div></div></div></div>`
+                }
+            },
+            contact: {
+                title: "Inbound Messaging Form",
+                options: {
+                    1: () => `<div class="bento-card max-w-md mx-auto w-full space-y-3"><h3 class="font-bold text-xs tracking-wide uppercase theme-text-muted">Transmit Message</h3><input type="text" placeholder="Identity / Name" class="w-full bg-[var(--bg-color)] border border-[var(--border-color)] rounded-xl p-2.5 text-xs text-white outline-none focus:border-[var(--accent-color)] transition"><input type="email" placeholder="Communication Email" class="w-full bg-[var(--bg-color)] border border-[var(--border-color)] rounded-xl p-2.5 text-xs text-white outline-none focus:border-[var(--accent-color)] transition"><textarea placeholder="Write transmission data parameters..." rows="3" class="w-full bg-[var(--bg-color)] border border-[var(--border-color)] rounded-xl p-2.5 text-xs text-white outline-none focus:border-[var(--accent-color)] transition"></textarea><button class="w-full theme-accent-bg py-2.5 rounded-xl font-bold text-xs transition hover:opacity-90">Send Message</button></div>`,
+                    2: () => `<div class="bento-card max-w-md mx-auto w-full p-8 space-y-4 border border-[var(--border-color)] bg-transparent"><h3 class="font-bold text-lg text-center text-white">Get In Touch</h3><div class="space-y-3"><input type="text" placeholder="Name" class="w-full bg-[var(--bg-color)] border border-[var(--border-color)] rounded-xl p-2.5 text-xs text-white outline-none focus:border-[var(--accent-color)] transition"><input type="email" placeholder="Email" class="w-full bg-[var(--bg-color)] border border-[var(--border-color)] rounded-xl p-2.5 text-xs text-white outline-none focus:border-[var(--accent-color)] transition"><textarea placeholder="Message" rows="2" class="w-full bg-[var(--bg-color)] border border-[var(--border-color)] rounded-xl p-2.5 text-xs text-white outline-none focus:border-[var(--accent-color)] transition"></textarea></div><button class="w-full bg-white text-black py-2 rounded-xl font-bold text-xs hover:bg-zinc-200 transition">Submit Request</button></div>`
+                }
+            },
+            footer: {
+                title: "Footer Section Matrix",
+                options: {
+                    1: (team, name) => `<footer class="bento-card py-6 text-center text-xs theme-text-muted space-y-2"><p>© 2026 ${name} Team Network. All rights reserved.</p><p class="font-mono text-[10px]">Resource Index: <a href="https://robolyst.org/team/ftc/${team}" target="_blank" class="theme-accent-text underline">https://robolyst.org/team/ftc/${team}</a></p></footer>`,
+                    2: (team, name) => `<footer class="py-8 px-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] theme-text-muted border-t border-[var(--border-color)] mt-8"><span>Designed with Gracious Professionalism® // ${name}</span><a href="https://robolyst.org/team/ftc/${team}" target="_blank" class="hover:text-white font-mono">robolyst://${team}</a></footer>`
+                }
+            }
+        };
+
+        const activeLayouts = { nav: 1, robot: 1, members: 1, opensource: 1, sponsors: 1, donations: 1, awards: 1, contact: 1, footer: 1 };
+        let reviewMode = false;
+
+        function cycleLayout(componentKey, direction) {
+            if (reviewMode) return;
+            let totalOptions = Object.keys(components[componentKey].options).length;
+            let current = activeLayouts[componentKey];
+            current += direction;
+            if (current > totalOptions) current = 1;
+            if (current < 1) current = totalOptions;
+            activeLayouts[componentKey] = current;
+            updatePreview();  
+        }
+
+        function toggleReviewStage() {
+            const specsPanel = document.getElementById('reviewSpecsPanel');
+            const manifestList = document.getElementById('manifestList');
+            const btnText = document.getElementById('btnText');
+            
+            if (!reviewMode) {
+                reviewMode = true;
+                btnText.innerText = "Modify Layouts";
+                specsPanel.classList.remove('hidden');
+                
+                let manifestHTML = '';
+                for (const [key, currentOpt] of Object.entries(activeLayouts)) {
+                    manifestHTML += `<div><span class="text-zinc-500">${components[key].title}:</span> Style ${currentOpt}</div>`;
+                }
+                manifestList.innerHTML = manifestHTML;
+            } else {
+                reviewMode = false;
+                btnText.innerText = "Review Configurations";
+                specsPanel.classList.add('hidden');
+            }
+            updatePreview();
+        }
+
+        function updateTheme() {
+            const root = document.getElementById('previewCanvas');
+            root.style.setProperty('--bg-color', document.getElementById('bgColor').value);
+            root.style.setProperty('--accent-color', document.getElementById('accentColor').value);
+        }
+
+        function injectGoogleFont() {
+            const fontName = document.getElementById('fontSearchInput').value.trim();
+            if (!fontName) return;
+            const formattedName = fontName.replace(/\s+/g, '+');
+            const styleElement = document.getElementById('dynamicGoogleFontStyles');
+            styleElement.innerHTML = `@import url('https://fonts.googleapis.com/css2?family=${formattedName}:wght@400;700;900&display=swap'); :root { --font-family: '${fontName}', sans-serif !important; }`;
+            updatePreview();
+        }
+
+        function updatePreview() {
+            const team = document.getElementById('teamNum').value || "7034";
+            const name = document.getElementById('teamName').value || "Robotics Team";
+            const contentDiv = document.getElementById('siteContent');
+            const sideNavAnchor = document.getElementById('leftSideNavAnchor');
+            
+            let canvasHTML = '';
+            let sideNavHTML = '';
+            const order = ['nav', 'robot', 'members', 'opensource', 'sponsors', 'donations', 'awards', 'contact', 'footer'];
+            
+            order.forEach(key => {
+                const activeOpt = activeLayouts[key];
+                let rawBlockHTML = components[key].options[activeOpt](team, name);
+                
+                if (key === 'nav' && activeOpt === 2) {
+                    if (reviewMode) {
+                        sideNavHTML = `<div class="relative border border-dashed border-blue-500 rounded-3xl p-1 h-full review-badge"><button onclick="toggleReviewStage()" class="absolute top-4 right-4 bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-lg text-[10px] font-bold shadow-xl z-50 flex items-center gap-1 transition"><i data-lucide="edit-3" class="w-3 h-3"></i> Change Side Nav</button>${rawBlockHTML}</div>`;
+                    } else {
+                        sideNavHTML = `<div class="relative h-full"><button onclick="cycleLayout('${key}', -1)" class="absolute -left-2 top-10 bg-zinc-900 border border-zinc-700 text-zinc-400 hover:text-white p-1.5 rounded-full shadow-xl z-50 transition"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>${rawBlockHTML} <button onclick="cycleLayout('${key}', 1)" class="absolute -right-2 top-10 bg-zinc-900 border border-zinc-700 text-zinc-400 hover:text-white p-1.5 rounded-full shadow-xl z-50 transition"><i data-lucide="chevron-right" class="w-4 h-4"></i></button></div>`;
+                    }
+                    return;
+                }
+
+                if (reviewMode) {
+                    canvasHTML += `<div class="relative border border-dashed border-blue-500/60 rounded-[1.75rem] p-1 review-badge"><button onclick="toggleReviewStage()" class="absolute top-3 right-3 bg-blue-600 hover:bg-blue-500 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold shadow-xl z-50 flex items-center gap-1 transition"><i data-lucide="edit-3" class="w-3 h-3"></i> Adjust Section</button>${rawBlockHTML}</div>`;
+                } else {
+                    canvasHTML += `<div class="relative px-2"><button onclick="cycleLayout('${key}', -1)" class="absolute -left-4 top-1/2 -translate-y-1/2 bg-zinc-900 border border-zinc-700 text-zinc-400 hover:text-white p-1.5 rounded-full shadow-xl transition z-40"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>${rawBlockHTML}<button onclick="cycleLayout('${key}', 1)" class="absolute -right-4 top-1/2 -translate-y-1/2 bg-zinc-900 border border-zinc-700 text-zinc-400 hover:text-white p-1.5 rounded-full shadow-xl transition z-40"><i data-lucide="chevron-right" class="w-4 h-4"></i></button></div>`;
+                }
+            });
+
+            if (sideNavHTML !== '') {
+                sideNavAnchor.innerHTML = sideNavHTML;
+                sideNavAnchor.classList.remove('hidden');
+            } else {
+                sideNavAnchor.innerHTML = '';
+                sideNavAnchor.classList.add('hidden');
+            }
+
+            contentDiv.innerHTML = canvasHTML;
+            lucide.createIcons();
+        }
+
+        function lockAndCacheDesign() {
+            const cachePayload = {
+                teamNumber: document.getElementById('teamNum').value || "7034",
+                teamName: document.getElementById('teamName').value || "Robotics Team",
+                background: document.getElementById('bgColor').value,
+                accent: document.getElementById('accentColor').value,
+                font: document.getElementById('fontSearchInput').value,
+                layouts: activeLayouts,
+                titles: Object.fromEntries(Object.entries(components).map(([k, v]) => [k, v.title])),
+                timestamp: new Date().toISOString()
+            };
+
+            localStorage.setItem('ftc_bento_cached_design', JSON.stringify(cachePayload));
+            window.location.href = 'review.html';
+        }
+
+        updateTheme();
+        injectGoogleFont();
+    </script>
+</body>
+</html>
