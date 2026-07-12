@@ -5,22 +5,89 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>My Portfolio</title>
         <link rel="stylesheet" href="styles.css">
+        <script src="https://cdn.tailwindcss.com"></script>
+
     </head>
-    <body>
-        <header>
-            <h1>My Personal Site</h1>
-            <nav>
-              <a href="#projects">Projects</a>
-              <a href="#about">About</a>
-            </nav>
-        </header>
-        <section id="projects">
-            <h2>Projects</h2>
-            <p>Robolyst, SingulTech, CTFTC, AlliedAlgo, Calculator</p>
+    <body class="bg-sky-50">
+
+       <nav class="bg-sky-600 flex items-center justify-between px-5 py-3 sticky top-0">
+           <div class="flex items-center space-x-3">
+           <img src="logo.svg" alt="" class="w-10 h-10 rounded-full">
+           <span class="ml-2">My own Website</span>
+           </div>
+           <ul class="float-right flex">
+               <li class="bg-indigo-600 rounded-md text-white px-5 mx-2 py-3"><a href="#projects">Projects</a></li>
+               <li class="bg-indigo-600 rounded-md text-white px-5 mx-2 py-3"><a href="#about">About</a></li>
+           </ul>
+       </nav>
+       <div class="h-screen w-full bg-gradient-to-br from-indigo-600 to-blue-800 grid grid-cols-1 md:grid-cols-2 items-center justify-items-center p-8">
+           <img src="sid.JPEG" alt="Sid Agrawal" class="h-3/6 rounded-2xl object-cover shadow-2xl">
+           <h1 class="text-3xl md:text-5xl text-white text-center font-bold font-display">
+               Hi, I'm Sid Agrawal
+           </h1>
+       </div>
+
+<div class="max-w-4xl mx-auto px-6 py-10 space-y-12 " loading="lazy">
+        <section id="projects" class="p-10 rounded-xl bg-amber-100 border-black border-2 border-solid">
+            <h2 class="text-2xl">Projects:</h2>
+            <ul class="list-disc pl-5">
+                <li>Robolyst</li>
+                <li>SingulTech</li>
+                <li>CTFTC</li>
+                <li>AlliedAlgo</li>
+                <li>Calculator</li>
+            </ul>
+            <div class="flex overflow-y-scroll shadow-blue-950">
+                <div class="bg-slate-500 w-96 rounded-2xl mx-3 p-3">
+                  <iframe src="https://robolyst.org/" class="rounded-xl"></iframe>
+                    <div>
+                        <h2 class="text-2xl">Robolyst</h2>
+                        <p>A robotics team suite built by the Robotics Catalyst Foundation.</p>
+                        <a href="https://robolyst.org/" class="text-xs text-white underline mb-2">Visit Site</a>
+                        <br>
+                        <span class="bg-amber-600/60 border-2 border-amber-600 text-white px-2 rounded-full mx-1">Svelte</span><span class="bg-blue-600/60 border-2 border-blue-600 text-white px-2 rounded-full mx-1">Postgres</span><span class="bg-green-600/60 border-2 border-green-600 text-white px-2 rounded-full mx-1">Canva</span>
+                    </div>
+                </div>
+                <div class="bg-slate-500 w-96 rounded-2xl mx-3 p-3 ">
+                    <iframe src="https://singul.tech/" class="rounded-xl"></iframe>
+                    <div>
+                        <h2 class="text-2xl">SingulTech</h2>
+                        <p>A robotics team website</p>
+                        <a href="https://singul.tech/" class="text-xs text-white underline mb-2">Visit Site</a>
+                        <br>
+                        <span class="bg-amber-600/60 border-2 border-amber-600 text-white px-2 rounded-full mx-1">Svelte</span><span class="bg-blue-600/60 border-2 border-blue-600 text-white px-2 rounded-full mx-1">Server</span><span class="bg-green-600/60 border-2 border-green-600 text-white px-2 rounded-full mx-1">Tailwind</span>
+                    </div>
+                </div>
+                <div class="bg-slate-500 w-96 rounded-2xl mx-3 p-3">
+                    <iframe src="https://ctftc.robotics-catalyst.org" class="rounded-xl"></iframe>
+                    <div>
+                        <h2 class="text-2xl">CTFTC</h2>
+                        <p>A luxury sports car produced by the French automobile manufacturer Bugatti.</p>
+                        <a href="https://ctftc.robotics-catalyst.org" class="text-xs text-white underline mb-2">Visit Site</a>
+                        <br>
+                        <span class="bg-amber-600/60 border-2 border-amber-600 text-white px-2 rounded-full mx-1">Svelte</span><span class="bg-blue-600/60 border-2 border-blue-600 text-white px-2 rounded-full mx-1">Auth</span><span class="bg-green-600/60 border-2 border-green-600 text-white px-2 rounded-full mx-1">AI</span>
+                    </div>
+                </div>
+                <div class="bg-slate-500 w-96 rounded-2xl mx-3 p-3">
+                    <iframe src="https://alliedalgos.org" class="rounded-xl"></iframe>
+                    <div>
+                        <h2 class="text-2xl">AlliedAlgos</h2>
+                        <p>A luxury sports car produced by the French automobile manufacturer Bugatti.</p>
+                        <a href="https://alliedalgos.org" class="text-xs text-white underline mb-2">Visit Site</a>
+                        <br>
+                        <span class="bg-amber-600/60 border-2 border-amber-600 text-white px-2 rounded-full mx-1">Astro</span><span class="bg-blue-600/60 border-2 border-blue-600 text-white px-2 rounded-full mx-1">Github Pages</span><span class="bg-green-600/60 border-2 border-green-600 text-white px-2 rounded-full mx-1">TOML</span>
+                    </div>
+                </div>
+            </div>
         </section>
-        <section id="about">
-            <h2>About</h2>
+        <section id="about" class="p-10 rounded-xl bg-amber-100 border-black border-2 border-solid"">
+            <h2 class="text-2xl">About</h2>
             <p>I am Sid a rising Freshman in Connecticut</p>
         </section>
+</div>
+
+
+
+
     </body>
 </html>
