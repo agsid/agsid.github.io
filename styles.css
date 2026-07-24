@@ -1,14 +1,3 @@
-/* src/input.css */
-@import "tailwindcss";
-
-@theme {
-  /* Adding or overriding a custom color */
---bg-color: slate-900;
---bg-button:sky-900;
-  /* Customizing typography */
-  --font-display: "Poppins", sans-serif;
-
-  /* Modifying spacing or border radii */
-  --radius-card: 12px;
-  --spacing-128: 32rem;
+body{
+    background-color: rgb(115, 115, 212);
 }
