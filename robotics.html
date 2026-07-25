@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SingulTech Robotics — Explore the Team</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { display: ["Fredoka", "system-ui", "sans-serif"] }
+      }
+    }
+  };
+</script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+</head>
+<body class="m-0 h-full bg-slate-950 text-slate-100 font-display overflow-x-hidden">
+
+<div id="game-wrap" class="relative w-full h-screen min-h-[480px] overflow-hidden bg-gradient-to-b from-sky-300 via-sky-200 to-blue-100">
+  <canvas id="game-canvas" tabindex="0" class="absolute inset-0 w-full h-full block outline-none cursor-grab"></canvas>
+
+  <div id="topbar" class="absolute top-0 left-0 right-0 flex items-center justify-between p-4 z-20 pointer-events-none">
+    <div class="flex items-center gap-2.5 bg-slate-950/55 backdrop-blur-md border border-white/10 rounded-full pl-3 pr-4 py-2 pointer-events-auto">
+      <span class="w-7 h-7 rounded-full ring-2 ring-white/25" style="background: radial-gradient(circle at 35% 30%, #7fe8ff, #1c8fd6);"></span>
+      <span class="font-semibold tracking-wide">SingulTech Robotics</span>
+    </div>
+    <a href="#site" class="bg-slate-950/55 backdrop-blur-md border border-white/10 rounded-full px-4 py-2 text-sm pointer-events-auto hover:border-cyan-300 transition-colors">Skip 3D — view full site ↓</a>
+  </div>
+
+  <div id="visited-badge" class="absolute top-[68px] right-4 z-20 bg-slate-950/55 backdrop-blur-md border border-white/10 rounded-full px-3.5 py-1.5 text-sm text-slate-300">
+    Houses visited: <b id="visited-count" class="text-white">0</b>/5
+  </div>
+
+  <div id="minimap-box" class="absolute bottom-4 left-4 z-20 bg-slate-950/70 border-2 border-white/15 rounded-2xl p-1.5 pointer-events-none">
+    <div class="text-center text-[0.65rem] tracking-[0.2em] text-slate-400 mb-1">MAP</div>
+    <div id="minimap-mount" class="w-[150px] h-[150px] rounded-lg overflow-hidden"></div>
+  </div>
+
+  <div id="controls-hint" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5 bg-slate-950/55 backdrop-blur-md border border-white/10 rounded-full px-4 py-2 text-sm text-slate-300 pointer-events-none whitespace-nowrap">
+    <span class="flex gap-1">
+      <kbd class="bg-slate-800 border border-slate-600 border-b-2 rounded px-1.5 text-slate-100 text-xs">&uarr;</kbd>
+      <kbd class="bg-slate-800 border border-slate-600 border-b-2 rounded px-1.5 text-slate-100 text-xs">&larr;</kbd>
+      <kbd class="bg-slate-800 border border-slate-600 border-b-2 rounded px-1.5 text-slate-100 text-xs">&darr;</kbd>
+      <kbd class="bg-slate-800 border border-slate-600 border-b-2 rounded px-1.5 text-slate-100 text-xs">&rarr;</kbd>
+    </span>
+    <span>/ WASD to walk &nbsp;•&nbsp; 🖱️ drag to look around</span>
+  </div>
+
+  <a id="scroll-cue" href="#site" class="absolute bottom-4 right-4 z-20 flex flex-col items-center text-slate-300/70 hover:text-white text-xs">
+    <span class="text-xl leading-none">&darr;</span><span>full site</span>
+  </a>
+
+  <div id="touch-pad" class="hidden absolute bottom-24 right-4 z-30 grid-cols-3 grid-rows-3 gap-1">
+    <button id="tp-up" aria-label="Move up" class="col-start-2 row-start-1 w-12 h-12 rounded-xl border border-white/25 bg-slate-950/55 text-lg flex items-center justify-center touch-none active:bg-cyan-400/40">&uarr;</button>
+    <button id="tp-left" aria-label="Move left" class="col-start-1 row-start-2 w-12 h-12 rounded-xl border border-white/25 bg-slate-950/55 text-lg flex items-center justify-center touch-none active:bg-cyan-400/40">&larr;</button>
+    <button id="tp-right" aria-label="Move right" class="col-start-3 row-start-2 w-12 h-12 rounded-xl border border-white/25 bg-slate-950/55 text-lg flex items-center justify-center touch-none active:bg-cyan-400/40">&rarr;</button>
+    <button id="tp-down" aria-label="Move down" class="col-start-2 row-start-3 w-12 h-12 rounded-xl border border-white/25 bg-slate-950/55 text-lg flex items-center justify-center touch-none active:bg-cyan-400/40">&darr;</button>
+  </div>
+</div>
+
+<div id="info-panel" class="hidden fixed inset-0 z-[100] items-center justify-center bg-black/60 backdrop-blur-sm p-5">
+  <div id="panel-card" class="w-full max-w-lg max-h-[82vh] overflow-y-auto bg-slate-900 border border-slate-700 rounded-[20px] border-t-4 p-7 pt-6 shadow-2xl" style="border-top-color:#4fd1ff;">
+    <div class="text-3xl" id="panel-icon">🤖</div>
+    <h2 class="text-2xl font-semibold mt-1 mb-1" id="panel-title">Title</h2>
+    <p class="text-slate-400 mb-4" id="panel-summary">Summary</p>
+    <div id="panel-body"></div>
+    <p class="hidden mt-4 pt-2.5 border-t border-dashed border-slate-700 text-xs text-slate-400" id="panel-note"></p>
+    <div class="flex justify-end mt-4">
+      <button id="panel-continue" class="bg-cyan-400 hover:brightness-110 text-slate-900 font-semibold px-5 py-2.5 rounded-full">Continue exploring →</button>
+    </div>
+  </div>
+</div>
+
+<section id="site" class="px-5 py-20 max-w-4xl mx-auto">
+  <h1 class="text-3xl font-semibold mb-1">SingulTech Robotics</h1>
+  <p class="text-slate-400 mt-0">Robotics team hub — the same content from every house, in one scroll.</p>
+  <div id="site-cards" class="grid gap-5 mt-8" style="grid-template-columns: repeat(auto-fit, minmax(260px,1fr));"></div>
+  <footer class="mt-16 text-slate-500 text-sm text-center">
+    Built with Three.js, anime.js, ScrollReveal, Velocity.js, melonJS and Tailwind CSS. Edit <code>TEAM_DATA</code>
+    in this file to replace every placeholder with real team info.
+  </footer>
+</section>
+
+<!-- classic global libraries: loaded (and fully executed, since they are blocking) before the module script below runs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.6/velocity.min.js"></script>
+
+<script type="module">
+import * as THREE from "three";
+
+/* ============================================================
+   EDIT ME — all team content lives here.
+   Replace every [bracketed placeholder] with real info.
+   The "team" roster is a stub — swap it for your real roster/db.
+   ============================================================ */
+const TEAM_DATA = {
+  teamName: "SingulTech Robotics",
+  houses: [
+    {
+      id: "robot", label: "The Robot", color: "#4fd1ff", icon: "🤖",
+      summary: "Meet this year's machine — showcased live out front of the garage.",
+      fields: [
+        { label: "Robot name", value: "[Add your robot's name]", ph: true },
+        { label: "Season / game", value: "[Add the season & game name]", ph: true },
+        { label: "Weight class", value: "[Add weight class]", ph: true },
+        { label: "Drivetrain", value: "[Add drivetrain type]", ph: true }
+      ],
+      note: "Swap these fields for your real robot specs in TEAM_DATA."
+    },
+    {
+      id: "team", label: "Meet the Team", color: "#ffb84f", icon: "🧑‍🤝‍🧑",
+      summary: "The people behind SingulTech.",
+      roster: [
+        { name: "[Member name]", role: "[Role — e.g. Captain]", ph: true },
+        { name: "[Member name]", role: "[Role — e.g. Lead Programmer]", ph: true },
+        { name: "[Member name]", role: "[Role — e.g. Mechanical Lead]", ph: true },
+        { name: "[Member name]", role: "[Role — e.g. Outreach Lead]", ph: true }
+      ],
+      note: "This roster is a stub — connect it to your real team database."
+    },
+    {
+      id: "about", label: "About Us", color: "#7ee08a", icon: "ℹ️",
+      summary: "Who SingulTech is and what we do.",
+      fields: [
+        { label: "Team name", value: "SingulTech Robotics" },
+        { label: "Mission", value: "[Add a 1-2 sentence mission statement]", ph: true },
+        { label: "Founded", value: "[Add founding year]", ph: true },
+        { label: "Based in", value: "[Add city / school]", ph: true }
+      ]
+    },
+    {
+      id: "overview", label: "Overview", color: "#c792ff", icon: "🗺️",
+      summary: "Programs & competitions.",
+      fields: [
+        { label: "Competitions", value: "[List the competitions you compete in]", ph: true },
+        { label: "What we build", value: "[Add a short overview of your projects]", ph: true },
+        { label: "What makes us unique", value: "[Add your differentiator]", ph: true }
+      ]
+    },
+    {
+      id: "stats", label: "Stats", color: "#ff6f91", icon: "📊",
+      summary: "Numbers, at a glance (demo data below).",
+      stats: [
+        { label: "Years active", value: "[#]", pct: 40, ph: true },
+        { label: "Members", value: "[#]", pct: 65, ph: true },
+        { label: "Awards won", value: "[#]", pct: 25, ph: true },
+        { label: "Competitions entered", value: "[#]", pct: 80, ph: true }
+      ],
+      note: "Bar percentages are placeholder demo values — replace with real numbers."
+    }
+  ]
+};
+
+/* ---------------------------------------------------------
+   the block layout: one rectangular block of buildings. Each
+   themed house sits on its building line facing outward; the
+   player walks the sidewalk loop on the OUTSIDE of the block,
+   camera always behind them as they go. Past the sidewalk the
+   world just fades into fog + depth-of-field blur.
+--------------------------------------------------------- */
+const PATH_HALF_W = 28;   // sidewalk loop centerline, half-width (east/west walls)
+const PATH_HALF_D = 18;   // sidewalk loop centerline, half-depth (north/south walls)
+const ROW_OFFSET = 5;     // how far the building row sits off the centerline
+const BOUND_X = PATH_HALF_W + 6; // player clamp — a little sidewalk margin past the block
+const BOUND_Z = PATH_HALF_D + 6;
+
+/* house.x/z = interior-row position, facing = which way the building looks (radians) */
+const HOUSE_PLACEMENT = {
+  robot:    { x: -16, z: -(PATH_HALF_D - ROW_OFFSET), facing: Math.PI },       // north row
+  overview: { x: 14,  z: -(PATH_HALF_D - ROW_OFFSET), facing: Math.PI },       // north row
+  team:     { x: PATH_HALF_W - ROW_OFFSET, z: -6, facing: Math.PI / 2 },      // east row
+  stats:    { x: -6,  z: PATH_HALF_D - ROW_OFFSET, facing: 0 },               // south row
+  about:    { x: -(PATH_HALF_W - ROW_OFFSET), z: 6, facing: -Math.PI / 2 }    // west row
+};
+const HOUSE_COLLIDER_R = { robot: 3.8, team: 3.0, about: 3.6, overview: 2.8, stats: 3.4 };
+
+const houses = TEAM_DATA.houses.map(h => ({
+  ...h,
+  x: HOUSE_PLACEMENT[h.id].x,
+  z: HOUSE_PLACEMENT[h.id].z,
+  facing: HOUSE_PLACEMENT[h.id].facing,
+  triggered: false,
+  mesh: null
+}));
+
+/* ---------------------------------------------------------
+   shared content rendering (used by both the in-game modal
+   and the plain-scroll "full site" section)
+--------------------------------------------------------- */
+function renderHouseBody(house){
+  let html = "";
+  if (house.fields){
+    html += house.fields.map(f => `
+      <div class="mb-3">
+        <span class="block text-[0.7rem] tracking-wider uppercase text-slate-400 mb-0.5">${f.label}</span>
+        <span class="text-base ${f.ph ? "italic text-slate-400" : "text-slate-100"}">${f.value}${f.ph ? '<span class="ml-1.5 align-middle not-italic text-[0.65em] bg-slate-700 text-slate-200 px-1.5 py-0.5 rounded-md">placeholder</span>' : ""}</span>
+      </div>`).join("");
+  }
+  if (house.roster){
+    html += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">` + house.roster.map(m => `
+      <div class="bg-slate-800/60 border border-slate-700 rounded-xl px-3 py-2.5">
+        <div class="font-semibold">${m.name}</div>
+        <div class="text-sm text-slate-400">${m.role}</div>
+      </div>`).join("") + `</div>`;
+  }
+  if (house.stats){
+    html += house.stats.map((s, i) => `
+      <div class="mb-3.5">
+        <div class="flex justify-between text-sm mb-1.5">
+          <span>${s.label}</span>
+          <span class="italic text-slate-400">${s.value}<span class="ml-1.5 not-italic text-[0.65em] bg-slate-700 text-slate-200 px-1.5 py-0.5 rounded-md">placeholder</span></span>
+        </div>
+        <div class="bg-slate-800 border border-slate-700 rounded-full h-2 overflow-hidden">
+          <div class="h-full w-0 rounded-full bg-gradient-to-r from-cyan-400 to-pink-400" id="stat-fill-${house.id}-${i}"></div>
+        </div>
+      </div>`).join("");
+  }
+  return html;
+}
+
+function fillStatBars(house, scope){
+  if (!house.stats) return;
+  house.stats.forEach((s, i) => {
+    const el = scope.querySelector(`#stat-fill-${house.id}-${i}`);
+    if (!el || typeof Velocity === "undefined") return;
+    el.style.width = "0%";
+    Velocity(el, { width: s.pct + "%" }, { duration: 900, delay: i * 120, easing: [0.25, 0.1, 0.25, 1] });
+  });
+}
+
+/* ---------------------------------------------------------
+   full-site scroll section (accessible / non-game fallback)
+--------------------------------------------------------- */
+const siteCards = document.getElementById("site-cards");
+houses.forEach(house => {
+  const card = document.createElement("div");
+  card.className = "bg-slate-900 border border-slate-700 rounded-2xl px-6 py-5 border-t-4";
+  card.style.borderTopColor = house.color;
+  card.innerHTML = `<div class="text-3xl">${house.icon}</div><h2 class="text-xl font-semibold mt-1 mb-1">${house.label}</h2><p class="text-slate-400 mb-3">${house.summary}</p>${renderHouseBody(house)}${house.note ? `<p class="mt-4 pt-2.5 border-t border-dashed border-slate-700 text-xs text-slate-400">${house.note}</p>` : ""}`;
+  siteCards.appendChild(card);
+});
+if (typeof ScrollReveal === "function"){
+  ScrollReveal().reveal("#site h1, #site p.text-slate-400", { distance: "20px", origin: "left", duration: 700 });
+  ScrollReveal().reveal("#site-cards > div", { distance: "40px", origin: "bottom", duration: 700, interval: 120 });
+}
+
+/* ---------------------------------------------------------
+   in-game info panel (anime.js driven)
+--------------------------------------------------------- */
+const infoPanel = document.getElementById("info-panel");
+const panelCard = document.getElementById("panel-card");
+const panelIcon = document.getElementById("panel-icon");
+const panelTitle = document.getElementById("panel-title");
+const panelSummary = document.getElementById("panel-summary");
+const panelBody = document.getElementById("panel-body");
+const panelNote = document.getElementById("panel-note");
+const panelContinue = document.getElementById("panel-continue");
+const visitedCountEl = document.getElementById("visited-count");
+
+let openHouse = null;
+let controlsLocked = false;
+const visited = new Set();
+
+function openPanel(house){
+  openHouse = house;
+  controlsLocked = true;
+  panelIcon.textContent = house.icon;
+  panelTitle.textContent = house.label;
+  panelSummary.textContent = house.summary;
+  panelBody.innerHTML = renderHouseBody(house);
+  panelCard.style.borderTopColor = house.color;
+  if (house.note){ panelNote.textContent = house.note; panelNote.classList.remove("hidden"); }
+  else { panelNote.classList.add("hidden"); }
+
+  infoPanel.classList.remove("hidden");
+  infoPanel.classList.add("flex");
+  panelCard.style.opacity = 0;
+  if (typeof anime === "function"){
+    anime({ targets: panelCard, opacity: [0, 1], translateY: [40, 0], scale: [0.92, 1], duration: 450, easing: "easeOutExpo" });
+  } else {
+    panelCard.style.opacity = 1;
+  }
+  fillStatBars(house, panelBody);
+
+  if (!visited.has(house.id)){
+    visited.add(house.id);
+    visitedCountEl.textContent = visited.size;
+    if (typeof anime === "function"){
+      anime({ targets: visitedCountEl, scale: [1, 1.4, 1], duration: 500, easing: "easeOutElastic(1, .5)" });
+    }
+  }
+}
+
+function closePanel(){
+  if (!openHouse) return;
+  if (typeof anime === "function"){
+    anime({
+      targets: panelCard, opacity: [1, 0], translateY: [0, 20], scale: [1, 0.95],
+      duration: 260, easing: "easeInExpo",
+      complete: () => { infoPanel.classList.remove("flex"); infoPanel.classList.add("hidden"); }
+    });
+  } else {
+    infoPanel.classList.remove("flex");
+    infoPanel.classList.add("hidden");
+  }
+  openHouse = null;
+  controlsLocked = false;
+}
+
+panelContinue.addEventListener("click", closePanel);
+window.addEventListener("keydown", (e) => {
+  if (openHouse && (e.key === "Escape" || e.key === "Enter" || e.key === " ")){
+    e.preventDefault();
+    closePanel();
+  }
+});
+
+/* ---------------------------------------------------------
+   show the touch d-pad only on touch devices (kept out of the
+   static class list so "hidden" and "grid" are never both
+   present at once)
+--------------------------------------------------------- */
+const touchPad = document.getElementById("touch-pad");
+if (window.matchMedia && window.matchMedia("(pointer: coarse)").matches){
+  touchPad.classList.remove("hidden");
+  touchPad.classList.add("grid");
+}
+
+/* ---------------------------------------------------------
+   three.js world — a dense low-poly city block by day,
+   walked as a loop with tall buildings all around
+--------------------------------------------------------- */
+const gameWrap = document.getElementById("game-wrap");
+const canvas = document.getElementById("game-canvas");
+
+const scene = new THREE.Scene();
+const dayColor = 0xbfe3ff;
+scene.background = new THREE.Color(dayColor);
+scene.fog = new THREE.Fog(dayColor, 22, 62);
+
+const camera = new THREE.PerspectiveCamera(58, gameWrap.clientWidth / gameWrap.clientHeight, 0.1, 220);
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(gameWrap.clientWidth, gameWrap.clientHeight);
+renderer.shadowMap.enabled = true;
+
+const hemiLight = new THREE.HemisphereLight(0xdcf0ff, 0x5a6472, 0.95);
+scene.add(hemiLight);
+const sunLight = new THREE.DirectionalLight(0xfff6e0, 1.15);
+sunLight.position.set(30, 50, 20);
+sunLight.castShadow = true;
+sunLight.shadow.mapSize.set(2048, 2048);
+sunLight.shadow.camera.left = -45;
+sunLight.shadow.camera.right = 45;
+sunLight.shadow.camera.top = 45;
+sunLight.shadow.camera.bottom = -45;
+sunLight.shadow.camera.updateProjectionMatrix();
+scene.add(sunLight);
+
+const mat = (color, extra) => new THREE.MeshStandardMaterial({ color, flatShading: true, ...(extra || {}) });
+const colliders = [];
+function addCollider(x, z, r){ colliders.push({ x, z, r }); }
+
+/* ground: concrete asphalt everywhere, with a lighter sidewalk band
+   forming the walkable loop and a mid-tone interior "lot" area */
+const cityBlock = new THREE.Mesh(new THREE.PlaneGeometry(260, 260), mat(0x5b6068));
+cityBlock.rotation.x = -Math.PI / 2;
+cityBlock.receiveShadow = true;
+scene.add(cityBlock);
+
+const sidewalk = new THREE.Mesh(new THREE.PlaneGeometry((PATH_HALF_W + ROW_OFFSET + 4) * 2, (PATH_HALF_D + ROW_OFFSET + 4) * 2), mat(0xc7cbd1));
+sidewalk.rotation.x = -Math.PI / 2;
+sidewalk.position.y = 0.1;
+sidewalk.receiveShadow = true;
+scene.add(sidewalk);
+
+const blockInterior = new THREE.Mesh(new THREE.PlaneGeometry((PATH_HALF_W - ROW_OFFSET) * 2, (PATH_HALF_D - ROW_OFFSET) * 2), mat(0x9aa0a8));
+blockInterior.rotation.x = -Math.PI / 2;
+blockInterior.position.y = 0.12;
+blockInterior.receiveShadow = true;
+scene.add(blockInterior);
+
+/* dashed lane markings along the actual street centerlines */
+function placeDashes(axis, fixedValue, rangeMin, rangeMax){
+  const group = new THREE.Group();
+  for (let p = rangeMin; p < rangeMax; p += 6){
+    const dash = new THREE.Mesh(
+      new THREE.BoxGeometry(axis === "z" ? 1.6 : 0.35, 0.03, axis === "z" ? 0.35 : 1.6),
+      mat(0xf4d35e)
+    );
+    if (axis === "z") dash.position.set(p, 0.15, fixedValue);
+    else dash.position.set(fixedValue, 0.15, p);
+    group.add(dash);
+  }
+  return group;
+}
+scene.add(placeDashes("z", -PATH_HALF_D, -PATH_HALF_W + 4, PATH_HALF_W - 4));
+scene.add(placeDashes("z", PATH_HALF_D, -PATH_HALF_W + 4, PATH_HALF_W - 4));
+scene.add(placeDashes("x", -PATH_HALF_W, -PATH_HALF_D + 4, PATH_HALF_D - 4));
+scene.add(placeDashes("x", PATH_HALF_W, -PATH_HALF_D + 4, PATH_HALF_D - 4));
+
+/* helper: rounded-rect on a 2d canvas context (no reliance on ctx.roundRect availability) */
+function drawRoundedRect(ctx, x, y, w, h, r){
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+/* higher-resolution label sprite for crisper signage */
+function makeLabelSprite(text, colorHex){
+  const cnv = document.createElement("canvas");
+  cnv.width = 640; cnv.height = 160;
+  const ctx = cnv.getContext("2d");
+  drawRoundedRect(ctx, 8, 8, 624, 144, 40);
+  ctx.fillStyle = "rgba(10,14,24,0.9)";
+  ctx.fill();
+  ctx.lineWidth = 10;
+  ctx.strokeStyle = colorHex;
+  ctx.stroke();
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "bold 60px Fredoka, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(text.toUpperCase(), 320, 84);
+  const texture = new THREE.CanvasTexture(cnv);
+  texture.anisotropy = 4;
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture }));
+  sprite.scale.set(7, 1.75, 1);
+  return sprite;
+}
+
+/* a big, brand-forward marquee sign — used once, mounted high on the
+   Robot Garage so "SINGULTECH" reads clearly from anywhere on the block */
+function makeBigSignSprite(text){
+  const cnv = document.createElement("canvas");
+  cnv.width = 1200; cnv.height = 260;
+  const ctx = cnv.getContext("2d");
+  drawRoundedRect(ctx, 10, 10, 1180, 240, 46);
+  ctx.fillStyle = "rgba(8,12,22,0.95)";
+  ctx.fill();
+  ctx.lineWidth = 14;
+  const grad = ctx.createLinearGradient(0, 0, 1200, 0);
+  grad.addColorStop(0, "#4fd1ff");
+  grad.addColorStop(1, "#ffb84f");
+  ctx.strokeStyle = grad;
+  ctx.stroke();
+  ctx.fillStyle = "#7fe8ff";
+  ctx.beginPath();
+  ctx.arc(110, 130, 46, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "bold 108px Fredoka, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(text.toUpperCase(), 660, 140);
+  const texture = new THREE.CanvasTexture(cnv);
+  texture.anisotropy = 4;
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture }));
+  sprite.scale.set(15, 3.25, 1);
+  return sprite;
+}
+
+const GENERIC_SIGN_TEXTS = ["CAFE", "DELI", "SHOP", "STUDIO", "MARKET", "DINER", "BOOKS", "REPAIR", "BAKERY", "LAUNDRY", "PIZZA", "SALON", "ARCADE", "DINER"];
+const GENERIC_SIGN_COLORS = ["#ff6f91", "#4fd1ff", "#ffb84f", "#7ee08a", "#c792ff", "#ffe08a"];
+
+function buildPad(){
+  const pad = new THREE.Mesh(new THREE.CylinderGeometry(4.6, 4.6, 0.15, 28), mat(0xaab0b8));
+  pad.position.y = 0.13;
+  pad.receiveShadow = true;
+  return pad;
+}
+
+/* ---------------------------------------------------------
+   showcase robot — a bigger, fancier chrome robot on display
+   in front of the Robot Garage
+--------------------------------------------------------- */
+function buildShowcaseRobot(){
+  const g = new THREE.Group();
+  const chrome = new THREE.MeshStandardMaterial({ color: 0xd7dde6, metalness: 0.65, roughness: 0.28, flatShading: true });
+  const glow = new THREE.MeshStandardMaterial({ color: 0x4fd1ff, emissive: 0x2fb8e8, emissiveIntensity: 0.9 });
+
+  const torso = new THREE.Mesh(new THREE.BoxGeometry(1.6, 2, 1.1), chrome);
+  torso.position.y = 2.2; torso.castShadow = true;
+  g.add(torso);
+
+  const head = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.8, 0.9), chrome);
+  head.position.y = 3.6; head.castShadow = true;
+  g.add(head);
+
+  const visor = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.22, 0.05), glow);
+  visor.position.set(0, 3.62, 0.46);
+  g.add(visor);
+
+  [-1.05, 1.05].forEach(sx => {
+    const shoulder = new THREE.Mesh(new THREE.SphereGeometry(0.4, 10, 8), chrome);
+    shoulder.position.set(sx, 2.9, 0);
+    shoulder.castShadow = true;
+    g.add(shoulder);
+    const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 1.4, 10), chrome);
+    arm.position.set(sx, 1.9, 0);
+    arm.castShadow = true;
+    g.add(arm);
+  });
+
+  const legL = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 1.4, 10), chrome);
+  legL.position.set(-0.45, 0.7, 0); legL.castShadow = true;
+  g.add(legL);
+  const legR = legL.clone();
+  legR.position.x = 0.45;
+  g.add(legR);
+
+  const antenna = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.6, 8), chrome);
+  antenna.position.set(0, 4.3, 0);
+  g.add(antenna);
+  const antennaTip = new THREE.Mesh(new THREE.SphereGeometry(0.08, 8, 6), glow);
+  antennaTip.position.set(0, 4.65, 0);
+  g.add(antennaTip);
+
+  const spotlight = new THREE.SpotLight(0x4fd1ff, 2, 12, Math.PI / 6, 0.5, 1);
+  spotlight.position.set(0, 6, 2);
+  spotlight.target = torso; // torso is already in this group's scene graph
+  g.add(spotlight);
+
+  return g;
+}
+
+/* ---------------------------------------------------------
+   five distinctly-themed storefronts (not generic boxes)
+--------------------------------------------------------- */
+function buildRobotGarage(house){
+  const g = new THREE.Group();
+
+  const base = new THREE.Mesh(new THREE.BoxGeometry(6.5, 3, 5.5), mat(house.color));
+  base.position.y = 1.5; base.castShadow = true; base.receiveShadow = true;
+  g.add(base);
+
+  const roof = new THREE.Mesh(new THREE.BoxGeometry(7, 0.3, 6), mat(0x33414f));
+  roof.position.set(0, 3.15, -0.2);
+  roof.rotation.x = -0.12;
+  roof.castShadow = true;
+  g.add(roof);
+
+  for (let i = 0; i < 4; i++){
+    const stripe = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.5, 0.08), mat(i % 2 === 0 ? 0x1c2740 : 0x30405c));
+    stripe.position.set(0, 0.4 + i * 0.55, 2.76);
+    g.add(stripe);
+  }
+
+  const dishArm = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.9, 8), mat(0x8a8a8a));
+  dishArm.position.set(2, 3.8, -0.2); dishArm.castShadow = true;
+  g.add(dishArm);
+  const dish = new THREE.Mesh(new THREE.SphereGeometry(0.5, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2), mat(0xdddddd));
+  dish.rotation.x = Math.PI;
+  dish.position.set(2, 4.3, -0.2);
+  g.add(dish);
+
+  const sign = makeLabelSprite(house.label, house.color);
+  sign.position.set(0, 5.2, 0);
+  g.add(sign);
+  g.add(buildPad());
+
+  /* the big brand marquee — mounted high on a support frame so
+     "SINGULTECH" reads clearly across the whole block */
+  [-3, 3].forEach(px => {
+    const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 3.6, 8), mat(0x555555));
+    pole.position.set(px, 6, 0);
+    pole.castShadow = true;
+    g.add(pole);
+  });
+  const bigSign = makeBigSignSprite("SingulTech");
+  bigSign.position.set(0, 8.1, 0);
+  g.add(bigSign);
+
+  const showcase = buildShowcaseRobot();
+  showcase.position.set(0, 0, 4.4);
+  g.add(showcase);
+  house.showcase = showcase;
+
+  g.position.set(house.x, 0, house.z);
+  g.rotation.y = house.facing;
+  return g;
+}
+
+function buildClubhouse(house){
+  const g = new THREE.Group();
+
+  const base = new THREE.Mesh(new THREE.BoxGeometry(5, 1.6, 5), mat(house.color));
+  base.position.y = 0.8; base.castShadow = true; base.receiveShadow = true;
+  g.add(base);
+
+  const roofL = new THREE.Mesh(new THREE.BoxGeometry(5.4, 0.25, 3.6), mat(0x8a4b3a));
+  roofL.position.set(0, 2.6, 1.15);
+  roofL.rotation.x = 0.7;
+  roofL.castShadow = true;
+  g.add(roofL);
+  const roofR = roofL.clone();
+  roofR.position.z = -1.15;
+  roofR.rotation.x = -0.7;
+  g.add(roofR);
+
+  const porchRoof = new THREE.Mesh(new THREE.BoxGeometry(5.6, 0.2, 1.6), mat(0x8a4b3a));
+  porchRoof.position.set(0, 2.05, 3.2);
+  g.add(porchRoof);
+  [-2.3, 2.3].forEach(px => {
+    const post = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 1.9, 8), mat(0x6b4a33));
+    post.position.set(px, 1.05, 3.6);
+    post.castShadow = true;
+    g.add(post);
+  });
+
+  const door = new THREE.Mesh(new THREE.BoxGeometry(1, 1.4, 0.15), mat(0x3a2a20));
+  door.position.set(0, 0.7, 2.55);
+  g.add(door);
+
+  const bulbMat = new THREE.MeshStandardMaterial({ color: 0xfff3c4, emissive: 0xffc94d, emissiveIntensity: 0.05 });
+  for (let i = -2; i <= 2; i++){
+    const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.08, 8, 6), bulbMat);
+    bulb.position.set(i * 0.9, 2.15, 3.25);
+    g.add(bulb);
+  }
+
+  const sign = makeLabelSprite(house.label, house.color);
+  sign.position.set(0, 4.6, 0);
+  g.add(sign);
+  g.add(buildPad());
+
+  g.position.set(house.x, 0, house.z);
+  g.rotation.y = house.facing;
+  return g;
+}
+
+function buildRotunda(house){
+  const g = new THREE.Group();
+
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(3, 3.2, 2.4, 14), mat(house.color));
+  base.position.y = 1.2; base.castShadow = true; base.receiveShadow = true;
+  g.add(base);
+
+  const dome = new THREE.Mesh(new THREE.SphereGeometry(3, 16, 10, 0, Math.PI * 2, 0, Math.PI / 2), mat(0xdfe7f0));
+  dome.position.y = 2.4;
+  dome.castShadow = true;
+  g.add(dome);
+
+  const finial = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.6, 8), mat(0xc9a24b));
+  finial.position.y = 2.4 + 3 + 0.3;
+  g.add(finial);
+
+  const colCount = 8;
+  for (let i = 0; i < colCount; i++){
+    const a = (i / colCount) * Math.PI * 2;
+    const col = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 2.4, 10), mat(0xf3ead9));
+    col.position.set(Math.cos(a) * 3.3, 1.2, Math.sin(a) * 3.3);
+    col.castShadow = true;
+    g.add(col);
+  }
+
+  const door = new THREE.Mesh(new THREE.BoxGeometry(1, 1.6, 0.15), mat(0x3a2a20));
+  door.position.set(0, 0.8, 3.3);
+  g.add(door);
+
+  const sign = makeLabelSprite(house.label, house.color);
+  sign.position.set(0, 6.6, 0);
+  g.add(sign);
+  g.add(buildPad());
+
+  g.position.set(house.x, 0, house.z);
+  g.rotation.y = house.facing;
+  return g;
+}
+
+function buildObservatory(house){
+  const g = new THREE.Group();
+
+  const tower = new THREE.Mesh(new THREE.CylinderGeometry(1.8, 2.2, 5.5, 12), mat(house.color));
+  tower.position.y = 2.75; tower.castShadow = true; tower.receiveShadow = true;
+  g.add(tower);
+
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(2.1, 0.18, 8, 18), mat(0x2b3346));
+  ring.rotation.x = Math.PI / 2;
+  ring.position.y = 4.2;
+  g.add(ring);
+
+  const cap = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.8, 0.8, 12), mat(0x2b3346));
+  cap.position.y = 5.9;
+  g.add(cap);
+
+  const globe = new THREE.Mesh(new THREE.IcosahedronGeometry(1.1, 2), mat(0xc792ff));
+  globe.position.y = 7.2;
+  globe.castShadow = true;
+  g.add(globe);
+  house.spinner = globe;
+
+  const door = new THREE.Mesh(new THREE.BoxGeometry(1, 1.6, 0.15), mat(0x2b2035));
+  door.position.set(0, 0.8, 2.15);
+  g.add(door);
+
+  const sign = makeLabelSprite(house.label, house.color);
+  sign.position.set(0, 9, 0);
+  g.add(sign);
+  g.add(buildPad());
+
+  g.position.set(house.x, 0, house.z);
+  g.rotation.y = house.facing;
+  return g;
+}
+
+function buildStadiumKiosk(house){
+  const g = new THREE.Group();
+
+  const base = new THREE.Mesh(new THREE.BoxGeometry(5, 2, 4), mat(house.color));
+  base.position.y = 1; base.castShadow = true; base.receiveShadow = true;
+  g.add(base);
+
+  const boardCanvas = document.createElement("canvas");
+  boardCanvas.width = 512; boardCanvas.height = 256;
+  const bctx = boardCanvas.getContext("2d");
+  bctx.fillStyle = "#0e1626"; bctx.fillRect(0, 0, 512, 256);
+  bctx.fillStyle = "#ff6f91";
+  bctx.font = "bold 52px sans-serif";
+  bctx.textAlign = "center";
+  bctx.fillText("STATS", 256, 92);
+  bctx.font = "bold 80px sans-serif";
+  bctx.fillStyle = "#ffe08a";
+  bctx.fillText("★ ★ ★", 256, 184);
+  const boardTex = new THREE.CanvasTexture(boardCanvas);
+  const boardBack = new THREE.Mesh(new THREE.BoxGeometry(4.3, 2.3, 0.2), mat(0x0e1626));
+  boardBack.position.set(0, 3.4, 1.9);
+  g.add(boardBack);
+  const board = new THREE.Mesh(new THREE.PlaneGeometry(4, 2), new THREE.MeshStandardMaterial({ map: boardTex }));
+  board.position.set(0, 3.4, 2.01);
+  g.add(board);
+
+  [-3.2, 3.2].forEach(px => {
+    const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 4.5, 8), mat(0x555555));
+    pole.position.set(px, 2.25, -1.5);
+    pole.castShadow = true;
+    g.add(pole);
+    const lamp = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.4, 0.3), new THREE.MeshStandardMaterial({ color: 0xe8e8e8, emissive: 0xffe08a, emissiveIntensity: 0.05 }));
+    lamp.position.set(px, 4.5, -1.5);
+    g.add(lamp);
+  });
+
+  const sign = makeLabelSprite(house.label, house.color);
+  sign.position.set(0, 5.6, 0);
+  g.add(sign);
+  g.add(buildPad());
+
+  g.position.set(house.x, 0, house.z);
+  g.rotation.y = house.facing;
+  return g;
+}
+
+const HOUSE_BUILDERS = {
+  robot: buildRobotGarage,
+  team: buildClubhouse,
+  about: buildRotunda,
+  overview: buildObservatory,
+  stats: buildStadiumKiosk
+};
+
+houses.forEach(house => {
+  const houseMesh = HOUSE_BUILDERS[house.id](house);
+  scene.add(houseMesh);
+  house.mesh = houseMesh;
+
+  const facingX = Math.sin(house.facing), facingZ = Math.cos(house.facing);
+  house.doorX = house.x + facingX * 5.5;
+  house.doorZ = house.z + facingZ * 5.5;
+  addCollider(house.x, house.z, HOUSE_COLLIDER_R[house.id]);
+});
+
+/* ---------------------------------------------------------
+   the block: generic filler buildings complete the one loop
+   on all four sides, alongside the 5 themed storefronts
+--------------------------------------------------------- */
+const SKYLINE_COLORS = [0x8a94a6, 0x9aa5b8, 0x717c8c, 0xb0bac8, 0x64707f];
+
+/* a proper window-grid texture (rather than a few stray bands) for
+   each generic building — mostly sky-reflecting glass, a few lit */
+function makeWindowTexture(cols, rows){
+  const cellW = 48, cellH = 48;
+  const cnv = document.createElement("canvas");
+  cnv.width = cols * cellW; cnv.height = rows * cellH;
+  const ctx = cnv.getContext("2d");
+  for (let r = 0; r < rows; r++){
+    for (let c = 0; c < cols; c++){
+      const lit = Math.random() < 0.12;
+      ctx.fillStyle = lit ? "rgba(255,235,190,0.7)" : "rgba(188,222,242,0.85)";
+      const px = c * cellW + cellW * 0.2;
+      const py = r * cellH + cellH * 0.22;
+      ctx.fillRect(px, py, cellW * 0.6, cellH * 0.58);
+    }
+  }
+  const tex = new THREE.CanvasTexture(cnv);
+  tex.anisotropy = 4;
+  return tex;
+}
+
+function buildSkyscraper(x, z, w, d, h, color){
+  const g = new THREE.Group();
+
+  const cols = Math.max(2, Math.round(w * 0.9));
+  const rows = Math.max(3, Math.round(h * 0.55));
+  const sideMat = new THREE.MeshStandardMaterial({ color, map: makeWindowTexture(cols, rows), flatShading: true });
+  const capMat = mat(color);
+  const body = new THREE.Mesh(
+    new THREE.BoxGeometry(w, h, d),
+    [sideMat, sideMat, capMat, capMat, sideMat, sideMat]
+  );
+  body.position.y = h / 2;
+  body.castShadow = true; body.receiveShadow = true;
+  g.add(body);
+
+  /* ground-floor storefront: glass base + awning + a shop sign */
+  const storefront = new THREE.Mesh(new THREE.BoxGeometry(w * 0.94, 2.1, 0.08), mat(0x1c2430, { metalness: 0.3, roughness: 0.2 }));
+  storefront.position.set(0, 1.15, d / 2 + 0.05);
+  g.add(storefront);
+
+  const awningColor = GENERIC_SIGN_COLORS[Math.floor(Math.random() * GENERIC_SIGN_COLORS.length)];
+  const awning = new THREE.Mesh(new THREE.BoxGeometry(w * 0.98, 0.18, 0.9), mat(awningColor));
+  awning.position.set(0, 2.3, d / 2 + 0.45);
+  awning.rotation.x = -0.15;
+  awning.castShadow = true;
+  g.add(awning);
+
+  const signText = GENERIC_SIGN_TEXTS[Math.floor(Math.random() * GENERIC_SIGN_TEXTS.length)];
+  const sign = makeLabelSprite(signText, awningColor);
+  sign.scale.set(Math.min(w * 0.85, 4), 1, 1);
+  sign.position.set(0, 2.9, d / 2 + 0.4);
+  g.add(sign);
+
+  /* rooftop: a mechanical unit, and sometimes a water tower */
+  const cap = new THREE.Mesh(new THREE.BoxGeometry(w * 0.32, 1, d * 0.32), mat(0x2a2f38));
+  cap.position.y = h + 0.5;
+  cap.castShadow = true;
+  g.add(cap);
+  if (h > 16 && Math.random() < 0.4){
+    const tankBody = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 1, 1.6, 10), mat(0x6b4a33));
+    tankBody.position.set(w * 0.25, h + 1.4, 0);
+    tankBody.castShadow = true;
+    g.add(tankBody);
+    const tankRoof = new THREE.Mesh(new THREE.ConeGeometry(1, 0.7, 10), mat(0x4a3324));
+    tankRoof.position.set(w * 0.25, h + 2.55, 0);
+    g.add(tankRoof);
+  }
+
+  g.position.set(x, 0, z);
+  return g;
+}
+
+function placeBuildingRow(axis, fixedValue, rangeMin, rangeMax, spacing, facingAngle){
+  for (let p = rangeMin; p <= rangeMax; p += spacing){
+    const x = axis === "x" ? p : fixedValue;
+    const z = axis === "x" ? fixedValue : p;
+    const tooCloseToThemed = houses.some(h => Math.hypot(h.x - x, h.z - z) < 8);
+    if (tooCloseToThemed) continue;
+    const w = 4.5 + Math.random() * 3.5;
+    const d = 4.5 + Math.random() * 3.5;
+    const h = 9 + Math.random() * 24;
+    const color = SKYLINE_COLORS[Math.floor(Math.random() * SKYLINE_COLORS.length)];
+    const b = buildSkyscraper(x, z, w, d, h, color);
+    b.rotation.y = facingAngle;
+    scene.add(b);
+    addCollider(x, z, (Math.max(w, d) / 2) * 0.88);
+  }
+}
+
+const ROW_SPACING = 8.5;
+/* "our block" (interior) rows — skip near themed buildings, which already occupy these lines */
+placeBuildingRow("x", -(PATH_HALF_D - ROW_OFFSET), -PATH_HALF_W + 6, PATH_HALF_W - 6, ROW_SPACING, Math.PI);       // north interior
+placeBuildingRow("x", PATH_HALF_D - ROW_OFFSET, -PATH_HALF_W + 6, PATH_HALF_W - 6, ROW_SPACING, 0);               // south interior
+placeBuildingRow("z", PATH_HALF_W - ROW_OFFSET, -PATH_HALF_D + 6, PATH_HALF_D - 6, ROW_SPACING, Math.PI / 2);     // east interior
+placeBuildingRow("z", -(PATH_HALF_W - ROW_OFFSET), -PATH_HALF_D + 6, PATH_HALF_D - 6, ROW_SPACING, -Math.PI / 2); // west interior
+
+/* just the one block — no row across the street, no distant skyline.
+   the player walks the sidewalk loop on the outside of it; past that
+   the world simply fades into fog + depth-of-field blur. */
+
+/* streetlamps along the path, corner trees for a touch of green */
+function buildStreetlamp(){
+  const g = new THREE.Group();
+  const post = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.12, 3.6, 8), mat(0x2a2e38));
+  post.position.y = 1.8;
+  post.castShadow = true;
+  g.add(post);
+  const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.28, 10, 8), new THREE.MeshStandardMaterial({ color: 0xe8e8e8, emissive: 0xffdd88, emissiveIntensity: 0.05 }));
+  lamp.position.y = 3.7;
+  g.add(lamp);
+  return g;
+}
+const LAMP_POINTS = [
+  [-20, -PATH_HALF_D], [0, -PATH_HALF_D], [20, -PATH_HALF_D],
+  [-20, PATH_HALF_D], [0, PATH_HALF_D], [20, PATH_HALF_D],
+  [-PATH_HALF_W, -9], [-PATH_HALF_W, 9],
+  [PATH_HALF_W, -9], [PATH_HALF_W, 9]
+];
+LAMP_POINTS.forEach(([lx, lz]) => {
+  const lamp = buildStreetlamp();
+  lamp.position.set(lx, 0, lz);
+  scene.add(lamp);
+});
+
+function buildTree(){
+  const g = new THREE.Group();
+  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.32, 1.6, 8), mat(0x5a4230));
+  trunk.position.y = 0.8;
+  trunk.castShadow = true;
+  g.add(trunk);
+  const leaves = new THREE.Mesh(new THREE.ConeGeometry(1.3, 2.4, 8), mat(0x2f8a4c));
+  leaves.position.y = 2.4;
+  leaves.castShadow = true;
+  g.add(leaves);
+  return g;
+}
+[[26, -16], [26, 16], [-26, 16], [-26, -16]].forEach(([tx, tz]) => {
+  const t = buildTree();
+  t.position.set(tx, 0, tz);
+  scene.add(t);
+});
+
+/* a few decorative yellow cabs parked along the street */
+function buildTaxi(){
+  const g = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.8, 1.3), mat(0xffcc33));
+  body.position.y = 0.6; body.castShadow = true;
+  g.add(body);
+  const cabin = new THREE.Mesh(new THREE.BoxGeometry(1.3, 0.6, 1.2), mat(0x2b2f36));
+  cabin.position.set(-0.1, 1.15, 0); cabin.castShadow = true;
+  g.add(cabin);
+  [[-0.8, -0.7], [-0.8, 0.7], [0.8, -0.7], [0.8, 0.7]].forEach(([wx, wz]) => {
+    const wheel = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.25, 12), mat(0x1c1f24));
+    wheel.rotation.z = Math.PI / 2;
+    wheel.position.set(wx, 0.32, wz);
+    g.add(wheel);
+  });
+  return g;
+}
+[[8, -PATH_HALF_D, 0], [-10, PATH_HALF_D, Math.PI], [PATH_HALF_W, 3, Math.PI / 2], [-PATH_HALF_W, -3, -Math.PI / 2]].forEach(([tx, tz, ry]) => {
+  const taxi = buildTaxi();
+  taxi.position.set(tx, 0, tz);
+  taxi.rotation.y = ry;
+  scene.add(taxi);
+});
+
+/* entrance "pop" animation for houses, driven by anime.js on plain Three.js object properties */
+if (typeof anime === "function"){
+  houses.forEach((house, i) => {
+    house.mesh.scale.set(0.001, 0.001, 0.001);
+    anime({ targets: house.mesh.scale, x: 1, y: 1, z: 1, duration: 900, delay: 200 + i * 150, easing: "easeOutElastic(1, .6)" });
+  });
+}
+
+/* ---------------------------------------------------------
+   player character (simple low-poly cartoon robot)
+--------------------------------------------------------- */
+const player = new THREE.Group();
+const bodyGroup = new THREE.Group();
+player.add(bodyGroup);
+
+const torso = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.1, 0.6), mat(0xff5c5c));
+torso.position.y = 1.05;
+torso.castShadow = true;
+bodyGroup.add(torso);
+
+const head = new THREE.Mesh(new THREE.SphereGeometry(0.42, 14, 10), mat(0xf5f5f5));
+head.position.y = 1.85;
+head.castShadow = true;
+bodyGroup.add(head);
+
+const eyeMat = new THREE.MeshStandardMaterial({ color: 0x1c2740 });
+const eyeL = new THREE.Mesh(new THREE.SphereGeometry(0.06, 8, 6), eyeMat);
+eyeL.position.set(-0.15, 1.9, 0.38);
+bodyGroup.add(eyeL);
+const eyeR = eyeL.clone();
+eyeR.position.x = 0.15;
+bodyGroup.add(eyeR);
+
+function limb(w, h, d, color, y){
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat(color));
+  m.castShadow = true;
+  const pivot = new THREE.Group();
+  pivot.position.y = y;
+  m.position.y = -h / 2;
+  pivot.add(m);
+  return pivot;
+}
+const armL = limb(0.22, 0.75, 0.22, 0xff5c5c, 1.5);
+armL.position.x = -0.62;
+bodyGroup.add(armL);
+const armR = limb(0.22, 0.75, 0.22, 0xff5c5c, 1.5);
+armR.position.x = 0.62;
+bodyGroup.add(armR);
+const legL = limb(0.28, 0.85, 0.28, 0x39435e, 0.85);
+legL.position.x = -0.24;
+bodyGroup.add(legL);
+const legR = limb(0.28, 0.85, 0.28, 0x39435e, 0.85);
+legR.position.x = 0.24;
+bodyGroup.add(legR);
+
+player.position.set(0, 0, -PATH_HALF_D);
+scene.add(player);
+
+/* ---------------------------------------------------------
+   collision: simple circle-vs-circle, axis-separated so the
+   player slides along a building face instead of sticking
+--------------------------------------------------------- */
+const PLAYER_RADIUS = 0.6;
+function blockedAt(x, z){
+  for (const c of colliders){
+    const dx = x - c.x, dz = z - c.z;
+    const minDist = c.r + PLAYER_RADIUS;
+    if (dx * dx + dz * dz < minDist * minDist) return true;
+  }
+  return false;
+}
+
+/* ---------------------------------------------------------
+   keyboard + touch input
+--------------------------------------------------------- */
+const keys = { up: false, down: false, left: false, right: false };
+const touchKeys = { up: false, down: false, left: false, right: false };
+
+function setKey(code, val){
+  if (code === "ArrowUp" || code === "KeyW") keys.up = val;
+  else if (code === "ArrowDown" || code === "KeyS") keys.down = val;
+  else if (code === "ArrowLeft" || code === "KeyA") keys.left = val;
+  else if (code === "ArrowRight" || code === "KeyD") keys.right = val;
+}
+window.addEventListener("keydown", (e) => {
+  if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.code)){
+    e.preventDefault();
+  }
+  setKey(e.code, true);
+});
+window.addEventListener("keyup", (e) => setKey(e.code, false));
+
+function bindTouch(id, prop){
+  const el = document.getElementById(id);
+  const on = (e) => { e.preventDefault(); touchKeys[prop] = true; };
+  const off = (e) => { e.preventDefault(); touchKeys[prop] = false; };
+  el.addEventListener("pointerdown", on);
+  el.addEventListener("pointerup", off);
+  el.addEventListener("pointerleave", off);
+  el.addEventListener("pointercancel", off);
+}
+bindTouch("tp-up", "up");
+bindTouch("tp-down", "down");
+bindTouch("tp-left", "left");
+bindTouch("tp-right", "right");
+
+/* ---------------------------------------------------------
+   mouse-look: drag on the canvas orbits the camera around the
+   player; arrow-key movement is relative to that view
+   (pressing "up" always walks away from the camera)
+--------------------------------------------------------- */
+let camYaw = 0;
+let camPitch = 0.5;
+let isDragging = false;
+let lastPointer = { x: 0, y: 0 };
+
+canvas.addEventListener("pointerdown", (e) => {
+  canvas.focus();
+  isDragging = true;
+  lastPointer = { x: e.clientX, y: e.clientY };
+  canvas.setPointerCapture(e.pointerId);
+  canvas.classList.remove("cursor-grab");
+  canvas.classList.add("cursor-grabbing");
+});
+canvas.addEventListener("pointermove", (e) => {
+  if (!isDragging) return;
+  const dx = e.clientX - lastPointer.x;
+  const dy = e.clientY - lastPointer.y;
+  lastPointer = { x: e.clientX, y: e.clientY };
+  camYaw -= dx * 0.006;
+  camPitch = THREE.MathUtils.clamp(camPitch - dy * 0.004, 0.18, 1.3);
+});
+function endDrag(){
+  isDragging = false;
+  canvas.classList.remove("cursor-grabbing");
+  canvas.classList.add("cursor-grab");
+}
+canvas.addEventListener("pointerup", endDrag);
+canvas.addEventListener("pointercancel", endDrag);
+canvas.addEventListener("pointerleave", endDrag);
+
+/* ---------------------------------------------------------
+   game loop
+--------------------------------------------------------- */
+const clock = new THREE.Clock();
+let walkCycle = 0;
+let elapsed = 0;
+let minimapRepaint = () => {};
+
+function shortestAngleDelta(a, b){
+  const twoPi = Math.PI * 2;
+  let d = (b - a) % twoPi;
+  if (d > Math.PI) d -= twoPi;
+  if (d < -Math.PI) d += twoPi;
+  return d;
+}
+
+function checkHouseProximity(){
+  if (openHouse) return;
+  const ENTER_R = 4.8, EXIT_R = 7.5;
+  for (const house of houses){
+    const dx = player.position.x - house.doorX;
+    const dz = player.position.z - house.doorZ;
+    const dist = Math.hypot(dx, dz);
+    if (dist < ENTER_R && !house.triggered){
+      house.triggered = true;
+      openPanel(house);
+      return;
+    }
+    if (dist > EXIT_R && house.triggered){
+      house.triggered = false;
+    }
+  }
+}
+
+function updatePlayer(delta){
+  const up = keys.up || touchKeys.up, down = keys.down || touchKeys.down;
+  const left = keys.left || touchKeys.left, right = keys.right || touchKeys.right;
+
+  /* movement is relative to the current camera yaw, so "up" always
+     walks away from wherever the mouse has dragged the view to */
+  const forwardX = -Math.sin(camYaw), forwardZ = -Math.cos(camYaw);
+  const rightX = Math.cos(camYaw), rightZ = -Math.sin(camYaw);
+
+  let mx = 0, mz = 0;
+  if (!controlsLocked){
+    if (up){ mx += forwardX; mz += forwardZ; }
+    if (down){ mx -= forwardX; mz -= forwardZ; }
+    if (right){ mx += rightX; mz += rightZ; }
+    if (left){ mx -= rightX; mz -= rightZ; }
+  }
+
+  const moveLen = Math.hypot(mx, mz);
+  const moving = moveLen > 0.001;
+  if (moving){
+    mx /= moveLen; mz /= moveLen;
+    const speed = 8.5;
+    let nx = player.position.x + mx * speed * delta;
+    let nz = player.position.z + mz * speed * delta;
+    nx = THREE.MathUtils.clamp(nx, -BOUND_X, BOUND_X);
+    nz = THREE.MathUtils.clamp(nz, -BOUND_Z, BOUND_Z);
+
+    /* axis-separated slide: try the full move, else one axis at a time */
+    if (!blockedAt(nx, nz)){
+      player.position.x = nx; player.position.z = nz;
+    } else if (!blockedAt(nx, player.position.z)){
+      player.position.x = nx;
+    } else if (!blockedAt(player.position.x, nz)){
+      player.position.z = nz;
+    }
+
+    const targetAngle = Math.atan2(mx, mz);
+    player.rotation.y += shortestAngleDelta(player.rotation.y, targetAngle) * Math.min(1, delta * 10);
+    walkCycle += delta * 9;
+  } else {
+    walkCycle *= 0.9;
+  }
+
+  const swing = Math.sin(walkCycle) * 0.55;
+  legL.rotation.x = swing;
+  legR.rotation.x = -swing;
+  armL.rotation.x = -swing * 0.8;
+  armR.rotation.x = swing * 0.8;
+  bodyGroup.position.y = Math.abs(Math.sin(walkCycle * 2)) * 0.12;
+
+  checkHouseProximity();
+}
+
+function updateCamera(delta){
+  const camDist = 11;
+  const horizontalDist = Math.cos(camPitch) * camDist;
+  const height = Math.sin(camPitch) * camDist + 2.2;
+  const offsetX = Math.sin(camYaw) * horizontalDist;
+  const offsetZ = Math.cos(camYaw) * horizontalDist;
+  const desired = new THREE.Vector3(player.position.x + offsetX, height, player.position.z + offsetZ);
+  camera.position.lerp(desired, Math.min(1, delta * 6));
+  camera.lookAt(player.position.x, 1.3, player.position.z);
+}
+
+function animateShowpieces(delta){
+  houses.forEach(house => {
+    if (house.showcase){
+      house.showcase.rotation.y += delta * 0.6;
+      house.showcase.position.y = Math.sin(elapsed * 1.5) * 0.08;
+    }
+    if (house.spinner){
+      house.spinner.rotation.y += delta * 0.5;
+    }
+  });
+}
+
+function onResize(){
+  const w = gameWrap.clientWidth, h = gameWrap.clientHeight;
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h);
+}
+window.addEventListener("resize", onResize);
+
+function animate(){
+  requestAnimationFrame(animate);
+  const delta = Math.min(clock.getDelta(), 0.1);
+  elapsed += delta;
+  updatePlayer(delta);
+  updateCamera(delta);
+  animateShowpieces(delta);
+  minimapRepaint();
+  renderer.render(scene, camera);
+}
+animate();
+
+/* ---------------------------------------------------------
+   optional enhancement: melonJS minimap, showing the full
+   block outline, all 5 houses and the player (loaded
+   dynamically — the main game never depends on this)
+--------------------------------------------------------- */
+(async () => {
+  try {
+    const me = await import("https://cdn.jsdelivr.net/npm/melonjs@19.9.0/build/index.js");
+    const MM_SIZE = 150;
+    const mmScale = Math.min((MM_SIZE - 16) / (BOUND_X * 2), (MM_SIZE - 16) / (BOUND_Z * 2));
+    const toMiniX = (x) => MM_SIZE / 2 + x * mmScale;
+    const toMiniY = (z) => MM_SIZE / 2 + z * mmScale;
+
+    const minimapApp = new me.Application(MM_SIZE, MM_SIZE, {
+      parent: "minimap-mount",
+      renderer: me.CANVAS,
+      backgroundColor: "#0f1626",
+      consoleHeader: false
+    });
+
+    const MinimapView = class extends me.Renderable {
+      constructor(){
+        super(0, 0, MM_SIZE, MM_SIZE);
+        this.alwaysUpdate = true;
+        this.floating = true;
+      }
+      update(){ this.isDirty = true; return true; }
+      draw(r){
+        r.setColor("#0f1626");
+        r.fillRect(0, 0, MM_SIZE, MM_SIZE);
+
+        r.setColor("#262b38");
+        const ix0 = toMiniX(-(PATH_HALF_W - ROW_OFFSET)), iz0 = toMiniY(-(PATH_HALF_D - ROW_OFFSET));
+        const ix1 = toMiniX(PATH_HALF_W - ROW_OFFSET), iz1 = toMiniY(PATH_HALF_D - ROW_OFFSET);
+        r.fillRect(ix0, iz0, ix1 - ix0, iz1 - iz0);
+
+        r.setColor("#4a5578");
+        const px0 = toMiniX(-PATH_HALF_W), pz0 = toMiniY(-PATH_HALF_D);
+        const px1 = toMiniX(PATH_HALF_W), pz1 = toMiniY(PATH_HALF_D);
+        r.fillRect(px0, pz0, px1 - px0, 2);
+        r.fillRect(px0, pz1 - 2, px1 - px0, 2);
+        r.fillRect(px0, pz0, 2, pz1 - pz0);
+        r.fillRect(px1 - 2, pz0, 2, pz1 - pz0);
+
+        houses.forEach(house => {
+          r.setColor(house.color);
+          r.fillRect(toMiniX(house.x) - 5, toMiniY(house.z) - 5, 10, 10);
+        });
+
+        r.setColor("#ffffff");
+        r.fillRect(toMiniX(player.position.x) - 4, toMiniY(player.position.z) - 4, 8, 8);
+      }
+    };
+    minimapApp.world.addChild(new MinimapView());
+    minimapRepaint = () => minimapApp.repaint();
+  } catch (err) {
+    console.warn("Minimap (melonJS) unavailable — continuing without it.", err);
+    const box = document.getElementById("minimap-box");
+    if (box) box.style.display = "none";
+  }
+})();
+</script>
+</body>
+</html>
