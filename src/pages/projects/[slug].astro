@@ -11,11 +11,23 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { title, summary, tags, url, color } = project.data;
+const { title, summary, tags, url, color, date } = project.data;
 const { Content } = await render(project);
+
+const projectSchema = {
+  "@type": "SoftwareApplication",
+  name: title,
+  description: summary,
+  url,
+  applicationCategory: "WebApplication",
+  operatingSystem: "Web",
+  author: { "@id": `${Astro.site}#person` },
+  keywords: tags.join(", "),
+  ...(date && { datePublished: date.toISOString() }),
+};
 ---
 
-<BaseLayout title={title} description={summary}>
+<BaseLayout title={title} description={summary} type="article" publishedDate={date} tags={tags} schema={projectSchema}>
   <main class="px-6 py-16">
     <div class="mx-auto max-w-2xl">
       <a href="/projects/" class="text-sm font-semibold text-black/50 hover:text-black dark:text-white/50 dark:hover:text-white">

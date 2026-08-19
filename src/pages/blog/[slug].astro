@@ -15,7 +15,7 @@ const { title, description, pubDate, tags } = post.data;
 const { Content } = await render(post);
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} type="article" publishedDate={pubDate} tags={tags ?? []}>
   <main class="px-6 py-16">
     <div class="mx-auto max-w-2xl">
       <a href="/blog/" class="text-sm font-semibold text-black/50 hover:text-black dark:text-white/50 dark:hover:text-white">

@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BranchTimeline from "../components/BranchTimeline.astro";
+import { Image } from "astro:assets";
+import sidCutout from "../assets/sid_clear.png";
 
 const focus = [
   { title: "Robotics", desc: "Team ops tools built for robotics teams under the Robotics Catalyst Foundation." },
@@ -18,7 +20,13 @@ const focus = [
       <h1 class="mt-2 font-display text-4xl font-bold">Hi, I'm Sid.</h1>
 
       <div class="mt-8 flex flex-col gap-6 text-black/70 sm:flex-row sm:items-start dark:text-white/70">
-        <img src="/images/sid_clear.png" alt="Sid Agrawal" class="w-40 shrink-0 rounded-2xl shadow-[0_12px_30px_rgba(0,0,0,0.1)]" />
+        <Image
+          src={sidCutout}
+          alt="Sid Agrawal"
+          widths={[160, 320]}
+          sizes="160px"
+          class="w-40 shrink-0 rounded-2xl shadow-[0_12px_30px_rgba(0,0,0,0.1)]"
+        />
         <div class="space-y-4">
           <p>
             I'm a student developer based in Connecticut. Most of my projects come out of the Robotics Catalyst Foundation —

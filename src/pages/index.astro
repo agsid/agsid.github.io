@@ -3,27 +3,58 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import CursorSelectAnimation from "../components/CursorSelectAnimation.astro";
+import { Image } from "astro:assets";
+import sidPhoto from "../assets/sid.jpg";
 
 const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
 const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 2);
+
+// Spoken and machine languages, deliberately kept in one list.
+const languages = [
+  { name: "English", kind: "spoken", level: "Native", color: "#4fd1ff" },
+  { name: "Java", kind: "code", level: "Fluent", color: "#ffb84f" },
+  { name: "Hindi", kind: "spoken", level: "Fluent", color: "#4fd1ff" },
+  { name: "JavaScript", kind: "code", level: "Fluent", color: "#ffb84f" },
+  { name: "Svelte", kind: "framework", level: "Daily driver", color: "#ff6f91" },
+  { name: "Spanish", kind: "spoken", level: "Conversational", color: "#4fd1ff" },
+  { name: "Astro", kind: "framework", level: "Fluent", color: "#ff6f91" },
+  { name: "Python", kind: "code", level: "Fluent", color: "#ffb84f" },
+  { name: "Arduino / C++", kind: "code", level: "Robotics work", color: "#ffb84f" },
+  { name: "CAD", kind: "tool", level: "Onshape, Fusion", color: "#7ee08a" },
+  { name: "3D printing", kind: "tool", level: "Design to print", color: "#7ee08a" },
+  { name: "Tailwind", kind: "framework", level: "Fluent", color: "#ff6f91" },
+];
+
+const kindLabel: Record<string, string> = {
+  spoken: "Spoken",
+  code: "Language",
+  framework: "Framework",
+  tool: "Tool",
+};
 ---
 
 <BaseLayout title="Sid Agrawal">
   <main>
     <section class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 py-24 text-center">
+      <!-- Floating badges scattered around the hero -->
+      <div class="pointer-events-none absolute inset-0 hidden lg:block" aria-hidden="true">
+        <span class="hero-badge absolute top-[22%] left-[6%] -rotate-6 bg-[#c9d3ff]">
+          Building @ <b>Robotics Catalyst Foundation</b>
+        </span>
+        <span class="hero-badge absolute top-[18%] right-[7%] rotate-6 bg-[#ffe6a8]">
+          Shipping robotics + security tools
+        </span>
+        <span class="hero-badge absolute top-[46%] left-[10%] rotate-3 bg-[#ff6f91]">CTFTC</span>
+        <span class="hero-badge absolute top-[62%] left-[16%] -rotate-6 bg-[#4fd1ff]">Robolyst</span>
+        <span class="hero-badge absolute top-[48%] right-[11%] -rotate-3 bg-[#ffb84f]">SingulTech</span>
+        <span class="hero-badge absolute top-[64%] right-[17%] rotate-6 bg-[#7ee08a]">AlliedAlgos</span>
+      </div>
+
       <div class="mx-auto w-full max-w-3xl">
-        <div class="relative mx-auto mb-10 hidden h-16 max-w-2xl sm:block">
-          <div class="absolute top-0 left-0 -rotate-6 rounded-md border-2 border-black bg-[#c9d3ff] px-3 py-2 text-xs font-bold text-black shadow-[4px_4px_0px_#000] dark:border-[#f2f1ee] dark:shadow-[4px_4px_0px_#f2f1ee]">
-            Building @ <b>Robotics Catalyst Foundation</b>
-          </div>
-          <div class="absolute top-3 right-0 rotate-6 rounded-md border-2 border-black bg-[#ffe6a8] px-3 py-2 text-xs font-bold text-black shadow-[4px_4px_0px_#000] dark:border-[#f2f1ee] dark:shadow-[4px_4px_0px_#f2f1ee]">
-            Shipping robotics + security tools
-          </div>
-        </div>
 
         <p class="font-display text-black/50 dark:text-white/50">hi, I'm</p>
         <div class="relative mx-auto inline-block">
-          <h1 class="font-name border-[3px] border-[color:var(--color-accent)] px-4 py-1 text-6xl font-bold uppercase sm:text-7xl dark:border-[color:var(--color-accent-dark)]">
+          <h1 class="font-name border-[3px] border-[color:var(--color-accent)] px-4 py-1 text-[clamp(3.5rem,15vw,11rem)] leading-[1.05] font-bold uppercase dark:border-[color:var(--color-accent-dark)]">
             Sid Ag
           </h1>
           <span class="absolute -top-[5px] -left-[5px] h-[10px] w-[10px] bg-[color:var(--color-accent)] dark:bg-[color:var(--color-accent-dark)]"></span>
@@ -52,7 +83,13 @@ const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueO
     <section id="about" class="px-6 py-16">
       <div class="mx-auto grid max-w-5xl items-center gap-12 md:grid-cols-2">
         <div class="overflow-hidden rounded-3xl shadow-[0_16px_40px_rgba(0,0,0,0.1)]">
-          <img src="/images/sid.jpg" alt="Sid Agrawal" class="h-full w-full object-cover" />
+          <Image
+            src={sidPhoto}
+            alt="Sid Agrawal"
+            widths={[400, 800, 1200]}
+            sizes="(min-width: 768px) 40vw, 100vw"
+            class="h-full w-full object-cover"
+          />
         </div>
         <div>
           <span class="font-display text-xs font-bold tracking-widest text-[color:var(--color-accent)] uppercase dark:text-[color:var(--color-accent-dark)]">
@@ -70,6 +107,33 @@ const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueO
             <CursorSelectAnimation />
           </div>
         </div>
+      </div>
+    </section>
+
+    <section id="languages" class="px-6 py-16">
+      <div class="mx-auto max-w-5xl">
+        <span class="font-display text-xs font-bold tracking-widest text-[color:var(--color-accent)] uppercase dark:text-[color:var(--color-accent-dark)]">
+          Languages
+        </span>
+        <h2 class="mt-2 font-display text-3xl font-bold">Languages I speak.</h2>
+        <p class="mt-3 max-w-xl text-black/60 dark:text-white/60">
+          Some are spoken out loud, some are typed at a machine. I've stopped keeping two separate lists.
+        </p>
+
+        <ul class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {languages.map((lang) => (
+            <li class="flex items-center gap-3 rounded-xl border-2 border-black/80 bg-white/60 px-4 py-3 shadow-[3px_3px_0px_#000] dark:border-white/70 dark:bg-[#1b1b1f]/60 dark:shadow-[3px_3px_0px_rgba(255,255,255,0.25)]">
+              <span class="h-8 w-2 shrink-0 rounded-full" style={`background:${lang.color}`}></span>
+              <span class="min-w-0">
+                <span class="block font-display text-sm font-bold">{lang.name}</span>
+                <span class="block text-xs text-black/50 dark:text-white/50">{lang.level}</span>
+              </span>
+              <span class="ml-auto shrink-0 rounded-md bg-black/5 px-2 py-1 font-display text-[0.6rem] font-bold tracking-widest uppercase text-black/50 dark:bg-white/10 dark:text-white/50">
+                {kindLabel[lang.kind]}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
 

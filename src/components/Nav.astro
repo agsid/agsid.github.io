@@ -9,15 +9,15 @@ const links = [
 ---
 
 <header class="sticky top-0 z-50 px-4 pt-4 sm:px-6" data-site-header>
-  <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 rounded-2xl border-2 border-black/80 bg-white/50 py-2 pr-2 pl-4 shadow-[4px_4px_0px_#000] backdrop-blur-xl dark:border-white/70 dark:bg-[#1b1b1f]/40 dark:shadow-[4px_4px_0px_rgba(255,255,255,0.25)]">
-    <a href="/" class="flex items-center gap-1.5 font-display text-lg font-extrabold tracking-tight" aria-label="Sid Agrawal home">
+  <div class="relative mx-auto flex max-w-5xl items-center justify-between gap-4 rounded-2xl border-2 border-black/80 bg-white/50 py-2 pr-2 pl-4 shadow-[4px_4px_0px_#000] backdrop-blur-xl dark:border-white/70 dark:bg-[#1b1b1f]/40 dark:shadow-[4px_4px_0px_rgba(255,255,255,0.25)]">
+    <a href="/" class="flex shrink-0 items-center gap-1.5 font-display text-lg font-extrabold tracking-tight" aria-label="Sid Agrawal home">
       Sid
       <span class="rounded-md bg-[#17171a] px-1.5 py-0.5 text-xs font-bold text-white dark:bg-white dark:text-[#17171a]">.io</span>
     </a>
 
     <nav
       aria-label="Primary"
-      class="hidden items-center gap-1 rounded-xl bg-black/5 p-1.5 shadow-[inset_2px_2px_5px_rgba(0,0,0,0.15),inset_-2px_-2px_5px_rgba(255,255,255,0.6)] sm:flex dark:bg-white/5 dark:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.4),inset_-2px_-2px_5px_rgba(255,255,255,0.05)]"
+      class="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 rounded-xl bg-black/5 p-1.5 shadow-[inset_2px_2px_5px_rgba(0,0,0,0.15),inset_-2px_-2px_5px_rgba(255,255,255,0.6)] md:flex dark:bg-white/5 dark:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.4),inset_-2px_-2px_5px_rgba(255,255,255,0.05)]"
     >
       {links.map((link) => (
         <a
@@ -48,7 +48,7 @@ const links = [
 
       <a
         href="/contact/"
-        class="group hidden items-center gap-3 rounded-full border-2 border-black bg-[#17171a] py-1.5 pr-1.5 pl-4 text-sm font-semibold text-white shadow-[3px_3px_0px_#000] sm:flex dark:border-white dark:bg-black/40 dark:shadow-[3px_3px_0px_rgba(255,255,255,0.3)]"
+        class="group hidden items-center gap-3 rounded-full border-2 border-black bg-[#17171a] py-1.5 pr-1.5 pl-4 text-sm font-semibold text-white shadow-[3px_3px_0px_#000] md:flex dark:border-white dark:bg-black/40 dark:shadow-[3px_3px_0px_rgba(255,255,255,0.3)]"
       >
         Contact
         <span class="flex h-7 w-7 items-center justify-center rounded-full bg-lime-300 text-[#17171a] transition-transform group-hover:translate-x-0.5">
@@ -62,7 +62,7 @@ const links = [
         aria-expanded="false"
         aria-controls="mobile-menu"
         aria-label="Open menu"
-        class="flex h-9 w-9 flex-col items-center justify-center gap-[5px] rounded-full border-2 border-black/80 bg-white/40 shadow-[2px_2px_0px_#000] sm:hidden dark:border-white/70 dark:bg-black/20 dark:shadow-[2px_2px_0px_rgba(255,255,255,0.4)]"
+        class="flex h-9 w-9 flex-col items-center justify-center gap-[5px] rounded-full border-2 border-black/80 bg-white/40 shadow-[2px_2px_0px_#000] md:hidden dark:border-white/70 dark:bg-black/20 dark:shadow-[2px_2px_0px_rgba(255,255,255,0.4)]"
       >
         <span class="block h-[2px] w-4 bg-current transition-transform"></span>
         <span class="block h-[2px] w-4 bg-current transition-transform"></span>
@@ -73,7 +73,7 @@ const links = [
   <div
     id="mobile-menu"
     aria-hidden="true"
-    class="mx-auto mt-3 hidden max-w-5xl rounded-2xl border-2 border-black/80 bg-white/70 p-3 shadow-[4px_4px_0px_#000] backdrop-blur-xl sm:!hidden dark:border-white/70 dark:bg-[#1b1b1f]/70 dark:shadow-[4px_4px_0px_rgba(255,255,255,0.25)]"
+    class="mx-auto mt-3 hidden max-w-5xl rounded-2xl border-2 border-black/80 bg-white/70 p-3 shadow-[4px_4px_0px_#000] backdrop-blur-xl md:!hidden dark:border-white/70 dark:bg-[#1b1b1f]/70 dark:shadow-[4px_4px_0px_rgba(255,255,255,0.25)]"
   >
     <nav aria-label="Mobile" class="flex flex-col">
       {links.map((link, i) => (
