@@ -1,0 +1,156 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import CursorSelectAnimation from "../components/CursorSelectAnimation.astro";
+
+const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order).slice(0, 2);
+const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 2);
+---
+
+<BaseLayout title="Sid Agrawal">
+  <main>
+    <section class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 py-24 text-center">
+      <div class="mx-auto w-full max-w-3xl">
+        <div class="relative mx-auto mb-10 hidden h-16 max-w-2xl sm:block">
+          <div class="absolute top-0 left-0 -rotate-6 rounded-md border-2 border-black bg-[#c9d3ff] px-3 py-2 text-xs font-bold text-black shadow-[4px_4px_0px_#000] dark:border-[#f2f1ee] dark:shadow-[4px_4px_0px_#f2f1ee]">
+            Building @ <b>Robotics Catalyst Foundation</b>
+          </div>
+          <div class="absolute top-3 right-0 rotate-6 rounded-md border-2 border-black bg-[#ffe6a8] px-3 py-2 text-xs font-bold text-black shadow-[4px_4px_0px_#000] dark:border-[#f2f1ee] dark:shadow-[4px_4px_0px_#f2f1ee]">
+            Shipping robotics + security tools
+          </div>
+        </div>
+
+        <p class="font-display text-black/50 dark:text-white/50">hi, I'm</p>
+        <div class="relative mx-auto inline-block">
+          <h1 class="font-name border-[3px] border-[color:var(--color-accent)] px-4 py-1 text-6xl font-bold uppercase sm:text-7xl dark:border-[color:var(--color-accent-dark)]">
+            Sid Ag
+          </h1>
+          <span class="absolute -top-[5px] -left-[5px] h-[10px] w-[10px] bg-[color:var(--color-accent)] dark:bg-[color:var(--color-accent-dark)]"></span>
+          <span class="absolute -top-[5px] -right-[5px] h-[10px] w-[10px] bg-[color:var(--color-accent)] dark:bg-[color:var(--color-accent-dark)]"></span>
+          <span class="absolute -bottom-[5px] -left-[5px] h-[10px] w-[10px] bg-[color:var(--color-accent)] dark:bg-[color:var(--color-accent-dark)]"></span>
+          <span class="absolute -bottom-[5px] -right-[5px] h-[10px] w-[10px] bg-[color:var(--color-accent)] dark:bg-[color:var(--color-accent-dark)]"></span>
+        </div>
+        <p class="mt-3 text-lg text-black/60 dark:text-white/60">Student developer — robotics, security &amp; web</p>
+
+        <div class="mt-8 flex justify-center gap-3">
+          <a href="/projects/" class="Btn-Container">
+            <span class="icon-Container">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="#1d2129" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="text">See my work</span>
+          </a>
+          <a href="/contact/" class="rounded-full border border-black/10 px-6 py-3 text-sm font-semibold dark:border-white/10">
+            Get in touch
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="px-6 py-16">
+      <div class="mx-auto grid max-w-5xl items-center gap-12 md:grid-cols-2">
+        <div class="overflow-hidden rounded-3xl shadow-[0_16px_40px_rgba(0,0,0,0.1)]">
+          <img src="/images/sid.jpg" alt="Sid Agrawal" class="h-full w-full object-cover" />
+        </div>
+        <div>
+          <span class="font-display text-xs font-bold tracking-widest text-[color:var(--color-accent)] uppercase dark:text-[color:var(--color-accent-dark)]">
+            About
+          </span>
+          <h2 class="mt-2 font-display text-3xl font-bold">Building things that make robotics teams and security practice easier.</h2>
+          <p class="mt-4 text-black/60 dark:text-white/60">
+            I'm a student based in Connecticut. Most of what I build sits at the intersection of robotics, security, and the web —
+            team tools, training platforms, and the occasional site that ends up more fun to build than it needed to be.
+          </p>
+          <a href="/about/" class="mt-4 inline-block text-sm font-semibold text-[color:var(--color-accent)] dark:text-[color:var(--color-accent-dark)]">
+            More about me →
+          </a>
+          <div class="mt-8 hidden max-w-md sm:block">
+            <CursorSelectAnimation />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="bg-black/[0.02] px-6 py-16 dark:bg-white/[0.02]">
+      <div class="mx-auto max-w-5xl">
+        <span class="font-display text-xs font-bold tracking-widest text-[color:var(--color-accent)] uppercase dark:text-[color:var(--color-accent-dark)]">
+          Featured Work
+        </span>
+        <h2 class="mt-2 font-display text-3xl font-bold">A few things I've shipped.</h2>
+        <div class="mt-8 flex flex-col gap-10">
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+        <a href="/projects/" class="mt-6 inline-block text-sm font-semibold text-[color:var(--color-accent)] dark:text-[color:var(--color-accent-dark)]">
+          View all projects →
+        </a>
+      </div>
+    </section>
+
+    <section class="px-6 py-16">
+      <div class="mx-auto max-w-5xl">
+        <span class="font-display text-xs font-bold tracking-widest text-[color:var(--color-accent)] uppercase dark:text-[color:var(--color-accent-dark)]">
+          Journal
+        </span>
+        <h2 class="mt-2 font-display text-3xl font-bold">Recent notes.</h2>
+        <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-4 sm:auto-rows-[180px]">
+          {posts.map((post, i) => (
+            <a
+              href={`/blog/${post.id}/`}
+              class:list={[
+                "flex flex-col justify-between rounded-2xl border border-black/10 bg-white p-6 transition-transform hover:-translate-y-1 dark:border-white/10 dark:bg-[#1b1b1f]",
+                i === 0 ? "sm:col-span-2 sm:row-span-2" : "sm:col-span-2",
+              ]}
+            >
+              <div>
+                <p class="text-xs text-black/40 dark:text-white/40">
+                  {post.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                </p>
+                <h3 class:list={["mt-2 font-display font-bold", i === 0 ? "text-2xl" : "text-lg"]}>{post.data.title}</h3>
+                <p class="mt-2 text-sm text-black/60 dark:text-white/60">{post.data.description}</p>
+              </div>
+              {post.data.tags && (
+                <div class="mt-4 flex flex-wrap gap-2">
+                  {post.data.tags.slice(0, 3).map((tag: string) => (
+                    <span class="rounded-full bg-black/5 px-2.5 py-1 text-xs font-semibold text-black/60 dark:bg-white/10 dark:text-white/60">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </a>
+          ))}
+          <a
+            href="/blog/"
+            class="flex flex-col items-center justify-center gap-1 rounded-2xl border-2 border-black bg-[color:var(--color-accent)] p-6 text-center text-white shadow-[4px_4px_0_#000] sm:col-span-1 dark:border-white dark:shadow-[4px_4px_0_#fff]"
+          >
+            <span class="font-display text-lg font-bold">More notes</span>
+            <span class="text-xs opacity-80">Browse the journal →</span>
+          </a>
+          <div class="flex flex-col items-center justify-center gap-1 rounded-2xl border-2 border-dashed border-black/15 p-6 text-center text-black/40 sm:col-span-1 dark:border-white/15 dark:text-white/40">
+            <span class="font-display text-3xl font-bold">✎</span>
+            <span class="text-xs font-semibold tracking-wide uppercase">Writing more soon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="px-6 py-20 text-center">
+      <div class="mx-auto max-w-xl">
+        <h2 class="font-display text-4xl font-bold">Let's build something.</h2>
+        <p class="mt-4 text-black/60 dark:text-white/60">
+          Always up for talking robotics, security, or whatever weird web project comes next.
+        </p>
+        <div class="mt-8 flex justify-center gap-3">
+          <a href="mailto:sidagrawal@robotics-catalyst.org" class="rounded-full bg-[color:var(--color-accent)] px-6 py-3 text-sm font-semibold text-white">
+            Email me
+          </a>
+          <a href="https://github.com/agsid" target="_blank" rel="noopener" class="rounded-full border border-black/10 px-6 py-3 text-sm font-semibold dark:border-white/10">
+            GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

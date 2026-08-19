@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Contact" description="Get in touch with Sid Agrawal about internships, collaborations, or robotics/security/web projects.">
+  <main class="px-6 py-20 text-center">
+    <div class="mx-auto max-w-xl">
+      <span class="font-display text-xs font-bold tracking-widest text-[color:var(--color-accent)] uppercase dark:text-[color:var(--color-accent-dark)]">
+        Contact
+      </span>
+      <h1 class="mt-2 font-display text-4xl font-bold">Let's build something.</h1>
+      <p class="mt-4 text-black/60 dark:text-white/60">
+        Always up for talking robotics, security, or whatever weird web project comes next — reach out about
+        internships, collaborations, or just to say hi.
+      </p>
+      <div class="mt-8 flex justify-center gap-3">
+        <a href="mailto:sidagrawal@robotics-catalyst.org" class="rounded-full bg-[color:var(--color-accent)] px-6 py-3 text-sm font-semibold text-white">
+          Email me
+        </a>
+        <a href="https://github.com/agsid" target="_blank" rel="noopener" class="rounded-full border border-black/10 px-6 py-3 text-sm font-semibold dark:border-white/10">
+          GitHub
+        </a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

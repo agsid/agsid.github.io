@@ -1,0 +1,45 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, tags } = post.data;
+const { Content } = await render(post);
+---
+
+<BaseLayout title={title} description={description}>
+  <main class="px-6 py-16">
+    <div class="mx-auto max-w-2xl">
+      <a href="/blog/" class="text-sm font-semibold text-black/50 hover:text-black dark:text-white/50 dark:hover:text-white">
+        ← All notes
+      </a>
+
+      <p class="mt-4 text-xs text-black/40 dark:text-white/40">
+        {pubDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+      </p>
+      <h1 class="mt-2 font-display text-4xl font-bold">{title}</h1>
+
+      {tags && (
+        <div class="mt-4 flex flex-wrap gap-2">
+          {tags.map((tag: string) => (
+            <span class="rounded-full bg-black/5 px-3 py-1 text-xs font-semibold text-black/60 dark:bg-white/10 dark:text-white/60">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <article class="prose-case mt-10">
+        <Content />
+      </article>
+    </div>
+  </main>
+</BaseLayout>

@@ -1,0 +1,92 @@
+---
+const trackA = {
+  label: "School",
+  color: "#3d5afe",
+  entries: [
+    { year: "2019", title: "Joined the robotics team", desc: "Started on a FIRST robotics team, learning hardware and firmware alongside code." },
+    { year: "2021", title: "Got into security", desc: "Started competing in CTFs and going down the security rabbit hole." },
+    { year: "2023", title: "Took CS coursework seriously", desc: "Moved from tinkering to structured fundamentals — data structures, systems, the basics." },
+    { year: "2025", title: "Started mentoring", desc: "Helping newer teammates ramp up on the tools I'd built." },
+  ],
+};
+
+const trackB = {
+  label: "Projects",
+  color: "#ff6f91",
+  entries: [
+    { year: "2020", title: "Started building for RCF", desc: "First internal tools for teams at the Robotics Catalyst Foundation." },
+    { year: "2022", title: "Shipped Robolyst", desc: "Rosters, scouting, and season tools for robotics teams, in one place." },
+    { year: "2023", title: "Built CTFTC", desc: "A capture-the-flag training ground for cybersecurity practice." },
+    { year: "2025", title: "Launched SingulTech + AlliedAlgos", desc: "Public sites for a robotics team and a competitive-programming community." },
+  ],
+};
+
+const root = { year: "2018", title: "First lines of code", desc: "Started teaching myself to program, mostly out of curiosity." };
+const merge = { year: "2026", title: "Now", desc: "Building robotics and security tools, full time." };
+---
+
+<div class="relative mx-auto max-w-4xl">
+  <!-- Root node -->
+  <div class="relative z-10 flex flex-col items-center text-center">
+    <span class="flex h-6 w-6 items-center justify-center rounded-full border-[3px] border-black bg-white dark:border-white dark:bg-[#121214]">
+      <span class="h-2 w-2 rounded-full bg-black dark:bg-white"></span>
+    </span>
+    <span class="mt-3 rounded-full bg-black px-3 py-1 text-xs font-bold text-white dark:bg-white dark:text-[#121214]">{root.year}</span>
+    <h3 class="mt-3 max-w-xs font-display text-lg font-bold">{root.title}</h3>
+    <p class="mt-1 max-w-xs text-sm text-black/60 dark:text-white/60">{root.desc}</p>
+  </div>
+
+  <!-- Fork connector -->
+  <div class="mx-auto h-10 w-px bg-black/15 sm:hidden dark:bg-white/15"></div>
+  <svg viewBox="0 0 100 40" preserveAspectRatio="none" class="hidden h-10 w-full sm:block" aria-hidden="true">
+    <path d="M50 0 C 50 22, 25 18, 25 40" fill="none" stroke="currentColor" stroke-width="0.6" class="text-black/20 dark:text-white/20" vector-effect="non-scaling-stroke" />
+    <path d="M50 0 C 50 22, 75 18, 75 40" fill="none" stroke="currentColor" stroke-width="0.6" class="text-black/20 dark:text-white/20" vector-effect="non-scaling-stroke" />
+  </svg>
+
+  <!-- Two side-by-side tracks -->
+  <div class="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2">
+    {[trackA, trackB].map((track) => (
+      <div class="relative flex flex-col items-center gap-10 pt-2">
+        <span
+          class="mb-2 rounded-full px-3 py-1 text-xs font-bold tracking-widest text-white uppercase"
+          style={`background:${track.color}`}
+        >
+          {track.label}
+        </span>
+        <div class="absolute top-10 bottom-0 left-1/2 w-px -translate-x-1/2 bg-black/15 dark:bg-white/15"></div>
+        {track.entries.map((entry) => (
+          <div class="relative z-10 flex flex-col items-center px-2 text-center">
+            <span
+              class="flex h-5 w-5 items-center justify-center rounded-full border-[3px] bg-white dark:bg-[#121214]"
+              style={`border-color:${track.color}`}
+            >
+              <span class="h-1.5 w-1.5 rounded-full" style={`background:${track.color}`}></span>
+            </span>
+            <span class="mt-3 rounded-full px-3 py-1 text-xs font-bold text-white" style={`background:${track.color}`}>
+              {entry.year}
+            </span>
+            <h4 class="mt-3 font-display text-base font-bold">{entry.title}</h4>
+            <p class="mt-1 text-xs text-black/60 dark:text-white/60">{entry.desc}</p>
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+
+  <!-- Merge connector -->
+  <div class="mx-auto h-10 w-px bg-black/15 sm:hidden dark:bg-white/15"></div>
+  <svg viewBox="0 0 100 40" preserveAspectRatio="none" class="hidden h-10 w-full sm:block" aria-hidden="true">
+    <path d="M25 0 C 25 22, 50 18, 50 40" fill="none" stroke="currentColor" stroke-width="0.6" class="text-black/20 dark:text-white/20" vector-effect="non-scaling-stroke" />
+    <path d="M75 0 C 75 22, 50 18, 50 40" fill="none" stroke="currentColor" stroke-width="0.6" class="text-black/20 dark:text-white/20" vector-effect="non-scaling-stroke" />
+  </svg>
+
+  <!-- Merge node -->
+  <div class="relative z-10 flex flex-col items-center text-center">
+    <span class="flex h-6 w-6 items-center justify-center rounded-full border-[3px] border-black bg-white dark:border-white dark:bg-[#121214]">
+      <span class="h-2 w-2 rounded-full bg-black dark:bg-white"></span>
+    </span>
+    <span class="mt-3 rounded-full bg-black px-3 py-1 text-xs font-bold text-white dark:bg-white dark:text-[#121214]">{merge.year}</span>
+    <h3 class="mt-3 max-w-xs font-display text-lg font-bold">{merge.title}</h3>
+    <p class="mt-1 max-w-xs text-sm text-black/60 dark:text-white/60">{merge.desc}</p>
+  </div>
+</div>
