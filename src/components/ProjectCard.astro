@@ -1,74 +1,216 @@
 ---
-const { project } = Astro.props;
+const { project, index = 0 } = Astro.props;
 const { title, summary, tags, url, color, order, date, image } = project.data;
+
 const num = String(order).padStart(2, "0");
 const dateLabel = date
-  ? date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }).toUpperCase()
+  ? date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
   : null;
 const filename = image ? image.split("/").pop() : null;
 const ext = filename?.includes(".") ? filename.split(".").pop()?.toUpperCase() : null;
+
+// Pick ink that stays readable on the card's own colour.
+const hex = color.replace("#", "");
+const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
+const isDark = (0.299 * r + 0.587 * g + 0.114 * b) / 255 < 0.6;
+const ink = isDark ? "#fff" : "#111212";
 ---
 
-<div class="relative mt-7">
-  <div
-    class="absolute -top-7 left-0 z-10 flex items-center gap-1.5 border-2 border-b-0 border-black bg-white px-3 py-1.5 text-xs font-bold tracking-wide text-black uppercase [clip-path:polygon(0_0,100%_0,calc(100%-16px)_100%,0_100%)] dark:border-white dark:bg-[#1b1b1f] dark:text-white"
-  >
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 6a1 1 0 0 1 1-1h5l2 2h9a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
-    </svg>
-    Project {num}
+<article
+  class="folder-card"
+  style={`--card:${color};--ink:${ink};--tabx:${index * 235}px;z-index:${index + 1}`}
+>
+  <div class="fc-tabrow">
+    <div class="fc-tab">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 7h6l2 2h10v9H3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+      </svg>
+      Project {num}
+    </div>
   </div>
 
-  <div
-    class="overflow-hidden rounded-2xl border-2 border-black p-6 shadow-[6px_6px_0px_#000] sm:p-10 dark:border-white dark:shadow-[6px_6px_0px_#fff]"
-    style={`background-color:${color}`}
-  >
+  <div class="fc-body">
     <div class="grid items-center gap-8 md:grid-cols-2">
       <div>
         {dateLabel && (
-          <p class="mb-4 flex items-center gap-2 text-xs font-bold tracking-wide text-black/70">
-            <span class="h-1.5 w-1.5 rounded-full bg-black"></span>
+          <p class="fc-meta">
+            <span class="fc-dot"></span>
             {dateLabel}
           </p>
         )}
-        <h3 class="font-display text-3xl font-bold text-black sm:text-4xl">{title}</h3>
-        <p class="mt-4 max-w-sm text-black/80">{summary}</p>
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener"
-          class="mt-5 inline-flex items-center gap-1.5 border-b-2 border-black pb-0.5 text-sm font-bold tracking-wide text-black uppercase"
-        >
-          View project ↗
+        <h3 class="font-display text-3xl font-bold sm:text-4xl">{title}</h3>
+        <p class="mt-4 max-w-sm opacity-85">{summary}</p>
+        <a href={url} target="_blank" rel="noopener" class="fc-view">
+          View project
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17L17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
         </a>
         <div class="mt-6 flex flex-wrap gap-2">
           {tags.map((tag: string) => (
-            <span class="rounded-md border border-black/10 bg-white px-3 py-1 text-xs font-bold tracking-wide text-black uppercase">
-              {tag}
-            </span>
+            <span class="fc-tag">{tag}</span>
           ))}
         </div>
       </div>
 
       <div class="relative">
         {image ? (
-          <img src={image} alt={title} class="aspect-[4/3] w-full rounded-xl border-2 border-black object-cover" />
+          <img src={image} alt={title} class="fc-frame aspect-[4/3] w-full object-cover" />
         ) : (
-          <div class="flex aspect-[4/3] w-full items-center justify-center rounded-xl border-2 border-black bg-black/10 font-display text-7xl font-bold text-black/30">
+          <div class="fc-frame flex aspect-[4/3] w-full items-center justify-center bg-black/10 font-display text-7xl font-bold opacity-30">
             {title.charAt(0)}
           </div>
         )}
         {filename && (
-          <span class="absolute top-3 right-3 flex items-center gap-1.5 rounded-md bg-black px-2 py-1 text-[10px] font-bold text-white">
-            {ext && <span class="rounded bg-[color:var(--color-accent-dark)] px-1 py-0.5 text-[9px]">{ext}</span>}
+          <span class="fc-file">
+            {ext && <b>{ext}</b>}
             {filename}
           </span>
         )}
-        <span class="absolute -top-[5px] -left-[5px] h-[10px] w-[10px] border border-black bg-white"></span>
-        <span class="absolute -top-[5px] -right-[5px] h-[10px] w-[10px] border border-black bg-white"></span>
-        <span class="absolute -bottom-[5px] -left-[5px] h-[10px] w-[10px] border border-black bg-white"></span>
-        <span class="absolute -bottom-[5px] -right-[5px] h-[10px] w-[10px] border border-black bg-white"></span>
+        <span class="fc-handle -top-[5px] -left-[5px]"></span>
+        <span class="fc-handle -top-[5px] -right-[5px]"></span>
+        <span class="fc-handle -bottom-[5px] -left-[5px]"></span>
+        <span class="fc-handle -bottom-[5px] -right-[5px]"></span>
       </div>
     </div>
   </div>
-</div>
+</article>
+
+<style>
+  .folder-card {
+    position: relative;
+    color: var(--ink);
+  }
+
+  /* Cards pile up on one another as you scroll. */
+  @media (min-width: 640px) {
+    .folder-card {
+      position: sticky;
+      top: 6.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .folder-card {
+      position: relative;
+      top: auto;
+    }
+  }
+
+  .fc-tabrow {
+    display: flex;
+  }
+
+  .fc-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.6rem 0.5rem 1rem;
+    background: var(--card);
+    color: var(--ink);
+    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 0.6rem 0.6rem 0 0;
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
+  }
+
+  @media (min-width: 640px) {
+    .fc-tab {
+      transform: translateX(var(--tabx));
+    }
+  }
+
+  .fc-body {
+    background: var(--card);
+    border-radius: 0 1rem 1rem 1rem;
+    padding: 1.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .fc-body {
+      padding: 2.5rem;
+    }
+  }
+
+  .fc-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  .fc-dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: currentColor;
+  }
+
+  .fc-view {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.25rem;
+    padding-bottom: 0.15rem;
+    border-bottom: 2px solid currentColor;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .fc-tag {
+    padding: 0.35rem 1.1rem 0.35rem 0.7rem;
+    background: #fff;
+    color: #111212;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 11px) 100%, 0 100%);
+  }
+
+  .fc-file {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.35rem;
+    background: #111212;
+    color: #fff;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.65rem;
+  }
+
+  .fc-file b {
+    padding: 0.05rem 0.25rem;
+    border-radius: 0.2rem;
+    background: var(--card);
+    color: #111212;
+    font-size: 0.6rem;
+  }
+
+  .fc-frame {
+    outline: 2px solid rgba(0, 0, 0, 0.35);
+    outline-offset: 0;
+  }
+
+  .fc-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+  }
+</style>
