@@ -3,6 +3,7 @@ import { Font, getImage } from "astro:assets";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import ogSource from "../assets/sid.jpg";
+import logoSource from "../assets/sidlogo.png";
 import "../styles/global.css";
 
 interface Props {
@@ -42,6 +43,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 // Social preview image, optimised at build time and made absolute.
 const og = await getImage({ src: ogSource, width: 1200, height: 630, format: "jpg", fit: "cover" });
 const ogImageURL = new URL(og.src, Astro.site).href;
+
+// Icons generated from the logo mark at build time.
+const favicon32 = await getImage({ src: logoSource, width: 32, height: 32, format: "png", fit: "contain" });
+const favicon180 = await getImage({ src: logoSource, width: 180, height: 180, format: "png", fit: "contain" });
 
 const keywords = [
   "Sid Agrawal",
@@ -203,7 +208,8 @@ const jsonLd = { "@context": "https://schema.org", "@graph": graph };
     <link rel="alternate" hreflang="x-default" href={canonicalURL} />
 
     <!-- Icons, theme, feeds -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href={favicon32.src} />
+    <link rel="apple-touch-icon" sizes="180x180" href={favicon180.src} />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf9f7" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121214" />
     <meta name="color-scheme" content="light dark" />

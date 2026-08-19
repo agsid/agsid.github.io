@@ -1,4 +1,7 @@
 ---
+import { Image } from "astro:assets";
+import logo from "../assets/sidlogo.png";
+
 const { pathname } = Astro.url;
 const links = [
   { href: "/", label: "Home" },
@@ -10,7 +13,8 @@ const links = [
 
 <header class="sticky top-0 z-50 px-4 pt-4 sm:px-6" data-site-header>
   <div class="relative mx-auto flex max-w-5xl items-center justify-between gap-4 rounded-2xl border-2 border-black/80 bg-white/50 py-2 pr-2 pl-4 shadow-[4px_4px_0px_#000] backdrop-blur-xl dark:border-white/70 dark:bg-[#1b1b1f]/40 dark:shadow-[4px_4px_0px_rgba(255,255,255,0.25)]">
-    <a href="/" class="flex shrink-0 items-center gap-1.5 font-display text-lg font-extrabold tracking-tight" aria-label="Sid Agrawal home">
+    <a href="/" class="flex shrink-0 items-center gap-2 font-display text-lg font-extrabold tracking-tight" aria-label="Sid Agrawal home">
+      <Image src={logo} alt="" widths={[96, 192]} sizes="48px" class="h-11 w-auto" loading="eager" />
       Sid
       <span class="rounded-md bg-[#17171a] px-1.5 py-0.5 text-xs font-bold text-white dark:bg-white dark:text-[#17171a]">.io</span>
     </a>
