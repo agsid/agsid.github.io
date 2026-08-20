@@ -6,31 +6,49 @@ import CursorSelectAnimation from "../components/CursorSelectAnimation.astro";
 import { Image } from "astro:assets";
 import sidPhoto from "../assets/sid.jpg";
 
-const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+const projects = (await getCollection("projects"))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
 const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 2);
 
-// Spoken and machine languages, deliberately kept in one list.
-const languages = [
-  { name: "English", kind: "spoken", level: "Native", color: "#4fd1ff" },
-  { name: "Java", kind: "code", level: "Fluent", color: "#ffb84f" },
-  { name: "Hindi", kind: "spoken", level: "Fluent", color: "#4fd1ff" },
-  { name: "JavaScript", kind: "code", level: "Fluent", color: "#ffb84f" },
-  { name: "Svelte", kind: "framework", level: "Daily driver", color: "#ff6f91" },
-  { name: "Spanish", kind: "spoken", level: "Conversational", color: "#4fd1ff" },
-  { name: "Astro", kind: "framework", level: "Fluent", color: "#ff6f91" },
-  { name: "Python", kind: "code", level: "Fluent", color: "#ffb84f" },
-  { name: "Arduino / C++", kind: "code", level: "Robotics work", color: "#ffb84f" },
-  { name: "CAD", kind: "tool", level: "Onshape, Fusion", color: "#7ee08a" },
-  { name: "3D printing", kind: "tool", level: "Design to print", color: "#7ee08a" },
-  { name: "Tailwind", kind: "framework", level: "Fluent", color: "#ff6f91" },
+const NAME = "Sid Ag";
+
+// The About heading, split into the lines the cursor animation draws.
+const aboutHeadingLines = [
+  "Building things that make",
+  "robotics teams and security",
+  "practice easier.",
+];
+const aboutHeading = aboutHeadingLines.join(" ");
+
+// Languages are two genuinely different things, so they get two lists.
+const spoken = [
+  { name: "English", level: "Native", note: "Everyday and technical", pct: 100 },
+  { name: "Hindi", level: "Fluent", note: "Spoken at home", pct: 85 },
+  { name: "Spanish", level: "Conversational", note: "Four years of it and counting", pct: 55 },
 ];
 
-const kindLabel: Record<string, string> = {
-  spoken: "Spoken",
-  code: "Language",
-  framework: "Framework",
-  tool: "Tool",
-};
+// Languages first, then the frameworks written in them. The box scrolls.
+const typed = [
+  { name: "Java", level: "Fluent", note: "Robot code, season after season" },
+  { name: "Python", level: "Fluent", note: "Scripting, automation, CTF tooling" },
+  { name: "JavaScript / TypeScript", level: "Fluent", note: "Nearly all of the web work" },
+  { name: "C++ / Arduino", level: "Comfortable", note: "Microcontrollers and sensors" },
+  { name: "HTML / CSS", level: "Fluent", note: "Hand-written more often than not" },
+  { name: "SQL", level: "Comfortable", note: "Postgres schemas and queries" },
+  { name: "Svelte", level: "Daily driver", note: "Framework — anything interactive" },
+  { name: "Astro", level: "Fluent", note: "Framework — content-heavy sites" },
+  { name: "Tailwind", level: "Fluent", note: "Framework — styling, everywhere" },
+  { name: "Node.js", level: "Comfortable", note: "Runtime — small servers and scripts" },
+];
+
+const mechanical = [
+  { name: "Onshape", level: "Fluent", note: "Day-to-day CAD for team parts" },
+  { name: "Fusion 360", level: "Comfortable", note: "Modelling and simple simulation" },
+  { name: "3D printing", level: "Fluent", note: "Design to print, FDM" },
+  { name: "Wiring & soldering", level: "Comfortable", note: "Sensors, motor controllers, harnesses" },
+  { name: "Power tools & shop", level: "Comfortable", note: "Drill press, bandsaw, basic fabrication" },
+];
 ---
 
 <BaseLayout title="Sid Agrawal">
@@ -38,7 +56,7 @@ const kindLabel: Record<string, string> = {
     <section class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 py-24 text-center">
       <!-- Floating badges scattered around the hero -->
       <div class="pointer-events-none absolute inset-0 hidden lg:block" aria-hidden="true">
-        <span class="hero-badge absolute top-[22%] left-[6%] -rotate-6 bg-[#c9d3ff]">
+        <span class="hero-badge absolute top-[22%] left-[6%] -rotate-6 bg-[#ffd8bf]">
           Building @ <b>Robotics Catalyst Foundation</b>
         </span>
         <span class="hero-badge absolute top-[18%] right-[7%] rotate-6 bg-[#ffe6a8]">
@@ -54,8 +72,14 @@ const kindLabel: Record<string, string> = {
 
         <p class="font-display text-black/50 dark:text-white/50">hi, I'm</p>
         <div class="relative mx-auto inline-block">
-          <h1 class="font-name border-[3px] border-[color:var(--color-accent)] px-4 py-1 text-[clamp(3.5rem,15vw,11rem)] leading-[1.05] font-bold uppercase dark:border-[color:var(--color-accent-dark)]">
-            Sid Ag
+          <h1
+            class="font-name border-[3px] border-[color:var(--color-accent)] px-4 py-1 text-[clamp(3.5rem,15vw,11rem)] leading-[1.05] font-bold uppercase dark:border-[color:var(--color-accent-dark)]"
+            aria-label={NAME}
+          >
+            <span class="type-wrap" data-typewriter={NAME} aria-hidden="true">
+              <span class="type-ghost">{NAME}</span>
+              <span class="type-live"><span class="type-out">{NAME}</span><span class="type-caret"></span></span>
+            </span>
           </h1>
           <span class="absolute -top-[5px] -left-[5px] h-[10px] w-[10px] bg-[color:var(--color-accent)] dark:bg-[color:var(--color-accent-dark)]"></span>
           <span class="absolute -top-[5px] -right-[5px] h-[10px] w-[10px] bg-[color:var(--color-accent)] dark:bg-[color:var(--color-accent-dark)]"></span>
@@ -64,7 +88,7 @@ const kindLabel: Record<string, string> = {
         </div>
         <p class="mt-3 text-lg text-black/60 dark:text-white/60">Student developer — robotics, security &amp; web</p>
 
-        <div class="mt-8 flex justify-center gap-3">
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
           <a href="/projects/" class="Btn-Container">
             <span class="icon-Container">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,69 +105,157 @@ const kindLabel: Record<string, string> = {
     </section>
 
     <section id="about" class="px-6 py-16">
-      <div class="mx-auto grid max-w-5xl items-center gap-12 md:grid-cols-2">
-        <div class="overflow-hidden rounded-3xl shadow-[0_16px_40px_rgba(0,0,0,0.1)]">
+      <div class="mx-auto grid max-w-5xl items-start gap-10 md:grid-cols-[220px_1fr]">
+        <div class="mx-auto w-44 overflow-hidden rounded-3xl shadow-[0_16px_40px_rgba(0,0,0,0.1)] sm:w-52 md:mx-0 md:w-full">
           <Image
             src={sidPhoto}
             alt="Sid Agrawal"
-            widths={[400, 800, 1200]}
-            sizes="(min-width: 768px) 40vw, 100vw"
-            class="h-full w-full object-cover"
+            widths={[220, 440]}
+            sizes="(min-width: 768px) 220px, 13rem"
+            class="aspect-[4/5] w-full object-cover"
           />
         </div>
         <div>
           <span class="font-display text-xs font-bold tracking-widest text-[color:var(--color-accent)] uppercase dark:text-[color:var(--color-accent-dark)]">
             About
           </span>
-          <h2 class="mt-2 font-display text-3xl font-bold">Building things that make robotics teams and security practice easier.</h2>
-          <p class="mt-4 text-black/60 dark:text-white/60">
+
+          <h2 class="mt-2 font-display text-3xl font-bold">
+            <span class="sm:hidden">{aboutHeading}</span>
+            <span class="mt-1 hidden max-w-xl sm:block" aria-hidden="true">
+              <CursorSelectAnimation lines={aboutHeadingLines} />
+            </span>
+          </h2>
+
+          <p class="mt-4 max-w-xl text-black/60 dark:text-white/60">
             I'm a student based in Connecticut. Most of what I build sits at the intersection of robotics, security, and the web —
             team tools, training platforms, and the occasional site that ends up more fun to build than it needed to be.
           </p>
           <a href="/about/" class="mt-4 inline-block text-sm font-semibold text-[color:var(--color-accent)] dark:text-[color:var(--color-accent-dark)]">
             More about me →
           </a>
-          <div class="mt-8 hidden max-w-md sm:block">
-            <CursorSelectAnimation />
-          </div>
         </div>
       </div>
     </section>
 
     <section id="languages" class="px-6 py-16">
-      <div class="mx-auto max-w-5xl">
+      <div class="mx-auto max-w-6xl">
         <span class="font-display text-xs font-bold tracking-widest text-[color:var(--color-accent)] uppercase dark:text-[color:var(--color-accent-dark)]">
-          Languages
+          Skills
         </span>
-        <h2 class="mt-2 font-display text-3xl font-bold">Languages I speak.</h2>
+        <h2 class="mt-2 font-display text-3xl font-bold">What I speak, type, and build.</h2>
         <p class="mt-3 max-w-xl text-black/60 dark:text-white/60">
-          Some are spoken out loud, some are typed at a machine. I've stopped keeping two separate lists.
+          Three different skills, so three different lists — no more one pile with Spanish next to Tailwind.
         </p>
 
-        <ul class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {languages.map((lang) => (
-            <li class="flex items-center gap-3 rounded-xl border-2 border-black/80 bg-white/60 px-4 py-3 shadow-[3px_3px_0px_#000] dark:border-white/70 dark:bg-[#1b1b1f]/60 dark:shadow-[3px_3px_0px_rgba(255,255,255,0.25)]">
-              <span class="h-8 w-2 shrink-0 rounded-full" style={`background:${lang.color}`}></span>
-              <span class="min-w-0">
-                <span class="block font-display text-sm font-bold">{lang.name}</span>
-                <span class="block text-xs text-black/50 dark:text-white/50">{lang.level}</span>
+        <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <!-- Spoken -->
+          <div class="rounded-2xl border-2 border-black/80 bg-white/60 p-6 shadow-[4px_4px_0px_#000] dark:border-white/70 dark:bg-[#1b1b1f]/60 dark:shadow-[4px_4px_0px_rgba(255,255,255,0.25)]">
+            <div class="flex items-center gap-3">
+              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-[color:var(--accent-fill)] text-[#17171a]">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
+                  <path d="M21 12a8 8 0 0 1-8 8H4l2.2-2.6A8 8 0 1 1 21 12Z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" />
+                </svg>
               </span>
-              <span class="ml-auto shrink-0 rounded-md bg-black/5 px-2 py-1 font-display text-[0.6rem] font-bold tracking-widest uppercase text-black/50 dark:bg-white/10 dark:text-white/50">
-                {kindLabel[lang.kind]}
+              <div>
+                <h3 class="font-display text-lg font-bold">Languages I speak</h3>
+                <p class="text-xs text-black/50 dark:text-white/50">Out loud, to actual people</p>
+              </div>
+            </div>
+
+            <ul class="mt-6 flex flex-col gap-5">
+              {spoken.map((lang) => (
+                <li>
+                  <div class="flex items-baseline justify-between gap-3">
+                    <span class="font-display text-sm font-bold">{lang.name}</span>
+                    <span class="font-display text-[0.65rem] font-bold tracking-widest text-[color:var(--color-accent)] uppercase dark:text-[color:var(--color-accent-dark)]">
+                      {lang.level}
+                    </span>
+                  </div>
+                  <div class="mt-2 h-2 w-full overflow-hidden rounded-full bg-black/10 dark:bg-white/10">
+                    <div class="h-full rounded-full bg-[color:var(--accent-fill)]" style={`width:${lang.pct}%`}></div>
+                  </div>
+                  <p class="mt-1.5 text-xs text-black/50 dark:text-white/50">{lang.note}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Typed -->
+          <div class="rounded-2xl border-2 border-black/80 bg-white/60 p-6 shadow-[4px_4px_0px_#000] dark:border-white/70 dark:bg-[#1b1b1f]/60 dark:shadow-[4px_4px_0px_rgba(255,255,255,0.25)]">
+            <div class="flex items-center gap-3">
+              <span class="flex h-9 w-9 items-center justify-center rounded-full border-2 border-black/80 bg-[#17171a] font-mono text-[0.7rem] font-bold text-white dark:border-white/70">
+                &lt;/&gt;
               </span>
-            </li>
-          ))}
-        </ul>
+              <div>
+                <h3 class="font-display text-lg font-bold">Languages I type</h3>
+                <p class="text-xs text-black/50 dark:text-white/50">Into an editor, for machines</p>
+              </div>
+            </div>
+
+            <ul class="skill-scroll mt-6 flex flex-col gap-3" tabindex="0">
+              {typed.map((lang) => (
+                <li class="flex items-start gap-3 rounded-xl bg-black/[0.04] px-3 py-2.5 dark:bg-white/[0.06]">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent-fill)]"></span>
+                  <span class="min-w-0">
+                    <span class="block font-mono text-sm font-semibold">{lang.name}</span>
+                    <span class="block text-xs text-black/50 dark:text-white/50">{lang.note}</span>
+                  </span>
+                  <span class="ml-auto shrink-0 rounded-md border border-black/10 px-2 py-1 font-display text-[0.6rem] font-bold tracking-widest text-black/50 uppercase dark:border-white/15 dark:text-white/50">
+                    {lang.level}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Mechanical -->
+          <div class="rounded-2xl border-2 border-black/80 bg-white/60 p-6 shadow-[4px_4px_0px_#000] dark:border-white/70 dark:bg-[#1b1b1f]/60 dark:shadow-[4px_4px_0px_rgba(255,255,255,0.25)]">
+            <div class="flex items-center gap-3">
+              <span class="flex h-9 w-9 items-center justify-center rounded-full border-2 border-black/80 bg-white text-[#17171a] dark:border-white/70">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
+                  <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.9" />
+                  <path d="M12 2.6v3M12 18.4v3M2.6 12h3M18.4 12h3M5.3 5.3l2.2 2.2M16.5 16.5l2.2 2.2M18.7 5.3l-2.2 2.2M7.5 16.5l-2.2 2.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+                </svg>
+              </span>
+              <div>
+                <h3 class="font-display text-lg font-bold">Things I build</h3>
+                <p class="text-xs text-black/50 dark:text-white/50">With hands, in a shop</p>
+              </div>
+            </div>
+
+            <ul class="skill-scroll mt-6 flex flex-col gap-3" tabindex="0">
+              {mechanical.map((skill) => (
+                <li class="flex items-start gap-3 rounded-xl bg-black/[0.04] px-3 py-2.5 dark:bg-white/[0.06]">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent-fill)]"></span>
+                  <span class="min-w-0">
+                    <span class="block font-display text-sm font-bold">{skill.name}</span>
+                    <span class="block text-xs text-black/50 dark:text-white/50">{skill.note}</span>
+                  </span>
+                  <span class="ml-auto shrink-0 rounded-md border border-black/10 px-2 py-1 font-display text-[0.6rem] font-bold tracking-widest text-black/50 uppercase dark:border-white/15 dark:text-white/50">
+                    {skill.level}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
       </div>
     </section>
 
     <section id="projects" class="bg-black/[0.02] px-6 py-16 dark:bg-white/[0.02]">
       <div class="mx-auto max-w-5xl">
-        <span class="font-display text-xs font-bold tracking-widest text-[color:var(--color-accent)] uppercase dark:text-[color:var(--color-accent-dark)]">
-          Featured Work
-        </span>
-        <h2 class="mt-2 font-display text-3xl font-bold">A few things I've shipped.</h2>
-        <div class="mt-8 flex flex-col gap-10">
+        <p class="font-hand text-2xl text-[color:var(--color-accent)] dark:text-[color:var(--color-accent-dark)]">
+          explore my work!
+        </p>
+        <div class="works-intro mt-2">
+          <h2 class="works-title">Featured <br />Works</h2>
+          <p class="works-note">
+            Four things that came out of a robotics season, a security habit, and a refusal to leave a rough tool alone.
+          </p>
+        </div>
+        <div class="mt-12 flex flex-col gap-10">
           {projects.map((project, i) => <ProjectCard project={project} index={i} />)}
           <div class="hidden h-[60vh] shrink-0 sm:block" aria-hidden="true"></div>
         </div>
@@ -207,9 +319,15 @@ const kindLabel: Record<string, string> = {
         <p class="mt-4 text-black/60 dark:text-white/60">
           Always up for talking robotics, security, or whatever weird web project comes next.
         </p>
-        <div class="mt-8 flex justify-center gap-3">
-          <a href="mailto:sidagrawal@robotics-catalyst.org" class="rounded-full bg-[color:var(--color-accent)] px-6 py-3 text-sm font-semibold text-white">
-            Email me
+        <div class="mt-10 flex flex-col items-center gap-6">
+          <a href="mailto:sidagrawal@robotics-catalyst.org" class="contact-sticker">
+            <span class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.5C4.6 14 2.6 9.2 5.7 6.2c2.1-2 4.6-1 6.3 1 1.7-2 4.2-3 6.3-1 3.1 3 1.1 7.8-6.3 14.3z" /></svg>
+            </span>
+            <span>Contact</span>
+            <span class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.5C4.6 14 2.6 9.2 5.7 6.2c2.1-2 4.6-1 6.3 1 1.7-2 4.2-3 6.3-1 3.1 3 1.1 7.8-6.3 14.3z" /></svg>
+            </span>
           </a>
           <a href="https://github.com/agsid" target="_blank" rel="noopener" class="rounded-full border border-black/10 px-6 py-3 text-sm font-semibold dark:border-white/10">
             GitHub
@@ -218,4 +336,22 @@ const kindLabel: Record<string, string> = {
       </div>
     </section>
   </main>
+
+  <script>
+    // Types the hero name out, leaving the caret blinking after it.
+    const el = document.querySelector<HTMLElement>("[data-typewriter]");
+    const out = el?.querySelector<HTMLElement>(".type-out");
+    const full = el?.dataset.typewriter ?? "";
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (out && full && !reduced) {
+      out.textContent = "";
+      let i = 0;
+      const step = () => {
+        out.textContent = full.slice(0, ++i);
+        if (i < full.length) window.setTimeout(step, 130);
+      };
+      window.setTimeout(step, 350);
+    }
+  </script>
 </BaseLayout>

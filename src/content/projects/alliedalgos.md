@@ -4,6 +4,7 @@ summary: "A community site for algorithm and competitive-programming enthusiasts
 tags: ["Astro", "GitHub Pages", "TOML"]
 url: "https://alliedalgos.org"
 color: "#7ee08a"
+featured: true
 order: 4
 date: 2026-01-10
 ---

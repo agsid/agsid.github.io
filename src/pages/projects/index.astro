@@ -2,23 +2,43 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
+import ProjectTile from "../../components/ProjectTile.astro";
 
-const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+const all = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+const featured = all.filter((p) => p.data.featured);
+const archive = all.filter((p) => !p.data.featured);
 ---
 
 <BaseLayout title="Projects" description="Case studies for Robolyst, SingulTech, CTFTC, and AlliedAlgos — projects built by Sid Agrawal.">
   <main class="px-6 py-16">
     <div class="mx-auto max-w-5xl">
-      <span class="font-display text-xs font-bold tracking-widest text-[color:var(--color-accent)] uppercase dark:text-[color:var(--color-accent-dark)]">
-        Work
-      </span>
-      <h1 class="mt-2 font-display text-4xl font-bold">Projects</h1>
-      <p class="mt-3 max-w-xl text-black/60 dark:text-white/60">
-        A handful of things I've built and shipped — mostly robotics tools, a security training platform, and a couple of community sites.
+      <p class="font-hand text-2xl text-[color:var(--color-accent)] dark:text-[color:var(--color-accent-dark)]">
+        explore my work!
       </p>
-      <div class="mt-10 flex flex-col gap-10">
-        {projects.map((project, i) => <ProjectCard project={project} index={i} />)}
+      <div class="works-intro mt-2">
+        <h1 class="works-title">All <br />Projects</h1>
+        <p class="works-note">
+          Mostly robotics tools, a security training platform, and a couple of community sites — everything I've built and shipped.
+        </p>
+      </div>
+      <div class="mt-12 flex flex-col gap-10">
+        {featured.map((project, i) => <ProjectCard project={project} index={i} />)}
         <div class="hidden h-[60vh] shrink-0 sm:block" aria-hidden="true"></div>
+      </div>
+
+      <div class="mt-4">
+        <p class="font-hand text-2xl text-[color:var(--color-accent)] dark:text-[color:var(--color-accent-dark)]">
+          where it started
+        </p>
+        <h2 class="mt-1 font-display text-3xl font-bold">The archive.</h2>
+        <p class="mt-3 max-w-xl text-black/60 dark:text-white/60">
+          Everything before the current run — from a Scratch macOS clone I started in 4th grade to the three rebuilds
+          of my robotics team's site. Kept here because the early ones are the reason for the later ones.
+        </p>
+
+        <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {archive.map((project) => <ProjectTile project={project} />)}
+        </div>
       </div>
     </div>
   </main>

@@ -4,6 +4,7 @@ summary: "A capture-the-flag training ground for cybersecurity practice, with au
 tags: ["Svelte", "Auth", "AI"]
 url: "https://ctftc.robotics-catalyst.org"
 color: "#ff6f91"
+featured: true
 order: 3
 date: 2026-03-01
 ---

@@ -4,6 +4,7 @@ summary: "The public site and hub for SingulTech Robotics — team info, sponsor
 tags: ["Svelte", "Server", "Tailwind"]
 url: "https://singul.tech/"
 color: "#ffb84f"
+featured: true
 order: 2
 date: 2026-04-18
 ---

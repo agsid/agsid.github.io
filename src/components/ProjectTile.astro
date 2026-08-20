@@ -1,0 +1,126 @@
+---
+import { Image } from "astro:assets";
+
+const { project } = Astro.props;
+const { title, summary, tags, url, github, color, date, image, imageAlt } = project.data;
+const year = date ? date.getFullYear() : null;
+---
+
+<article class="tile" style={`--card:${color}`}>
+  <a href={`/projects/${project.id}/`} class="tile-shot" aria-label={`${title} case study`}>
+    {image ? (
+      <Image src={image} alt={imageAlt ?? title} widths={[400, 800]} sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 100vw" />
+    ) : (
+      <span class="tile-fallback">{title.charAt(0)}</span>
+    )}
+    {year && <span class="tile-year">{year}</span>}
+  </a>
+
+  <div class="tile-body">
+    <h3 class="font-display text-base font-bold">
+      <a href={`/projects/${project.id}/`} class="hover:underline underline-offset-4">{title}</a>
+    </h3>
+    <p class="mt-1.5 text-sm text-black/60 dark:text-white/60">{summary}</p>
+
+    <div class="mt-3 flex flex-wrap gap-1.5">
+      {tags.map((tag: string) => (
+        <span class="rounded-full bg-black/5 px-2 py-0.5 text-[0.68rem] font-semibold text-black/55 dark:bg-white/10 dark:text-white/55">
+          {tag}
+        </span>
+      ))}
+    </div>
+
+    <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold">
+      <a href={`/projects/${project.id}/`} class="text-[color:var(--color-accent)] dark:text-[color:var(--color-accent-dark)]">
+        Case study →
+      </a>
+      {url && (
+        <a href={url} target="_blank" rel="noopener" class="text-black/50 hover:text-black dark:text-white/50 dark:hover:text-white">
+          Live ↗
+        </a>
+      )}
+      {github && (
+        <a href={github} target="_blank" rel="noopener" class="text-black/50 hover:text-black dark:text-white/50 dark:hover:text-white">
+          Source ↗
+        </a>
+      )}
+    </div>
+  </div>
+</article>
+
+<style>
+  .tile {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 2px solid rgba(0, 0, 0, 0.8);
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 4px 4px 0 #000;
+    transition: transform 0.18s ease;
+  }
+
+  .tile:hover {
+    transform: translate(-2px, -2px);
+  }
+
+  :global([data-theme="dark"]) .tile {
+    border-color: rgba(255, 255, 255, 0.7);
+    background: rgba(27, 27, 31, 0.6);
+    box-shadow: 4px 4px 0 rgba(255, 255, 255, 0.25);
+  }
+
+  .tile-shot {
+    position: relative;
+    display: block;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.8);
+    /* The card colour shows through letterboxed screenshots. */
+    background: var(--card);
+  }
+
+  :global([data-theme="dark"]) .tile-shot {
+    border-bottom-color: rgba(255, 255, 255, 0.7);
+  }
+
+  .tile-shot :global(img) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .tile-fallback {
+    display: flex;
+    aspect-ratio: 16 / 10;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.28);
+  }
+
+  .tile-year {
+    position: absolute;
+    right: 0.55rem;
+    bottom: 0.55rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(17, 18, 18, 0.85);
+    color: #fff;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+  }
+
+  .tile-body {
+    padding: 1.15rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tile:hover {
+      transform: none;
+    }
+  }
+</style>

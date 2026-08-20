@@ -1,0 +1,34 @@
+[
+  {
+    "id": "innovation-in-control-2025",
+    "order": 1,
+    "year": "2025",
+    "title": "Innovation in Control Award",
+    "org": "FIRST Robotics Competition",
+    "desc": "Recognising the control system and autonomous routines behind the season's robot."
+  },
+  {
+    "id": "regional-ctf-top-10-2025",
+    "order": 2,
+    "year": "2025",
+    "title": "Top 10 Finish",
+    "org": "Regional CTF Competition",
+    "desc": "Placed in the top ten as part of a student team across web, crypto, and reversing categories."
+  },
+  {
+    "id": "best-student-project-2024",
+    "order": 3,
+    "year": "2024",
+    "title": "Best Student Project",
+    "org": "Regional Hackathon",
+    "desc": "Awarded for a team-operations tool built and shipped over a weekend."
+  },
+  {
+    "id": "cs-excellence-2023",
+    "order": 4,
+    "year": "2023",
+    "title": "Excellence in Computer Science",
+    "org": "School Honors",
+    "desc": "Departmental recognition for coursework and independent projects."
+  }
+]

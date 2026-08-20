@@ -1,0 +1,42 @@
+[
+  {
+    "id": "rcf-founder",
+    "order": 1,
+    "role": "Founder & Developer",
+    "org": "Robotics Catalyst Foundation",
+    "period": "2020 — present",
+    "desc": "Build and maintain the software robotics teams use day to day — rosters, scouting, and season tooling — and hand it to teams for free.",
+    "tags": ["Robotics", "Open tooling"],
+    "url": "https://robotics-catalyst.org"
+  },
+  {
+    "id": "singultech-mentor",
+    "order": 2,
+    "role": "Student Mentor",
+    "org": "SingulTech Robotics",
+    "period": "2023 — present",
+    "desc": "Ramp newer teammates onto the codebase and the build process, from first pull request to competition-day debugging.",
+    "tags": ["Mentoring", "FIRST"],
+    "url": "https://singul.tech/"
+  },
+  {
+    "id": "ctftc-workshops",
+    "order": 3,
+    "role": "CTF Workshop Lead",
+    "org": "CTFTC",
+    "period": "2023 — present",
+    "desc": "Run capture-the-flag practice sessions for students getting into security, and maintain the platform that hosts the challenges.",
+    "tags": ["Security", "Teaching"],
+    "url": "https://ctftc.robotics-catalyst.org"
+  },
+  {
+    "id": "alliedalgos-community",
+    "order": 4,
+    "role": "Community Contributor",
+    "org": "AlliedAlgos",
+    "period": "2026 — present",
+    "desc": "Help run a community site for algorithm and competitive-programming practice, including write-ups and problem sets.",
+    "tags": ["Community", "Writing"],
+    "url": "https://alliedalgos.org"
+  }
+]

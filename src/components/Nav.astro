@@ -8,6 +8,7 @@ const links = [
   { href: "/about/", label: "About" },
   { href: "/projects/", label: "Projects" },
   { href: "/blog/", label: "Journal" },
+  { href: "/awards/", label: "Awards" },
 ];
 ---
 
@@ -28,7 +29,7 @@ const links = [
           href={link.href}
           aria-current={pathname === link.href ? "page" : undefined}
           class:list={[
-            "rounded-lg px-4 py-1.5 text-xs font-semibold tracking-wide uppercase transition-all",
+            "rounded-lg px-3.5 py-1.5 text-xs font-semibold tracking-wide uppercase transition-all",
             pathname === link.href
               ? "border-2 border-black bg-white text-black shadow-[2px_2px_0px_#000] dark:border-white dark:bg-[#1b1b1f] dark:text-white dark:shadow-[2px_2px_0px_#fff]"
               : "border-2 border-transparent text-black/50 hover:text-black dark:text-white/50 dark:hover:text-white",
@@ -55,7 +56,7 @@ const links = [
         class="group hidden items-center gap-3 rounded-full border-2 border-black bg-[#17171a] py-1.5 pr-1.5 pl-4 text-sm font-semibold text-white shadow-[3px_3px_0px_#000] md:flex dark:border-white dark:bg-black/40 dark:shadow-[3px_3px_0px_rgba(255,255,255,0.3)]"
       >
         Contact
-        <span class="flex h-7 w-7 items-center justify-center rounded-full bg-lime-300 text-[#17171a] transition-transform group-hover:translate-x-0.5">
+        <span class="flex h-7 w-7 items-center justify-center rounded-full bg-[color:var(--accent-fill)] text-[#17171a] transition-transform group-hover:translate-x-0.5">
           →
         </span>
       </a>
@@ -101,7 +102,7 @@ const links = [
         class="mt-2 flex items-center justify-between rounded-xl border-2 border-black bg-[#17171a] px-4 py-3 text-sm font-semibold text-white shadow-[3px_3px_0px_#000] dark:border-white dark:bg-black/40 dark:shadow-[3px_3px_0px_rgba(255,255,255,0.3)]"
       >
         Contact
-        <span class="flex h-7 w-7 items-center justify-center rounded-full bg-lime-300 text-[#17171a]">→</span>
+        <span class="flex h-7 w-7 items-center justify-center rounded-full bg-[color:var(--accent-fill)] text-[#17171a]">→</span>
       </a>
     </nav>
   </div>

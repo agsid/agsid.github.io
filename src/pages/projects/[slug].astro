@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
@@ -11,14 +12,15 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { title, summary, tags, url, color, date } = project.data;
+const { title, summary, tags, learned, url, github, color, date, image, imageAlt } = project.data;
 const { Content } = await render(project);
 
 const projectSchema = {
   "@type": "SoftwareApplication",
   name: title,
   description: summary,
-  url,
+  ...(url && { url }),
+  ...(github && { codeRepository: github }),
   applicationCategory: "WebApplication",
   operatingSystem: "Web",
   author: { "@id": `${Astro.site}#person` },
@@ -48,18 +50,55 @@ const projectSchema = {
         ))}
       </div>
 
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener"
-        class="mt-6 inline-block rounded-full bg-[color:var(--color-accent)] px-5 py-2.5 text-sm font-semibold text-white"
-      >
-        Visit live site →
-      </a>
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        {url && (
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener"
+            class="rounded-full bg-[color:var(--color-accent)] px-5 py-2.5 text-sm font-semibold text-white"
+          >
+            Visit live site →
+          </a>
+        )}
+        {github && (
+          <a
+            href={github}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 rounded-full border-2 border-black/80 px-5 py-2.5 text-sm font-semibold dark:border-white/70"
+          >
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+              <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" />
+            </svg>
+            View source
+          </a>
+        )}
+      </div>
+
+      {image && (
+        <figure class="mt-10 overflow-hidden rounded-2xl border-2 border-black/80 shadow-[5px_5px_0_#000] dark:border-white/70 dark:shadow-[5px_5px_0_rgba(255,255,255,0.25)]">
+          <Image src={image} alt={imageAlt ?? title} widths={[640, 1280]} sizes="(min-width: 768px) 42rem, 100vw" class="block w-full" />
+        </figure>
+      )}
 
       <article class="prose-case mt-10">
         <Content />
       </article>
+
+      {learned.length > 0 && (
+        <section class="mt-10 rounded-2xl border-2 border-black/80 bg-white/60 p-6 shadow-[4px_4px_0px_#000] dark:border-white/70 dark:bg-[#1b1b1f]/60 dark:shadow-[4px_4px_0px_rgba(255,255,255,0.25)]">
+          <h2 class="font-display text-lg font-bold">What it taught me</h2>
+          <ul class="mt-4 flex flex-col gap-3">
+            {learned.map((item: string) => (
+              <li class="flex items-start gap-3 text-sm text-black/70 dark:text-white/70">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent-fill)]"></span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   </main>
 </BaseLayout>

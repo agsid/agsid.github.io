@@ -4,6 +4,7 @@ summary: "A robotics-team operations suite from the Robotics Catalyst Foundation
 tags: ["Svelte", "Postgres", "Canva"]
 url: "https://robolyst.org/"
 color: "#4fd1ff"
+featured: true
 order: 1
 date: 2026-06-02
 ---

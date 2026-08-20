@@ -1,13 +1,17 @@
 ---
+import { Image } from "astro:assets";
+
 const { project, index = 0 } = Astro.props;
-const { title, summary, tags, url, color, order, date, image } = project.data;
+const { title, summary, tags, url, github, color, order, date, image, imageAlt } = project.data;
 
 const num = String(order).padStart(2, "0");
 const dateLabel = date
   ? date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
   : null;
-const filename = image ? image.split("/").pop() : null;
-const ext = filename?.includes(".") ? filename.split(".").pop()?.toUpperCase() : null;
+// The "PNG bears-website.png" chip. Built from the id and format rather than
+// image.src — touching .src makes Astro emit the unoptimised original too.
+const filename = image ? `${project.id}.${image.format}` : null;
+const ext = image?.format?.toUpperCase() ?? null;
 
 // Pick ink that stays readable on the card's own colour.
 const hex = color.replace("#", "");
@@ -20,57 +24,83 @@ const ink = isDark ? "#fff" : "#111212";
   class="folder-card"
   style={`--card:${color};--ink:${ink};--tabx:${index * 235}px;z-index:${index + 1}`}
 >
-  <div class="fc-tabrow">
-    <div class="fc-tab">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M3 7h6l2 2h10v9H3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
-      </svg>
-      Project {num}
-    </div>
-  </div>
-
-  <div class="fc-body">
-    <div class="grid items-center gap-8 md:grid-cols-2">
-      <div>
-        {dateLabel && (
-          <p class="fc-meta">
-            <span class="fc-dot"></span>
-            {dateLabel}
-          </p>
-        )}
-        <h3 class="font-display text-3xl font-bold sm:text-4xl">{title}</h3>
-        <p class="mt-4 max-w-sm opacity-85">{summary}</p>
-        <a href={url} target="_blank" rel="noopener" class="fc-view">
-          View project
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </a>
-        <div class="mt-6 flex flex-wrap gap-2">
-          {tags.map((tag: string) => (
-            <span class="fc-tag">{tag}</span>
-          ))}
-        </div>
+  <div class="fc-shell">
+    <div class="fc-tabrow">
+      <div class="fc-tab">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 7h6l2 2h10v9H3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+        </svg>
+        Project {num}
       </div>
+    </div>
 
-      <div class="relative">
-        {image ? (
-          <img src={image} alt={title} class="fc-frame aspect-[4/3] w-full object-cover" />
-        ) : (
-          <div class="fc-frame flex aspect-[4/3] w-full items-center justify-center bg-black/10 font-display text-7xl font-bold opacity-30">
-            {title.charAt(0)}
+    <div class="fc-body">
+      <div class="grid items-center gap-8 md:grid-cols-2">
+        <div>
+          {dateLabel && (
+            <p class="fc-meta">
+              <span class="fc-dot"></span>
+              {dateLabel}
+            </p>
+          )}
+          <h3 class="font-display text-3xl font-bold sm:text-4xl">{title}</h3>
+          <p class="mt-4 max-w-sm opacity-85">{summary}</p>
+          <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <a href={`/projects/${project.id}/`} class="fc-view">
+              Case study
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+            {url && (
+              <a href={url} target="_blank" rel="noopener" class="fc-view">
+                Live site
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17L17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+            )}
+            {github && (
+              <a href={github} target="_blank" rel="noopener" class="fc-view">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" />
+                </svg>
+                Source
+              </a>
+            )}
           </div>
-        )}
-        {filename && (
-          <span class="fc-file">
-            {ext && <b>{ext}</b>}
-            {filename}
-          </span>
-        )}
-        <span class="fc-handle -top-[5px] -left-[5px]"></span>
-        <span class="fc-handle -top-[5px] -right-[5px]"></span>
-        <span class="fc-handle -bottom-[5px] -left-[5px]"></span>
-        <span class="fc-handle -bottom-[5px] -right-[5px]"></span>
+          <div class="mt-6 flex flex-wrap gap-2">
+            {tags.map((tag: string) => (
+              <span class="fc-tag">{tag}</span>
+            ))}
+          </div>
+        </div>
+
+        <div class="relative">
+          {image ? (
+            <Image
+              src={image}
+              alt={imageAlt ?? title}
+              widths={[480, 960]}
+              sizes="(min-width: 768px) 30rem, 100vw"
+              class="fc-frame aspect-[4/3] w-full object-cover"
+            />
+          ) : (
+            <div class="fc-frame flex aspect-[4/3] w-full items-center justify-center bg-black/10 font-display text-7xl font-bold opacity-30">
+              {title.charAt(0)}
+            </div>
+          )}
+          {filename && (
+            <span class="fc-file">
+              {ext && <b>{ext}</b>}
+              {filename}
+            </span>
+          )}
+          <span class="fc-handle -top-[5px] -left-[5px]"></span>
+          <span class="fc-handle -top-[5px] -right-[5px]"></span>
+          <span class="fc-handle -bottom-[5px] -left-[5px]"></span>
+          <span class="fc-handle -bottom-[5px] -right-[5px]"></span>
+        </div>
       </div>
     </div>
   </div>
@@ -95,6 +125,15 @@ const ink = isDark ? "#fff" : "#111212";
       position: relative;
       top: auto;
     }
+  }
+
+  /* drop-shadow (not box-shadow) so the offset follows the tab's clip-path. */
+  .fc-shell {
+    filter: drop-shadow(7px 7px 0 #111212);
+  }
+
+  :global([data-theme="dark"]) .fc-shell {
+    filter: drop-shadow(7px 7px 0 rgba(242, 241, 238, 0.9));
   }
 
   .fc-tabrow {
@@ -158,7 +197,6 @@ const ink = isDark ? "#fff" : "#111212";
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    margin-top: 1.25rem;
     padding-bottom: 0.15rem;
     border-bottom: 2px solid currentColor;
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -204,6 +242,7 @@ const ink = isDark ? "#fff" : "#111212";
   .fc-frame {
     outline: 2px solid rgba(0, 0, 0, 0.35);
     outline-offset: 0;
+    border-radius: 0.15rem;
   }
 
   .fc-handle {
