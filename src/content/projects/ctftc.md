@@ -10,8 +10,7 @@ date: 2026-08-10
 ---
 
 ## Overview
-
-CTFTC is a capture-the-flag training platform built to help newcomers practice cybersecurity fundamentals — reverse engineering, web exploitation, crypto — without needing to set up their own infrastructure.
+Made in partnership with FTC Team #7034sid
 
 ## What it does
 

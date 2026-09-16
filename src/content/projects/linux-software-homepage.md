@@ -1,5 +1,6 @@
 ---
 title: "Linux Software Homepage"
+url: "https://agsid.github.io/portfolio/school/v2.html"
 summary: "A homepage for a Linux software project, built around clear feature presentation and readable documentation."
 tags: ["HTML", "CSS", "JavaScript", "Linux", "Python"]
 learned:
