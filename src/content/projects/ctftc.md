@@ -1,6 +1,6 @@
 ---
 title: "CTFTC"
-summary: "A capture-the-flag training ground for cybersecurity practice, with authentication and AI-assisted hints."
+summary: "A Website for  Connecticut First Tech Challenge forbdisplaying event data and other info. Made in collab with FTC #7034 "
 tags: ["Svelte", "Auth", "Admin Page"]
 url: "https://connecticutftc.org"
 color: "#ff6f91"
@@ -10,13 +10,18 @@ date: 2026-08-10
 ---
 
 ## Overview
+<<<<<<< HEAD
 Made in partnership with FTC Team #7034sid
 
+=======
+
+Comprehensive website for  Connecticut First Tech Challenge and displaying event data and contact info.
+>>>>>>> fc7dcf74ebd2ade1ea419ed705ca0279ea7d423d
 ## What it does
 
-- Hosted CTF challenges across common categories
-- Account system so progress persists between sessions
-- AI-assisted hints for players who get stuck, tuned to nudge rather than solve
+-  Displays all events with a quick voluntwer sign up adn pics for all events 
+-  has an admin page to edit data
+-  a full newsletter sender and contact form
 
 ## Tech stack
 
