@@ -4,7 +4,7 @@
     "name": "Taekwondo",
     "role": "Student",
     "period": "Current",
-    "desc": "Add details about your training and rank here.",
+    "desc": "Practicing martial arts discipline, forms (poomsae), and sparring while building physical endurance and advancing through belt ranks.",
     "tags": ["Martial Arts"]
   },
   {
@@ -12,7 +12,7 @@
     "name": "SingulTech Robotics",
     "role": "Team Member",
     "period": "Current",
-    "desc": "Add details about your work on the team here.",
+    "desc": "Collaborating on competitive robotics design, mechanical assembly, and programming autonomous and driver-controlled subroutines.",
     "tags": ["Robotics"],
     "url": "https://singul.tech/"
   },
@@ -21,7 +21,7 @@
     "name": "Robolyst",
     "role": "Team Member",
     "period": "Current",
-    "desc": "Add details about your involvement here.",
+    "desc": "Contributing to software logic, CAD drafting, and strategy formulation for regional robotics competitions.",
     "tags": ["Robotics"],
     "url": "https://robolyst.org"
   },
@@ -30,7 +30,7 @@
     "name": "Cross Country",
     "role": "Runner",
     "period": "Current",
-    "desc": "Add details about your season and team here.",
+    "desc": "Training and competing in long-distance races, building mental resilience and cardiovascular endurance during the season.",
     "tags": ["Sports"]
   },
   {
@@ -38,7 +38,7 @@
     "name": "SingulTech",
     "role": "Jr. Mentor",
     "period": "Current",
-    "desc": "Add details about mentoring younger teammates here.",
+    "desc": "Guiding junior team members through fundamentals of robotics programming, mechanical troubleshooting, and match workflow.",
     "tags": ["Mentoring"],
     "url": "https://singul.tech/"
   }
