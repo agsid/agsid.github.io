@@ -17,9 +17,20 @@
     "org": "SingulTech Robotics",
     "period": "2026 — present",
     "desc": "Ramp newer teammates onto the codebase and the build process, from first pull request to competition-day debugging.",
-    "hours": 10,
+    "hours": 20,
     "tags": ["Mentoring", "FIRST"],
     "url": "https://singul.tech/"
+  },
+  {
+    "id": "alliedlgo",
+    "order": 2,
+    "role": "Student Mentor",
+    "org": "Allied Algorithms",
+    "period": "2019 — present",
+    "desc": "Continue the team I spent 6 years on and grow it to adapt to new changes while guiding new students to their goal.",
+    "hours": 20,
+    "tags": ["Mentoring", "FIRST"],
+    "url": "https://alliedalgos.org/"
   },
   {
     "id": "hindiusa",
@@ -39,7 +50,7 @@
     "org": "YB World TKD",
     "period": "2023 — present",
     "desc": "Help teach student taekwondo and run testing.",
-    "hours": 87,
+    "hours": 100,
     "tags": ["Community", "Leader"],
     "url": "https://ybworldtkd.org"
   }

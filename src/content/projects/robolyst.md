@@ -7,6 +7,8 @@ color: "#4fd1ff"
 featured: true
 order: 1
 date: 2026-06-02
+image: "../../assets/projects/robolyst.png"
+imageAlt: "Robolyst"
 ---
 
 ## Overview

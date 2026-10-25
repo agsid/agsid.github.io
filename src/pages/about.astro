@@ -13,10 +13,6 @@ const focus = [
         title: "Web",
         desc: "Build websites for teams and organizations to enhance their online presence and drive traffic.",
     },
-    {
-        title: "Products",
-        desc: "Create small, practical products that simplify daily life and make multi-step processes faster.",
-    },
 ];
 ---
 
@@ -26,16 +22,12 @@ const focus = [
 >
     <main class="px-6 py-16">
         <div class="mx-auto max-w-3xl">
-            <span
-                class="font-display text-xs font-bold tracking-widest text-[color:var(--color-accent)] uppercase dark:text-[color:var(--color-accent-dark)]"
-            >
+            <span class="font-display text-xs font-bold tracking-widest text-[color:var(--color-accent)] uppercase dark:text-[color:var(--color-accent-dark)]">
                 About
             </span>
             <h1 class="mt-2 font-display text-4xl font-bold">Hi, I'm Sid.</h1>
 
-            <div
-                class="mt-8 flex flex-col gap-6 text-black/70 sm:flex-row sm:items-start dark:text-white/70"
-            >
+            <div class="mt-8 flex flex-col gap-6 text-black/70 sm:flex-row sm:items-start dark:text-white/70">
                 <Image
                     src={sidCutout}
                     alt="Sid Agrawal"
@@ -70,16 +62,14 @@ const focus = [
                 What I work on
             </h2>
             <div class="mt-6 grid gap-4 sm:grid-cols-3">
-                {
-                    focus.map((f) => (
-                        <div class="rounded-2xl border border-black/10 bg-white p-5 dark:border-white/10 dark:bg-[#1b1b1f]">
-                            <h3 class="font-display font-bold">{f.title}</h3>
-                            <p class="mt-2 text-sm text-black/60 dark:text-white/60">
-                                {f.desc}
-                            </p>
-                        </div>
-                    ))
-                }
+                {focus.map((f) => (
+                    <div class="rounded-2xl border border-black/10 bg-white p-5 dark:border-white/10 dark:bg-[#1b1b1f]">
+                        <h3 class="font-display font-bold">{f.title}</h3>
+                        <p class="mt-2 text-sm text-black/60 dark:text-white/60">
+                            {f.desc}
+                        </p>
+                    </div>
+                ))}
             </div>
 
             <div class="mt-20 text-center">
@@ -94,9 +84,7 @@ const focus = [
                 <BranchTimeline />
             </div>
 
-            <div
-                class="mt-14 rounded-2xl border border-black/10 p-6 text-center dark:border-white/10"
-            >
+            <div class="mt-14 rounded-2xl border border-black/10 p-6 text-center dark:border-white/10">
                 <p class="text-black/60 dark:text-white/60">
                     Want to see what I've actually built?
                 </p>
