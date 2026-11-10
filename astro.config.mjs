@@ -4,7 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import robotsTxt from "astro-robots-txt";
 
 export default defineConfig({
-  site: "https://agsid.github.io",
+  site: "https://sidagrawal.com",
   integrations: [sitemap(), robotsTxt()],
   vite: {
     plugins: [tailwindcss()],

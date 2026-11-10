@@ -2,31 +2,46 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Contact" description="Get in touch with Sid Agrawal about internships, collaborations, or robotics/web projects.">
-  <main class="px-6 py-20 text-center">
-    <div class="mx-auto max-w-xl">
-      <span class="font-display text-xs font-bold tracking-widest text-[color:var(--color-accent)] uppercase dark:text-[color:var(--color-accent-dark)]">
-        Contact
-      </span>
-      <h1 class="mt-2 font-display text-4xl font-bold">Let's build something.</h1>
-      <p class="mt-4 text-black/60 dark:text-white/60">
-        Always up for talking robotics, web, or whatever weird project comes next — reach out about
-        internships, collaborations, or just to say hi.
-      </p>
-      <div class="mt-10 flex flex-col items-center gap-6">
-        <a href="mailto:sidagrawal@robotics-catalyst.org" class="contact-sticker">
-          <span class="ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.5C4.6 14 2.6 9.2 5.7 6.2c2.1-2 4.6-1 6.3 1 1.7-2 4.2-3 6.3-1 3.1 3 1.1 7.8-6.3 14.3z" /></svg>
-          </span>
-          <span>Contact</span>
-          <span class="ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.5C4.6 14 2.6 9.2 5.7 6.2c2.1-2 4.6-1 6.3 1 1.7-2 4.2-3 6.3-1 3.1 3 1.1 7.8-6.3 14.3z" /></svg>
-          </span>
-        </a>
-        <a href="https://github.com/agsid" target="_blank" rel="noopener" class="rounded-full border border-black/10 px-6 py-3 text-sm font-semibold dark:border-white/10">
-          GitHub
-        </a>
-      </div>
-    </div>
-  </main>
+<BaseLayout
+    title="Contact"
+    description="Get in touch with Sid Agrawal about internships, collaborations, or robotics/web projects."
+>
+    <main class="px-6 py-20 text-center">
+        <div class="mx-auto max-w-xl">
+            <span class="font-display text-xs font-bold tracking-widest text-[color:var(--color-accent)] uppercase dark:text-[color:var(--color-accent-dark)]">
+                Contact
+            </span>
+            <h1 class="mt-2 font-display text-4xl font-bold">
+                Let's build something.
+            </h1>
+            <p class="mt-4 text-black/60 dark:text-white/60">
+                Always up for talking robotics, web, or whatever weird project
+                comes next — reach out about internships, collaborations, or
+                just to say hi.
+            </p>
+            <div class="mt-10 flex flex-col items-center gap-6">
+                <a href="mailto:contact@sidagrawal.com" class="contact-sticker">
+                    <span class="ico" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 20.5C4.6 14 2.6 9.2 5.7 6.2c2.1-2 4.6-1 6.3 1 1.7-2 4.2-3 6.3-1 3.1 3 1.1 7.8-6.3 14.3z" />
+                        </svg>
+                    </span>
+                    <span>Contact</span>
+                    <span class="ico" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 20.5C4.6 14 2.6 9.2 5.7 6.2c2.1-2 4.6-1 6.3 1 1.7-2 4.2-3 6.3-1 3.1 3 1.1 7.8-6.3 14.3z" />
+                        </svg>
+                    </span>
+                </a>
+                <a
+                    href="https://github.com/agsid"
+                    target="_blank"
+                    rel="noopener"
+                    class="rounded-full border border-black/10 px-6 py-3 text-sm font-semibold dark:border-white/10"
+                >
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </main>
 </BaseLayout>

@@ -7,57 +7,79 @@ import logoSource from "../assets/sidlogo.png";
 import "../styles/global.css";
 
 interface Props {
-  title: string;
-  description?: string;
-  /** "website" for landing pages, "article" for blog posts / case studies. */
-  type?: "website" | "article";
-  publishedDate?: Date;
-  modifiedDate?: Date;
-  tags?: string[];
-  /** Extra JSON-LD injected on top of the site-wide graph. */
-  schema?: Record<string, unknown>;
-  noindex?: boolean;
+    title: string;
+    description?: string;
+    /** "website" for landing pages, "article" for blog posts / case studies. */
+    type?: "website" | "article";
+    publishedDate?: Date;
+    modifiedDate?: Date;
+    tags?: string[];
+    /** Extra JSON-LD injected on top of the site-wide graph. */
+    schema?: Record<string, unknown>;
+    noindex?: boolean;
 }
 
 const {
-  title,
-  description = "Sid Agrawal is a student developer in Connecticut building robotics team software and fast web apps with Astro and Svelte.",
-  type = "website",
-  publishedDate,
-  modifiedDate,
-  tags = [],
-  schema,
-  noindex = false,
+    title,
+    description = "Siddharth Agrawal is a student developer in Connecticut building robotics team software and fast web apps with Astro and Svelte.",
+    type = "website",
+    publishedDate,
+    modifiedDate,
+    tags = [],
+    schema,
+    noindex = false,
 } = Astro.props;
 
-const SITE_NAME = "Sid Agrawal";
-const AUTHOR = "Sid Agrawal";
-const EMAIL = "sidagrawal@robotics-catalyst.org";
+const SITE_NAME = "Siddharth Agrawal";
+const AUTHOR = "Siddharth Agrawal";
+const EMAIL = "contact@sidagrawal.com";
 const GITHUB = "https://github.com/agsid";
 
 const isHome = title === SITE_NAME;
-const pageTitle = isHome ? `${SITE_NAME} — Student Developer, Robotics & Web` : `${title} — ${SITE_NAME}`;
-const imageAlt = isHome ? `${AUTHOR}, student developer` : `${AUTHOR} — ${title}`;
+const pageTitle = isHome
+    ? `${SITE_NAME} — Student Developer, Robotics & Web`
+    : `${title} — ${SITE_NAME}`;
+const imageAlt = isHome
+    ? `${AUTHOR}, student developer`
+    : `${AUTHOR} — ${title}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 // Social preview image, optimised at build time and made absolute.
-const og = await getImage({ src: ogSource, width: 1200, height: 630, format: "jpg", fit: "cover" });
+const og = await getImage({
+    src: ogSource,
+    width: 1200,
+    height: 630,
+    format: "jpg",
+    fit: "cover",
+});
 const ogImageURL = new URL(og.src, Astro.site).href;
 
 // Icons generated from the logo mark at build time.
-const favicon32 = await getImage({ src: logoSource, width: 32, height: 32, format: "png", fit: "contain" });
-const favicon180 = await getImage({ src: logoSource, width: 180, height: 180, format: "png", fit: "contain" });
+const favicon32 = await getImage({
+    src: logoSource,
+    width: 32,
+    height: 32,
+    format: "png",
+    fit: "contain",
+});
+const favicon180 = await getImage({
+    src: logoSource,
+    width: 180,
+    height: 180,
+    format: "png",
+    fit: "contain",
+});
 
 const keywords = [
-  "Sid Agrawal",
-  "student developer",
-  "robotics software",
-  "FIRST robotics tools",
-  "Astro developer",
-  "Svelte developer",
-  "Connecticut developer",
-  "Robotics Catalyst Foundation",
-  ...tags,
+    "Sid Agrawal",
+    "student developer",
+    "robotics software",
+    "FIRST robotics tools",
+    "Astro developer",
+    "Svelte developer",
+    "Connecticut developer",
+    "Robotics Catalyst Foundation",
+    ...tags,
 ];
 
 // JSON-LD graph — helps search engines and answer/AI engines describe the site.
@@ -65,73 +87,77 @@ const personId = `${Astro.site}#person`;
 const siteId = `${Astro.site}#website`;
 
 const graph: Record<string, unknown>[] = [
-  {
-    "@type": "Person",
-    "@id": personId,
-    name: AUTHOR,
-    alternateName: "Sid Ag",
-    url: Astro.site?.href,
-    image: ogImageURL,
-    email: `mailto:${EMAIL}`,
-    jobTitle: "Student Developer",
-    description:
-      "Student developer building robotics team operations software and web applications.",
-    address: {
-      "@type": "PostalAddress",
-      addressRegion: "Connecticut",
-      addressCountry: "US",
+    {
+        "@type": "Person",
+        "@id": personId,
+        name: AUTHOR,
+        alternateName: "Siddharth Agrawal",
+        url: Astro.site?.href,
+        image: ogImageURL,
+        email: `mailto:${EMAIL}`,
+        jobTitle: "Student Developer",
+        description:
+            "Student developer building robotics team operations software and web applications.",
+        address: {
+            "@type": "PostalAddress",
+            addressRegion: "Connecticut",
+            addressCountry: "US",
+        },
+        affiliation: {
+            "@type": "Organization",
+            name: "Robotics Catalyst Foundation",
+            url: "https://robotics-catalyst.org",
+        },
+        knowsAbout: [
+            "Robotics software",
+            "Web development",
+            "Astro",
+            "Svelte",
+            "Java",
+            "Python",
+            "Arduino",
+            "CAD and 3D printing",
+        ],
+        knowsLanguage: [
+            { "@type": "Language", name: "English" },
+            { "@type": "Language", name: "Hindi" },
+            { "@type": "Language", name: "Spanish" },
+        ],
+        sameAs: [GITHUB],
     },
-    affiliation: {
-      "@type": "Organization",
-      name: "Robotics Catalyst Foundation",
-      url: "https://robotics-catalyst.org",
+    {
+        "@type": "WebSite",
+        "@id": siteId,
+        url: Astro.site?.href,
+        name: SITE_NAME,
+        description,
+        inLanguage: "en-US",
+        publisher: { "@id": personId },
     },
-    knowsAbout: [
-      "Robotics software",
-      "Web development",
-      "Astro",
-      "Svelte",
-      "Java",
-      "Python",
-      "Arduino",
-      "CAD and 3D printing",
-    ],
-    knowsLanguage: [
-      { "@type": "Language", name: "English" },
-      { "@type": "Language", name: "Hindi" },
-      { "@type": "Language", name: "Spanish" },
-    ],
-    sameAs: [GITHUB],
-  },
-  {
-    "@type": "WebSite",
-    "@id": siteId,
-    url: Astro.site?.href,
-    name: SITE_NAME,
-    description,
-    inLanguage: "en-US",
-    publisher: { "@id": personId },
-  },
-  {
-    "@type": type === "article" ? "BlogPosting" : "WebPage",
-    "@id": `${canonicalURL.href}#page`,
-    url: canonicalURL.href,
-    name: pageTitle,
-    headline: title,
-    description,
-    isPartOf: { "@id": siteId },
-    inLanguage: "en-US",
-    primaryImageOfPage: ogImageURL,
-    ...(type === "article"
-      ? {
-          author: { "@id": personId },
-          publisher: { "@id": personId },
-          ...(publishedDate && { datePublished: publishedDate.toISOString() }),
-          ...(modifiedDate && { dateModified: modifiedDate.toISOString() }),
-          ...(tags.length && { keywords: tags.join(", ") }),
-        }
-      : { about: { "@id": personId } }),
-  },
+    {
+        "@type": type === "article" ? "BlogPosting" : "WebPage",
+        "@id": `${canonicalURL.href}#page`,
+        url: canonicalURL.href,
+        name: pageTitle,
+        headline: title,
+        description,
+        isPartOf: { "@id": siteId },
+        inLanguage: "en-US",
+        primaryImageOfPage: ogImageURL,
+        ...(type === "article"
+            ? {
+                  author: { "@id": personId },
+                  publisher: { "@id": personId },
+                  ...(publishedDate && {
+                      datePublished: publishedDate.toISOString(),
+                  }),
+                  ...(modifiedDate && {
+                      dateModified: modifiedDate.toISOString(),
+                  }),
+                  ...(tags.length && { keywords: tags.join(", ") }),
+              }
+            : { about: { "@id": personId } }),
+    },
 ];
 
 if (schema) graph.push(schema);
@@ -141,95 +167,116 @@ const jsonLd = { "@context": "https://schema.org", "@graph": graph };
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <script is:inline>
-      try {
-        document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-      } catch (e) {}
-    </script>
+    <head>
+        <script is:inline>
+            try {
+                document.documentElement.dataset.theme =
+                    localStorage.getItem("theme") || "light";
+            } catch (e) {}
+        </script>
 
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content={Astro.generator} />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content={Astro.generator} />
 
-    <title>{pageTitle}</title>
-    <meta name="description" content={description} />
-    <meta name="keywords" content={keywords.join(", ")} />
-    <meta name="author" content={AUTHOR} />
-    <link rel="canonical" href={canonicalURL} />
+        <title>{pageTitle}</title>
+        <meta name="description" content={description} />
+        <meta name="keywords" content={keywords.join(", ")} />
+        <meta name="author" content={AUTHOR} />
+        <link rel="canonical" href={canonicalURL} />
 
-    {
-      noindex ? (
-        <meta name="robots" content="noindex, nofollow" />
-      ) : (
+        {noindex ? (
+            <meta name="robots" content="noindex, nofollow" />
+        ) : (
+            <meta
+                name="robots"
+                content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+            />
+        )}
+
+        <!-- Open Graph -->
+        <meta property="og:type" content={type} />
+        <meta property="og:site_name" content={SITE_NAME} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonicalURL} />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:image" content={ogImageURL} />
+        <meta property="og:image:secure_url" content={ogImageURL} />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={imageAlt} />
+        {type === "article" && publishedDate && (
+            <meta
+                property="article:published_time"
+                content={publishedDate.toISOString()}
+            />
+        )}
+        {type === "article" && modifiedDate && (
+            <meta
+                property="article:modified_time"
+                content={modifiedDate.toISOString()}
+            />
+        )}
+        {type === "article" && (
+            <meta property="article:author" content={AUTHOR} />
+        )}
+        {tags.map((tag) => (
+            <meta property="article:tag" content={tag} />
+        ))}
+
+        <!-- Twitter / X -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImageURL} />
+        <meta name="twitter:image:alt" content={imageAlt} />
+
+        <!-- Geo / locale signals -->
+        <meta name="geo.region" content="US-CT" />
+        <meta name="geo.placename" content="Connecticut" />
+        <link rel="alternate" hreflang="en" href={canonicalURL} />
+        <link rel="alternate" hreflang="x-default" href={canonicalURL} />
+
+        <!-- Icons, theme, feeds -->
+        <link rel="icon" type="image/png" sizes="32x32" href={favicon32.src} />
+        <link rel="apple-touch-icon" sizes="180x180" href={favicon180.src} />
         <meta
-          name="robots"
-          content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+            name="theme-color"
+            media="(prefers-color-scheme: light)"
+            content="#faf9f7"
         />
-      )
-    }
+        <meta
+            name="theme-color"
+            media="(prefers-color-scheme: dark)"
+            content="#121214"
+        />
+        <meta name="color-scheme" content="light dark" />
+        <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Open Graph -->
-    <meta property="og:type" content={type} />
-    <meta property="og:site_name" content={SITE_NAME} />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:image" content={ogImageURL} />
-    <meta property="og:image:secure_url" content={ogImageURL} />
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={imageAlt} />
-    {type === "article" && publishedDate && (
-      <meta property="article:published_time" content={publishedDate.toISOString()} />
-    )}
-    {type === "article" && modifiedDate && (
-      <meta property="article:modified_time" content={modifiedDate.toISOString()} />
-    )}
-    {type === "article" && <meta property="article:author" content={AUTHOR} />}
-    {tags.map((tag) => <meta property="article:tag" content={tag} />)}
+        <Font cssVariable="--font-display" preload />
+        <Font cssVariable="--font-body" preload />
+        <Font cssVariable="--font-name" preload />
+        <Font cssVariable="--font-hand" preload />
 
-    <!-- Twitter / X -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageURL} />
-    <meta name="twitter:image:alt" content={imageAlt} />
-
-    <!-- Geo / locale signals -->
-    <meta name="geo.region" content="US-CT" />
-    <meta name="geo.placename" content="Connecticut" />
-    <link rel="alternate" hreflang="en" href={canonicalURL} />
-    <link rel="alternate" hreflang="x-default" href={canonicalURL} />
-
-    <!-- Icons, theme, feeds -->
-    <link rel="icon" type="image/png" sizes="32x32" href={favicon32.src} />
-    <link rel="apple-touch-icon" sizes="180x180" href={favicon180.src} />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf9f7" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121214" />
-    <meta name="color-scheme" content="light dark" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-
-    <Font cssVariable="--font-display" preload />
-    <Font cssVariable="--font-body" preload />
-    <Font cssVariable="--font-name" preload />
-    <Font cssVariable="--font-hand" preload />
-
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
-  </head>
-  <body>
-    <a
-      href="#main"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-black focus:px-4 focus:py-2 focus:text-white"
-    >
-      Skip to content
-    </a>
-    <Nav />
-    <div id="main">
-      <slot />
-    </div>
-    <Footer />
-  </body>
+        <script
+            type="application/ld+json"
+            set:html={JSON.stringify(jsonLd)}
+            is:inline
+        />
+    </head>
+    <body>
+        <a
+            href="#main"
+            class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-black focus:px-4 focus:py-2 focus:text-white"
+        >
+            Skip to content
+        </a>
+        <Nav />
+        <div id="main">
+            <slot />
+        </div>
+        <Footer />
+    </body>
 </html>
